@@ -10,3 +10,8 @@
 .main-content {
     padding: 25px;
 }
+
+#note-section-meta {
+    color: gray;
+    fonot-size: 14px;
+}
