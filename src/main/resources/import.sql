@@ -1,0 +1,1 @@
+INSERT INTO NOTE(id, title, text, register_datetime, update_datetime) values (1, '첫번째 제목', '첫번째 내용', '2018-08-14 13:00:00', '2018-08-14 13:54:00');
