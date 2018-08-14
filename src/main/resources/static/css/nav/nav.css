@@ -1,0 +1,53 @@
+.global-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    z-index: 999;
+}
+
+.global-header .top {
+    background: #fff;
+    padding: 30px 0 24px;
+    z-index: 997;
+}
+
+.global-header .top .row {
+    position: relative;
+}
+
+.row {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.global-header .global-logo {
+    display: inline-block;
+}
+
+.global-header .business-nav {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    float: right;
+    vertical-align: top;
+}
+
+.global-header .business-nav li {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.global-header .business-nav li > a{
+    color: black;
+}
+
+.global-logo > a {
+    font-size: 22px;
+}
