@@ -20,3 +20,14 @@ function fetchManager({ url, method, body, headers, onSuccess, onFailure}) {
         }
     });
 }
+
+function datetimeFormatter(datetimeString) {
+    const datetime = new Date(datetimeString);
+    const data = {
+        month: datetime.getMonth(),
+        date: datetime.getDay(),
+        hour: datetime.getHours(),
+        minute: datetime.getMinutes()
+    };
+    return `${data.month}월 ${data.date}일 ${data.hour}시 ${data.minute}분`;
+}
