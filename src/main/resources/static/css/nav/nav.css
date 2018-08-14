@@ -44,6 +44,10 @@
     margin-left: 30px;
 }
 
+.global-header .business-nav li > a{
+    color: black;
+}
+
 .global-logo > a {
     background-image: url("/img/logo.png");
 }
