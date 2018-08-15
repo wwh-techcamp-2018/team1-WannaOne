@@ -21,7 +21,7 @@ public class LoginDto {
     private String password;
 
     public static LoginDto defaultLoginDto() {
-        return new LoginDto("kyunam@woowahan.com", "1234");
+        return new LoginDto("doy@woowahan.com", "1234");
     }
 
     public LoginDto setEmail(String email) {

@@ -22,8 +22,6 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     private UserService userService;
     @Autowired
     private MessageSourceAccessor msa;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     public void userCreateSuccessTest() throws Exception {
@@ -44,6 +42,15 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
+    public void userCreateFailTestWithNotEmail() throws Exception {
+        UserDto user = new UserDto("doy");
+        ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users", user, ValidationErrorsResponse.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("Email.userDto.email"));
+    }
+
+    @Test
     public void loginSuccessTest() throws Exception {
         LoginDto loginDto = LoginDto.defaultLoginDto();
         ResponseEntity response = template().postForEntity("/api/users/login", loginDto, String.class);
@@ -57,7 +64,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users/login", loginDto, ValidationErrorsResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("Email.userDto.email"));
+        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("Email.loginDto.email"));
     }
 
     @Test

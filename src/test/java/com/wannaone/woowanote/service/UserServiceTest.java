@@ -40,7 +40,6 @@ public class UserServiceTest {
         UserDto userDto = UserDto.defaultUserDto();
         userService.save(userDto);
         User user = userDto.toEntityWithPasswordEncode(mockPasswordEncoder);
-        when(userRepository.findByEmail(userDto.getEmail())).thenReturn(Optional.empty());
         verify(userRepository).save(user);
     }
 
@@ -49,7 +48,6 @@ public class UserServiceTest {
         User user = UserDto.defaultUserDto().toEntityWithPasswordEncode(mockPasswordEncoder);
         LoginDto loginDto = LoginDto.defaultLoginDto();
         when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.ofNullable(user));
-        when(msa.getMessage("unauthentication.message")).thenReturn("아이디 또는 비밀번호가 잘못되었습니다.");
         assertThat(userService.login(loginDto)).isEqualTo(user);
     }
 
@@ -57,8 +55,6 @@ public class UserServiceTest {
     public void loginFailureTest() {
         User user = UserDto.defaultUserDto().setPassword("11").toEntityWithPasswordEncode(mockPasswordEncoder);
         LoginDto loginDto = LoginDto.defaultLoginDto();
-        when(userRepository.findByEmail(loginDto.getEmail())).thenReturn(Optional.ofNullable(user));
-        when(msa.getMessage("unauthentication.message")).thenReturn("아이디 또는 비밀번호가 잘못되었습니다.");
         assertThat(userService.login(loginDto)).isEqualTo(user);
     }
 

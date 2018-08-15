@@ -26,7 +26,7 @@ public class UserDto {
 
     public UserDto(String email) {
         this.email = email;
-        this.password = "1234";
+        this.password = "12345";
         this.name = "name";
     }
 
@@ -54,6 +54,6 @@ public class UserDto {
     }
 
     public static UserDto defaultUserDto() {
-        return new UserDto("kyunam@woowahan.com", "12345", "kyunam");
+        return new UserDto("kyunam@woowahan.com", "1234", "kyunam");
     }
 }
