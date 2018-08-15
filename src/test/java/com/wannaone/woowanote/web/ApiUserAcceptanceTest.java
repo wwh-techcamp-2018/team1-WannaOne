@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.service.UserService;
@@ -53,7 +54,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void loginSuccessTest() throws Exception {
         LoginDto loginDto = LoginDto.defaultLoginDto();
-        ResponseEntity response = template().postForEntity("/api/users/login", loginDto, String.class);
+        ResponseEntity response = template().postForEntity("/api/users/login", loginDto, Void.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

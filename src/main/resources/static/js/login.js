@@ -17,7 +17,7 @@ class Login {
 
         evt.preventDefault();
         fetchManager({
-            url: 'api/users/login',
+            url: '/api/users/login',
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
