@@ -21,13 +21,22 @@ notifications:
       - dain7672@naver.com
 
 services:
-- mysql
+    - mysql
+    
+addons:
+  apt:
+    sources:
+    - mysql-5.7-trusty
+    packages:
+    - mysql-server
+    - mysql-client
 
-sudo: true
+before_install:
+- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('new_password') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+- sudo mysql_upgrade
+- sudo service mysql restart
+- mysql -u root -e 'CREATE DATABASE IF NOT EXISTS woowanote;'
+- mysql -u root -e "CREATE USER 'team1'@'%' IDENTIFIED BY 'team1;"
+- mysql -u root -e "GRANT ALL PRIVILEGES ON woowanote.* TO 'team1'@'%';";
+- mysql -u root -e "FLUSH PRIVILEGES";
 
-before_script:
-- chmod +x ./travis/*
-- ./travis/mysql-version-upgrade.sh
-- ./travis/mysql-reset-root-password.sh
-- ./travis/mysql-create-test-database.sh
-- ./travis/mysql-create-user.sh
