@@ -6,10 +6,10 @@ branches:
   only:
     - develop
 
- Travis CI 서버의 Home
+# Travis CI 서버의 Home
 cache:
   directories:
-#    - '$HOME/.m2/repository'
+    - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
