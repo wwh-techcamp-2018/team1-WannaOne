@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+<style>
+
+.grid-container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 190px 250px auto;
+  grid-template-rows: 40px auto 30px;
+  grid-gap: 3px;
+  padding: 10px;
+}
+.grid-container > div {
+  text-align: center;
+}
+.header {
+  grid-area: 1 / span 3;
+  background: #04BFBF;
+}
+.side-bar-left {
+  background: #233A40;
+  font-size: 20px;
+  color: white;
+  padding: 0px 17px;
+}
+.side-bar-middle {
+  background: #F2EFEB;
+    padding: 0px 19px;
+}
+#logo {
+  position: absolute;
+  left: 50px;
+  padding-top: 3px;
+  padding-bottom: 0px;
+  font-size: 27px;
+  color: #BF455B;
+  font-family: 'Shrikhand', cursive;
+}
+
+ul {
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
+  line-height: 2;
+}
+
+li {
+  width: 100%;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notebook-list {
+  font-size: 15px;
+}
+
+</style>
+</head>
+<body>
+<div class="grid-container">
+  <div class="header"> <span id="logo">WoowaNote</span> </div>
+  <div class="side-bar-left">
+    <p>노트북 목록</p>
+    <ul class="notebook-list">
+      <li>AWS 공부</li>
+      <li>Git과 github</li>
+      <li>단위 테스트, TDD, 리팩토링</li>
+      <li>자바 웹 프로그래밍</li>
+      <li>ATDD 기반 웹 프로그래밍</li>
+      <li>HTML,CSS, JS 기초</li>
+      <li>배민찬 서비스 개발</li>
+      <li>우아한 프로젝트</li>
+    </ul>
+  </div>
+  <div class="side-bar-middle">
+    <p>노트북 목록</p>
+    <ul class="notebook-list">
+      <li>AWS 공부</li>
+      <li>Git과 github</li>
+      <li>단위 테스트, TDD, 리팩토링</li>
+      <li>자바 웹 프로그래밍</li>
+      <li>ATDD 기반 웹 프로그래밍</li>
+      <li>HTML,CSS, JS 기초</li>
+      <li>배민찬 서비스 개발</li>
+      <li>우아한 프로젝트</li>
+    </ul>
+  </div>
+  <div class="main-content"></div>
+  <div class="footer">5</div>
+
+</div>
+
+</body>
+</html>
