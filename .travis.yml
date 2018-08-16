@@ -18,3 +18,10 @@ notifications:
   email:
     recipients:
       - dain7672@naver.com
+
+services:
+- mysql
+
+before_install:
+- sudo mysql -e 'CREATE DATABASE IF NOT EXISTS woowanote;CREATE USER 'team1'@'%' IDENTIFIED BY 'team1';'
+- sudo mysql -e "GRANT ALL ON woowanote.* TO ‘team1’@‘%’;FLUSH PRIVILEGES;"
