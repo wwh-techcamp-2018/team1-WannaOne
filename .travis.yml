@@ -12,7 +12,7 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build -Pprofile=build --stacktrace --debug"
+script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
 notifications:
