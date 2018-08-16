@@ -22,7 +22,7 @@ notifications:
 services:
 - mysql
 
-before_install:
+before_script:
 - mysql -u root -e "CREATE DATABASE IF NOT EXISTS woowanote;"
 - mysql -u root -e "CREATE USER 'team1'@'localhost' IDENTIFIED BY 'team1';"
 - mysql -u root -e "GRANT ALL ON woowanote.* TO 'team1'@'localhost';FLUSH PRIVILEGES;"
