@@ -23,5 +23,5 @@ services:
 
 before_install:
 - mysql -e 'CREATE DATABASE IF NOT EXISTS woowanote;'
-- mysql -u root -e "CREATE USER 'team1'@'localhost' IDENTIFIED BY 'team1';"
-- mysql -u root -e "GRANT ALL ON woowanote.* TO 'team1'@'localhost';FLUSH PRIVILEGES;"
+- mysql -e "CREATE USER 'team1'@'localhost' IDENTIFIED BY 'team1';"
+- mysql -e "GRANT ALL ON woowanote.* TO 'team1'@'localhost';FLUSH PRIVILEGES;"
