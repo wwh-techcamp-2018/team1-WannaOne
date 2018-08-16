@@ -1,9 +1,14 @@
 package com.wannaone.woowanote.validation;
 
-public class ValidationError {
+
+public class ValidationError{
     private String fieldName;
 
     private String errorMessage;
+
+    public ValidationError() {
+
+    }
 
     public ValidationError(String fieldName, String errorMessage) {
         this.fieldName = fieldName;
