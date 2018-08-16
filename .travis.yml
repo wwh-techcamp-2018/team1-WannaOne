@@ -12,10 +12,20 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build -Pprofile=build"
+script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
     recipients:
       - dain7672@naver.com
+
+
+services:
+    - mysql
+
+before_install:
+    - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS woowanote;'
+    - mysql -u root -e 'CREATE USER 'team1'@'%' IDENTIFIED BY 'team1';'
+    - mysql -u root -e "GRANT ALL PRIVILEGES ON woowanote.* TO 'team1'@'%';";
+    - mysql -u root -e "FLUSH PRIVILEGES";
