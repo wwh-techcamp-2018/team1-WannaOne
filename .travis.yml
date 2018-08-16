@@ -6,7 +6,6 @@ branches:
   only:
     - develop
 
-# Travis CI 서버의 Home
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -19,9 +18,3 @@ notifications:
   email:
     recipients:
       - dain7672@naver.com
-
-services:
-  - mysql
-
-before_install:
-  - mysql -e 'CREATE DATABASE woowanote;'
