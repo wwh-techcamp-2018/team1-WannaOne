@@ -2,6 +2,7 @@ package com.wannaone.woowanote.validation;
 
 public class RestStatus {
     private boolean status;
+    
 
     public RestStatus(boolean status) {
         this.status = status;
