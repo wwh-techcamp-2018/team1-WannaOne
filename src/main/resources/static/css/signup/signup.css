@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+@font-face {
+    font-family: 'Nanum';
+    font-weight: 400;
+    src: url("https://cdn.bmf.kr/font/NanumGothic.eot");
+    src: url("https://cdn.bmf.kr/font/NanumGothic.eot?#iefix") format("embedded-opentype"), url("https://cdn.bmf.kr/font/NanumGothic.woff") format("woff"), url("https://cdn.bmf.kr/font/NanumGothic.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: 'NanumBold';
+    font-weight: 600;
+    src: url("https://cdn.bmf.kr/font/NanumGothicBold.eot");
+    src: url("https://cdn.bmf.kr/font/NanumGothicBold.eot?#iefix") format("embedded-opentype"), url("https://cdn.bmf.kr/font/NanumGothicBold.woff") format("woff"), url("https://cdn.bmf.kr/font/NanumGothicBold.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: 'NanumEB';
+    font-weight: 900;
+    src: url("https://cdn.bmf.kr/font/NanumGothicExtraBold.eot");
+    src: url("https://cdn.bmf.kr/font/NanumGothicExtraBold.eot?#iefix") format("embedded-opentype"), url("https://cdn.bmf.kr/font/NanumGothicExtraBold.woff") format("woff"), url("https://cdn.bmf.kr/font/NanumGothicExtraBold.ttf") format("truetype")
+}
+
+html,
+body,
+div,
+span,
+h1,
+h2,
+p,
+img,
+fieldset,
+form,
+label,
+table,
+tbody,
+tr,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font-weight: normal;
+    vertical-align: baseline;
+    background: transparent
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: 'Nanum', 'Apple Gothic', 'Malgun Gothic', 'Nanum Gothic', 'Dotum', Arial, sans-serif;
+    font-size: 13px;
+    background: #fff;
+    color: #333
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+label {
+    cursor: pointer
+}
+
+input {
+    vertical-align: middle
+}
+
+button, input {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: middle
+    line-height: normal
+}
+
+button {
+    text-transform: none
+    cursor: pointer
+}
+
+input[type="text"]::-ms-clear {
+    display: none
+}
+
+.input[type="text"]:focus,
+.input[type="password"]:focus {
+    border: 1px solid #2ac1bc
+}
+
+::-webkit-input-placeholder {
+    color: #bfbfbf
+}
+
+:-ms-input-placeholder {
+    color: #999
+}
+
+.btn_area.center {
+    text-align: center
+}
+
+button,
+.btn {
+    display: inline-block;
+    zoom: 1;
+    font-family: "Noto Sans KR Bold", "Nanum Gothic", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    overflow: visible;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0
+}
+
+.btn span {
+    display: inline-block;
+    zoom: 1;
+    margin-top: -2px
+}
+
+.btn_mint {
+    background: #2ac1bc;
+    color: #fff
+}
+
+.btn_mint:hover,
+.btn_mint:focus {
+    background: #17aba6
+}
+
+.btn_big {
+    width: 240px;
+    height: 60px;
+    font-size: 18px
+}
+
+.btn_big span {
+    font-family: NanumBold, sans-serif;
+    font-size: 20px
+}
+
+.mt40 {
+    margin-top: 40px !important
+}
+
+#wrapper {
+    position: relative
+}
+
+#header_wrap .header.join {
+    height: 115px
+}
+
+#container {
+    position: relative;
+    overflow: hidden;
+    width: 100%
+}
+
+.wrap {
+    position: relative
+}
+
+.content {
+    position: relative;
+    width: 980px;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.header.join h1 {
+    margin: 34px auto 0;
+    float: inherit;
+    text-align: center
+}
+
+.content.join .subtlt_h2 {
+    font-size: 28px;
+    font-family: 'NanumEB', sans-serif;
+    border-bottom: 2px solid #333;
+    padding: 14px 0 10px
+}
+
+.join_form_box {
+    position: relative;
+    padding: 35px 0 100px
+}
+
+.join_form_box button.btn_big {
+    width: 300px
+}
+
+.tb_join {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse
+}
+
+.tb_join tbody th {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    vertical-align: top;
+    line-height: 51px
+}
+
+.tb_join tbody th.marketing {
+    line-height: 26px
+}
+
+.tb_join tbody td {
+    font-size: 13px;
+    color: #888;
+    vertical-align: middle;
+    padding: 5px 0
+}
+
+.tb_join tbody td span.block {
+    display: inline-block;
+    float: left;
+    line-height: 41px;
+    min-width: 6px;
+    text-align: center
+}
+
+.tb_join tbody td .join_input,
+.tb_join tbody td {
+    display: inline-block;
+    zoom: 1;
+    float: left;
+    height: 36px;
+    margin: 0 2px;
+    color: #888
+}
+
+.tb_join tbody td .join_input {
+    font-family: Nanum, sans-serif;
+    color: #333;
+    border: 1px solid #e1e1e1;
+    vertical-align: middle;
+    line-height: 1.8em;
+    width: 156px;
+    padding: 1px 10px
+}
+
+.tb_join tbody td .join_input.small {
+    width: 61px
+}
+
+.tb_join tbody td {
+    margin: 0 8px 0 2px
+}
+
+.tb_join tbody td .label {
+    color: #888;
+    font-size: 13px;
+    padding: 12px 0;
+    margin: 1px 27px 0 10px;
+    min-width: 45px
+}
+
+.tb_join tbody td .button {
+    right: 10px
+}
+
+.tb_join tbody td {
+    margin: 0 0 0 8px
+}
+
+.tb_join tbody td .label {
+    width: 78px;
+    margin-left: 10px
+}
+
+.tb_join tbody td {
+    padding: 12px 10px;
+    font-size: 13px
+}
+
+.tb_join span.tb_in_txt {
+    float: left;
+    font-size: 13px;
+    color: #333;
+    line-height: 40px;
+    padding-left: 8px
+}
+
+.tb_join span.tb_in_txt.caution {
+    color: #f15858
+}
