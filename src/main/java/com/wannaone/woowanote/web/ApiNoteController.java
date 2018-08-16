@@ -3,6 +3,7 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +19,10 @@ public class ApiNoteController {
     @GetMapping("/{id}")
     public Note show(@PathVariable Long id) {
         return  noteService.getNote(id);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity showAllNotes() {
+        return ResponseEntity.ok().body(noteService.getAllNotes());
     }
 }
