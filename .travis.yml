@@ -6,7 +6,7 @@ branches:
   only:
     - develop
 
-script: "./gradlew clean build --stacktrace"
+script: "./gradlew clean build --stacktrace --info"
 
 # CI 실행 완료시 메일로 알람
 notifications:
