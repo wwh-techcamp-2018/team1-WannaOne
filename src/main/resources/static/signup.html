@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/signup/signup.css">
+    <link rel="stylesheet" type="text/css" href="/css/main/nav.css">
+    <link rel="stylesheet" type="text/css" href="/css/common/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav/nav.css">
+    <script src="/js/util.js"></script>
+    <script src="/js/signup.js"></script>
+</head>
+<body>
+<header class="global-header">
+    <div class="top">
+        <div class="row">
+            <div class="global-logo">
+                <a href="/">
+                    <span>WoowaNote</span>
+                </a>
+            </div>
+
+            <nav class="business-nav">
+                <ul>
+                    <li><a href="/intl/ko/business" class="active">기능</a></li>
+                    <li><a href="/intl/ko/business/spaces" class="">스페이스<span class="new">New!</span></a></li>
+
+                    <li><a href="/intl/ko/business/use-cases" class="">사용 사례</a></li>
+                    <li><a href="/intl/ko/business/customer-stories" class="">고객 사례</a></li>
+
+                    <li class="biz-log-in-container" style="width: 76.6719px;"><a
+                            href="https://www.evernote.com/Login.action" class="visible">로그인</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</header>
+<div id="wrapper">
+    <div id="header_wrap">
+        <div class="header join">
+        </div>
+    </div>
+    <div id="container">
+        <div class="content join">
+            <h2 class="subtlt_h2">회원가입</h2>
+            <form name="joinFrm" id="joinFrm" class="join_form_box">
+                <fieldset>
+                    <table border="1" class="tb_join">
+                        <colgroup>
+                            <col width="180px">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>
+                                <label for="email_id">아이디 (이메일)</label>
+                            </th>
+                            <td>
+                                <input type="text" size="50" id="email_id" class="join_input" autofocus="">
+                                <span class="block"> @ </span>
+                                <input type="text" size="50" id="email_domain" class="join_input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="password">비밀번호</label>
+                            </th>
+                            <td>
+                                <input type="password" size="30" id="password" class="join_input" maxlength="16" placeholder="8-16자리 영문,숫자 조합">
+                                <span id="password_caution" class="tb_in_txt caution"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="password_check">비밀번호 확인</label>
+                            </th>
+                            <td>
+                                <input type="password" size="30" id="password_check" class="join_input" maxlength="16" placeholder="비밀번호 확인">
+                                <span id="password_check_caution" class="tb_in_txt caution"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="name">이름</label>
+                            </th>
+                            <td>
+                                <input type="text" size="24" id="name" class="join_input" maxlength="30" placeholder="이름">
+                                <span id="username_caution" class="tb_in_txt caution"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <div class="btn_area center mt40">
+                    <button id="signUpButton" class="submit-btn btn btn_mint btn_big">
+                        <span>가입 완료</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="global-footer">
+    <div class="nav-section legal">
+        <div class="row">
+
+            <p class="copyright">© 2018 Woowabrothers team1. All rights reserved.</p>
+
+            <ul class="links">
+                <li><a class="footer-link" href="/intl/ko/security">보안</a></li>
+                <li><a class="footer-link" href="/intl/ko/legal">법적 고지</a></li>
+                <li><a class="footer-link" href="/intl/ko/privacy">개인정보 보호</a></li>
+                <li><a class="footer-link" href="/intl/ko/privacy">팀원 정보</a></li>
+                <li><a class="footer-link" href="/intl/ko/privacy">Github</a></li>
+            </ul>
+
+        </div>
+    </div>
+</footer>
+</body>
