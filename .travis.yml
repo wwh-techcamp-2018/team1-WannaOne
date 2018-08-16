@@ -27,7 +27,7 @@ addons:
 
 before_install:
 - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-- sudo mysql_upgrade
+- mysql_upgrade
 - sudo service mysql restart
   sudo mysql -e "CREATE DATABASE IF NOT EXISTS woowanote;"
 - sudo mysql -e "CREATE USER 'team1'@'%' IDENTIFIED BY 'team1';"
