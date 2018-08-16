@@ -16,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Table(name = "useruser")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
