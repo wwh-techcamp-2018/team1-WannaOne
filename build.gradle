@@ -25,8 +25,8 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
 	compile('org.springframework.security:spring-security-core:5.0.6.RELEASE')
 	runtime('org.springframework.boot:spring-boot-devtools')
