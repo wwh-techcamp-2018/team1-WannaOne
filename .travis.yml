@@ -6,16 +6,23 @@ branches:
   only:
     - develop
 
-# Travis CI 서버의 Home
 cache:
   directories:
-    - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build -Pprofile=build"
+script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
     recipients:
       - dain7672@naver.com
+
+services:
+- mysql
+
+before_install:
+- sudo mysql -e 'CREATE DATABASE IF NOT EXISTS woowanote;'
+- sudo mysql -e "CREATE USER 'team1'@'localhost' IDENTIFIED BY 'team1';"
+- sudo mysql -e "GRANT ALL ON woowanote.* TO 'team1'@'localhost';FLUSH PRIVILEGES;"
+- sudo service mysql restart
