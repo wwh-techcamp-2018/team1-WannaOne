@@ -1,0 +1,76 @@
+.be-aside .be-content {
+    height: 100%;
+}
+
+.be-content {
+    position: fixed;
+    left: 0;
+    margin-left: 230px;
+    min-height: 100%;
+}
+
+.page-aside {
+    background: none repeat scroll 0 0 #fff;
+    width: 280px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 230px;
+    border-right: 1px solid #e6e6e6;
+    margin-top: 61px;
+    padding-bottom: 61px;
+    color: #404040;
+}
+
+.page-aside .be-scroller {
+    position: relative;
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+}
+
+.page-aside .content {
+    padding: 20px 22px;
+    position: relative;
+}
+
+.be-aside .content {
+    height: 100%;
+}
+
+.aside-header .navbar-toggle {
+    
+    background: 0 0;
+    display: none;
+    outline: 0;
+    border: 0;
+    padding: 0 11px 0 0;
+    text-align: right;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.aside-header .title {
+    display: block;
+    margin: 16px 0 0;
+    font-size: 27px;
+    line-height: 27px;
+    font-weight: 300;
+}
+
+.aside-header .description {
+    color: #5a5a5a;
+    margin: 0;
+}
+
+.aside-nav.collapse {
+    display: block;
+}
+
+.docs .page-aside .aside-content .aside-nav {
+    padding: 0;
+}

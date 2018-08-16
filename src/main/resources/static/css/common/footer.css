@@ -1,0 +1,38 @@
+.global-footer {
+    position: relative;
+}
+
+.global-footer .nav-section {
+    border-top: 1px solid #eee;
+    padding: 30px 0;
+}
+
+.global-footer .nav-section {
+    border-top: 1px solid #eee;
+    padding: 30px 0;
+}
+
+.global-footer .nav-section {
+    border-top: 1px solid #eee;
+    padding: 30px 0;
+}
+
+.global-footer .legal .links {
+    float: right;
+    list-style-type: none;
+}
+
+.global-footer .legal .links li {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.global-footer .legal .copyright {
+    float: left;
+    font-size: 12px;
+    color: #000;
+}
+
+.footer-link{
+    color: black;
+}

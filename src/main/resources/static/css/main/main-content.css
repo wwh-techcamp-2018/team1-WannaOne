@@ -1,0 +1,17 @@
+.main-content {
+    margin-left: 280px;
+    width: auto;
+    overflow-y:scroll; 
+    position:relative;
+    height: 1000px;
+}
+
+
+.main-content {
+    padding: 25px;
+}
+
+#note-section-meta {
+    color: gray;
+    fonot-size: 14px;
+}
