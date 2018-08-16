@@ -31,6 +31,5 @@ before_install:
 - sudo service mysql restart
 - sudo mysql -u root -ptest -e 'CREATE DATABASE IF NOT EXISTS woowanote;'
 - sudo mysql -u root -ptest -e "CREATE USER 'team1'@'%' IDENTIFIED BY 'team1';"
-- sudo mysql -u root -ptest -e "GRANT ALL PRIVILEGES ON woowanote.* TO 'team1'@'%';";
-- sudo mysql -u root -ptest -e "FLUSH PRIVILEGES";
+- sudo mysql -u root -ptest -e "GRANT ALL PRIVILEGES ON woowanote.* TO 'team1'@'%'; FLUSH PRIVILEGES;";
 
