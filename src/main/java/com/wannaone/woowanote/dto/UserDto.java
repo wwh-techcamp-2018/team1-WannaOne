@@ -1,9 +1,10 @@
 package com.wannaone.woowanote.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wannaone.woowanote.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,16 +14,22 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    @NotBlank(message = "메일을 작성해주세요.")
-    @Email(message = "메일의 양식을 지켜주세요.")
+    @NotBlank
+    @Email
     private String email;
 
-    @NotBlank(message = "비밀번호를 입력하세요")
-    @Size(min = 4, max = 30, message = "비밀번호는 4자리 이상, 30자 이하이어야 합니다.")
+    /**
+     * @JsonIgnore
+     * 비밀번호가 응답 값에 json 형태로 포함되지 않도록 JsonIgnore, setter 메소드는 JsonProperty로 명시적으로 적어두어서
+     * 회원가입 시 넘어온 Password 데이터는 set 해줄 수 있음.
+     */
+    @JsonIgnore
+    @NotBlank
+    @Size(min = 4, max = 30)
     private String password;
 
-    @NotBlank(message = "이름을 입력하세요")
-    @Size(max = 30, message = "이름은 30자 이하이어야 합니다.")
+    @NotBlank
+    @Size(max = 30)
     private String name;
 
     public UserDto(String email) {
@@ -33,6 +40,26 @@ public class UserDto {
 
     public User toEntity() {
         return new User(email, password, name);
+    }
+
+    public User toEntityWithPasswordEncode(PasswordEncoder bCryptPasswordEncoder) {
+        return new User(email, bCryptPasswordEncoder.encode(password), name);
+    }
+
+    public UserDto setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    @JsonProperty
+    public UserDto setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public UserDto setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public static UserDto defaultUserDto() {
