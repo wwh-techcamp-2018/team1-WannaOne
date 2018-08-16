@@ -19,3 +19,9 @@ notifications:
   email:
     recipients:
       - dain7672@naver.com
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE woowanote;'
