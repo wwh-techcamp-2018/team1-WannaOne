@@ -7,13 +7,11 @@ import javax.validation.constraints.NotBlank;
 
 @ConfigurationProperties(prefix = "aws.s3")
 @Validated
-public class AmazonProperties {
+public class AmazonBucketProperties {
     @NotBlank
     private String bucket;
     @NotBlank
     private String directory;
-    @NotBlank
-    private String resion;
 
     public String getBucket() {
         return bucket;
@@ -29,13 +27,5 @@ public class AmazonProperties {
 
     public void setDirectory(String directory) {
         this.directory = directory;
-    }
-
-    public String getResion() {
-        return resion;
-    }
-
-    public void setResion(String resion) {
-        this.resion = resion;
     }
 }
