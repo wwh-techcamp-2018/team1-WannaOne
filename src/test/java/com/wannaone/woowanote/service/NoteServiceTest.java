@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,5 +37,12 @@ public class NoteServiceTest {
     public void getNote_fail_when_not_found() {
         when(noteRepository.findById(1L)).thenThrow(new RecordNotFoundException());
         noteService.getNote(1L);
+    }
+
+    @Test
+    public void postNewNote() {
+        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
+        when(noteRepository.save(testNote)).thenReturn(testNote);
+        assertThat(noteService.postNewNote(testNote)).isEqualTo(1l);
     }
 }

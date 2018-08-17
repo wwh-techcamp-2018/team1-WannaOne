@@ -33,4 +33,8 @@ public class Note {
     public Note(String title, String text) {
         this(null, title, text, null, null);
     }
+
+    public Note(Long id, String title, String text) {
+        this(id, title, text, null, null);
+    }
 }

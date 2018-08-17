@@ -25,7 +25,7 @@ public class ApiNoteController {
 
     @PostMapping
     public ResponseEntity post(@RequestBody Note note) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(noteRepository.save(note).getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(note));
     }
 
 }
