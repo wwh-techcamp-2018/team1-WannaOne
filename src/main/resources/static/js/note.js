@@ -60,7 +60,7 @@ class Note {
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({title: title,
                             text: text,
-                            registerDatetime: 1534219200000, //TODO: change to NoteDTO. to delete registerDate here.
+                            registerDatetime: Date.now(), //TODO: change to NoteDTO. to delete registerDate here.
                             updateDatetime: Date.now()}),
                     onSuccess: this.postNoteSuccessCallback,
                     onFailure: this.postNoteFailHandler
