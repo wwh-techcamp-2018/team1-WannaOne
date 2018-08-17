@@ -1,6 +1,6 @@
 class NoteList {
     constructor() {
-        this.noteListSection = $('.note-list ul');
+        this.noteListSection = $('.note-list');
         this.initNoteList();
     }
 
