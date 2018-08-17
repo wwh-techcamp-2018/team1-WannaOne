@@ -3,14 +3,15 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
     <style>
-
         html,body{
             height:100%;
             margin:0;
             padding:0;
         }
+        p {
+            margin: 0;
+        }
         .grid-container {
-
             width: 100%;
             height: 100vh;
             display: grid;
@@ -53,7 +54,7 @@
         }
 
         .notebook-list li {
-            width: 100%;
+            width: 80%;
             position: relative;
             text-align: left;
             white-space: nowrap;
@@ -65,14 +66,46 @@
             font-size: 15px;
         }
 
-        .note-list li {
+        .note-list {
             list-style-type: none;
+            padding: 0;
+        }
+
+        p.note-list-title, p.note-list-snippet {
+            /*margin: 20px;*/
         }
 
         .note-item {
-            border-style: solid;
-            border-color: slategray;
-            height: 210px;
+            position: relative;
+            border: #04BFBF solid 0.7px;
+            background-color: white;
+            width: 80%;
+            height: 130px;
+            margin: 10px 17px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .note-list-title {
+            width: 100%;
+            position: absolute;
+            top: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .note-list-snippet {
+            position: absolute;
+            top: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            font-size: 11px;
+            text-align: left;
+            margin-bottom: 10px;
         }
 
         .main-content {
@@ -108,14 +141,14 @@
         <ul class="note-list">
             <li>
                 <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <p class="note-list-title">Amazon and AWS and Amazon and Aws</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. </p>
                 </div>
             </li>
             <li>
                 <div class="note-item">
                     <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상.</p>
                 </div>
             </li>
             <li>
