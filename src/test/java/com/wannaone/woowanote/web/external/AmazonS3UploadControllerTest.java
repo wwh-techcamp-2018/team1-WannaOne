@@ -24,7 +24,7 @@ public class AmazonS3UploadControllerTest extends AcceptanceTest {
     public void uploadTest() throws Exception {
 
         HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder
-                .multipartFormData().addParameter("file", new ClassPathResource("static/js/login.js")).build();
+                .multipartFormData().addParameter("file", new ClassPathResource("static/js/note.js")).build();
         ResponseEntity<String> result = template().postForEntity("/aws/s3upload", request, String.class);
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
