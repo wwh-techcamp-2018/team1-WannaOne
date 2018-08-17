@@ -24,8 +24,7 @@ class NoteBookList {
     }
 
     noteBookListTemplate(notebook) {
-        return `<li data-notebook-id=${notebook.id}></li>
-                <li>${notebook.title}</li>`;
+        return `<li data-notebook-id=${notebook.id}>${notebook.title}</li>`;
     }
 
     getNoteBookFailCallback() {
