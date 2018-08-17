@@ -2,6 +2,7 @@ class Note {
 
     constructor() {
         this.noteSection = $('#note-section');
+        this.editor = $('.te-ww-container .tui-editor-contents')
         this.noteSaveButton = $('#note-save-button');
         this.initNotes();
         this.initButton();
@@ -9,7 +10,7 @@ class Note {
 
     initNotes() {
         fetchManager({
-            url: '/api/notes/1',
+            url: '/api/notes/11',
             method: 'GET',
             onSuccess: this.getNoteSuccessCallback.bind(this),
             onFailure: this.getNoteFailHandler
@@ -24,6 +25,8 @@ class Note {
     renderNote(data) {
         console.log(data);
         this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(data));
+        this.editor.insertAdjacentHTML('beforeend', data.text);
+
     }
 
     noteSectionFormatter(data) {
@@ -31,12 +34,8 @@ class Note {
     }
 
     noteSectionTemplate(data, registerDatetime) {
-        return `<h1 id="note-section-note-title">${data.title}</h1>
-                <p id="note-section-meta">${registerDatetime}</p>
-                <textarea id="note-section-note-text" rows="15" cols="50">
-                ${data.text}
-                </textarea>
-                `;
+        return `<textarea id="note-section-note-title" data-note-id=${data.id}>${data.title}</textarea>
+                <p id="note-section-meta">${registerDatetime}</p>`;
     }
 
     clearNoteSection() {
@@ -51,9 +50,9 @@ class Note {
         this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
     }
     saveHandler() {
-        const title = $("#note-section-note-title").innerText;
+        const title = $("#note-section-note-title").value;
         //TODO: if new post, it should be update time.
-        const text = $("#note-section-note-text").value;
+        const text = this.editor.innerHTML;
         fetchManager({
                     url: '/api/notes',
                     method: 'POST',
