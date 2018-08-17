@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -56,5 +57,12 @@ public class NoteServiceTest {
         when(noteRepository.findAll()).thenReturn(new ArrayList<>());
         List<Note> noteList = noteService.getAllNotes();
         assertThat(noteList).isEmpty();
+    }
+
+    @Test
+    public void postNewNote() {
+        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
+        when(noteRepository.save(testNote)).thenReturn(testNote);
+        assertThat(noteService.postNewNote(testNote)).isEqualTo(1l);
     }
 }

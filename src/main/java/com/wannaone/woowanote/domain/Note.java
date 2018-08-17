@@ -3,6 +3,7 @@ package com.wannaone.woowanote.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Note {
 
     @Id
@@ -30,5 +32,9 @@ public class Note {
 
     public Note(String title, String text) {
         this(null, title, text, null, null);
+    }
+
+    public Note(Long id, String title, String text) {
+        this(id, title, text, null, null);
     }
 }
