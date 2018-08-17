@@ -35,8 +35,15 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void userCreateFailTest() throws Exception {
-        UserDto user = new UserDto("doy@woowahan.com");
-        ResponseEntity response = template().postForEntity("/api/users", user, String.class);
+        String email = "xmfpes@naver.com";
+        UserDto user = UserDto.defaultUserDto().setEmail(email);
+        ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(userService.isExistUser(user.getEmail())).isTrue();
+
+        user = new UserDto(email);
+        response = template().postForEntity("/api/users", user, String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
         assertThat(response.getBody()).isEqualTo(ValidationMessageUtil.USER_DUPLICATION);
@@ -53,8 +60,16 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void loginSuccessTest() throws Exception {
-        LoginDto loginDto = LoginDto.defaultLoginDto();
-        ResponseEntity response = template().postForEntity("/api/users/login", loginDto, Void.class);
+
+        String email = "dooo@naver.com";
+        UserDto user = UserDto.defaultUserDto().setEmail(email);
+        ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(userService.isExistUser(user.getEmail())).isTrue();
+
+        LoginDto loginDto = LoginDto.defaultLoginDto().setEmail(email);
+        response = template().postForEntity("/api/users/login", loginDto, Void.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
