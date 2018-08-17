@@ -27,4 +27,8 @@ public class NoteBook {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "notebook_id")
     private List<Note> notes = new ArrayList<>();
+
+    public NoteBook(String title) {
+        this.title = title;
+    }
 }

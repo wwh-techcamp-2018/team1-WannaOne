@@ -15,7 +15,7 @@ public class ApiNoteBookController {
 
     @GetMapping
     public ResponseEntity showAll() {
-        return new ResponseEntity(noteBookService.findAll(), HttpStatus.OK);
+        return new ResponseEntity(noteBookService.getAllNoteBooks(), HttpStatus.OK);
     }
 
     @PostMapping

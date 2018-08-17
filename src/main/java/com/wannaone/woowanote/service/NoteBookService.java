@@ -12,7 +12,7 @@ public class NoteBookService {
     @Autowired
     private NoteBookRepository noteBookRepository;
 
-    public List<NoteBook> findAll() {
+    public List<NoteBook> getAllNoteBooks() {
         return noteBookRepository.findAll();
     }
 
