@@ -10,7 +10,7 @@ class Note {
 
     initNotes() {
         fetchManager({
-            url: '/api/notes/11',
+            url: '/api/notes/1',
             method: 'GET',
             onSuccess: this.getNoteSuccessCallback.bind(this),
             onFailure: this.getNoteFailHandler
@@ -25,7 +25,7 @@ class Note {
     renderNote(data) {
         console.log(data);
         this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(data));
-        this.editor.insertAdjacentHTML('beforeend', data.text);
+        this.editor.innerHTML = data.text;
 
     }
 
@@ -34,7 +34,7 @@ class Note {
     }
 
     noteSectionTemplate(data, registerDatetime) {
-        return `<textarea id="note-section-note-title" data-note-id=${data.id}>${data.title}</textarea>
+        return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
                 <p id="note-section-meta">${registerDatetime}</p>`;
     }
 
