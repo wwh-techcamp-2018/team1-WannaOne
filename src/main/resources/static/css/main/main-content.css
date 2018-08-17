@@ -6,12 +6,34 @@
     height: 1000px;
 }
 
-
 .main-content {
     padding: 25px;
 }
 
 #note-section-meta {
     color: gray;
-    fonot-size: 14px;
+    font-size: 14px;
+}
+
+#add-notebook-title-input-btn {
+    width: 20px;
+    height: 20px;
+    margin-left: 90px;
+    cursor: pointer;
+}
+
+#remove-notebook-title-input-btn {
+    width: 18px;
+    height: 18px;
+    margin-left: 23px;
+    cursor: pointer;
+}
+
+.notebook-title-input-wrapper {
+    display: none;
+}
+
+#notebook-title-input {
+    margin-left: 15px;
+    width: 150px;
 }
