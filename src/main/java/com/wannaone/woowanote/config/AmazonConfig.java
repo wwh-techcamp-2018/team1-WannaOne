@@ -6,6 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @EnableConfigurationProperties(AmazonBucketProperties.class)
-@PropertySource(("classpath:aws.properties"))
+@PropertySource(value="classpath:aws.properties", ignoreResourceNotFound = true)
 public class AmazonConfig {
 }
