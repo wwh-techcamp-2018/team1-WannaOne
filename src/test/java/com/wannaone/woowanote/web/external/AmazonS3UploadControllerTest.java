@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.MultiValueMap;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,6 +27,6 @@ public class AmazonS3UploadControllerTest extends AcceptanceTest {
         HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder
                 .multipartFormData().addParameter("file", new ClassPathResource("static/js/note.js")).build();
         ResponseEntity<String> result = template().postForEntity("/aws/s3upload", request, String.class);
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertThat(HttpStatus.OK).isEqualTo(result.getStatusCode());
     }
 }
