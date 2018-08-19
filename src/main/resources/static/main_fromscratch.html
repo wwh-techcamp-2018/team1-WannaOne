@@ -7,18 +7,19 @@
     <script src="/js/noteList.js"></script>
     <script src="/js/util.js"></script>
     <style>
-
         html,body{
             height:100%;
             margin:0;
             padding:0;
         }
+        p {
+            margin: 0;
+        }
         .grid-container {
-
             width: 100%;
             height: 100vh;
             display: grid;
-            grid-template-columns: 190px 250px auto;
+            grid-template-columns: 190px 220px auto;
             grid-template-rows: 40px auto;
             grid-gap: 3px;
         }
@@ -37,7 +38,9 @@
         }
         .side-bar-middle {
             background: #F2EFEB;
-            padding: 0px 19px;
+            display: grid;
+            grid-template-rows: 90px auto;
+            /* border: #d9d7d3 solid 0.5px; */
         }
         #logo {
             position: absolute;
@@ -57,7 +60,7 @@
         }
 
         .notebook-list li {
-            width: 100%;
+            width: 80%;
             position: relative;
             text-align: left;
             white-space: nowrap;
@@ -69,14 +72,88 @@
             font-size: 15px;
         }
 
-        .note-list li {
+        .note-list {
             list-style-type: none;
+            padding: 0;
+        }
+
+        p.note-list-title, p.note-list-snippet {
+            /*margin: 20px;*/
         }
 
         .note-item {
-            border-style: solid;
-            border-color: slategray;
-            height: 210px;
+            position: relative;
+            border: #04BFBF solid 0.7px;
+            background-color: white;
+            width: 180px;
+            height: 150px;
+            box-sizing: border-box;
+            overflow: hidden;
+            padding: 20px;
+            margin: 14px 0px;
+        }
+
+        .note-item.note-item-focus {
+            border: #e57085 solid 0.7px;
+        }
+
+        .note-list-title {
+            width: 140px;
+            position: absolute;
+            top: 16px;
+            font-size: 17px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: left;
+        }
+
+        .note-list-snippet {
+            width: 140px;
+            position: absolute;
+            top: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            font-size: 11px;
+            text-align: justify;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: gray;
+        }
+
+        .note-list-snippet > span {
+            color: #04BFBF;
+        }
+
+        .side-bar-middle-header {
+          box-sizing: border-box;
+          background-color: white;
+          border: #c1bfbc solid 0.5px;
+          padding: 16px 15px;
+        }
+
+        .side-bar-middle-notebook-title {
+          font-size: 21px;
+          text-align: left;
+        }
+
+        .side-bar-middle-notebook-meta {
+          font-size: 12px;
+          color: gray;
+          text-align: left;
+          margin-top: 12px;
+
+        }
+
+        .side-bar-middle-body {
+          height: 600px;
+          padding: 0px 19px;
+          border-left: #c1bfbc solid 0.5px;
+          border-right: #c1bfbc solid 0.5px;
+          overflow: scroll;
         }
 
         .main-content {
@@ -108,40 +185,49 @@
         </ul>
     </div>
     <div class="side-bar-middle">
-        <p>노트 목록</p>
-        <ul class="note-list">
+        <div class="side-bar-middle-header">
+            <div class="side-bar-middle-notebook-title">
+              AWS 공부
+            </div>
+            <div class="side-bar-middle-notebook-meta">
+              6개의  노트
+            </div>
+        </div>
+        <div class="side-bar-middle-body">
+          <ul class="note-list">
             <li>
-                <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                <div class="note-item note-item-focus">
+                    <div class="note-list-title">Amazon and AWS and Amazon and Aws</div>
+                    <div class="note-list-snippet"><span>2018.1.17 </span>AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보. </div>
                 </div>
             </li>
             <li>
                 <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <div class="note-list-title">AWS</div>
+                    <div class="note-list-snippet"><span>2018.1.17 </span>AWS 서비스로 활용하기. </div>
                 </div>
             </li>
             <li>
                 <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <div class="note-list-title">Amazon and AWS</div>
+                    <div class="note-list-snippet"><span>2018.1.17 </span>AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. </div>
                 </div>
             </li>
             <li>
                 <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <div class="note-list-title">Amazon and AWS</div>
+                    <div class="note-list-snippet"><span>2018.1.17 </span>AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</div>
                 </div>
             </li>
             <li>
                 <div class="note-item">
-                    <p class="note-list-title">Amazon and AWS</p>
-                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                    <div class="note-list-title">Amazon and AWS</ddivv>
+                    <div class="note-list-snippet"> <span>2018.1.17 </span>AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</div>
                 </div>
             </li>
 
         </ul>
+      </div>
     </div>
     <div class="main-content">
         <section id="note-section">
