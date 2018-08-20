@@ -1,4 +1,4 @@
-let noteList;
+//let noteList;
 
 class NoteList {
     constructor() {
@@ -8,12 +8,7 @@ class NoteList {
 
     initNoteList() {
         this.noteListSection.addEventListener("click", this.getNote.bind(this));
-        fetchManager({
-            url: '/api/notes/all',
-            method: 'GET',
-            onSuccess: this.getNoteListSuccessCallback.bind(this),
-            onFailure: this.getNoteListFailHandler
-        })
+        this.getNoteListSuccessCallback(noteBookList.getNoteList(0)); //TODO: 노트북이 기본적으로 한개는 있으면 좋겠다.
     }
 
     getNote(e) {
@@ -63,7 +58,11 @@ class NoteList {
     }
 
     focusFirstNoteItem() {
-        this.noteListSection.firstElementChild.firstElementChild.classList.add('note-item-focus');
+        if (this.noteListSection.children.length > 0) {
+            this.noteListSection.firstElementChild.firstElementChild.classList.add('note-item-focus');
+        } else {
+            //TODO: 빈 화면 처리 나중에 해주어야 함.
+        }
     }
 
     getNoteListFailHandler() {
@@ -72,6 +71,6 @@ class NoteList {
 
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    noteList = new NoteList();
-})
+//document.addEventListener("DOMContentLoaded", () => {
+//    noteList = new NoteList();
+//})
