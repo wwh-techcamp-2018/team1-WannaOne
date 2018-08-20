@@ -4,6 +4,7 @@ class Note {
 
     constructor() {
         this.noteSection = $('#note-section');
+        this.noteListSection = $('.note-list');
         this.noteSaveButton = $('#note-save-button');
         this.initNote();
         this.initButton();
@@ -45,6 +46,19 @@ class Note {
                 `;
     }
 
+    appendNoteItem(data) {
+        this.noteListSection.insertAdjacentHTML('beforeend', this.getNoteTemplate(data));
+    }
+
+    getNoteTemplate(note) {
+        return ` <li data-note-id="${note.id}">
+            <div class="note-item">
+                <p class="note-list-title">${note.title}</p>
+            <p class="note-list-snippet">${note.text}</p>
+            </div>
+            </li>`
+    }
+
     clearNoteSection() {
         this.noteSection.innerHTML = '';
     }
@@ -68,13 +82,13 @@ class Note {
                             text: text,
                             registerDatetime: Date.now(), //TODO: change to NoteDTO. to delete registerDate here.
                             updateDatetime: Date.now()}),
-                    onSuccess: this.postNoteSuccessCallback,
+                    onSuccess: this.postNoteSuccessCallback.bind(this),
                     onFailure: this.postNoteFailHandler
                 })
     }
 
-    postNoteSuccessCallback(response){
-        console.log('노트 작성에 성공했습니다. 노트번호: ', response);
+    postNoteSuccessCallback(data){
+        this.appendNoteItem(data);
     }
 
     postNoteFailHandler() {
