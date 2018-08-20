@@ -24,7 +24,6 @@ class Note {
     }
 
     renderNote(data) {
-        console.log(data);
         this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(data));
         this.editor.innerHTML = data.text;
 
