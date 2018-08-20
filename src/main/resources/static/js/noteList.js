@@ -5,12 +5,23 @@ class NoteList {
     }
 
     initNoteList() {
+        this.noteListSection.addEventListener("click", this.getNote.bind(this));
         fetchManager({
             url: '/api/notes/all',
             method: 'GET',
             onSuccess: this.getNoteListSuccessCallback.bind(this),
             onFailure: this.getNoteListFailHandler
         })
+    }
+
+    getNote(e) {
+        const liElement = e.target.closest('li');
+        if (this.isNewItemClicked(liElement)) {
+            const noteId = liElement.dataset.noteId;
+            note.getNote(noteId);
+            $('.note-item-focus').classList.toggle('note-item-focus');
+            liElement.firstElementChild.classList.toggle('note-item-focus');
+        }
     }
 
     getNoteListSuccessCallback(data) {
@@ -20,8 +31,8 @@ class NoteList {
 
     renderNoteList(data) {
         console.log(data);
-
         data.forEach((note) => this.renderNoteItem(note));
+        this.focusFirstNoteItem();
     }
 
     renderNoteItem(note) {
@@ -29,20 +40,28 @@ class NoteList {
     }
 
     noteItemFormatter(note) {
-        return this.noteItemTemplate(note);
+        return this.noteItemTemplate(note, dateFormatter(note.registerDatetime));
     }
 
-    noteItemTemplate(note) {
-       return ` <li data-note-id="${note.id}">
+    noteItemTemplate(note, registerDatetime) {
+       return `<li data-note-id="${note.id}">
             <div class="note-item">
-                <p class="note-list-title">${note.title}</p>
-            <p class="note-list-snippet">${note.text}</p>
+                <div class="note-list-title">${note.title}</div>
+            <div class="note-list-snippet"><span>${registerDatetime} </span>${note.text}</div>
             </div>
             </li>`
     }
 
+    isNewItemClicked(liElement) {
+        return $('.note-item-focus') !== liElement.firstElementChild;
+    }
+
     clearNoteListSection() {
         this.noteListSection.innerHTML = '';
+    }
+
+    focusFirstNoteItem() {
+        this.noteListSection.firstElementChild.firstElementChild.classList.add('note-item-focus');
     }
 
     getNoteListFailHandler() {
