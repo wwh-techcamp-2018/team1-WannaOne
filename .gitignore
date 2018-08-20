@@ -21,3 +21,5 @@ bin/
 *.ipr
 
 ### local ###
+
+aws.properties

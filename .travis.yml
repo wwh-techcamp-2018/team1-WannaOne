@@ -1,27 +1,22 @@
 language: java
 jdk:
 - openjdk8
-
 branches:
   only:
   - develop
-
 cache:
   directories:
-  - '$HOME/.m2/repository'
-  - '$HOME/.gradle'
-
+  - "$HOME/.m2/repository"
+  - "$HOME/.gradle"
 script: "./gradlew clean build --info"
 
-# CI 실행 완료시 메일로 알람
+# CI 실행 완료시 슬랙 알림
 notifications:
-  email:
-    recipients:
-    - dain7672@naver.com
+  slack:
+    secure: Uba/MxcK6LPlhYmQjXHy5aw0fe/cRRRQVlgdi7E6hxnYH3AaR8G8DzptUehvwEnuldol81SwlVgTt84VFHQ4L3JOhznqaQUaeQ4JZCyb/1z9M3FCtVqps8D9aMLS0ZXiuiRLzwrqhKxTO7Kll3OYMQyk01hdFZLkEler4NRXiDUTFnU664EzWh44FCq+OttAI/+Vmcs6lptast9/lp/uqeASKVmEoTivYA1dNbCdRoKhJZzJbNUNAkmIbad4iYbr1Q1xdqZUXlYrsNhVa1AKC2poTOdwkgn2ir37xsfjEQ3dQD6/AP4a9O2NWJBpBqEuyYkjxnJRsEGqp5zt7k37SCgdTLObrOF53rfnrkNtDniP1nVpfTU7XJ1APZ6uparGgs4JYOKRU5/xBuf4OOdI5ngrGFC57D/ePd+hdMjE1AfzFJ4kJRviy/NaBstMV9pNdJiBBJqSig7/gwGfSsyBAY9hGby4AUXBxi2N6g4G2EyGKrp3X/ODrSKUHpBfWKVJZkvjpaLsD5hlkO7gKVHpAhjHQoz4lX0MucpLR5M9PYZA6CMLyugoTF6OtcTzXYOnm9GfVL6b0/RfccPDepGeIjkP8vvbPqz/I7Iqe87p4tUx3HdLtkJcgEGcg7ex1dWp2fViGStRMCeA+Zj0Ou+DYPHAO//glezgh1ezZs8zsfY=
 
 services:
 - mysql
-
 addons:
   apt:
     sources:
