@@ -29,7 +29,7 @@ public class ApiNoteController {
     }
 
     @PostMapping
-    public ResponseEntity post(@RequestBody Note note) {
+    public ResponseEntity<Note> post(@RequestBody Note note) {
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(note));
     }
 
