@@ -56,7 +56,7 @@ class NoteBookList {
     handlerAddNoteBookEvent(evt) {
         if(evt.keyCode === 13) {
             const notebookTitle = this.notebookTitleInput.value;
-            if(notebookTitle === '') return;
+            if(!notebookTitle) return;
             fetchManager({
                 url: '/api/notebooks',
                 method: 'POST',
