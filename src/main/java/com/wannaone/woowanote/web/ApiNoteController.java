@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.dto.CommentDto;
 import com.wannaone.woowanote.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ApiNoteController {
 
     @GetMapping("/{id}")
     public Note show(@PathVariable Long id) {
-        return  noteService.getNote(id);
+        return noteService.getNote(id);
     }
 
     @GetMapping("/all")
@@ -32,5 +33,4 @@ public class ApiNoteController {
     public ResponseEntity<Note> post(@RequestBody Note note) {
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(note));
     }
-
 }
