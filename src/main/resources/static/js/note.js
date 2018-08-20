@@ -32,7 +32,6 @@ class Note {
     renderNote(data) {
         this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(data));
         this.editor.innerHTML = data.text;
-
     }
 
     noteSectionFormatter(data) {
@@ -42,19 +41,6 @@ class Note {
     noteSectionTemplate(data, registerDatetime) {
         return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
                 <p id="note-section-meta">${registerDatetime}</p>`;
-    }
-
-    appendNoteItem(data) {
-        this.noteListSection.insertAdjacentHTML('beforeend', this.getNoteTemplate(data));
-    }
-
-    getNoteTemplate(note) {
-        return ` <li data-note-id="${note.id}">
-            <div class="note-item">
-                <p class="note-list-title">${note.title}</p>
-            <p class="note-list-snippet">${note.text}</p>
-            </div>
-            </li>`
     }
 
     clearNoteSection() {
@@ -86,7 +72,7 @@ class Note {
     }
 
     postNoteSuccessCallback(data){
-        this.appendNoteItem(data);
+        noteList.renderNoteItem(data);
     }
 
     postNoteFailHandler() {

@@ -1,3 +1,5 @@
+let noteList;
+
 class NoteList {
     constructor() {
         this.noteListSection = $('.note-list');
@@ -71,5 +73,5 @@ class NoteList {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    new NoteList();
+    noteList = new NoteList();
 })
