@@ -1,0 +1,20 @@
+#note-section-note-title {
+    border-style: none;
+    font-size:30px;
+    height:50px;
+}
+
+#editSection {
+    width: 700px;
+    text-align: unset;
+}
+
+#note-save-button {
+    left: 640px;
+    position: relative;
+    margin: 10px;
+}
+
+.tui-editor-contents {
+    text-align: unset;
+}

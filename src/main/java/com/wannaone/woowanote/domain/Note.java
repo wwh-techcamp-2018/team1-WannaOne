@@ -21,6 +21,7 @@ public class Note {
 
     private String title;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String text;
 
     private Date registerDatetime;
