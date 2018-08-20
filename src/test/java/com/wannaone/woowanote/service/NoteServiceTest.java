@@ -68,7 +68,6 @@ public class NoteServiceTest {
     public void postNewNote() {
         NoteBook testNoteBook1 = new NoteBook("노트북1");
         Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
-        when(noteRepository.save(testNote)).thenReturn(testNote);
         when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
         assertThat(noteService.postNewNote(3l, testNote)).isEqualTo(testNote);
     }
