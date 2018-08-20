@@ -1,15 +1,21 @@
+let note;
+
 class Note {
 
     constructor() {
         this.noteSection = $('#note-section');
         this.noteSaveButton = $('#note-save-button');
-        this.initNotes();
+        this.initNote();
         this.initButton();
     }
 
-    initNotes() {
+    initNote() {
+        this.getNote(1);
+    }
+
+    getNote(noteId) {
         fetchManager({
-            url: '/api/notes/1',
+            url: `/api/notes/${noteId}`,
             method: 'GET',
             onSuccess: this.getNoteSuccessCallback.bind(this),
             onFailure: this.getNoteFailHandler
@@ -77,5 +83,5 @@ class Note {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    new Note();
+    note = new Note();
 })

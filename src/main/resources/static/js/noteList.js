@@ -5,12 +5,23 @@ class NoteList {
     }
 
     initNoteList() {
+        this.noteListSection.addEventListener("click", this.getNote.bind(this));
         fetchManager({
             url: '/api/notes/all',
             method: 'GET',
             onSuccess: this.getNoteListSuccessCallback.bind(this),
             onFailure: this.getNoteListFailHandler
         })
+    }
+
+    getNote(e) {
+        const liElement = e.target.closest('li');
+        if (this.isNewItemClicked(liElement)) {
+            const noteId = liElement.dataset.noteId;
+            note.getNote(noteId);
+            $('.note-item-focus').classList.toggle('note-item-focus');
+            liElement.firstElementChild.classList.toggle('note-item-focus');
+        }
     }
 
     getNoteListSuccessCallback(data) {
@@ -39,6 +50,10 @@ class NoteList {
             <div class="note-list-snippet"><span>${registerDatetime} </span>${note.text}</div>
             </div>
             </li>`
+    }
+
+    isNewItemClicked(liElement) {
+        return $('.note-item-focus') !== liElement.firstElementChild;
     }
 
     clearNoteListSection() {
