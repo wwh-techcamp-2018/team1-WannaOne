@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/main/side-bar-left.css">
     <link rel="stylesheet" type="text/css" href="/css/main/side-bar-mid.css">
     <link rel="stylesheet" type="text/css" href="/css/main/main-content.css">
@@ -30,103 +31,151 @@
     <link rel="stylesheet" href="/js/bower_components/tui-editor/dist/tui-editor-contents.css">
     <!---------------------------->
     <script src="/js/note.js"></script>
+    <script src="/js/noteList.js"></script>
     <script src="/js/notebookList.js"></script>
     <script src="/js/util.js"></script>
 
+    <style>
+
+        html,body{
+            height:100%;
+            margin:0;
+            padding:0;
+        }
+        .grid-container {
+
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 190px 250px auto;
+            grid-template-rows: 40px auto;
+            grid-gap: 3px;
+        }
+        div {
+            text-align: center;
+        }
+        .header {
+            grid-area: 1 / span 3;
+            background: #04BFBF;
+        }
+        .side-bar-left {
+            background: #233A40;
+            font-size: 20px;
+            color: white;
+            padding: 0px 17px;
+        }
+        .side-bar-middle {
+            background: #F2EFEB;
+            padding: 0px 19px;
+        }
+        #logo {
+            position: absolute;
+            left: 50px;
+            padding-top: 3px;
+            padding-bottom: 0px;
+            font-size: 27px;
+            color: white;
+            font-family: 'Shrikhand', cursive;
+        }
+
+        .notebook-list {
+            list-style-type: none;
+            text-align: left;
+            padding: 0;
+            line-height: 2;
+        }
+
+        .notebook-list li {
+            width: 100%;
+            position: relative;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .notebook-list {
+            font-size: 15px;
+        }
+
+        .note-list li {
+            list-style-type: none;
+        }
+
+        .note-item {
+            border-style: solid;
+            border-color: slategray;
+            height: 210px;
+        }
+
+        .main-content {
+            text-align: left;
+            padding: 25px;
+        }
+
+        #note-section-meta {
+            color: gray;
+            fonot-size: 14px;
+        }
+
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-preview fixed-top">
-    제목
-</nav>
-<div class="be-wrapper be-aside be-fixed-sidebar">
-    <div class="be-left-sidebar">
-        <div class="left-sidebar-wrapper"><a class="left-sidebar-toggle" href="#">Documentation</a>
-            <div class="left-sidebar-spacer">
-                <div class="left-sidebar-scroll ps-container ps-theme-default ps-active-y"
-                     data-ps-id="020d593d-44df-135e-2683-1bb78c3473c5">
-                    <div class="left-sidebar-content">
-                        <ul class="sidebar-elements">
-                            <li class="divider"><span>NoteBook</span><img src="/img/add.png" id="add-notebook-title-input-btn"></li>
-                            <li><div class="notebook-title-input-wrapper"><input type="text" id="notebook-title-input"><img src="/img/remove.png" id="remove-notebook-title-input-btn"></div></li>
-                        </ul>
-                    </div>
-                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                        <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                    </div>
-                    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px; height: 192px;">
-                        <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 70px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="progress-widget">
-                <div class="progress-data"><span class="progress-value">60%</span><span
-                        class="name">Current Project</span></div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-primary" style="width: 60%;"></div>
-                </div>
-            </div>
-        </div>
+<div class="grid-container">
+    <div class="header"> <span id="logo">Woowa Note</span> </div>
+    <div class="side-bar-left">
+        <p>노트북 목록</p>
+        <ul class="notebook-list">
+        </ul>
     </div>
-    <div class="be-content docs">
-        <aside class="page-aside">
-            <div class="be-scroller ps-container ps-theme-default ps-active-y"
-                 data-ps-id="d4ad0aa4-5b6c-87a7-4507-f5d3d4db03a7">
-                <div class="aside-content">
-                    <div class="content">
-                        <div class="aside-header">
-                            <button class="navbar-toggle" data-target="#aside-spy" data-toggle="collapse" type="button">
-                                <span class="icon mdi mdi-caret-down"></span></button>
-                            <span class="title">Documentation</span>
-                            <p class="description">Beagle docs</p>
-                        </div>
-                    </div>
-                    <div class="navbar aside-nav collapse" id="aside-spy">
-                        <ul class="navbar nav">
-                            <li class="nav-item"><a class="nav-link" href="#note-section">General</a>
-                                <ul class="nav sub-menu">
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="#note-section-note-title">Introduction</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#general_structure">HTML
-                                        Structure</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#general_javascript">JavaScript</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#getting_started">Getting Started</a>
-                                <ul class="nav sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="#gs_basic_setup">Basic Setup</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#gs_npm_setup">Using npm</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="##gs_npm_install_dependencies">Install
-                                        dependencies</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#gs_npm_setup_sass">Setup Sass</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="gs_sass_variables">Variables</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#gs_npm_tasks">NPM scripts</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#gs_npm_add_new_dependencies">Add new
-                                        dependencies</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#plugins">Plugins</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#support">Support</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#changelog">Changelog</a></li>
-                        </ul>
-                    </div>
+    <div class="side-bar-middle">
+        <p>노트 목록</p>
+        <ul class="note-list">
+            <li>
+                <div class="note-item">
+                    <p class="note-list-title">Amazon and AWS</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
                 </div>
-                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: -67px;">
-                    <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+            </li>
+            <li>
+                <div class="note-item">
+                    <p class="note-list-title">Amazon and AWS</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
                 </div>
-                <div class="ps-scrollbar-y-rail" style="top: 67px; right: 0px; height: 268px;">
-                    <div class="ps-scrollbar-y" tabindex="0" style="top: 53px; height: 211px;"></div>
+            </li>
+            <li>
+                <div class="note-item">
+                    <p class="note-list-title">Amazon and AWS</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
                 </div>
-            </div>
-        </aside>
-        <div class="main-content">
-            <section id="note-section">
+            </li>
+            <li>
+                <div class="note-item">
+                    <p class="note-list-title">Amazon and AWS</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                </div>
+            </li>
+            <li>
+                <div class="note-item">
+                    <p class="note-list-title">Amazon and AWS</p>
+                    <p class="note-list-snippet"> AWS 서비스로 활용하기. VPC, 보안 그룹 등을 활용한 보안 향상. 리전간 데이터 복제, 에지 로케이션을 활용한 응답성 향상. 타 벤더사의 플랫폼을 활용한 더 높은 가용성 확보</p>
+                </div>
+            </li>
 
-            </section>
-            <div id="editSection"></div>
-            <button id="note-save-button"> 저장</button>
-        </div>
+        </ul>
+    </div>
+    <div class="main-content">
+        <section id="note-section">
+            <h1 id="note-section-note-title">AWS 활용1 - 계정생성</h1>
+            <p id="note-section-meta">2018년 1월 1일</p>
+            <p>대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다. 훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한 특권도 이에 따르지 아니한다. 근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 모든 국민은 신체의 자유를 가진다. 누구든지 법률에 의하지 아니하고는 체포·구속·압수·수색 또는 심문을 받지 아니하며, 법률과 적법한 절차에 의하지 아니하고는 처벌·보안처분 또는 강제노역을 받지 아니한다.</p>
+            <p>국회는 의원의 자격을 심사하며, 의원을 징계할 수 있다. 대통령은 국가의 독립·영토의 보전·국가의 계속성과 헌법을 수호할 책무를 진다. 의원을 제명하려면 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 모든 국민은 직업선택의 자유를 가진다. 국민의 모든 자유와 권리는 국가안전보장·질서유지 또는 공공복리를 위하여 필요한 경우에 한하여 법률로써 제한할 수 있으며, 제한하는 경우에도 자유와 권리의 본질적인 내용을 침해할 수 없다.</p>
+            <p>누구든지 체포 또는 구속의 이유와 변호인의 조력을 받을 권리가 있음을 고지받지 아니하고는 체포 또는 구속을 당하지 아니한다. 체포 또는 구속을 당한 자의 가족등 법률이 정하는 자에게는 그 이유와 일시·장소가 지체없이 통지되어야 한다. 행정권은 대통령을 수반으로 하는 정부에 속한다. 국가는 전통문화의 계승·발전과 민족문화의 창달에 노력하여야 한다.</p>
+            <p>국회는 상호원조 또는 안전보장에 관한 조약, 중요한 국제조직에 관한 조약, 우호통상항해조약, 주권의 제약에 관한 조약, 강화조약, 국가나 국민에게 중대한 재정적 부담을 지우는 조약 또는 입법사항에 관한 조약의 체결·비준에 대한 동의권을 가진다. 국회는 정부의 동의없이 정부가 제출한 지출예산 각항의 금액을 증가하거나 새 비목을 설치할 수 없다.</p>
+            <p>이 헌법중 공무원의 임기 또는 중임제한에 관한 규정은 이 헌법에 의하여 그 공무원이 최초로 선출 또는 임명된 때로부터 적용한다. 타인의 범죄행위로 인하여 생명·신체에 대한 피해를 받은 국민은 법률이 정하는 바에 의하여 국가로부터 구조를 받을 수 있다. 제1항의 탄핵소추는 국회재적의원 3분의 1 이상의 발의가 있어야 하며, 그 의결은 국회재적의원 과반수의 찬성이 있어야 한다. 다만, 대통령에 대한 탄핵소추는 국회재적의원 과반수의 발의와 국회재적의원 3분의 2 이상의 찬성이 있어야 한다.</p>
+        </section>
+        <div id="editSection"></div>
+        <button id="note-save-button"> 저장</button>
     </div>
 </div>
 <script>
@@ -138,3 +187,4 @@
                       });
 </script>
 </body>
+</html>

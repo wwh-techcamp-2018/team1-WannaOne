@@ -13,6 +13,11 @@ public class ApiNoteBookController {
     @Autowired
     private NoteBookService noteBookService;
 
+    @GetMapping
+    public ResponseEntity showAll() {
+        return new ResponseEntity(noteBookService.getAllNoteBooks(), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity create(@RequestBody NoteBook noteBook) {
         return new ResponseEntity(noteBookService.save(noteBook), HttpStatus.CREATED);

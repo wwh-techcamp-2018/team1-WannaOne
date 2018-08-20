@@ -28,11 +28,15 @@ public class Note {
 
     private Date updateDatetime;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name ="writer_id")
+    private User writer;
+
     public Note(String title, String text) {
-        this(null, title, text, null, null);
+        this(null, title, text, null, null, null);
     }
 
     public Note(Long id, String title, String text) {
-        this(id, title, text, null, null);
+        this(id, title, text, null, null, null);
     }
 }

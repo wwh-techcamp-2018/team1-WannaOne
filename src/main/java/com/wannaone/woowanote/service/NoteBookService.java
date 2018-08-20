@@ -12,6 +12,10 @@ public class NoteBookService {
     @Autowired
     private NoteBookRepository noteBookRepository;
 
+    public List<NoteBook> getAllNoteBooks() {
+        return noteBookRepository.findAll();
+    }
+
     public NoteBook save(NoteBook noteBook) {
         return noteBookRepository.save(noteBook);
     }
