@@ -48,7 +48,7 @@ class SignUp {
     }
 
     signUpSuccessCallback() {
-        document.location.href = '/signup.html';
+        document.location.href = '/login.html';
     }
 
     signUpFailureCallback() {
