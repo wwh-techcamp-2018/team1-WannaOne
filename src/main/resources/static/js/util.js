@@ -31,3 +31,12 @@ function datetimeFormatter(datetimeString) {
     };
     return `${data.month}월 ${data.date}일 ${data.hour}시 ${data.minute}분`;
 }
+
+function dateFormatter(datetimeString) {
+    const datetime = new Date(datetimeString);
+    const data = {
+        month: datetime.getMonth(),
+        date: datetime.getDay(),
+    };
+    return `${data.month}월 ${data.date}일`;
+}

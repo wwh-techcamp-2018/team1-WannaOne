@@ -20,8 +20,8 @@ class NoteList {
 
     renderNoteList(data) {
         console.log(data);
-
         data.forEach((note) => this.renderNoteItem(note));
+        this.focusFirstNoteItem();
     }
 
     renderNoteItem(note) {
@@ -29,20 +29,24 @@ class NoteList {
     }
 
     noteItemFormatter(note) {
-        return this.noteItemTemplate(note);
+        return this.noteItemTemplate(note, dateFormatter(note.registerDatetime));
     }
 
-    noteItemTemplate(note) {
-       return ` <li data-note-id="${note.id}">
+    noteItemTemplate(note, registerDatetime) {
+       return `<li data-note-id="${note.id}">
             <div class="note-item">
-                <p class="note-list-title">${note.title}</p>
-            <p class="note-list-snippet">${note.text}</p>
+                <div class="note-list-title">${note.title}</div>
+            <div class="note-list-snippet"><span>${registerDatetime} </span>${note.text}</div>
             </div>
             </li>`
     }
 
     clearNoteListSection() {
         this.noteListSection.innerHTML = '';
+    }
+
+    focusFirstNoteItem() {
+        this.noteListSection.firstElementChild.firstElementChild.classList.add('note-item-focus');
     }
 
     getNoteListFailHandler() {
