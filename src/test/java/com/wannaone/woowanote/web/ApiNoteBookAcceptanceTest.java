@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     @Test
-    public void showAllNotes() {
+    public void showAllNoteBooks() {
         ResponseEntity<List<NoteBook>> response =
                 getForEntityWithParameterized("/api/notebooks", null, new ParameterizedTypeReference<List<NoteBook>>() {});
 
