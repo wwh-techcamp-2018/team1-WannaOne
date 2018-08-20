@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -32,11 +33,17 @@ public class Note {
     @JoinColumn(name ="writer_id")
     private User writer;
 
+    @OneToMany(mappedBy = "note")
+    private List<Comment> comments;
+
     public Note(String title, String text) {
-        this(null, title, text, null, null, null);
+        this.title = title;
+        this.text = text;
     }
 
     public Note(Long id, String title, String text) {
-        this(id, title, text, null, null, null);
+        this.id = id;
+        this.title = title;
+        this.text = text;
     }
 }
