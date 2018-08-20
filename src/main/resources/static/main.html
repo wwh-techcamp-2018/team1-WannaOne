@@ -42,9 +42,6 @@
             grid-template-rows: 40px auto;
             grid-gap: 3px;
         }
-        div {
-            text-align: center;
-        }
         .header {
             grid-area: 1 / span 3;
             background: #04BFBF;
@@ -76,10 +73,11 @@
             text-align: left;
             padding: 0;
             line-height: 2;
+            font-size: 15px;
         }
 
         .notebook-list li {
-            width: 80%;
+            width: 100%;
             position: relative;
             text-align: left;
             white-space: nowrap;
@@ -87,8 +85,39 @@
             text-overflow: ellipsis;
         }
 
-        .notebook-list {
-            font-size: 15px;
+        .notebook-title {
+            list-style-type: none;
+            text-align: left;
+            padding: 0;
+            margin-bottom: 0;
+            line-height: 1.5;
+            font-size: 20px;
+        }
+
+        #add-notebook-input-btn {
+            width: 20px;
+            height: 20px;
+            margin-left: 80px;
+            cursor: pointer;
+        }
+
+        .notebook-input-wrapper {
+            display: none;
+        }
+
+        #notebook-title-input {
+            margin-left: 0px;
+            padding-left: 0px;
+            width: 100px;
+            height: 17px;
+        }
+
+        #remove-notebook-input-btn {
+            width: 18px;
+            height: 18px;
+            margin-left: 25px;
+            align: center;
+            cursor: pointer;
         }
 
         .note-list {
@@ -191,7 +220,10 @@
 <div class="grid-container">
     <div class="header"> <span id="logo">Woowa Note</span> </div>
     <div class="side-bar-left">
-        <p>노트북 목록</p>
+        <ul class="notebook-title">
+            <li>노트북<img src="/img/add.png" id="add-notebook-input-btn"></li>
+            <li><div class="notebook-input-wrapper"><input type="text" id="notebook-title-input"><img src="/img/remove.png" id="remove-notebook-input-btn"></div></li>
+        </ul>
         <ul class="notebook-list">
         </ul>
     </div>
@@ -245,7 +277,7 @@
         </section>
         <div id="editSection"></div>
         <button id="note-save-button"> 저장</button>
-    </div>å
+    </div>
     <script>
         var editor = new tui.Editor({
                             el: document.querySelector('#editSection'),
