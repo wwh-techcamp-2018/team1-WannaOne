@@ -14,7 +14,7 @@ function fetchManager({ url, method, body, headers, onSuccess, onFailure}) {
         credentials: "same-origin"
     }).then((response) => {
         if(response.ok) {
-            response.json().then((result) => onSuccess(result))
+            response.json().then((result) => onSuccess(result)).catch(() => onSuccess());
         } else {
             onFailure(response);
         }

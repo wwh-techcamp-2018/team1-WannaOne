@@ -31,7 +31,7 @@ public class ApiUserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginDto loginDto, HttpSession session) {
         SessionUtil.setMember(session, userService.login(loginDto));
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(new LoginDto());
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

@@ -10,6 +10,9 @@ class SignUp {
 
         this.passwordCheckInput.addEventListener('keyup', this.checkPassword.bind(this));
         this.signUpButton.addEventListener('click', this.handlerSignUpEvent.bind(this));
+        $('.submit-btn').addEventListener('click', function(event){
+            event.preventDefault();
+        });
     }
 
     checkPassword() {
@@ -45,11 +48,10 @@ class SignUp {
     }
 
     signUpSuccessCallback() {
-        document.location.href = '/';
+        document.location.href = '/login.html';
     }
 
     signUpFailureCallback() {
-
     }
 }
 
