@@ -8,6 +8,7 @@ import com.wannaone.woowanote.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Note postNewNote(Long noteBookId, Note note) {
+    @Transactional
+    public Note save(Long noteBookId, Note note) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
         note.setNoteBook(noteBook);
@@ -39,5 +41,10 @@ public class NoteService {
         //안 해도 노트와 연관관계가 설정되지만 객체지향 관점에서 명시적으로 표시하는게 좋은 듯.
         noteBook.addNote(note);
         return note;
+    }
+
+    public Note updateNote(Long id, Note updateNote) {
+        Note originNote = getNote(id);
+        return noteRepository.save(originNote.update(updateNote));
     }
 }
