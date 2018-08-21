@@ -4,21 +4,15 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.dto.CommentDto;
-import com.wannaone.woowanote.exception.RecordNotFoundException;
-import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiCommentAcceptanceTest extends AcceptanceTest {
-    @Autowired
-    private MessageSourceAccessor msa;
     @Test
-    public void createComment() {
+    public void createComment() throws Exception {
         String noteBookName = "내가 쓴 첫번 째 노트북";
         NoteBook noteBook = new NoteBook(noteBookName);
         ResponseEntity<NoteBook> createNoteBookResponse = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
@@ -44,7 +38,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void createCommentNoteNotFound() {
+    public void createCommentNoteNotFound() throws Exception {
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
         ResponseEntity commentCreateResponse = template().postForEntity("/api/notes/-1/comments", commentDto, Void.class);

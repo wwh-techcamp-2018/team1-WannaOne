@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +47,11 @@ public class Note {
     @OneToMany(mappedBy = "note")
     //순환 참조 해결, 개발 채널에서 공유된 내용 참고
     @JsonManagedReference
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 
     public Note(String title, String text) {
         this.title = title;

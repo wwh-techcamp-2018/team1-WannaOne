@@ -8,7 +8,6 @@ import com.wannaone.woowanote.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    @Transactional
     public Note postNewNote(Long noteBookId, Note note) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));

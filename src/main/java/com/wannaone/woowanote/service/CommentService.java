@@ -16,6 +16,8 @@ public class CommentService {
 
     public Comment save(CommentDto commentDto, Long noteId) {
         Note note = noteService.getNote(noteId);
-        return commentRepository.save(commentDto.toEntity(note));
+        Comment comment = commentRepository.save(commentDto.toEntity(note));
+        note.addComment(comment);
+        return comment;
     }
 }
