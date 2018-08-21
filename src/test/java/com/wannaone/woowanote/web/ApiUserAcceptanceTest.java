@@ -1,12 +1,10 @@
 package com.wannaone.woowanote.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.service.UserService;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
-import com.wannaone.woowanote.validation.ValidationMessageUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -23,8 +21,6 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     private UserService userService;
     @Autowired
     private MessageSourceAccessor msa;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     public void userCreateSuccessTest() throws Exception {
