@@ -29,7 +29,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
     @Test
     public void showAllNotes() {
         ResponseEntity<List<Note>> response =
-                getForEntityWithParameterized("/api/notes/all", null, new ParameterizedTypeReference<List<Note>>() {});
+                getForEntityWithParameterized("/api/notes", null, new ParameterizedTypeReference<List<Note>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get(0).getTitle()).isEqualTo("첫번째 제목");
@@ -50,8 +50,8 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void update() {
-        Note updateNote = new Note("내가 수정한 첫 번째 노트", "우아노트는 최고의 노트입니다.");
-        ResponseEntity<Note> response = putForEntity("/api/notes/1", updateNote, Note.class);
+        Note updateNote = new Note("내가 수정한 두 번째 노트", "우아노트는 최고의 노트입니다.");
+        ResponseEntity<Note> response = putForEntity("/api/notes/2", updateNote, Note.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getTitle()).isEqualTo(updateNote.getTitle());
