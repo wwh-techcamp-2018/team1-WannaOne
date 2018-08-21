@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,8 @@ public class NoteBook {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "notebook_id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "noteBook")
+    @JsonManagedReference
     private List<Note> notes = new ArrayList<>();
 
     public NoteBook(String title) {

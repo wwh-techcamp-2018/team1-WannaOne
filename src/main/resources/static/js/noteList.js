@@ -1,5 +1,3 @@
-//let noteList;
-
 class NoteList {
     constructor() {
         this.noteListSection = $('.note-list');
@@ -8,7 +6,7 @@ class NoteList {
 
     initNoteList() {
         this.noteListSection.addEventListener("click", this.getNote.bind(this));
-        this.getNoteListSuccessCallback(noteBookList.getNoteList(0)); //TODO: 노트북이 기본적으로 한개는 있으면 좋겠다.
+        this.renderNoteList(noteBookList.getNoteList(0)); //TODO: 노트북이 기본적으로 한개는 있으면 좋겠다.
     }
 
     getNote(e) {
@@ -21,13 +19,8 @@ class NoteList {
         }
     }
 
-    getNoteListSuccessCallback(data) {
-        this.clearNoteListSection();
-        this.renderNoteList(data);
-    }
-
     renderNoteList(data) {
-        console.log(data);
+        this.clearNoteListSection();
         data.forEach((note) => this.renderNoteItem(note));
         this.focusFirstNoteItem();
     }
@@ -64,13 +57,4 @@ class NoteList {
             //TODO: 빈 화면 처리 나중에 해주어야 함.
         }
     }
-
-    getNoteListFailHandler() {
-        console.log('노트 목록 조회에 실패했습니다.');
-    }
-
 }
-
-//document.addEventListener("DOMContentLoaded", () => {
-//    noteList = new NoteList();
-//})
