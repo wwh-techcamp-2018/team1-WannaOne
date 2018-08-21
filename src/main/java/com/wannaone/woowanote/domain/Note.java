@@ -38,14 +38,27 @@ public class Note {
     @JsonBackReference
     private NoteBook noteBook;
 
+    public Note(Long id, String title, String text) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+    }
+
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
     }
 
-    public Note(Long id, String title, String text) {
-        this.id = id;
+    public Note(String title, String text, Date updateDatetime) {
         this.title = title;
         this.text = text;
+        this.updateDatetime = updateDatetime;
+    }
+
+    public Note update(Note note) {
+        this.title = note.title;
+        this.text = note.text;
+        this.updateDatetime = note.updateDatetime;
+        return this;
     }
 }
