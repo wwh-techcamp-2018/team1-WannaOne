@@ -59,9 +59,7 @@ class NoteList {
 
     updateNoteItem(note) {
         const noteItem = $('.note-item-focus')
-        while (noteItem.hasChildNodes()) {
-            noteItem.removeChild(noteItem.firstChild);
-        }
+        noteItem.innerHTML = '';
         noteItem.insertAdjacentHTML('beforeend', this.noteItemUpdateFormatter(note));
     }
 

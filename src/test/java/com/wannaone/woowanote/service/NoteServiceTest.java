@@ -65,11 +65,10 @@ public class NoteServiceTest {
 
     @Test
     public void updateNote() {
-        Note testNote = new Note("새로운 노트", "잘 저장되고 있나요?");
-        when(noteRepository.findById(1L)).thenReturn(Optional.of(testNote));
-        when(noteRepository.save(testNote)).thenReturn(testNote);
+        Note originalNote = new Note("새로운 노트", "잘 저장되고 있나요?");
+        when(noteRepository.findById(1L)).thenReturn(Optional.of(originalNote));
+        when(noteRepository.save(originalNote)).thenReturn(originalNote);
 
-        Note originalNote = noteService.getNote(1L);
         Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?", new Date());
 
         assertThat(noteService.updateNote(1L, updateNote)).isEqualTo(originalNote.update(updateNote));
