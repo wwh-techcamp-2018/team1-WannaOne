@@ -23,6 +23,8 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     private UserService userService;
     @Autowired
     private MessageSourceAccessor msa;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void userCreateSuccessTest() throws Exception {
@@ -36,10 +38,10 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void userCreateFailTest() throws Exception {
         UserDto user = new UserDto("doy@woowahan.com");
-        ResponseEntity response = template().postForEntity("/api/users", user, String.class);
+        ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users", user, ValidationErrorsResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(response.getBody()).isEqualTo(ValidationMessageUtil.USER_DUPLICATION);
+        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("email.duplicate.message"));
     }
 
     @Test

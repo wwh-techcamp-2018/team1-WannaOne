@@ -3,6 +3,8 @@ package com.wannaone.woowanote.security;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
+import com.wannaone.woowanote.validation.ValidationError;
+import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,9 @@ public class SecurityControllerAdvice {
     public ResponseEntity userDuplicated(UserDuplicatedException exception) throws JsonProcessingException {
         log.debug("UserDuplicatedException is happened!");
         //return new ResponseEntity(exception.getMessage(), HttpStatus.FORBIDDEN);
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(objectMapper.writeValueAsString(exception.getMessage()));
+        ValidationErrorsResponse validationErrorsResponse = new ValidationErrorsResponse();
+        validationErrorsResponse.addValidationError(new ValidationError("email", exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(validationErrorsResponse);
         //TODO: error Response 위한 DTO 따로 만들기.
     }
 }

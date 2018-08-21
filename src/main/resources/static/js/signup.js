@@ -58,9 +58,10 @@ class SignUp {
                 //이메일 중복
                 const emailCaution = $('#email_caution');
                 emailCaution.style.display = 'block';
-                emailCaution.innerHTML = response;
-            } else {
-                // validation error
+                emailCaution.innerHTML = response.errors[0].errorMessage;
+            } else if (status == 400) {
+                // validation error.
+                // signup.js 참고
             }
         });
     }
