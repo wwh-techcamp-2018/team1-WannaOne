@@ -7,9 +7,7 @@ function imageUpload(blob, callback) {
         body: form,
         credentials: "same-origin"
     }).then((response) => {
-        console.log("response received!");
         response.text().then((result) => {
-            console.log(result);
             callback(result);
         })
     });
