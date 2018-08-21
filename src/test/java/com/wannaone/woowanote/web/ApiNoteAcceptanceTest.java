@@ -3,6 +3,8 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.service.NoteService;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiNoteAcceptanceTest extends AcceptanceTest {
+    private static final Logger log = LoggerFactory.getLogger(ApiNoteAcceptanceTest.class);
     @Autowired
     private NoteService noteService;
 
@@ -46,6 +49,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
         assertThat(response.getBody().getId()).isNotNull();
+        log.info("note info, {}", response.getBody());
     }
 
     @Test

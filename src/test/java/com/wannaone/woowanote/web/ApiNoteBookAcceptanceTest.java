@@ -19,4 +19,14 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get(0).getTitle()).isEqualTo("AWS 공부");
     }
+
+    @Test
+    public void createNoteBookTest() {
+        String noteBookName = "내가 쓴 첫번 째 노트북";
+        NoteBook noteBook = new NoteBook(noteBookName);
+        ResponseEntity<NoteBook> response = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
+        assertThat(response.getBody().getId()).isNotNull();
+    }
 }

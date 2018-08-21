@@ -20,7 +20,7 @@ public class ApiNoteController {
 
     @GetMapping("/{id}")
     public Note show(@PathVariable Long id) {
-        return  noteService.getNote(id);
+        return noteService.getNote(id);
     }
 
     @GetMapping
