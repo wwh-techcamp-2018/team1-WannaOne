@@ -52,8 +52,36 @@ class Note {
     }
 
     initButton() {
-        this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
+//        this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
+        this.noteSaveButton.addEventListener("click", this.updateHandler.bind(this));
     }
+
+    // 노트 수정
+    updateHandler() {
+        const noteId = $("#note-section-note-title").dataset.noteId;
+        const title = $("#note-section-note-title").value;
+        const text = this.editor.innerHTML;
+        fetchManager({
+                    url: `/api/notes/${noteId}`,
+                    method: 'PUT',
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify({title: title,
+                            text: text,
+                            updateDatetime: Date.now()}),
+                    onSuccess: this.noteUpdateSuccessCallback.bind(this),
+                    onFailure: this.NoteUpdateFailHandler
+                })
+    }
+
+    noteUpdateSuccessCallback(data) {
+        noteList.updateNoteItem(data);
+    }
+
+    NoteUpdateFailHandler() {
+        console.log('노트 수정에 실패했습니다.');
+    }
+
+    // 새 노트 저장
     saveHandler() {
         const title = $("#note-section-note-title").value;
         //TODO: if new post, it should be update time.
