@@ -60,7 +60,7 @@ class Note {
         const text = this.editor.innerHTML;
         const noteBookId = $('.notebook-focus').dataset.notebookId;
         fetchManager({
-                    url: `/api/notes/${noteBookId}`,
+                    url: `/api/notes/notebook/${noteBookId}`,
                     method: 'POST',
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({title: title,

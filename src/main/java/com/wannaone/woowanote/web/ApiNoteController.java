@@ -28,7 +28,7 @@ public class ApiNoteController {
         return ResponseEntity.ok().body(noteService.getAllNotes());
     }
 
-    @PostMapping("/{noteBookId}")
+    @PostMapping("/notebook/{noteBookId}")
     public ResponseEntity<Note> post(@PathVariable Long noteBookId, @RequestBody Note note) {
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(noteBookId, note));
     }
