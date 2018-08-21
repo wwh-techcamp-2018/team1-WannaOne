@@ -35,11 +35,23 @@ class NoteList {
 
     noteItemTemplate(note, registerDatetime) {
        return `<li data-note-id="${note.id}">
-            <div class="note-item">
-                <div class="note-list-title">${note.title}</div>
-            <div class="note-list-snippet"><span>${registerDatetime} </span>${note.text}</div>
-            </div>
-            </li>`
+                <div class="note-item">`
+              + this.noteItemContentTemplate(note, registerDatetime)
+              + `</div></li>`;
+    }
+
+    noteItemContentTemplate(note, datetime) {
+       return `<div class="note-list-title">${note.title}</div>
+               <div class="note-list-snippet"><span>${datetime} </span>${note.text}</div>`;
+    }
+
+    updateNoteItem(note) {
+        const noteItem = $('.note-item-focus')
+        noteItem.innerHTML = this.noteItemUpdateFormatter(note);
+    }
+
+    noteItemUpdateFormatter(note) {
+        return this.noteItemContentTemplate(note, dateFormatter(note.updateDatetime));
     }
 
     isNewItemClicked(liElement) {

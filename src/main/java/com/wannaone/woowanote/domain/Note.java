@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +21,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Note {
-
+public class Note implements Serializable {
+    private static final long serialVersionUID = -6987292439817177663L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +37,7 @@ public class Note {
     private Date updateDatetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="writer_id")
+    @JoinColumn(name = "writer_id")
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +48,11 @@ public class Note {
     @OneToMany(mappedBy = "note")
     //순환 참조 해결, 개발 채널에서 공유된 내용 참고
     @JsonManagedReference
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 
     public Note(String title, String text) {
         this.title = title;
@@ -57,5 +63,18 @@ public class Note {
         this.id = id;
         this.title = title;
         this.text = text;
+    }
+
+    public Note(String title, String text, Date updateDatetime) {
+        this.title = title;
+        this.text = text;
+        this.updateDatetime = updateDatetime;
+    }
+
+    public Note update(Note note) {
+        this.title = note.title;
+        this.text = note.text;
+        this.updateDatetime = note.updateDatetime;
+        return this;
     }
 }

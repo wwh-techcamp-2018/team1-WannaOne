@@ -1,12 +1,10 @@
 package com.wannaone.woowanote.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.service.UserService;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
-import com.wannaone.woowanote.validation.ValidationMessageUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -36,10 +34,10 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void userCreateFailTest() throws Exception {
         UserDto user = new UserDto("doy@woowahan.com");
-        ResponseEntity response = template().postForEntity("/api/users", user, String.class);
+        ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users", user, ValidationErrorsResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(response.getBody()).isEqualTo(ValidationMessageUtil.USER_DUPLICATION);
+        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("email.duplicate.message"));
     }
 
     @Test

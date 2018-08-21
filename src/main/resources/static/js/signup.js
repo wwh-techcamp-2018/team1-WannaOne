@@ -51,7 +51,19 @@ class SignUp {
         document.location.href = '/login.html';
     }
 
-    signUpFailureCallback() {
+    signUpFailureCallback(response) {
+        const status = response.status;
+        response.json().then((response) => {
+            if(status === 403) {
+                //이메일 중복
+                const emailCaution = $('#email_caution');
+                emailCaution.style.display = 'block';
+                emailCaution.innerHTML = response.errors[0].errorMessage;
+            } else if (status == 400) {
+                // validation error.
+                // signup.js 참고
+            }
+        });
     }
 }
 
