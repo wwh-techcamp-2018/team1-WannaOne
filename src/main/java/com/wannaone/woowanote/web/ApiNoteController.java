@@ -29,8 +29,8 @@ public class ApiNoteController {
         return ResponseEntity.ok().body(noteService.getAllNotes());
     }
 
-    @PostMapping
-    public ResponseEntity<Note> post(@RequestBody Note note) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(note));
+    @PostMapping("/{noteBookId}")
+    public ResponseEntity<Note> post(@PathVariable Long noteBookId, @RequestBody Note note) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(noteBookId, note));
     }
 }

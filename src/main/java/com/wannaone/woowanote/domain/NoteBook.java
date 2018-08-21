@@ -24,11 +24,15 @@ public class NoteBook {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "notebook_id")
     private List<Note> notes = new ArrayList<>();
 
     public NoteBook(String title) {
         this.title = title;
+    }
+
+    public void addNote(Note note) {
+        this.notes.add(note);
     }
 }
