@@ -6,7 +6,6 @@ import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,9 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
-public class Note extends AuditingLocalDateTimeEntity {
+public class Note extends AuditingDateEntity {
     private static final long serialVersionUID = -6987292439817177663L;
 
     private String title;
@@ -44,11 +42,14 @@ public class Note extends AuditingLocalDateTimeEntity {
         this.comments.add(comment);
     }
 
+    public void addNoteBook(NoteBook noteBook) {
+        this.noteBook = noteBook;
+    }
+
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
     }
-
 
     public Note update(Note note) {
         this.title = note.title;

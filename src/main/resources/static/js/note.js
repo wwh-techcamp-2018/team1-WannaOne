@@ -65,9 +65,11 @@ class Note {
                     url: `/api/notes/${noteId}`,
                     method: 'PUT',
                     headers: {'content-type': 'application/json'},
-                    body: JSON.stringify({title: title,
-                            text: text,
-                            updateDatetime: Date.now()}),
+                    body: JSON.stringify(
+                        {
+                            title: title,
+                            text: text
+                        }),
                     onSuccess: this.noteUpdateSuccessCallback.bind(this),
                     onFailure: this.NoteUpdateFailHandler
                 })
@@ -91,10 +93,13 @@ class Note {
                     url: `/api/notes/notebook/${noteBookId}`,
                     method: 'POST',
                     headers: {'content-type': 'application/json'},
-                    body: JSON.stringify({title: title,
-                            text: text,
-                            registerDatetime: Date.now(), //TODO: change to NoteDTO. to delete registerDate here.
-                            updateDatetime: Date.now()}),
+                    body: JSON.stringify({
+                            title: title,
+                            text: text
+                        //TODO: change to NoteDTO. to delete registerDate here.
+                    }),
+
+
                     onSuccess: this.postNoteSuccessCallback.bind(this),
                     onFailure: this.postNoteFailHandler
                 })

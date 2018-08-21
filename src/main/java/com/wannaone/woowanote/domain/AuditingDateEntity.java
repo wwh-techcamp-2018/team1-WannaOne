@@ -13,10 +13,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * registerDateTime, updateDateTime 자동 수정을 위한 abstract entity
+ * 이 엔티티를 상속하면 자동으로 id, registerDateTime, updateDateTime을 생성한다.
+ * 엔티티 save, update에 따라 registerDateTime, updateDateTime이 자동으로 업데이트 된다.
+ */
 @MappedSuperclass
 @EntityListeners(value = {AuditingEntityListener.class})
 @Getter
-public abstract class AuditingLocalDateTimeEntity implements Serializable {
+public abstract class AuditingDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

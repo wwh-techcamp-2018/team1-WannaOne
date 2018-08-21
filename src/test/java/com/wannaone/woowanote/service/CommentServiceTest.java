@@ -27,9 +27,9 @@ public class CommentServiceTest {
     @Test
     public void createTest() {
         CommentDto commentDto = new CommentDto("test comment");
-        Note note = new Note("1", "1");
+        Note note = new Note("title", "text");
         when(noteService.getNote(1L)).thenReturn(note);
-        commentService.save(commentDto, note.getId());
+        commentService.save(commentDto, 1L);
         Comment comment = commentDto.toEntity(note);
         verify(commentRepository).save(comment);
     }

@@ -14,8 +14,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class Comment extends AuditingLocalDateTimeEntity {
+public class Comment extends AuditingDateEntity {
+
     private static final long serialVersionUID = -7885300229018261642L;
+    
     private String content;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id")

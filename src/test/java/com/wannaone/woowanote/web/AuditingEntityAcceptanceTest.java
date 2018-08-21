@@ -10,11 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AuditingLocalDateTimeExistTest extends AcceptanceTest {
-    private static final Logger log = LoggerFactory.getLogger(AuditingLocalDateTimeExistTest.class);
+public class AuditingEntityAcceptanceTest extends AcceptanceTest {
+    private static final Logger log = LoggerFactory.getLogger(AuditingEntityAcceptanceTest.class);
+
     @Test
     public void createCommentRegisterDatetimeExistTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
@@ -46,6 +48,7 @@ public class AuditingLocalDateTimeExistTest extends AcceptanceTest {
         assertThat(comment.getRegisterDatetime()).isNotNull();
         assertThat(comment.getUpdateDatetime()).isNotNull();
     }
+
     @Test
     public void createNoteRegisterDatetimeExistTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
