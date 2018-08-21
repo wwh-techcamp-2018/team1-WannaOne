@@ -3,16 +3,13 @@ package com.wannaone.woowanote.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,20 +18,13 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Note implements Serializable {
+public class Note extends AuditingLocalDateTimeEntity {
     private static final long serialVersionUID = -6987292439817177663L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String title;
 
     @Column(columnDefinition = "LONGTEXT")
     private String text;
-
-    private Date registerDatetime;
-
-    private Date updateDatetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id")
@@ -59,22 +49,10 @@ public class Note implements Serializable {
         this.text = text;
     }
 
-    public Note(Long id, String title, String text) {
-        this.id = id;
-        this.title = title;
-        this.text = text;
-    }
-
-    public Note(String title, String text, Date updateDatetime) {
-        this.title = title;
-        this.text = text;
-        this.updateDatetime = updateDatetime;
-    }
 
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
-        this.updateDatetime = note.updateDatetime;
         return this;
     }
 }
