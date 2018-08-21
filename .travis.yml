@@ -8,7 +8,7 @@ cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
-script: "./gradlew clean build --stacktrace --info"
+script: "./gradlew clean build --info"
 
 # CI 실행 완료시 슬랙 알림
 notifications:
