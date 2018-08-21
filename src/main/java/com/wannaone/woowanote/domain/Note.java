@@ -1,20 +1,28 @@
 package com.wannaone.woowanote.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Note {
-
+@ToString
+public class Note implements Serializable {
+    private static final long serialVersionUID = -6987292439817177663L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,14 +37,45 @@ public class Note {
     private Date updateDatetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="writer_id")
+    @JoinColumn(name = "writer_id")
     private User writer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "note_book_id")
+    @JsonBackReference
+    private NoteBook noteBook;
+
+    @OneToMany(mappedBy = "note")
+    //순환 참조 해결, 개발 채널에서 공유된 내용 참고
+    @JsonManagedReference
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
     public Note(String title, String text) {
-        this(null, title, text, null, null, null);
+        this.title = title;
+        this.text = text;
     }
 
     public Note(Long id, String title, String text) {
-        this(id, title, text, null, null, null);
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.updateDatetime = updateDatetime;
+    }
+
+    public Note(String title, String text, Date updateDatetime) {
+        this.title = title;
+        this.text = text;
+        this.updateDatetime = updateDatetime;
+    }
+
+    public Note update(Note note) {
+        this.title = note.title;
+        this.text = note.text;
+        this.updateDatetime = note.updateDatetime;
+        return this;
     }
 }

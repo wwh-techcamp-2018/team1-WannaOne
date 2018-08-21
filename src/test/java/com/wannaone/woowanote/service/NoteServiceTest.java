@@ -1,7 +1,9 @@
 package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
+import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,6 +21,9 @@ public class NoteServiceTest {
 
     @Mock
     private NoteRepository noteRepository;
+
+    @Mock
+    private NoteBookRepository noteBookRepository;
 
     @InjectMocks
     private NoteService noteService;
@@ -60,9 +61,24 @@ public class NoteServiceTest {
     }
 
     @Test
-    public void postNewNote() {
+    public void createNewNote() {
+        NoteBook testNoteBook1 = new NoteBook("노트북1");
         Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
-        when(noteRepository.save(testNote)).thenReturn(testNote);
-        assertThat(noteService.postNewNote(testNote)).isEqualTo(testNote);
+        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
+        assertThat(noteService.save(3l, testNote)).isEqualTo(testNote);
+    }
+
+    @Test
+    public void updateNote() {
+        Note originalNote = new Note("새로운 노트", "잘 저장되고 있나요?");
+        when(noteRepository.findById(1L)).thenReturn(Optional.of(originalNote));
+        when(noteRepository.save(originalNote)).thenReturn(originalNote);
+
+        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?", new Date());
+
+        assertThat(noteService.updateNote(1L, updateNote)).isEqualTo(originalNote.update(updateNote));
+        assertThat(originalNote.getTitle()).isEqualTo(updateNote.getTitle());
+        assertThat(originalNote.getText()).isEqualTo(updateNote.getText());
+        assertThat(originalNote.getUpdateDatetime()).isEqualTo(updateNote.getUpdateDatetime());
     }
 }

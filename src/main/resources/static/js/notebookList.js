@@ -1,6 +1,10 @@
+let noteBookList;
+let noteList;
+
 class NoteBookList {
     constructor() {
-        this.noteBookList = $('.notebook-list');
+        this.noteBookList = [];
+        this.noteBookListEl = $('.notebook-list');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
         this.removeNotebookInputButton = $('#remove-notebook-input-btn');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
@@ -12,22 +16,43 @@ class NoteBookList {
 
     // 노트북 목록 조회
     initNoteBookList() {
+        this.noteBookListEl.addEventListener('click', this.changeNoteBookEventHandler.bind(this));
         fetchManager({
             url: '/api/notebooks',
             method: 'GET',
             onSuccess: this.getNoteBookSuccessCallback.bind(this),
             onFailure: this.getNoteBookFailCallback
-        })
+        });
+    }
+    changeNoteBookEventHandler(e){
+        const targetNotebook = e.target.closest('li');
+        this.focusNoteBook(targetNotebook);
+        const index = Array.prototype.indexOf.call(targetNotebook.parentElement.children, targetNotebook);
+        noteList.renderNoteList(this.getNoteList(index));
     }
 
     getNoteBookSuccessCallback(notebookList) {
+        this.noteBookList = notebookList;
+        console.log(this.noteBookList);
         notebookList.forEach((notebook) => {
-            this.addNoteBook(notebook);
+            this.renderNoteBook(notebook);
         });
+
+        this.noteBookListEl.firstElementChild.classList.add('notebook-focus');
+        noteList = new NoteList();
     }
 
-    addNoteBook(notebook) {
-        this.noteBookList.insertAdjacentHTML('beforeend', this.noteBookListTemplate(notebook));
+    focusNoteBook(noteBookEl) {
+        $('.notebook-focus').classList.toggle('notebook-focus');
+        noteBookEl.classList.toggle('notebook-focus');
+    }
+
+    getNoteList(index) {
+        return this.noteBookList[index].notes;
+    }
+
+    renderNoteBook(notebook) {
+        this.noteBookListEl.insertAdjacentHTML('beforeend', this.noteBookListTemplate(notebook));
     }
 
     noteBookListTemplate(notebook) {
@@ -71,7 +96,7 @@ class NoteBookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.addNoteBook(notebook);
+        this.renderNoteBook(notebook);
         this.clearInput();
     }
 
@@ -85,5 +110,5 @@ class NoteBookList {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    new NoteBookList();
+    noteBookList = new NoteBookList();
 });
