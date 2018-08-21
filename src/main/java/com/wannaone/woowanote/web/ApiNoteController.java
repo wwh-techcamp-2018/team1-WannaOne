@@ -23,14 +23,18 @@ public class ApiNoteController {
         return  noteService.getNote(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity showAllNotes() {
         return ResponseEntity.ok().body(noteService.getAllNotes());
     }
 
     @PostMapping
-    public ResponseEntity<Note> post(@RequestBody Note note) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.postNewNote(note));
+    public ResponseEntity<Note> create(@RequestBody Note note) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(note));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Note> update(@PathVariable Long id, @RequestBody Note updateNote) {
+        return ResponseEntity.status(HttpStatus.OK).body(noteService.updateNote(id, updateNote));
+    }
 }

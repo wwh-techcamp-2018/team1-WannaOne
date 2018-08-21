@@ -23,7 +23,12 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Note postNewNote(Note note) {
+    public Note save(Note note) {
         return noteRepository.save(note);
+    }
+
+    public Note updateNote(Long id, Note updateNote) {
+        Note originNote = getNote(id);
+        return save(originNote.update(updateNote));
     }
 }

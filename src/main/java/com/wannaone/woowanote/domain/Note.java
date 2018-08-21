@@ -32,11 +32,22 @@ public class Note {
     @JoinColumn(name ="writer_id")
     private User writer;
 
+    public Note(Long id, String title, String text) {
+        this(id, title, text, null, null, null);
+    }
+
     public Note(String title, String text) {
         this(null, title, text, null, null, null);
     }
 
-    public Note(Long id, String title, String text) {
-        this(id, title, text, null, null, null);
+    public Note(String title, String text, Date updateDatetime) {
+        this(null, title, text, null, updateDatetime, null);
+    }
+
+    public Note update(Note note) {
+        this.title = note.title;
+        this.text = note.text;
+        this.updateDatetime = note.updateDatetime;
+        return this;
     }
 }
