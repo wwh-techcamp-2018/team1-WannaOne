@@ -9,10 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -60,9 +57,24 @@ public class NoteServiceTest {
     }
 
     @Test
-    public void postNewNote() {
+    public void createNewNote() {
         Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
         when(noteRepository.save(testNote)).thenReturn(testNote);
-        assertThat(noteService.postNewNote(testNote)).isEqualTo(testNote);
+        assertThat(noteService.save(testNote)).isEqualTo(testNote);
+    }
+
+    @Test
+    public void updateNote() {
+        Note testNote = new Note("새로운 노트", "잘 저장되고 있나요?");
+        when(noteRepository.findById(1L)).thenReturn(Optional.of(testNote));
+        when(noteRepository.save(testNote)).thenReturn(testNote);
+
+        Note originalNote = noteService.getNote(1L);
+        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?", new Date());
+
+        assertThat(noteService.updateNote(1L, updateNote)).isEqualTo(originalNote.update(updateNote));
+        assertThat(originalNote.getTitle()).isEqualTo(updateNote.getTitle());
+        assertThat(originalNote.getText()).isEqualTo(updateNote.getText());
+        assertThat(originalNote.getUpdateDatetime()).isEqualTo(updateNote.getUpdateDatetime());
     }
 }
