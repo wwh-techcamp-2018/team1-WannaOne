@@ -53,7 +53,7 @@ class Note {
 
     initButton() {
 //        this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
-        this.noteSaveButton.addEventListener("click", this.updateHandler.bind(this));
+        this.noteSaveButton.addEventListener("click", () => this.updateHandler());
     }
 
     // 노트 수정

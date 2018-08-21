@@ -47,8 +47,7 @@ class NoteList {
 
     updateNoteItem(note) {
         const noteItem = $('.note-item-focus')
-        noteItem.innerHTML = '';
-        noteItem.insertAdjacentHTML('beforeend', this.noteItemUpdateFormatter(note));
+        noteItem.innerHTML = this.noteItemUpdateFormatter(note);
     }
 
     noteItemUpdateFormatter(note) {
