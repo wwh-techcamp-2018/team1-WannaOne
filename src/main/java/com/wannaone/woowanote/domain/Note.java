@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Note {
-
+public class Note implements Serializable {
+    private static final long serialVersionUID = -6987292439817177663L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +37,7 @@ public class Note {
     private Date updateDatetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="writer_id")
+    @JoinColumn(name = "writer_id")
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)

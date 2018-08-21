@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class NoteBook {
+public class NoteBook implements Serializable {
+    private static final long serialVersionUID = 3747495447637624997L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
