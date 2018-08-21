@@ -3,6 +3,8 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.service.NoteService;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiNoteAcceptanceTest extends AcceptanceTest {
+    private static final Logger log = LoggerFactory.getLogger(ApiNoteAcceptanceTest.class);
     @Autowired
     private NoteService noteService;
 
@@ -40,12 +43,12 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void post() {
-        //note 의 id 를 받아오도록
         Note postNote = new Note("내가 쓴 첫번 째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
         ResponseEntity<Note> response = template().postForEntity("/api/notes/1", postNote, Note.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
         assertThat(response.getBody().getId()).isNotNull();
+        log.info("note info, {}", response.getBody());
     }
 
     //TODO : update Note
