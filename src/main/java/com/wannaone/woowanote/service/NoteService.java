@@ -25,7 +25,7 @@ public class NoteService {
     private MessageSourceAccessor msa;
 
     public Note getNote(Long id) {
-       return noteRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("일치하는 노트가 없습니다."));
+       return noteRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
     }
 
     public List<Note> getAllNotes() {

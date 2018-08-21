@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class CommentServiceTest {
 
     @Mock
-    private NoteRepository noteRepository;
+    private NoteService noteService;
     @Mock
     private CommentRepository commentRepository;
     @InjectMocks
@@ -31,7 +31,7 @@ public class CommentServiceTest {
     public void createTest() {
         CommentDto commentDto = new CommentDto("test comment");
         Note note = new Note(1L, "1", "1");
-        when(noteRepository.findById(1L)).thenReturn(Optional.ofNullable(note));
+        when(noteService.getNote(1L)).thenReturn(note);
         commentService.save(commentDto, note.getId());
         Comment comment = commentDto.toEntity(note);
         verify(commentRepository).save(comment);
