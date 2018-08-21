@@ -13,9 +13,6 @@ public class NoteBookService {
     @Autowired
     private NoteBookRepository noteBookRepository;
 
-    @Autowired
-    private MessageSourceAccessor msa;
-
     public List<NoteBook> getAllNoteBooks() {
         return noteBookRepository.findAll();
     }

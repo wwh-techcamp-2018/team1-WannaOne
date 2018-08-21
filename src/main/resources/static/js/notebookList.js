@@ -28,14 +28,14 @@ class NoteBookList {
         const targetNotebook = e.target.closest('li');
         this.focusNoteBook(targetNotebook);
         const index = Array.prototype.indexOf.call(targetNotebook.parentElement.children, targetNotebook);
-        noteList.getNoteListSuccessCallback(this.getNoteList(index));
+        noteList.renderNoteList(this.getNoteList(index));
     }
 
     getNoteBookSuccessCallback(notebookList) {
         this.noteBookList = notebookList;
         console.log(this.noteBookList);
         notebookList.forEach((notebook) => {
-            this.addNoteBook(notebook);
+            this.renderNoteBook(notebook);
         });
 
         this.noteBookListEl.firstElementChild.classList.add('notebook-focus');
@@ -51,7 +51,7 @@ class NoteBookList {
         return this.noteBookList[index].notes;
     }
 
-    addNoteBook(notebook) {
+    renderNoteBook(notebook) {
         this.noteBookListEl.insertAdjacentHTML('beforeend', this.noteBookListTemplate(notebook));
     }
 
@@ -96,7 +96,7 @@ class NoteBookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.addNoteBook(notebook);
+        this.renderNoteBook(notebook);
         this.clearInput();
     }
 
