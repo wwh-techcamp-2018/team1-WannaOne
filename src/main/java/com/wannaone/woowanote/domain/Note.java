@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,16 +33,26 @@ public class Note {
     @JoinColumn(name ="writer_id")
     private User writer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "note_book_id")
+    @JsonBackReference
+    private NoteBook noteBook;
+
     public Note(Long id, String title, String text) {
-        this(id, title, text, null, null, null);
+        this.id = id;
+        this.title = title;
+        this.text = text;
     }
 
     public Note(String title, String text) {
-        this(null, title, text, null, null, null);
+        this.title = title;
+        this.text = text;
     }
 
     public Note(String title, String text, Date updateDatetime) {
-        this(null, title, text, null, updateDatetime, null);
+        this.title = title;
+        this.text = text;
+        this.updateDatetime = updateDatetime;
     }
 
     public Note update(Note note) {

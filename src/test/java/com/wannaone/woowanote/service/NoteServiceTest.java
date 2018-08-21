@@ -1,7 +1,9 @@
 package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
+import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,9 @@ public class NoteServiceTest {
 
     @Mock
     private NoteRepository noteRepository;
+
+    @Mock
+    private NoteBookRepository noteBookRepository;
 
     @InjectMocks
     private NoteService noteService;
@@ -57,9 +62,10 @@ public class NoteServiceTest {
 
     @Test
     public void createNewNote() {
+        NoteBook testNoteBook1 = new NoteBook("노트북1");
         Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
-        when(noteRepository.save(testNote)).thenReturn(testNote);
-        assertThat(noteService.save(testNote)).isEqualTo(testNote);
+        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
+        assertThat(noteService.save(3l, testNote)).isEqualTo(testNote);
     }
 
     @Test

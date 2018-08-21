@@ -86,8 +86,9 @@ class Note {
         const title = $("#note-section-note-title").value;
         //TODO: if new post, it should be update time.
         const text = this.editor.innerHTML;
+        const noteBookId = $('.notebook-focus').dataset.notebookId;
         fetchManager({
-                    url: '/api/notes',
+                    url: `/api/notes/notebook/${noteBookId}`,
                     method: 'POST',
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({title: title,

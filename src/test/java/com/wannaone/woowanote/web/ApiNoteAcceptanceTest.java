@@ -42,9 +42,10 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
     public void create() {
         //note 의 id 를 받아오도록
         Note postNote = new Note("내가 쓴 첫번 째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
-        ResponseEntity<Note> response = template().postForEntity("/api/notes", postNote, Note.class);
+        ResponseEntity<Note> response = template().postForEntity("/api/notes/notebook/1", postNote, Note.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(noteService.getNote(response.getBody().getId()).getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
+        assertThat(response.getBody().getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
+        assertThat(response.getBody().getId()).isNotNull();
     }
 
     @Test
