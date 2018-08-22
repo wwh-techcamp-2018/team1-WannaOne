@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * S3 bucket FileUpload를 위한 Component
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component

@@ -63,9 +63,9 @@ public class NoteServiceTest {
     @Test
     public void createNewNote() {
         NoteBook testNoteBook1 = new NoteBook("노트북1");
-        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
-        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
-        assertThat(noteService.save(3l, testNote)).isEqualTo(testNote);
+        Note testNote = new Note("새로운 노트", "잘 저장되고 있나요?");
+        when(noteBookRepository.findById(3L)).thenReturn(Optional.of(testNoteBook1));
+        assertThat(noteService.save(3L, testNote)).isEqualTo(testNote);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NoteServiceTest {
         when(noteRepository.findById(1L)).thenReturn(Optional.of(originalNote));
         when(noteRepository.save(originalNote)).thenReturn(originalNote);
 
-        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?", new Date());
+        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?");
 
         assertThat(noteService.updateNote(1L, updateNote)).isEqualTo(originalNote.update(updateNote));
         assertThat(originalNote.getTitle()).isEqualTo(updateNote.getTitle());

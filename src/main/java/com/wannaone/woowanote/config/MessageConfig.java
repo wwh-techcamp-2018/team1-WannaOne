@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+/**
+ * messages.properties에서 메세지를 관리하기 위한 설정
+ */
 @Configuration
 public class MessageConfig {
     @Bean
