@@ -27,7 +27,7 @@ public class NoteBook implements Serializable {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "noteBook")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "noteBook")
     @JsonManagedReference
     private List<Note> notes = new ArrayList<>();
 
