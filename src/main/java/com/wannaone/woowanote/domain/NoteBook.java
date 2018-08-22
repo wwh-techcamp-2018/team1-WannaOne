@@ -25,10 +25,12 @@ public class NoteBook implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
+
     private User owner;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "noteBook")
     @JsonManagedReference
+    @OrderBy("updateDatetime DESC")
     private List<Note> notes = new ArrayList<>();
 
     public NoteBook(String title) {
