@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 public class ApiNoteController {
     private static final Logger log = LoggerFactory.getLogger(ApiNoteController.class);
 
-
     @Autowired
     private NoteService noteService;
 

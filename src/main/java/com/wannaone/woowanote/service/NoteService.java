@@ -37,7 +37,6 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    @Transactional
     public Note save(Long noteBookId, Note note, User writer) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
