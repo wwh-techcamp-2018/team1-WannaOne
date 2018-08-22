@@ -3,6 +3,7 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,7 @@ public class ApiNoteController {
     }
 
     @PostMapping("/notebook/{noteBookId}")
-    public ResponseEntity<Note> create(@PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
-        User writer = (User) session.getAttribute(SessionUtil.USER_SESSION_KEY);
+    public ResponseEntity<Note> create(@LoginUser User writer, @PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note, writer));
     }
 

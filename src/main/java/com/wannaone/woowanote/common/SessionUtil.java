@@ -2,6 +2,8 @@ package com.wannaone.woowanote.common;
 
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -25,5 +27,9 @@ public class SessionUtil {
     public static boolean matchMember(HttpSession session, User user) {
         User loginUser = getMember(session).orElseThrow(() -> new UnAuthenticationException("로그인이 필요합니다."));
         return loginUser.equals(user);
+    }
+
+    public static User getUserFromWebRequest(NativeWebRequest webRequest) {
+        return (User) webRequest.getAttribute(USER_SESSION_KEY, WebRequest.SCOPE_SESSION);
     }
 }
