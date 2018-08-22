@@ -1,8 +1,10 @@
 package com.wannaone.woowanote.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wannaone.woowanote.dto.LoginDto;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
     @Id
@@ -35,6 +38,7 @@ public class User implements Serializable {
     private String photoUrl = "http://mblogthumb2.phinf.naver.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2";
 
     @OneToMany(mappedBy = "owner")
+    @JsonManagedReference
     private List<NoteBook> noteBooks = new ArrayList<>();
 
     public User(String email, String password, String name) {
