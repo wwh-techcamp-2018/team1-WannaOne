@@ -96,7 +96,6 @@ class Note {
                     body: JSON.stringify({
                             title: title,
                             text: text
-                        //TODO: change to NoteDTO. to delete registerDate here.
                     }),
 
 
