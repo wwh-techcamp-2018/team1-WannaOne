@@ -8,11 +8,14 @@
     width: 850px;
 }
 
-#note-save-button {
-    left: 790px;
+.note-save-delete {
+    left: 750px;
     position: relative;
     margin: 10px;
-    font-size: 15px;
+}
+
+.note-save-delete button {
+    color: #233A40;
 }
 
 .tui-editor-contents {
