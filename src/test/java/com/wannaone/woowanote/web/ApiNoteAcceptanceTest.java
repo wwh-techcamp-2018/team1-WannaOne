@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -41,13 +42,14 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void create_with_loginUser() {
-        //note 의 id 를 받아오도록
-        Note postNote = new Note("내가 쓴 첫번 째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
-        ResponseEntity<Note> response = basicAuthTemplate().postForEntity("/api/notes/notebook/1", postNote, Note.class);
+        User loginUser = defaultUser();
+        ResponseEntity<Note> response = basicAuthTemplate(loginUser).postForEntity("/api/notes/notebook/1", null, Note.class);
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody().getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
         assertThat(response.getBody().getId()).isNotNull();
-        assertThat(response.getBody().getWriter().getEmail()).isNotNull();
+        assertThat(response.getBody().getTitle()).isEqualTo("제목 없음");
+        assertThat(response.getBody().getWriter().getEmail()).isEqualTo(loginUser.getEmail());
+        assertThat(response.getBody().getText()).isEmpty();
         log.info("note info, {}", response.getBody());
     }
 
