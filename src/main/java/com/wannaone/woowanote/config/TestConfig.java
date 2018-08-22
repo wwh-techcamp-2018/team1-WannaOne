@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@Profile("local") //TODO: change into local?
+@Profile("test")
 public class TestConfig implements WebMvcConfigurer {
 
     @Bean

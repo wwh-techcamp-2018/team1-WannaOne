@@ -1,7 +1,6 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
-import com.wannaone.woowanote.security.HttpSessionUtils;
 import com.wannaone.woowanote.service.NoteService;
 import org.junit.Test;
 import org.slf4j.Logger;

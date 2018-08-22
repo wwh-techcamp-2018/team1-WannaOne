@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.security;
 
+import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
@@ -47,7 +48,7 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter {
         log.debug("email : {}", values[0]);
         log.debug("password : {}", values[1]);
         User user = userService.login(new LoginDto(values[0], values[1]));
-        request.getSession().setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
+        request.getSession().setAttribute(SessionUtil.USER_SESSION_KEY, user);
         return user;
     }
 }

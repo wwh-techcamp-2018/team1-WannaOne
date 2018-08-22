@@ -1,9 +1,11 @@
 package com.wannaone.woowanote.web;
 
+import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.security.HttpSessionUtils;
 import com.wannaone.woowanote.service.NoteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.WebRequest;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/notes")
 public class ApiNoteController {
+    private static final Logger log = LoggerFactory.getLogger(ApiNoteController.class);
+
 
     @Autowired
     private NoteService noteService;
@@ -37,7 +38,7 @@ public class ApiNoteController {
 
     @PostMapping("/notebook/{noteBookId}")
     public ResponseEntity<Note> create(@PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
-        User writer = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+        User writer = (User) session.getAttribute(SessionUtil.USER_SESSION_KEY);
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note, writer));
     }
 
