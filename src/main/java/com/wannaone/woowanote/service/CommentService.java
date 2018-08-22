@@ -4,8 +4,11 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.dto.CommentDto;
 import com.wannaone.woowanote.repository.CommentRepository;
+import com.wannaone.woowanote.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -19,5 +22,9 @@ public class CommentService {
         Comment comment = commentRepository.save(commentDto.toEntity(note));
         note.addComment(comment);
         return comment;
+    }
+
+    public List<Comment> getCommentsByNoteId(Long noteId) {
+        return commentRepository.findByNoteId(noteId);
     }
 }

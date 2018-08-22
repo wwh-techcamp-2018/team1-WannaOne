@@ -5,8 +5,11 @@ import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.dto.CommentDto;
 import org.junit.Test;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,5 +46,12 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
         CommentDto commentDto = new CommentDto(commentContent);
         ResponseEntity commentCreateResponse = template().postForEntity("/api/notes/-1/comments", commentDto, Void.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    public void show() throws Exception {
+        ResponseEntity<List<Comment>> commentShowResponse = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
+        assertThat(commentShowResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(commentShowResponse.getBody().get(0).getContent()).contains("댓글");
     }
 }
