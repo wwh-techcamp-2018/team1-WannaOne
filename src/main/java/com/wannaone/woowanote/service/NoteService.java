@@ -6,6 +6,7 @@ import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
+import com.wannaone.woowanote.support.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class NoteService {
     private MessageSourceAccessor msa;
 
     public Note getNote(Long id) {
-       return noteRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
+       return noteRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.NOTE_NOT_FOUND.getMessageKey())));
     }
 
     public List<Note> getAllNotes() {
@@ -40,7 +41,7 @@ public class NoteService {
     @Transactional
     public Note save(Long noteBookId, Note note, User writer) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
-                .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
+                .orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.NOTE_BOOK_NOT_FOUND.getMessageKey())));
         note.setWriter(writer);
         note.addNoteBook(noteBook);
         noteRepository.save(note);

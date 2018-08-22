@@ -29,4 +29,21 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
         assertThat(response.getBody().getId()).isNotNull();
     }
+
+    @Test
+    public void getNoteBookByNoteBookId() {
+        String noteBookName = "내가 쓴 첫번 째 노트북";
+        NoteBook noteBook = new NoteBook(noteBookName);
+        ResponseEntity<NoteBook> response = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
+        assertThat(response.getBody().getId()).isNotNull();
+
+        Long noteBookId = response.getBody().getId();
+
+        ResponseEntity<NoteBook> noteBookDetailResponse = template().getForEntity("/api/notebooks/" + noteBookId, NoteBook.class);
+
+        assertThat(noteBookDetailResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(noteBookDetailResponse.getBody().getTitle()).isEqualTo(noteBookName);
+    }
 }
