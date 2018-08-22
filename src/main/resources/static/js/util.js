@@ -40,3 +40,7 @@ function dateFormatter(datetimeString) {
     };
     return `${data.month}월 ${data.date}일`;
 }
+
+function getIndex(element) {
+    return Array.prototype.indexOf.call(element.parentElement.children, element);
+}

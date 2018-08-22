@@ -48,7 +48,7 @@ class Note {
     initButton() {
 //        this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
         this.noteSaveButton.addEventListener("click", () => this.updateHandler());
-        this.noteDeleteButton.addEventListener("click", () => this.deleteHandler());
+        // this.noteDeleteButton.addEventListener("click", mainApp.removeCurrentNoteHandler.bind(mainApp));
     }
 
     // 노트 수정
@@ -106,19 +106,13 @@ class Note {
         console.log('노트 작성에 실패했습니다.');
     }
 
-    deleteHandler() {
+    delete(successCallback) {
         fetchManager({
             url: `/api/notes/${this.noteId}`,
             method: 'DELETE',
-            onSuccess: this.noteDeleteSuccessCallback.bind(this),
+            onSuccess: successCallback,
             onFailure: this.noteDeleteFailHandler
         })
-    }
-
-    noteDeleteSuccessCallback() {
-        //TODO 1) 노트 리스트에 노트가 남아있다면 삭제한 노트의 다음 노트 선택
-        //TODO 2) 노트가 남아있지 않다면 빈화면
-        console.log('노트 삭제 성공');
     }
 
     noteDeleteFailHandler() {

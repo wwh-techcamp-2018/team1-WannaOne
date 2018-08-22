@@ -6,7 +6,6 @@ class NoteList {
 
     initNoteList() {
         this.noteListSection.addEventListener("click", this.getNote.bind(this));
-        this.renderNoteList(noteBookList.getNoteList(0)); //TODO: 노트북이 기본적으로 한개는 있으면 좋겠다.
     }
 
     getNote(e) {
@@ -56,5 +55,29 @@ class NoteList {
         } else {
             //TODO: 빈 화면 처리 나중에 해주어야 함.
         }
+    }
+
+    removeCurrentNoteItem() {
+        const noteItem = $('.note-item-focus');
+        this.noteListSection.removeChild(noteItem.closest('li'));
+        mainApp.focusDefaultNote();
+    }
+
+    selectDefaultNote() {
+        this.focusFirstNoteItem()
+    }
+
+    focus(index) {
+        $('.note-item-focus').classList.toggle('note-item-focus');
+        const currentFocusNoteItem = $('.note-item-focus');
+        if (currentFocusNoteItem) {
+            currentFocusNoteItem.classList.toggle('note-item-focus');
+        }
+        this.noteListSection.children[index].classList.toggle('note-item-focus');
+        return $('.note-item-focus').closest('li').dataset.noteId;
+    }
+
+    isEmpty() {
+        return this.noteListSection.childElementCount <= 0;
     }
 }

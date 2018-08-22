@@ -1,7 +1,3 @@
-let noteBookList;
-let noteList;
-let note;
-
 class NoteBookList {
     constructor() {
         this.noteBookList = [];
@@ -39,8 +35,7 @@ class NoteBookList {
         });
 
         this.noteBookListEl.firstElementChild.classList.add('notebook-focus');
-        noteList = new NoteList();
-        note = new Note();
+        noteList.renderNoteList(noteBookList.getNoteList(0)); // 이건 규남이가 고칠 예정
     }
 
     focusNoteBook(noteBookEl) {
@@ -106,7 +101,3 @@ class NoteBookList {
         console.log("노트북 추가 실패")
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    noteBookList = new NoteBookList();
-});
