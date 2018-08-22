@@ -48,4 +48,10 @@ public class ApiNoteController {
     public ResponseEntity<Note> update(@PathVariable Long id, @RequestBody Note updateNote) {
         return ResponseEntity.status(HttpStatus.OK).body(noteService.updateNote(id, updateNote));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        noteService.deleteNote(id);
+        return ResponseEntity.ok().build();
+    }
 }

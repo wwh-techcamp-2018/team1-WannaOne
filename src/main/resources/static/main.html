@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/editor/github.css">
     <link rel="stylesheet" href="/css/editor/tui-editor.css">
     <link rel="stylesheet" href="/css/editor/tui-editor-contents.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!---------------------------->
 
     <script src="/js/template-util.js"></script>
@@ -29,7 +30,7 @@
     <script src="/js/noteList.js"></script>
     <script src="/js/util.js"></script>
     <script src="/js/fileupload.js"></script>
-    
+
 </head>
 <body>
 <div class="grid-container">
@@ -91,7 +92,14 @@
         <section id="note-section">
         </section>
         <div id="editSection"></div>
-        <button id="note-save-button"> 저장</button>
+        <div class = "note-save-delete">
+            <button id="note-delete-button">
+                <i class="material-icons">delete</i>
+            </button>
+            <button id="note-save-button">
+                <i class="material-icons">save</i>
+            </button>
+        </div>
     </div>
     <script>
         var editor = new tui.Editor({

@@ -37,6 +37,8 @@ public class Note extends AuditingDateEntity {
     @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 
+    private boolean deleted = false;
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
@@ -59,6 +61,11 @@ public class Note extends AuditingDateEntity {
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
+        return this;
+    }
+
+    public Note delete() {
+        this.deleted = true;
         return this;
     }
 

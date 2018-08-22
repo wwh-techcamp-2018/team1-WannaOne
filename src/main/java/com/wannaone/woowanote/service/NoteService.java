@@ -30,7 +30,7 @@ public class NoteService {
     private MessageSourceAccessor msa;
 
     public Note getNote(Long id) {
-       return noteRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
+        return noteRepository.findByIdAndDeletedIsFalse(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
     }
 
     public List<Note> getAllNotes() {
@@ -50,8 +50,13 @@ public class NoteService {
         return note;
     }
 
+    @Transactional
     public Note updateNote(Long id, Note updateNote) {
-        Note originNote = getNote(id);
-        return noteRepository.save(originNote.update(updateNote));
+        return getNote(id).update(updateNote);
+    }
+
+    @Transactional
+    public Note deleteNote(Long id) {
+        return getNote(id).delete();
     }
 }

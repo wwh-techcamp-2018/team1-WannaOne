@@ -63,6 +63,14 @@ public abstract class AcceptanceTest {
         return template().exchange(url, HttpMethod.PUT, createHttpEntity(body),responseType);
     }
 
+    protected <T> ResponseEntity<T> deleteForEntity(String url, Class<T> responseType) {
+        return basicAuthTemplate().exchange(url, HttpMethod.DELETE, createHttpEntity(null), responseType);
+    }
+
+    protected <T> ResponseEntity<T> deleteForEntity(User loginUser, String url, Class<T> responseType) {
+        return basicAuthTemplate(loginUser).exchange(url, HttpMethod.DELETE, createHttpEntity(null), responseType);
+    }
+
     private HttpEntity createHttpEntity(Object body) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

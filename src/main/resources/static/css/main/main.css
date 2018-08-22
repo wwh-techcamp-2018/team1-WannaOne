@@ -6,6 +6,9 @@ html,body{
 p {
     margin: 0;
 }
+button {
+    border: none;
+}
 .grid-container {
     width: 100%;
     height: 100vh;
