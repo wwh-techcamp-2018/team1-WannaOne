@@ -5,6 +5,10 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * application.properties의 aws.s3 프리픽스의 bucket, directory값을
+ * 해당 객체에 바인딩해주고 bean 형태로 만들어준다.
+ */
 @ConfigurationProperties(prefix = "aws.s3")
 @Validated
 public class AmazonBucketProperties {

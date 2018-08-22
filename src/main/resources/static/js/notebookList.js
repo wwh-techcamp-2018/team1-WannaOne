@@ -53,11 +53,7 @@ class NoteBookList {
     }
 
     renderNoteBook(notebook) {
-        this.noteBookListEl.insertAdjacentHTML('beforeend', this.noteBookListTemplate(notebook));
-    }
-
-    noteBookListTemplate(notebook) {
-        return `<li data-notebook-id=${notebook.id}>${notebook.title}</li>`;
+        this.noteBookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
     }
 
     getNoteBookFailCallback() {

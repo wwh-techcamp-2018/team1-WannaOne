@@ -24,7 +24,7 @@ public class ApiNoteBookController {
 
     @GetMapping
     public ResponseEntity showAll(HttpSession session) {
-        User loginUser = SessionUtil.getMember(session).orElseThrow(() -> new UnAuthenticationException(msa.getMessage("unauthentication.message")));
+        User loginUser = SessionUtil.getUser(session).orElseThrow(() -> new UnAuthenticationException(msa.getMessage("unauthentication.not.logined")));
         return new ResponseEntity(noteBookService.getNoteBooksByOwnerId(loginUser.getId()), HttpStatus.OK);
     }
 

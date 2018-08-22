@@ -19,10 +19,12 @@
     <link rel="stylesheet" href="/css/editor/tui-editor.css">
     <link rel="stylesheet" href="/css/editor/tui-editor-contents.css">
     <!---------------------------->
+    <script src="/js/template-util.js"></script>
     <script src="/js/note.js"></script>
     <script src="/js/notebookList.js"></script>
     <script src="/js/noteList.js"></script>
     <script src="/js/util.js"></script>
+    <script src="/js/fileupload.js"></script>
 
     <style>
         html,body{
@@ -291,7 +293,12 @@
                             el: document.querySelector('#editSection'),
                             initialEditType: 'wysiwyg',
                             previewStyle: 'vertical',
-                            height: '500px'
+                            height: '500px',
+                            hooks: {
+                                'addImageBlobHook': function(blob, callback) {
+                                    imageUpload(blob, callback);
+                                }
+                            }
                           });
     </script>
 

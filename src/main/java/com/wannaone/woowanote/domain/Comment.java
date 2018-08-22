@@ -8,18 +8,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class Comment implements Serializable {
+public class Comment extends AuditingDateEntity {
+
     private static final long serialVersionUID = -7885300229018261642L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    
     private String content;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id")

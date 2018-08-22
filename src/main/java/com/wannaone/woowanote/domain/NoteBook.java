@@ -29,7 +29,7 @@ public class NoteBook implements Serializable {
     @JsonBackReference
     private User owner;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "noteBook")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "noteBook")
     @JsonManagedReference
     private List<Note> notes = new ArrayList<>();
 

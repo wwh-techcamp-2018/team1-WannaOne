@@ -3,38 +3,26 @@ package com.wannaone.woowanote.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
-public class Note implements Serializable {
+public class Note extends AuditingDateEntity {
     private static final long serialVersionUID = -6987292439817177663L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String title;
 
     @Column(columnDefinition = "LONGTEXT")
     private String text;
-
-    private Date registerDatetime;
-
-    private Date updateDatetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id")
@@ -54,28 +42,28 @@ public class Note implements Serializable {
         this.comments.add(comment);
     }
 
+    public void addNoteBook(NoteBook noteBook) {
+        this.noteBook = noteBook;
+    }
+
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
     }
 
-    public Note(Long id, String title, String text) {
-        this.id = id;
+    public Note(String title, String text, User writer) {
         this.title = title;
         this.text = text;
-        this.updateDatetime = updateDatetime;
-    }
-
-    public Note(String title, String text, Date updateDatetime) {
-        this.title = title;
-        this.text = text;
-        this.updateDatetime = updateDatetime;
+        this.writer = writer;
     }
 
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
-        this.updateDatetime = note.updateDatetime;
         return this;
+    }
+
+    public void setWriter(User writer) {
+        this.writer = writer;
     }
 }
