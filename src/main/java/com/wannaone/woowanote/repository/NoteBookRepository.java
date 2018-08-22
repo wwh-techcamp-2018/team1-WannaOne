@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface NoteBookRepository extends CrudRepository<NoteBook, Long> {
-    List<NoteBook> findAll();
+    List<NoteBook> findByOwnerId(Long ownerId);
 }

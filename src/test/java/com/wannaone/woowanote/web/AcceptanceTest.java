@@ -49,6 +49,16 @@ public abstract class AcceptanceTest {
         return template().exchange(url, HttpMethod.GET, new HttpEntity<>(body, headers), reference);
     }
 
+    protected <T> ResponseEntity<T> getForEntityWithParameterizedWithBasicAuth(String url, Object body, ParameterizedTypeReference<T> reference) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return basicAuthTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(body, headers), reference);
+    }
+
+    protected <T> ResponseEntity<T> getForEntity(String url, Object body, Class<T> responseType) {
+        return template().exchange(url, HttpMethod.GET, createHttpEntity(body),responseType);
+    }
+
     protected <T> ResponseEntity<T> putForEntity(String url, Object body, Class<T> responseType) {
         return template().exchange(url, HttpMethod.PUT, createHttpEntity(body),responseType);
     }

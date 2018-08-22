@@ -24,17 +24,16 @@ public class Note extends AuditingDateEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String text;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "writer_id")
     private User writer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "note_book_id")
     @JsonBackReference
     private NoteBook noteBook;
 
     @OneToMany(mappedBy = "note")
-    //순환 참조 해결, 개발 채널에서 공유된 내용 참고
     @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 

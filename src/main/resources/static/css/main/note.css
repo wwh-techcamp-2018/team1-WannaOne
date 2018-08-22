@@ -21,3 +21,13 @@
 .tui-editor-contents {
     text-align : none;
 }
+
+.main-content {
+    text-align: left;
+    padding: 25px;
+}
+
+#note-section-meta {
+    color: gray;
+    fonot-size: 14px;
+}

@@ -32,7 +32,7 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter {
         }
 
         try {
-            user = getMemberBasicAuth(request, authorization);
+            user = getUserBasicAuth(request, authorization);
             log.debug("Login User Email : {}", user.getEmail());
         } catch (UnAuthenticationException e) {
             log.info("interceptor 걸렸네: " + e.getMessage());
@@ -41,7 +41,7 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    private User getMemberBasicAuth(HttpServletRequest request, String authorization) {
+    private User getUserBasicAuth(HttpServletRequest request, String authorization) {
         String base64Credentials = authorization.substring("Basic".length()).trim();
         String credentials = new String(Base64.getDecoder().decode(base64Credentials), Charset.forName("UTF-8"));
         final String[] values = credentials.split(":", 2);

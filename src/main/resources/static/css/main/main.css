@@ -1,0 +1,34 @@
+html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+p {
+    margin: 0;
+}
+button {
+    border: none;
+}
+.grid-container {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 190px 220px auto;
+    grid-template-rows: 40px auto;
+    grid-gap: 3px;
+}
+.header {
+    grid-area: 1 / span 3;
+    background: #04BFBF;
+}
+
+
+#logo {
+    position: absolute;
+    left: 50px;
+    padding-top: 3px;
+    padding-bottom: 0px;
+    font-size: 27px;
+    color: white;
+    font-family: 'Shrikhand', cursive;
+}
