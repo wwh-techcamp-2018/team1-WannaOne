@@ -30,6 +30,7 @@ public class SessionUtil {
     }
 
     public static User getUserFromWebRequest(NativeWebRequest webRequest) {
-        return (User) webRequest.getAttribute(USER_SESSION_KEY, WebRequest.SCOPE_SESSION);
+        return Optional.ofNullable((User) webRequest.getAttribute(USER_SESSION_KEY, WebRequest.SCOPE_SESSION))
+                .orElseThrow(() -> new UnAuthenticationException("로그인이 필요합니다."));
     }
 }

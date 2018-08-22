@@ -27,9 +27,6 @@ public class LoginUserHandlerMethodArgumentResolverTest {
     @Mock
     private NativeWebRequest request;
 
-    @Mock
-    private LoginUser annotedLoginUser;
-
     private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 
     @Before
@@ -41,7 +38,6 @@ public class LoginUserHandlerMethodArgumentResolverTest {
     public void loginUser_normal() throws Exception {
         User sessionUser = new User("newUser@woowahan.com", "password", "name");
         when(request.getAttribute(SessionUtil.USER_SESSION_KEY, WebRequest.SCOPE_SESSION)).thenReturn(sessionUser);
-        when(parameter.getParameterAnnotation(LoginUser.class)).thenReturn(annotedLoginUser);
         User loginUser = (User) loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
         log.debug(loginUser.getEmail());
         assertThat(loginUser).isEqualTo(sessionUser);
