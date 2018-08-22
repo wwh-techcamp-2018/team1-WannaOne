@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentDto {
     private String content;
+
     public Comment toEntity(Note note) {
         return new Comment(this.content, note);
     }

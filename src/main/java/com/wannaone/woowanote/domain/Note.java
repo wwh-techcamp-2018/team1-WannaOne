@@ -24,19 +24,20 @@ public class Note extends AuditingDateEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String text;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "writer_id")
     private User writer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "note_book_id")
     @JsonBackReference
     private NoteBook noteBook;
 
     @OneToMany(mappedBy = "note")
-    //순환 참조 해결, 개발 채널에서 공유된 내용 참고
     @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
+
+    private boolean deleted = false;
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
@@ -60,6 +61,11 @@ public class Note extends AuditingDateEntity {
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
+        return this;
+    }
+
+    public Note delete() {
+        this.deleted = true;
         return this;
     }
 

@@ -2,6 +2,7 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.service.UserService;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Autowired
     private UserService userService;
+
     @Autowired
     private MessageSourceAccessor msa;
 
@@ -33,10 +35,10 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void userCreateFailTest() throws Exception {
         UserDto user = new UserDto("doy@woowahan.com");
-        ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users", user, ValidationErrorsResponse.class);
+        ResponseEntity<ErrorDetails> response = template().postForEntity("/api/users", user, ErrorDetails.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("email.duplicate.message"));
+        assertThat(response.getBody().getMessage()).isEqualTo(msa.getMessage("email.duplicate.message"));
     }
 
     @Test

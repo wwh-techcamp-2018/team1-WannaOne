@@ -17,8 +17,8 @@ public class NoteBookService {
     @Autowired
     private MessageSourceAccessor msa;
 
-    public List<NoteBook> getAllNoteBooks() {
-        return noteBookRepository.findAll();
+    public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
+        return noteBookRepository.findByOwnerId(ownerId);
     }
 
     public NoteBook save(NoteBook noteBook) {

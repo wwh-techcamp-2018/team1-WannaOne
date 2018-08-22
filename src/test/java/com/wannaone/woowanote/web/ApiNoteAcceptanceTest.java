@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.exception.RecordNotFoundException;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,5 +61,18 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
         assertThat(response.getBody().getText()).isEqualTo(updateNote.getText());
     }
 
-    //TODO : remove Note
+    @Test
+    public void delete() {
+        Note postNote = new Note("내가 삭제할 첫번째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
+        ResponseEntity<Note> postResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/1", postNote, Note.class);
+        Long noteId = postResponse.getBody().getId();
+
+        ResponseEntity<Void> deleteResponse = deleteForEntity("/api/notes/" + noteId, Void.class);
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<Void> errorResponse = basicAuthTemplate().getForEntity("/api/notes/" + noteId, Void.class);
+        assertThat(errorResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    //TODO 다른 사람의 노트 삭제시 에러
 }
