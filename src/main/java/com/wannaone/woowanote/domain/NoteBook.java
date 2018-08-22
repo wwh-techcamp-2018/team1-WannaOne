@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,6 @@ public class NoteBook implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
-    @JsonBackReference
     private User owner;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "noteBook")

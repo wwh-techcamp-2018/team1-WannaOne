@@ -39,7 +39,7 @@ public class User implements Serializable {
     private String photoUrl = "http://mblogthumb2.phinf.naver.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2";
 
     @OneToMany(mappedBy = "owner")
-    @JsonManagedReference
+    @JsonIgnore
     private List<NoteBook> noteBooks = new ArrayList<>();
 
     public User(Long id, String email, String password) {
