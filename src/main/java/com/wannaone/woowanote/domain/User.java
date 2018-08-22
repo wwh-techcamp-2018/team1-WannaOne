@@ -41,6 +41,12 @@ public class User implements Serializable {
     @JsonManagedReference
     private List<NoteBook> noteBooks = new ArrayList<>();
 
+    public User(Long id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String email, String password, String name) {
         this.email = email;
         this.password = password;

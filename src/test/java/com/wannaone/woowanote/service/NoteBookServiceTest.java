@@ -4,6 +4,7 @@ import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.NoteBookRepository;
+import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,9 +21,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class NoteBookServiceTest {
     @Mock
-    private UserService userService;
-
-    @Mock
     private NoteBookRepository noteBookRepository;
 
     @InjectMocks
@@ -30,12 +28,10 @@ public class NoteBookServiceTest {
 
     @Test
     public void getAllNoteBook_success() {
-        UserDto loginUserDto = new UserDto("doy@woowahan.com");
-        User loginUser = loginUserDto.toEntity();
-        when(userService.save(loginUserDto)).thenReturn(loginUser);
+        User loginUser = new User(1L, "doy@woowahan.com", "1234");
         NoteBook testNoteBook1 = new NoteBook("노트북1");
         NoteBook testNoteBook2 = new NoteBook("노트북2");
-        when(noteBookService.getNoteBooksByOwnerId(loginUser.getId())).thenReturn(Arrays.asList(testNoteBook1, testNoteBook2));
+        when(noteBookRepository.findByOwnerId(loginUser.getId())).thenReturn(Arrays.asList(testNoteBook1, testNoteBook2));
 
         List<NoteBook> noteList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteList).containsAll(Arrays.asList(testNoteBook1, testNoteBook2));
@@ -43,10 +39,8 @@ public class NoteBookServiceTest {
 
     @Test
     public void getAllNoteBook_success_when_list_empty() {
-        UserDto loginUserDto = new UserDto("doy@woowahan.com");
-        User loginUser = loginUserDto.toEntity();
-        when(userService.save(loginUserDto)).thenReturn(loginUser);
-        when(noteBookRepository.findAll()).thenReturn(new ArrayList<>());
+        User loginUser = new User(1L, "doy@woowahan.com", "1234");
+        when(noteBookRepository.findByOwnerId(loginUser.getId())).thenReturn(new ArrayList<>());
 
         List<NoteBook> noteBookList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteBookList).isEmpty();
