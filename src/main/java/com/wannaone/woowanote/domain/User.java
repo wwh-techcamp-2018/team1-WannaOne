@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 7342736640368461848L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

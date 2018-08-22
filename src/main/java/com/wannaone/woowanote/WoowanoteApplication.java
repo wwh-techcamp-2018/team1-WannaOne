@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 public class WoowanoteApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(WoowanoteApplication.class, args);
 	}
