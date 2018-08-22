@@ -2,6 +2,7 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
@@ -63,9 +64,10 @@ public class NoteServiceTest {
     @Test
     public void createNewNote() {
         NoteBook testNoteBook1 = new NoteBook("노트북1");
-        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?");
+        User writer = User.defaultUser();
+        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?", writer);
         when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
-        assertThat(noteService.save(3l, testNote)).isEqualTo(testNote);
+        assertThat(noteService.save(3l, testNote, writer)).isEqualTo(testNote);
     }
 
     @Test

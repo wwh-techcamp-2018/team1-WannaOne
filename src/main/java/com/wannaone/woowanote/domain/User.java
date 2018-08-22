@@ -41,7 +41,19 @@ public class User {
         this.name = name;
     }
 
+    public static User defaultUser() {
+        return new User("defaultUser", "password", "user");
+    }
+
     public boolean matchPassword(LoginDto loginDto, PasswordEncoder bCryptPasswordEncoder) {
         return bCryptPasswordEncoder.matches(loginDto.getPassword(), this.password);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

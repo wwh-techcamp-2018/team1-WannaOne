@@ -1,6 +1,8 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.security.HttpSessionUtils;
 import com.wannaone.woowanote.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.WebRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/notes")
@@ -29,8 +36,9 @@ public class ApiNoteController {
     }
 
     @PostMapping("/notebook/{noteBookId}")
-    public ResponseEntity<Note> create(@PathVariable Long noteBookId, @RequestBody Note note) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note));
+    public ResponseEntity<Note> create(@PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
+        User writer = (User) session.getAttribute(HttpSessionUtils.USER_SESSION_KEY);
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note, writer));
     }
 
     @PutMapping("/{id}")

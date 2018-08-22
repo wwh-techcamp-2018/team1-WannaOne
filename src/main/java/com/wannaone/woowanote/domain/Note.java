@@ -55,6 +55,13 @@ public class Note {
         this.updateDatetime = updateDatetime;
     }
 
+    public Note(Long id, String title, String text, User writer) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.writer = writer;
+    }
+
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;

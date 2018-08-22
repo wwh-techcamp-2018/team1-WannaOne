@@ -2,6 +2,7 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
@@ -33,10 +34,11 @@ public class NoteService {
     }
 
     @Transactional
-    public Note save(Long noteBookId, Note note) {
+    public Note save(Long noteBookId, Note note, User writer) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
         note.setNoteBook(noteBook);
+        note.setWriter(writer);
         noteRepository.save(note);
         //안 해도 노트와 연관관계가 설정되지만 객체지향 관점에서 명시적으로 표시하는게 좋은 듯.
         noteBook.addNote(note);
