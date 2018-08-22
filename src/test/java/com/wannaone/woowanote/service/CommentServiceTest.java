@@ -25,7 +25,7 @@ public class CommentServiceTest {
     private CommentService commentService;
 
     @Test
-    public void createTest() {
+    public void createTest() throws Exception {
         CommentDto commentDto = new CommentDto("test comment");
         Note note = new Note("title", "text");
         when(noteService.getNote(1L)).thenReturn(note);
