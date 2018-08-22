@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 public class NoteBook implements Serializable {
     private static final long serialVersionUID = 3747495447637624997L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

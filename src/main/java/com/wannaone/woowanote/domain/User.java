@@ -21,6 +21,7 @@ import java.util.List;
 @Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
