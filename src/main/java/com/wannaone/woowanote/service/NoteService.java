@@ -37,17 +37,17 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Note save(Long noteBookId, Note note, User writer) {
+    public Note save(Long noteBookId, User writer) {
         NoteBook noteBook = noteBookRepository.findById(noteBookId)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
-        note.setWriter(writer);
-        note.addNoteBook(noteBook);
-        noteRepository.save(note);
+        Note newNote = new Note(writer);
+        newNote.addNoteBook(noteBook);
+        noteRepository.save(newNote);
         //안 해도 노트와 연관관계가 설정되지만 객체지향 관점에서 명시적으로 표시하는게 좋은 듯.
-        noteBook.addNote(note);
-        log.debug("saving new note. noteBookId: {}, note.title: {},  writer.name: {}",
-                noteBookId, note.getTitle(), Optional.ofNullable(writer).orElse(User.defaultUser()).getEmail());
-        return note;
+        noteBook.addNote(newNote);
+        log.debug("saving new note. noteBookId: {}, writer.name: {}",
+                noteBookId, Optional.ofNullable(writer).orElse(User.defaultUser()).getEmail());
+        return newNote;
     }
 
     @Transactional

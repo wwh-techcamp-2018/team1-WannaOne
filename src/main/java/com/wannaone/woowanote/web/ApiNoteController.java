@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpSession;
 
 
 @RestController
@@ -40,8 +39,8 @@ public class ApiNoteController {
     }
 
     @PostMapping("/notebook/{noteBookId}")
-    public ResponseEntity<Note> create(@LoginUser User writer, @PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note, writer));
+    public ResponseEntity<Note> create(@LoginUser User writer, @PathVariable Long noteBookId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, writer));
     }
 
     @PutMapping("/{id}")
