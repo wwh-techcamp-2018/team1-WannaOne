@@ -24,11 +24,11 @@ public class Note extends AuditingDateEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String text;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "writer_id")
     private User writer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "note_book_id")
     @JsonBackReference
     private NoteBook noteBook;

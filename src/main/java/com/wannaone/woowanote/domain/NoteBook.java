@@ -24,11 +24,11 @@ public class NoteBook implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "noteBook")
+    @OneToMany(mappedBy = "noteBook")
     @JsonManagedReference
     private List<Note> notes = new ArrayList<>();
 
