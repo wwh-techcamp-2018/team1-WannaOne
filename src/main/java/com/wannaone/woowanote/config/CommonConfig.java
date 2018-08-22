@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * 공통적으로 사용할 PasswordEncoder, Jackson ObjectMapper 빈 선언을 위한 Config
+ */
 @Configuration
 public class CommonConfig {
     @Bean

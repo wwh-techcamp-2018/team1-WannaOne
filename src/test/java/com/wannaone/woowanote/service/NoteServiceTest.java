@@ -65,7 +65,7 @@ public class NoteServiceTest {
     public void createNewNote() {
         NoteBook testNoteBook1 = new NoteBook("노트북1");
         User writer = User.defaultUser();
-        Note testNote = new Note(1l,"새로운 노트", "잘 저장되고 있나요?", writer);
+        Note testNote = new Note("새로운 노트", "잘 저장되고 있나요?", writer);
         when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
         assertThat(noteService.save(3l, testNote, writer)).isEqualTo(testNote);
     }
@@ -76,7 +76,7 @@ public class NoteServiceTest {
         when(noteRepository.findById(1L)).thenReturn(Optional.of(originalNote));
         when(noteRepository.save(originalNote)).thenReturn(originalNote);
 
-        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?", new Date());
+        Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?");
 
         assertThat(noteService.updateNote(1L, updateNote)).isEqualTo(originalNote.update(updateNote));
         assertThat(originalNote.getTitle()).isEqualTo(updateNote.getTitle());

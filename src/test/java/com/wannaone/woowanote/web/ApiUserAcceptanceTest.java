@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.service.UserService;
