@@ -1,9 +1,8 @@
 package com.wannaone.woowanote.web;
 
-import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
+
 
 @RestController
 @RequestMapping("/api/notes")
@@ -42,9 +41,7 @@ public class ApiNoteController {
     }
 
     @PostMapping("/notebook/{noteBookId}")
-    public ResponseEntity<Note> create(@PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
-        User writer = SessionUtil.getUser(session)
-                .orElseThrow(() -> new UnAuthenticationException(msa.getMessage("unauthentication.not.logined")));
+    public ResponseEntity<Note> create(@LoginUser User writer, @PathVariable Long noteBookId, @RequestBody Note note, HttpSession session) {
         return ResponseEntity.status(HttpStatus.CREATED).body(noteService.save(noteBookId, note, writer));
     }
 
