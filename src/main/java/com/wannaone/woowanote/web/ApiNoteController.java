@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin2.message.Message;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/notes")
