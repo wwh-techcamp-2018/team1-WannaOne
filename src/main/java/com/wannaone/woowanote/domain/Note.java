@@ -51,9 +51,19 @@ public class Note extends AuditingDateEntity {
         this.text = text;
     }
 
+    public Note(String title, String text, User writer) {
+        this.title = title;
+        this.text = text;
+        this.writer = writer;
+    }
+
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
         return this;
+    }
+
+    public void setWriter(User writer) {
+        this.writer = writer;
     }
 }

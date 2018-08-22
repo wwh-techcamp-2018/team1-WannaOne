@@ -37,12 +37,7 @@ class Note {
     }
 
     noteSectionFormatter(data) {
-        return this.noteSectionTemplate(data, datetimeFormatter(data.registerDatetime));
-    }
-
-    noteSectionTemplate(data, registerDatetime) {
-        return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
-                <p id="note-section-meta">${registerDatetime}</p>`;
+        return getNoteSectionTemplate(data, datetimeFormatter(data.registerDatetime));
     }
 
     clearNoteSection() {
