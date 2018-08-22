@@ -30,8 +30,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
     @Test
     public void showAllNotes() {
         ResponseEntity<List<Note>> response =
-                getForEntityWithParameterized("/api/notes", null, new ParameterizedTypeReference<List<Note>>() {
-                });
+                getForEntityWithParameterized("/api/notes", null, new ParameterizedTypeReference<List<Note>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get(0).getTitle()).isEqualTo("첫번째 제목");
@@ -65,8 +64,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void delete() {
-        Note postNote = new Note("내가 삭제할 첫번째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
-        ResponseEntity<Note> postResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/1", postNote, Note.class);
+        ResponseEntity<Note> postResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/1", null, Note.class);
         Long noteId = postResponse.getBody().getId();
 
         ResponseEntity<Void> deleteResponse = deleteForEntity("/api/notes/" + noteId, Void.class);
