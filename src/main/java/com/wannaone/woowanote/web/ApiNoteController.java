@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.web;
 
-import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.security.LoginUser;
@@ -8,6 +7,7 @@ import com.wannaone.woowanote.service.NoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/notes")
@@ -26,6 +26,9 @@ public class ApiNoteController {
 
     @Autowired
     private NoteService noteService;
+
+    @Autowired
+    private MessageSourceAccessor msa;
 
     @GetMapping("/{id}")
     public Note show(@PathVariable Long id) {

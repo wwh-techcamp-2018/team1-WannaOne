@@ -9,14 +9,14 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class SessionUtil {
-    public static final String USER_SESSION_KEY = "sessionMember";
+    public static final String USER_SESSION_KEY = "sessionUser";
 
-    public static Optional<User> getMember(HttpSession session) {
+    public static Optional<User> getUser(HttpSession session) {
         User loginUser = (User) session.getAttribute(USER_SESSION_KEY);
         return Optional.ofNullable(loginUser);
     }
 
-    public static void setMember(HttpSession session, User user) {
+    public static void setUser(HttpSession session, User user) {
         session.setAttribute(USER_SESSION_KEY, user);
     }
 
@@ -24,8 +24,8 @@ public class SessionUtil {
         session.removeAttribute(USER_SESSION_KEY);
     }
 
-    public static boolean matchMember(HttpSession session, User user) {
-        User loginUser = getMember(session).orElseThrow(() -> new UnAuthenticationException("로그인이 필요합니다."));
+    public static boolean matchUser(HttpSession session, User user) {
+        User loginUser = getUser(session).orElseThrow(() -> new UnAuthenticationException("로그인이 필요합니다."));
         return loginUser.equals(user);
     }
 
