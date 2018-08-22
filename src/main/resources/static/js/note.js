@@ -1,7 +1,4 @@
-let note;
-
 class Note {
-
     constructor() {
         this.noteSection = $('#note-section');
         this.editor = $('.te-ww-container .tui-editor-contents')
@@ -107,7 +104,3 @@ class Note {
         console.log('노트 작성에 실패했습니다.');
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    note = new Note();
-})

@@ -10,6 +10,10 @@
     padding: 0;
 }
 
+.note-list li {
+    cursor: pointer;
+}
+
 p.note-list-title, p.note-list-snippet {
     /*margin: 20px;*/
 }
