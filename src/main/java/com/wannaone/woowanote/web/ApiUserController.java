@@ -30,7 +30,7 @@ public class ApiUserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginDto loginDto, HttpSession session) {
-        SessionUtil.setMember(session, userService.login(loginDto));
+        SessionUtil.setUser(session, userService.login(loginDto));
         return new ResponseEntity(HttpStatus.OK);
     }
 
