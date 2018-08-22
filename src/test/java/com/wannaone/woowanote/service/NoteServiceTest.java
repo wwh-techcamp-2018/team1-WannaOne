@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,7 +33,7 @@ public class NoteServiceTest {
     @Test
     public void getNote_success() {
         Note testNote = new Note("우아한 노트 너무 좋아요!", "이렇게 좋은 노트가 무료라니 믿기지 않아요.");
-        when(noteRepository.findById(1L)).thenReturn(Optional.of(testNote));
+        when(noteRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.of(testNote));
 
         Note note = noteService.getNote(1L);
         assertThat(note).isEqualTo(testNote);
@@ -40,7 +41,7 @@ public class NoteServiceTest {
 
     @Test(expected = RecordNotFoundException.class)
     public void getNote_fail_when_not_found() {
-        when(noteRepository.findById(1L)).thenThrow(new RecordNotFoundException());
+        when(noteRepository.findByIdAndDeletedIsFalse(1L)).thenThrow(new RecordNotFoundException());
         noteService.getNote(1L);
     }
 
@@ -73,8 +74,7 @@ public class NoteServiceTest {
     @Test
     public void updateNote() {
         Note originalNote = new Note("새로운 노트", "잘 저장되고 있나요?");
-        when(noteRepository.findById(1L)).thenReturn(Optional.of(originalNote));
-        when(noteRepository.save(originalNote)).thenReturn(originalNote);
+        when(noteRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.of(originalNote));
 
         Note updateNote = new Note("수정된 노트", "잘 수정되고 있나요?");
 
@@ -83,4 +83,14 @@ public class NoteServiceTest {
         assertThat(originalNote.getText()).isEqualTo(updateNote.getText());
         assertThat(originalNote.getUpdateDatetime()).isEqualTo(updateNote.getUpdateDatetime());
     }
+
+    @Test
+    public void deleteNote() {
+        Note originalNote = new Note("삭제할 노트", "잘 삭제될거죠?");
+        when(noteRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.of(originalNote));
+        Note deletedNote = noteService.deleteNote(1L);
+        assertThat(deletedNote.isDeleted()).isTrue();
+    }
+
+    //TODO 삭제된건 제외하고 들고오게 하기
 }
