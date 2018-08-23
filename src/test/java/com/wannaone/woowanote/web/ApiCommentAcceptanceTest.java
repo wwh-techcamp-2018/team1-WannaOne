@@ -27,7 +27,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
         ResponseEntity<Note> createNoteResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/" + noteBookId, null, Note.class);
         Long noteId = createNoteResponse.getBody().getId();
         assertThat(createNoteResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(createNoteResponse.getBody().getTitle()).isEqualTo("제목 없음");
+        assertThat(createNoteResponse.getBody().getTitle()).isEqualTo("나의 우아한 노트");
         assertThat(noteId).isNotNull();
 
         String commentContent = "댓글 내용";
