@@ -18,7 +18,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     public void createComment() throws Exception {
         String noteBookName = "내가 쓴 첫번 째 노트북";
         NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> createNoteBookResponse = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBook, NoteBook.class);
         Long noteBookId = createNoteBookResponse.getBody().getId();
         assertThat(createNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(createNoteBookResponse.getBody().getTitle()).isEqualTo(noteBookName);

@@ -33,6 +33,10 @@ public class NoteBook implements Serializable {
     @OrderBy("updateDatetime DESC")
     private List<Note> notes = new ArrayList<>();
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public NoteBook(String title) {
         this.title = title;
     }
