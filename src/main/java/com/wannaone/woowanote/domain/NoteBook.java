@@ -30,6 +30,7 @@ public class NoteBook implements Serializable {
 
     @OneToMany(mappedBy = "noteBook")
     @JsonManagedReference
+    @OrderBy("updateDatetime DESC")
     private List<Note> notes = new ArrayList<>();
 
     public NoteBook(String title) {

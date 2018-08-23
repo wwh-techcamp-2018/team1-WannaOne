@@ -15,7 +15,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -64,11 +63,11 @@ public class NoteServiceTest {
 
     @Test
     public void createNewNote() {
-        NoteBook testNoteBook1 = new NoteBook("노트북1");
+        NoteBook testNoteBook = new NoteBook("노트북1");
         User writer = User.defaultUser();
-        Note testNote = new Note("새로운 노트", "잘 저장되고 있나요?", writer);
-        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook1));
-        assertThat(noteService.save(3l, testNote, writer)).isEqualTo(testNote);
+        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook));
+        assertThat(noteService.save(3l, writer).getTitle()).isEqualTo("제목 없음");
+        assertThat(noteService.save(3l, writer).getText()).isEmpty();
     }
 
     @Test

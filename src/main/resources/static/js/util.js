@@ -14,7 +14,8 @@ function fetchManager({ url, method, body, headers, onSuccess, onFailure}) {
         credentials: "same-origin"
     }).then((response) => {
         if(response.ok) {
-            response.json().then((result) => onSuccess(result)).catch(() => onSuccess());
+            response.json().then((result) => onSuccess(result))
+                .catch(() => onSuccess());
         } else {
             onFailure(response);
         }
@@ -41,6 +42,7 @@ function dateFormatter(datetimeString) {
     return `${data.month}월 ${data.date}일`;
 }
 
-function getIndex(element) {
-    return Array.prototype.indexOf.call(element.parentElement.children, element);
+
+function getIndex(parentChildren, target) {
+    return Array.prototype.indexOf.call(parentChildren, target);
 }

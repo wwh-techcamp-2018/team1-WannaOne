@@ -32,4 +32,9 @@ public class ApiNoteBookController {
     public ResponseEntity create(@RequestBody NoteBook noteBook) {
         return new ResponseEntity(noteBookService.save(noteBook), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{noteBookId}")
+    public ResponseEntity getNoteBook(@PathVariable Long noteBookId) {
+        return new ResponseEntity(noteBookService.getNoteBookByNoteBookId(noteBookId), HttpStatus.OK);
+    }
 }
