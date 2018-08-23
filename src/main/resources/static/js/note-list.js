@@ -71,6 +71,11 @@ class NoteList {
 
     // 새 노트 저장
     createNewNote(noteBookId, successCallBack, failCallBack) {
+        if(!noteBookId) {
+            console.log('노트북이 선택되지 않았습니다.');
+            return;
+        }
+
         fetchManager({
             url: `/api/notes/notebook/${noteBookId}`,
             method: 'POST',

@@ -3,12 +3,12 @@ class MainApp {
         this.noteBookListEl = $('.notebook-list');
         this.noteListEl = $('.note-list');
         this.addNoteBtn = $('#add-note-btn');
-        this.noteSaveButton = $('#note-save-button');
+        this.noteSaveBtn = $('#note-save-button');
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
-        this.fetchNoteBookList();
+        this.initMainPage();
         this.initEventListener();
     }
 
@@ -19,55 +19,49 @@ class MainApp {
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
-        this.noteSaveButton.addEventListener('click', this.updateNoteEventHandler.bind(this));
-
+        this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
     }
 
     /**
-     * 제일 처음 노트북 로드하는 메소드
+     * 제일 처음 노트북 로드하고 메인 페이지를 렌더링하는 메소드
      */
-    fetchNoteBookList() {
-        const onSuccessCallBack = (notebooks) => {
-            this.noteBook.initNoteBooks(notebooks);
+    initMainPage() {
+        const successCallback = (notebooks) => {
+            if (!notebooks.length) {
+                console.log('노트북이 존재하지 않습니다.');
+                return;
+            }
+            this.noteBook.renderNotebooks(notebooks);
             this.noteBook.setTitle();
             this.noteList.renderNoteList(this.noteBook.getNotes());
             this.noteList.focusNoteItem(0);
             this.note.renderNoteContent(this.noteList.getNote());
         };
-        const onFailCallBack = () => {
-            console.log("노트북 리스트를 받아오는데 실패했습니다.");
+        const failCallback = () => {
+            console.log("최초의 노트북 리스트를 받아오는데 실패했습니다.");
         };
 
-        this.noteBook.initNoteBook(onSuccessCallBack.bind(this), onFailCallBack);
+        this.noteBook.initNotebookList(successCallback.bind(this), failCallback);
     }
 
     createNewNoteEventHandler() {
-        const onSuccessCallback = () => {
-            this.fetchNoteList(this.noteBook.getNoteBookId());
+        const successCallback = () => {
+            this.renewNoteList(this.noteBook.getNoteBookId());
         };
-        const onFailureCallback = () => { console.log('새로운 노트 생성에 실패했습니다..') };
-        this.noteList.createNewNote(this.noteBook.getNoteBookId(), onSuccessCallback, onFailureCallback);
+        const failCallback = () => {
+            console.log('새로운 노트 생성에 실패했습니다..');
+        };
+        this.noteList.createNewNote(this.noteBook.getNoteBookId(), successCallback, failCallback);
     }
 
     updateNoteEventHandler() {
-        const onSuccessCallback = () => {
-            this.fetchNoteList(this.noteBook.getNoteBookId());
+        const successCallback = () => {
+            this.renewNoteList(this.noteBook.getNoteBookId());
         };
-        const onFailureCallback = () => { console.log('노트 업데이트에 실패했습니다.') };
-        this.note.updateNote(onSuccessCallback, onFailureCallback);
-    }
-
-
-    fetchNoteList(noteBookId) {
-        const onSuccessCallback = (notebook) => {
-            this.noteList.renderNoteList(notebook.notes);
-            this.noteList.focusNoteItem(0);
-            this.note.renderNoteContent(this.noteList.getNote());
+        const failCallback = () => {
+            console.log('노트 업데이트에 실패했습니다.');
         };
-        const onFailureCallback = () => {
-            console.log("노트북 정보를 가져오는데 실패했습니다.");
-        };
-        this.noteList.fetchNoteList(noteBookId, onSuccessCallback.bind(this), onFailureCallback);
+        this.note.updateNote(successCallback, failCallback);
     }
 
     /**
@@ -79,7 +73,7 @@ class MainApp {
         const targetNotebook = e.target.closest('li');
         this.noteBook.focusNoteBook(targetNotebook);
         this.noteBook.setTitle();
-        this.fetchNoteList(this.noteBook.getNoteBookId());
+        this.renewNoteList(this.noteBook.getNoteBookId());
     }
 
     /**
@@ -95,6 +89,19 @@ class MainApp {
             this.note.renderNoteContent(this.noteList.getNote());
         }
     }
+
+    renewNoteList(noteBookId) {
+        const successCallback = (notebook) => {
+            this.noteList.renderNoteList(notebook.notes);
+            this.noteList.focusNoteItem(0);
+            this.note.renderNoteContent(this.noteList.getNote());
+        };
+        const failCallback = () => {
+            console.log("노트북 정보를 가져오는데 실패했습니다.");
+        };
+        this.noteList.fetchNoteList(noteBookId, successCallback.bind(this), failCallback);
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
