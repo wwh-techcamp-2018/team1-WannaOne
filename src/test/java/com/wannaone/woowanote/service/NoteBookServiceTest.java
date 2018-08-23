@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -42,5 +43,14 @@ public class NoteBookServiceTest {
 
         List<NoteBook> noteBookList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteBookList).isEmpty();
+    }
+
+    @Test
+    public void getNoteBookByNoteBookId() {
+        NoteBook testNoteBook = new NoteBook("노트북1");
+        when(noteBookRepository.findById(1L)).thenReturn(Optional.of(testNoteBook));
+
+        NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(1L);
+        assertThat(noteBook).isEqualTo(testNoteBook);
     }
 }

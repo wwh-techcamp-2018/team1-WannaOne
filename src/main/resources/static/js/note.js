@@ -1,97 +1,53 @@
 class Note {
     constructor() {
         this.noteSection = $('#note-section');
-        this.editor = $('.te-ww-container .tui-editor-contents')
-        this.noteListSection = $('.note-list');
-        this.noteSaveButton = $('#note-save-button');
-        this.noteDeleteButton = $('#note-delete-button');
-        this.initNote();
-        this.initButton();
-    }
-
-    initNote() {
-        this.getNote(1);
-    }
-
-    getNote(noteId) {
-        fetchManager({
-            url: `/api/notes/${noteId}`,
-            method: 'GET',
-            onSuccess: this.getNoteSuccessCallback.bind(this),
-            onFailure: this.getNoteFailHandler
-        })
-    }
-
-    getNoteSuccessCallback(note) {
-        this.clearNoteSection();
-        this.renderNote(note);
-    }
-
-    renderNote(note) {
-        this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(note));
-        this.editor.innerHTML = note.text;
-        this.noteId = note.id;
-    }
-
-    noteSectionFormatter(note) {
-        return getNoteSectionTemplate(note, datetimeFormatter(note.registerDatetime));
+        this.editorEl = $('.te-ww-container .tui-editor-contents');
+        this.noteSection = $('#note-section');
     }
 
     clearNoteSection() {
         this.noteSection.innerHTML = '';
     }
 
-    getNoteFailHandler() {
-        console.log('노트 조회에 실패했습니다.');
-    }
-
-    initButton() {
-        this.noteSaveButton.addEventListener("click", () => this.updateHandler());
-        this.noteDeleteButton.addEventListener("click", () => this.deleteHandler());
-    }
-
-    // 노트 수정
-    updateHandler() {
-        const title = $("#note-section-note-title").value;
-        const text = this.editor.innerHTML;
+    updateNote(onSuccess, onFailure) {
         fetchManager({
-                    url: `/api/notes/${this.noteId}`,
-                    method: 'PUT',
-                    headers: {'content-type': 'application/json'},
-                    body: JSON.stringify(
-                        {
-                            title: title,
-                            text: text
-                        }),
-                    onSuccess: this.noteUpdateSuccessCallback.bind(this),
-                    onFailure: this.noteUpdateFailHandler
-                })
+            url: `/api/notes/${this.getNoteId()}`,
+            method: 'PUT',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(
+                {
+                    title: this.getNoteTitle(),
+                    text: this.getNoteText()
+                }),
+            onSuccess: onSuccess,
+            onFailure: onFailure
+        });
     }
 
-    noteUpdateSuccessCallback(note) {
-        noteList.updateNoteItem(note);
+    renderNoteContent(data) {
+        if(!data) {
+            //TODO 선택될 노트가 없는 경우. 예외처리!!
+            return;
+        }
+        this.clearNoteSection();
+        this.renderNote(data);
     }
 
-    noteUpdateFailHandler() {
-        console.log('노트 수정에 실패했습니다.');
+    renderNote(note) {
+        this.note = note;
+        this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
+        this.editorEl.innerHTML = note.text;
     }
 
-    deleteHandler() {
-        fetchManager({
-            url: `/api/notes/${this.noteId}`,
-            method: 'DELETE',
-            onSuccess: this.noteDeleteSuccessCallback.bind(this),
-            onFailure: this.noteDeleteFailHandler
-        })
+    getNoteTitle() {
+        return this.noteSection.firstElementChild.value;
     }
 
-    noteDeleteSuccessCallback() {
-        //TODO 1) 노트 리스트에 노트가 남아있다면 삭제한 노트의 다음 노트 선택
-        //TODO 2) 노트가 남아있지 않다면 빈화면
-        console.log('노트 삭제 성공');
+    getNoteText() {
+        return this.editorEl.innerHTML;
     }
 
-    noteDeleteFailHandler() {
-        console.log('노트 삭제 실패');
+    getNoteId() {
+        return this.note.id;
     }
 }
