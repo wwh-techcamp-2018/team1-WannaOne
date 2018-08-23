@@ -1,7 +1,9 @@
 class NoteList {
     constructor() {
         this.noteListSection = $('.note-list');
+        this.addNoteBtn = $('#add-note-btn');
         this.initNoteList();
+        this.initButton();
     }
 
     initNoteList() {
@@ -19,14 +21,14 @@ class NoteList {
         }
     }
 
-    renderNoteList(data) {
+    renderNoteList(note) {
         this.clearNoteListSection();
-        data.forEach((note) => this.renderNoteItem(note));
+        note.forEach((note) => this.renderNoteItem(note));
         this.focusFirstNoteItem();
     }
 
     renderNoteItem(note) {
-        this.noteListSection.insertAdjacentHTML('beforeend', this.noteItemFormatter(note));
+        this.noteListSection.insertAdjacentHTML('afterbegin', this.noteItemFormatter(note));
     }
 
     noteItemFormatter(note) {
@@ -56,5 +58,29 @@ class NoteList {
         } else {
             //TODO: 빈 화면 처리 나중에 해주어야 함.
         }
+    }
+
+    initButton() {
+        this.addNoteBtn.addEventListener("click", () => this.saveHandler());
+    }
+
+    // 새 노트 저장
+    saveHandler() {
+        const noteBookId = $('.notebook-focus').dataset.notebookId;
+        fetchManager({
+                    url: `/api/notes/notebook/${noteBookId}`,
+                    method: 'POST',
+                    headers: {'content-type': 'application/json'},
+                    onSuccess: this.addNoteSuccessCallback.bind(this),
+                    onFailure: this.addNoteFailHandler
+                })
+    }
+
+    addNoteSuccessCallback(note){
+        this.renderNoteItem(note);
+    }
+
+    addNoteFailHandler() {
+        console.log('노트 작성에 실패했습니다.');
     }
 }

@@ -1,0 +1,63 @@
+.side-bar-left {
+    background: #233A40;
+    font-size: 20px;
+    color: white;
+    padding: 0px 17px;
+}
+
+.notebook-list {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    line-height: 2;
+    font-size: 15px;
+}
+
+.notebook-list li {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.notebook-focus {
+    background-color : lightgray;
+}
+
+.notebook-title {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+#add-notebook-input-btn {
+    width: 20px;
+    height: 20px;
+    margin-left: 80px;
+    cursor: pointer;
+}
+
+.notebook-input-wrapper {
+    display: none;
+}
+
+#notebook-title-input {
+    margin-left: 0px;
+    padding-left: 0px;
+    width: 100px;
+    height: 17px;
+}
+
+#remove-notebook-input-btn {
+    width: 18px;
+    height: 18px;
+    margin-left: 25px;
+    align: center;
+    cursor: pointer;
+}

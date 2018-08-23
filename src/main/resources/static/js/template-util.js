@@ -1,5 +1,5 @@
-function getNoteSectionTemplate(data, registerDatetime) {
-    return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
+function getNoteSectionTemplate(note, registerDatetime) {
+    return `<input id="note-section-note-title" data-note-id=${note.id} value="${note.title}"></input>
                 <p id="note-section-meta">${registerDatetime}</p>`;
 }
 

@@ -1,5 +1,6 @@
 let noteBookList;
 let noteList;
+let note;
 
 class NoteBookList {
     constructor() {
@@ -24,6 +25,7 @@ class NoteBookList {
             onFailure: this.getNoteBookFailCallback
         });
     }
+
     changeNoteBookEventHandler(e){
         const targetNotebook = e.target.closest('li');
         this.focusNoteBook(targetNotebook);
@@ -33,13 +35,13 @@ class NoteBookList {
 
     getNoteBookSuccessCallback(notebookList) {
         this.noteBookList = notebookList;
-        console.log(this.noteBookList);
         notebookList.forEach((notebook) => {
             this.renderNoteBook(notebook);
         });
 
         this.noteBookListEl.firstElementChild.classList.add('notebook-focus');
         noteList = new NoteList();
+        note = new Note();
     }
 
     focusNoteBook(noteBookEl) {
@@ -57,6 +59,7 @@ class NoteBookList {
 
     getNoteBookFailCallback() {
         console.log("노트북 받아오기 실패")
+        document.location.href = '/login.html';
     }
 
     // 노트북 추가

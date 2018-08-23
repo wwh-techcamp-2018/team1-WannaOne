@@ -1,0 +1,101 @@
+.side-bar-middle {
+    background: #F2EFEB;
+    display: grid;
+    grid-template-rows: 90px auto;
+    /* border: #d9d7d3 solid 0.5px; */
+}
+
+.note-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.note-list li {
+    cursor: pointer;
+}
+
+p.note-list-title, p.note-list-snippet {
+    /*margin: 20px;*/
+}
+
+.note-item {
+    position: relative;
+    border: #04BFBF solid 0.7px;
+    background-color: white;
+    width: 180px;
+    height: 150px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 20px;
+    margin: 14px 0px;
+}
+
+.note-item.note-item-focus {
+    border: #e57085 solid 0.7px;
+}
+
+.note-list-title {
+    width: 140px;
+    position: absolute;
+    top: 16px;
+    font-size: 17px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.note-list-snippet {
+    width: 140px;
+    position: absolute;
+    top: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    font-size: 11px;
+    text-align: justify;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: gray;
+}
+
+.note-list-snippet > span {
+    color: #04BFBF;
+}
+
+.side-bar-middle-header {
+  box-sizing: border-box;
+  background-color: white;
+  border: #c1bfbc solid 0.5px;
+  padding: 16px 15px;
+}
+
+.side-bar-middle-notebook-title {
+  font-size: 21px;
+  text-align: left;
+}
+
+.side-bar-middle-notebook-meta {
+  font-size: 12px;
+  color: gray;
+  text-align: left;
+  margin-top: 12px;
+
+}
+
+.side-bar-middle-body {
+  height: 600px;
+  padding: 0px 19px;
+  border-left: #c1bfbc solid 0.5px;
+  border-right: #c1bfbc solid 0.5px;
+  overflow: scroll;
+}
+
+#add-note-btn {
+    width: 20px;
+    height: 20px;
+    margin-left: 80px;
+    cursor: pointer;
+}

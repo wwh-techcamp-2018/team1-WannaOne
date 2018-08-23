@@ -32,3 +32,37 @@ before_install:
 - mysql -e 'CREATE DATABASE IF NOT EXISTS woowanote CHARACTER SET utf8 COLLATE utf8_general_ci;'
 - mysql -e "CREATE USER 'team1'@'%' IDENTIFIED BY 'team1';"
 - mysql -e "GRANT ALL PRIVILEGES ON woowanote.* TO 'team1'@'%'; FLUSH PRIVILEGES;";
+
+before_deploy:
+  - zip -r team1-WannaOne *
+  - mkdir -p deploy
+  - mv team1-WannaOne.zip deploy/woowanote.zip
+
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_DEPLOY_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_DEPLOY_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: woowanote-deploy # S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    local_dir: deploy
+    wait-until-deployed: true
+    on:
+      repo: wwh-techcamp-2018/team1-WannaOne #Github 주소
+      branch: develop
+
+  - provider: codedeploy
+    access_key_id: $AWS_DEPLOY_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_DEPLOY_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: woowanote-deploy # S3 버킷
+    key: woowanote.zip # 빌드 파일을 압축해서 전달
+    bundle_type: zip
+    application: woowanote # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+    deployment_group: woowanote-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      repo: wwh-techcamp-2018/team1-WannaOne
+      branch: develop

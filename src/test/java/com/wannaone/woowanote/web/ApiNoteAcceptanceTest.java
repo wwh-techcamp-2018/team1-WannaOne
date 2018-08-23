@@ -1,6 +1,8 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.exception.RecordNotFoundException;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +30,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
     @Test
     public void showAllNotes() {
         ResponseEntity<List<Note>> response =
-                getForEntityWithParameterized("/api/notes", null, new ParameterizedTypeReference<List<Note>>() {
-                });
+                getForEntityWithParameterized("/api/notes", null, new ParameterizedTypeReference<List<Note>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get(0).getTitle()).isEqualTo("첫번째 제목");
@@ -40,13 +41,14 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void create_with_loginUser() {
-        //note 의 id 를 받아오도록
-        Note postNote = new Note("내가 쓴 첫번 째 노트", "우아노트는 21세기 현대인을 위한 최고의 노트입니다.");
-        ResponseEntity<Note> response = basicAuthTemplate().postForEntity("/api/notes/notebook/1", postNote, Note.class);
+        User loginUser = defaultUser();
+        ResponseEntity<Note> response = basicAuthTemplate(loginUser).postForEntity("/api/notes/notebook/1", null, Note.class);
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody().getTitle()).isEqualTo("내가 쓴 첫번 째 노트");
         assertThat(response.getBody().getId()).isNotNull();
-        assertThat(response.getBody().getWriter().getEmail()).isNotNull();
+        assertThat(response.getBody().getTitle()).isEqualTo("제목 없음");
+        assertThat(response.getBody().getWriter().getEmail()).isEqualTo(loginUser.getEmail());
+        assertThat(response.getBody().getText()).isEmpty();
         log.info("note info, {}", response.getBody());
     }
 
@@ -60,5 +62,17 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
         assertThat(response.getBody().getText()).isEqualTo(updateNote.getText());
     }
 
-    //TODO : remove Note
+    @Test
+    public void delete() {
+        ResponseEntity<Note> postResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/1", null, Note.class);
+        Long noteId = postResponse.getBody().getId();
+
+        ResponseEntity<Void> deleteResponse = deleteForEntity("/api/notes/" + noteId, Void.class);
+        assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<Void> errorResponse = basicAuthTemplate().getForEntity("/api/notes/" + noteId, Void.class);
+        assertThat(errorResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    //TODO 다른 사람의 노트 삭제시 에러
 }

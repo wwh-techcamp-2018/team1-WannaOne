@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class ApiCommentController {
     @Autowired
     private CommentService commentService;
+
     @PostMapping
     public ResponseEntity post(@PathVariable Long noteId, @RequestBody CommentDto commentDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDto, noteId));
