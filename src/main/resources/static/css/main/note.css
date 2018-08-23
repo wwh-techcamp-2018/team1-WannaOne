@@ -5,11 +5,11 @@
 }
 
 #editSection {
-    width: 850px;
+    width: 100%;
 }
 
 .note-save-delete {
-    left: 750px;
+    left: 85%;
     position: relative;
     margin: 10px;
 }
