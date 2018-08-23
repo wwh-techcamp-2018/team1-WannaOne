@@ -6,6 +6,8 @@ import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,14 +39,15 @@ public class Note extends AuditingDateEntity {
     @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 
-    private boolean deleted = false;
+    @ColumnDefault(value = "false")
+    private boolean deleted;
 
     public Note(String title, String text) {
         this(title, text, null);
     }
 
     public Note(User writer) {
-        this("제목 없음", "", writer);
+        this("나의 우아한 노트", "", writer);
     }
 
     public Note(String title, String text, User writer) {

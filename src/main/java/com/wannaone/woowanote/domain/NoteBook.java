@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +32,12 @@ public class NoteBook implements Serializable {
     @OneToMany(mappedBy = "noteBook")
     @JsonManagedReference
     @OrderBy("updateDatetime DESC")
+    @Where(clause = "deleted = false")
     private List<Note> notes = new ArrayList<>();
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public NoteBook(String title) {
         this.title = title;
