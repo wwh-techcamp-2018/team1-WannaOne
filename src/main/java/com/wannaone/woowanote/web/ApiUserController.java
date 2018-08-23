@@ -32,6 +32,13 @@ public class ApiUserController {
     public ResponseEntity login(@RequestBody @Valid LoginDto loginDto, HttpSession session) {
         SessionUtil.setUser(session, userService.login(loginDto));
         return new ResponseEntity(HttpStatus.OK);
+
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity logout(HttpSession session) {
+        SessionUtil.logout(session);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
