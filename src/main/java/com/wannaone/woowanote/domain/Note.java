@@ -39,23 +39,26 @@ public class Note extends AuditingDateEntity {
 
     private boolean deleted = false;
 
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
-    }
-
-    public void addNoteBook(NoteBook noteBook) {
-        this.noteBook = noteBook;
-    }
-
     public Note(String title, String text) {
-        this.title = title;
-        this.text = text;
+        this(title, text, null);
+    }
+
+    public Note(User writer) {
+        this("제목 없음", "", writer);
     }
 
     public Note(String title, String text, User writer) {
         this.title = title;
         this.text = text;
         this.writer = writer;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    public void addNoteBook(NoteBook noteBook) {
+        this.noteBook = noteBook;
     }
 
     public Note update(Note note) {
