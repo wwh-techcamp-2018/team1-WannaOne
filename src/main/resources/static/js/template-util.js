@@ -1,6 +1,6 @@
-function getNoteSectionTemplate(data) {
-    return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
-                <p id="note-section-meta">${data.registerDatetime}</p>`;
+function getNoteSectionTemplate(note) {
+    return `<input id="note-section-note-title" data-note-id=${note.id} value="${note.title}"></input>
+                <p id="note-section-meta">${note.registerDatetime}</p>`;
 }
 
 function getNoteBookListTemplate(notebook) {
