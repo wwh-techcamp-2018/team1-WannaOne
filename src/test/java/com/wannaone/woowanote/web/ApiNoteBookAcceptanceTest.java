@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.web;
 
+import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import org.junit.Test;
@@ -60,5 +61,16 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
         assertThat(noteBookDetailResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(noteBookDetailResponse.getBody().getTitle()).isEqualTo(noteBookName);
+    }
+
+    @Test
+    public void getNoteBookWithoutDeletedNote() {
+        ResponseEntity<Note> createNoteResponse = basicAuthTemplate().postForEntity("/api/notes/notebook/1", null, Note.class);
+        Note testNote = createNoteResponse.getBody();
+        Long testNoteId = createNoteResponse.getBody().getId();
+        deleteForEntity("/api/notes/" + testNoteId, Void.class);
+
+        ResponseEntity<NoteBook> response = template().getForEntity("/api/notebooks/1", NoteBook.class);
+        assertThat(response.getBody().getNotes()).doesNotContain(testNote.delete());
     }
 }
