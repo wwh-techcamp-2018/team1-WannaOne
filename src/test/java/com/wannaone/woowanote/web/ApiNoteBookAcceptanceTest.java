@@ -30,7 +30,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     public void showAllNoteBooks_when_no_login() {
         ResponseEntity<ErrorDetails> response = getForEntity("/api/notebooks", null, ErrorDetails.class);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         assertThat(response.getBody().getMessage()).isEqualTo(msa.getMessage("unauthentication.not.logined"));
     }
 
