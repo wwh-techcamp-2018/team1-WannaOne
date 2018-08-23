@@ -5,7 +5,6 @@ import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class ApiNoteBookController {
     @Autowired
     private NoteBookService noteBookService;
-
-    @Autowired
-    private MessageSourceAccessor msa;
 
     @GetMapping
     public ResponseEntity showAll(@LoginUser User loginUser) {
