@@ -1,4 +1,5 @@
 html,body{
+    overflow-x: hidden;
     height:100%;
     margin:0;
     padding:0;
@@ -24,7 +25,7 @@ button {
 
 
 #logo {
-    position: absolute;
+    position: relative;
     left: 50px;
     padding-top: 3px;
     padding-bottom: 0px;
