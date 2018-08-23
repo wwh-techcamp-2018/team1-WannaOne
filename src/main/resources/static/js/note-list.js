@@ -52,22 +52,6 @@ class NoteList {
         return $('.note-item-focus') !== liElement.firstElementChild;
     }
 
-    updateCurrentNoteData(updatedNote) {
-        this.notes[this.currentNoteIndex] = updatedNote;
-    }
-
-    updateCurrentNoteItem() {
-        this.removeCurrentNoteItem();
-        this.appendNewNoteItem(this.notes[this.currentNoteIndex])
-    }
-
-    removeCurrentNoteItem() {
-        this.noteListEl.removeChild(this.noteListEl.children[this.currentNoteIndex]);
-    }
-
-    appendNewNoteItem(note) {
-        this.noteListEl.insertAdjacentHTML('afterbegin', getNoteItemTemplate(note));
-    }
 
     // 새 노트 저장
     createNewNote(noteBookId, successCallBack, failCallBack) {

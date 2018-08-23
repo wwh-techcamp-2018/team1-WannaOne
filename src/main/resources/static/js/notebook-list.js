@@ -35,6 +35,7 @@ class NotebookList {
 
         this.notebookListEl.firstElementChild.classList.add('notebook-focus');
     }
+    
     getNotes() {
         if(!this.noteBooks) {
             //TODO 삭제해서 0이 되는 경우도 체크해야함. 아래 메소드도.
