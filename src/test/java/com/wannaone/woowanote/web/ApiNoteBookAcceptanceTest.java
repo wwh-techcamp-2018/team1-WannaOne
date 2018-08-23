@@ -3,6 +3,7 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.exception.ErrorDetails;
+import com.wannaone.woowanote.support.ErrorMessage;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -32,14 +33,14 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         ResponseEntity<ErrorDetails> response = getForEntity("/api/notebooks", null, ErrorDetails.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getMessage()).isEqualTo(msa.getMessage("unauthentication.not.logined"));
+        assertThat(response.getBody().getMessage()).isEqualTo(ErrorMessage.REQUIRE_LOGIN.getMessageKey());
     }
 
     @Test
     public void createNoteBookTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
         NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> response = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBook, NoteBook.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
@@ -50,7 +51,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     public void getNoteBookByNoteBookId() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
         NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> response = template().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBook, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
         assertThat(response.getBody().getId()).isNotNull();

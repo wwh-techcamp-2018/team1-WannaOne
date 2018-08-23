@@ -42,7 +42,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
     @Test
     public void create_with_loginUser() {
         User loginUser = defaultUser();
-        ResponseEntity<Note> response = basicAuthTemplate(loginUser).postForEntity("/api/notes/notebook/1", null, Note.class);
+        ResponseEntity<Note> response = basicAuthTemplate().postForEntity("/api/notes/notebook/1", null, Note.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getId()).isNotNull();
