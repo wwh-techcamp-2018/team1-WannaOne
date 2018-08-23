@@ -46,7 +46,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getId()).isNotNull();
-        assertThat(response.getBody().getTitle()).isEqualTo("제목 없음");
+        assertThat(response.getBody().getTitle()).isEqualTo("나의 우아한 노트");
         assertThat(response.getBody().getWriter().getEmail()).isEqualTo(loginUser.getEmail());
         assertThat(response.getBody().getText()).isEmpty();
         log.info("note info, {}", response.getBody());
