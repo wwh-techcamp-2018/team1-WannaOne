@@ -4,6 +4,7 @@ class MainApp {
         this.noteListEl = $('.note-list');
         this.addNoteBtn = $('#add-note-btn');
         this.noteSaveBtn = $('#note-save-button');
+        this.noteDeleteBtn = $('#note-delete-button');
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
@@ -20,6 +21,7 @@ class MainApp {
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
+        this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
     }
 
     /**
@@ -62,6 +64,16 @@ class MainApp {
             console.log('노트 업데이트에 실패했습니다.');
         };
         this.note.updateNote(successCallback, failCallback);
+    }
+
+    deleteNoteEventHandler() {
+        const successCallback = () => {
+            this.renewNoteList(this.noteBook.getNoteBookId());
+        };
+        const failCallback = () => {
+            console.log('노트 업데이트에 실패했습니다.');
+        };
+        this.note.deleteNote(successCallback, failCallback);
     }
 
     /**

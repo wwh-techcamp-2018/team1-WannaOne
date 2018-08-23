@@ -9,7 +9,7 @@ class Note {
         this.noteSection.innerHTML = '';
     }
 
-    updateNote(onSuccess, onFailure) {
+    updateNote(successCallback, failCallback) {
         fetchManager({
             url: `/api/notes/${this.getNoteId()}`,
             method: 'PUT',
@@ -19,8 +19,17 @@ class Note {
                     title: this.getNoteTitle(),
                     text: this.getNoteText()
                 }),
-            onSuccess: onSuccess,
-            onFailure: onFailure
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
+    }
+
+    deleteNote(successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notes/${this.getNoteId()}`,
+            method: 'DELETE',
+            onSuccess: successCallback,
+            onFailure: failCallback
         });
     }
 
