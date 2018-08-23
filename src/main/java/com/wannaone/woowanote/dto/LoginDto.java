@@ -18,7 +18,7 @@ public class LoginDto {
     private String email;
 
     @NotBlank
-    @Size(min = 4, max = 30)
+    @Size(min = 4, max = 15)
     private String password;
 
     public static LoginDto defaultLoginDto() {
