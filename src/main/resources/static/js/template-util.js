@@ -1,20 +1,20 @@
-function getNoteSectionTemplate(data, registerDatetime) {
+function getNoteSectionTemplate(data) {
     return `<input id="note-section-note-title" data-note-id=${data.id} value="${data.title}"></input>
-                <p id="note-section-meta">${registerDatetime}</p>`;
+                <p id="note-section-meta">${data.registerDatetime}</p>`;
 }
 
 function getNoteBookListTemplate(notebook) {
     return `<li data-notebook-id=${notebook.id}>${notebook.title}</li>`;
 }
 
-function getNoteItemTemplate(note, registerDatetime) {
+function getNoteItemTemplate(note) {
     return `<li data-note-id="${note.id}">
                 <div class="note-item">`
-        + getNoteItemContentTemplate(note, registerDatetime)
+        + getNoteItemContentTemplate(note)
         + `</div></li>`;
 }
 
-function getNoteItemContentTemplate(note, datetime) {
+function getNoteItemContentTemplate(note) {
     return `<div class="note-list-title">${note.title}</div>
-               <div class="note-list-snippet"><span>${datetime} </span>${note.text}</div>`;
+               <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
 }

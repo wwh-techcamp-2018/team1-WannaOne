@@ -26,7 +26,6 @@ public class NoteBook implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-
     private User owner;
 
     @OneToMany(mappedBy = "noteBook")
