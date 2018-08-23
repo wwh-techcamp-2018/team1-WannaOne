@@ -66,7 +66,7 @@ public class NoteServiceTest {
         NoteBook testNoteBook = new NoteBook("노트북1");
         User writer = User.defaultUser();
         when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook));
-        assertThat(noteService.save(3l, writer).getTitle()).isEqualTo("제목 없음");
+        assertThat(noteService.save(3l, writer).getTitle()).isEqualTo("나의 우아한 노트");
         assertThat(noteService.save(3l, writer).getText()).isEmpty();
     }
 
