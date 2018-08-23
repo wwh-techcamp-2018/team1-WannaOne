@@ -58,7 +58,7 @@
                         <tbody>
                         <tr>
                             <th>
-                                <label for="email_id">아이디 (이메일)</label>
+                                <label for="email_id">이메일</label>
                             </th>
                             <td>
                                 <input type="text" size="50" id="email_id" class="join_input" autofocus="">
@@ -72,7 +72,7 @@
                                 <label for="password">비밀번호</label>
                             </th>
                             <td>
-                                <input type="password" size="30" id="password" class="join_input" maxlength="16" placeholder="8-16자리 영문,숫자 조합">
+                                <input type="password" size="30" id="password" class="join_input" maxlength="16" placeholder="4-15자">
                                 <span id="password_caution" class="tb_in_txt caution"></span>
                             </td>
                         </tr>
@@ -91,14 +91,14 @@
                             </th>
                             <td>
                                 <input type="text" size="24" id="name" class="join_input" maxlength="30" placeholder="이름">
-                                <span id="username_caution" class="tb_in_txt caution"></span>
+                                <span id="name_caution" class="tb_in_txt caution"></span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </fieldset>
                 <div class="btn_area center mt40">
-                    <button id="signUpButton" class="submit-btn btn btn_mint btn_big">
+                    <button id="signUpButton" class="submit-btn btn btn_mint btn_big" disabled>
                         <span>가입 완료</span>
                     </button>
                 </div>

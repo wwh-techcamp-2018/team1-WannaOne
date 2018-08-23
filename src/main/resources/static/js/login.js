@@ -48,7 +48,6 @@ class Login {
                     validationEl.style.display = 'block';
                     validationEl.innerHTML = error.errorMessage;
                 });
-
             }
         });
     }
