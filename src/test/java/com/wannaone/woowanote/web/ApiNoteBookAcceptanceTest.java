@@ -39,7 +39,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     public void createNoteBookTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
         NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBook, NoteBook.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);

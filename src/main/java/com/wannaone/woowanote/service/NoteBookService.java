@@ -23,6 +23,7 @@ public class NoteBookService {
     }
 
     public NoteBook save(NoteBook noteBook, User owner) {
+        owner.addNoteBook(noteBook);
         noteBook.setOwner(owner);
         return noteBookRepository.save(noteBook);
     }

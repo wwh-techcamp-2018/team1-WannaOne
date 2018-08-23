@@ -30,7 +30,7 @@ public class ApiUserController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid UserDto userDto) {
-        noteBookService.save(getSignUpTriggerCreateNoteBook(), userService.save(userDto));
+        noteBookService.save(getDefaultNoteBook(), userService.save(userDto));
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -40,7 +40,7 @@ public class ApiUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    private NoteBook getSignUpTriggerCreateNoteBook() {
+    private NoteBook getDefaultNoteBook() {
         return new NoteBook("나의 우아한 노트북");
     }
 
