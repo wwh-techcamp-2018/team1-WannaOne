@@ -5,6 +5,7 @@ class MainApp {
         this.addNoteBtn = $('#add-note-btn');
         this.noteSaveBtn = $('#note-save-button');
         this.noteDeleteBtn = $('#note-delete-button');
+        this.logoutBtn = $('#logout');
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
@@ -22,6 +23,7 @@ class MainApp {
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
+        this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
     }
 
     /**
@@ -101,6 +103,23 @@ class MainApp {
             this.note.renderNoteContent(this.noteList.getNote());
         }
     }
+    logoutEventHandler(e) {
+        fetchManager({
+                    url: '/api/users/logout',
+                    method: 'POST',
+                    redirect: 'follow',
+                    onSuccess: this.logoutSuccess,
+                    onFailure: this.logoutFailure
+                });
+    }
+    logoutSuccess() {
+        console.log("success");
+        document.location.href="/login.html";
+    }
+    logoutFailure() {
+        console.log("fail");
+    }
+
 
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
