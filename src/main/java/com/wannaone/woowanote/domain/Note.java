@@ -44,7 +44,7 @@ public class Note extends AuditingDateEntity {
     }
 
     public Note(User writer) {
-        this("나의 WoowaNote", "", writer);
+        this("나의 우아한 노트", "", writer);
     }
 
     public Note(String title, String text, User writer) {
