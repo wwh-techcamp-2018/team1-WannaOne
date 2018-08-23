@@ -2,8 +2,8 @@ language: java
 jdk:
 - openjdk8
 branches:
+  only:
   - develop
-  - master
 cache:
   directories:
   - "$HOME/.m2/repository"
@@ -44,4 +44,4 @@ deploy:
     wait-until-deployed: true
     on:
       repo: wwh-techcamp-2018/team1-WannaOne #Github 주소
-      branch: master
+      branch: develop
