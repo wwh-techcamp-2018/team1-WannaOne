@@ -17,4 +17,9 @@ public class ApiCommentController {
     public ResponseEntity post(@PathVariable Long noteId, @RequestBody CommentDto commentDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDto, noteId));
     }
+
+    @GetMapping
+    public ResponseEntity show(@PathVariable Long noteId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getCommentsByNoteId(noteId));
+    }
 }
