@@ -68,4 +68,15 @@ class NoteList {
     appendNewNoteItem(note) {
         this.noteListEl.insertAdjacentHTML('afterbegin', getNoteItemTemplate(note));
     }
+
+    // 새 노트 저장
+    createNewNote(noteBookId, successCallBack, failCallBack) {
+        fetchManager({
+            url: `/api/notes/notebook/${noteBookId}`,
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            onSuccess: successCallBack,
+            onFailure: failCallBack
+        })
+    }
 }

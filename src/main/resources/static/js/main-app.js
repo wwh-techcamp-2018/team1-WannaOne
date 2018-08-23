@@ -2,11 +2,12 @@ class MainApp {
     constructor() {
         this.noteBookListEl = $('.notebook-list');
         this.noteListEl = $('.note-list');
+        this.addNoteBtn = $('#add-note-btn');
         this.noteSaveButton = $('#note-save-button');
-        // this.noteDeleteButton = $('#note-delete-button');
-        this.noteBook = new NoteBook(this.noteBookListEl);
+
+        this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
-        this.note = new NewNote();
+        this.note = new Note();
         this.fetchNoteBookList();
         this.initEventListener();
     }
@@ -17,7 +18,9 @@ class MainApp {
     initEventListener() {
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
+        this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
         this.noteSaveButton.addEventListener('click', this.updateNoteEventHandler.bind(this));
+
     }
 
     /**
@@ -38,11 +41,19 @@ class MainApp {
         this.noteBook.initNoteBook(onSuccessCallBack.bind(this), onFailCallBack);
     }
 
+    createNewNoteEventHandler() {
+        const onSuccessCallback = () => {
+            this.fetchNoteList(this.noteBook.getNoteBookId());
+        };
+        const onFailureCallback = () => { console.log('새로운 노트 생성에 실패했습니다..') };
+        this.noteList.createNewNote(this.noteBook.getNoteBookId(), onSuccessCallback, onFailureCallback);
+    }
+
     updateNoteEventHandler() {
         const onSuccessCallback = () => {
             this.fetchNoteList(this.noteBook.getNoteBookId());
         };
-        const onFailureCallback = () => { console.log("die") };
+        const onFailureCallback = () => { console.log('노트 업데이트에 실패했습니다.') };
         this.note.updateNote(onSuccessCallback, onFailureCallback);
     }
 
