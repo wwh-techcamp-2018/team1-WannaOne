@@ -3,6 +3,8 @@
     font-size: 20px;
     color: white;
     padding: 0px 17px;
+    grid-column: 1;
+    gird-row: 2;
 }
 
 .notebook-list {

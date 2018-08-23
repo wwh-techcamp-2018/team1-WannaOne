@@ -75,4 +75,10 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo("비밀번호는 4자 이상, 30자 이하이어야 합니다.");
     }
+
+    @Test
+    public void logoutTest() throws Exception {
+        ResponseEntity response = basicAuthTemplate().postForEntity("/api/users/logout", null, Void.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
