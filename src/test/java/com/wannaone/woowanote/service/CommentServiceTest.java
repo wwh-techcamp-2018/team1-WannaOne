@@ -40,8 +40,8 @@ public class CommentServiceTest {
     @Test
     public void showTest() throws Exception {
         Note note = new Note("title", "text");
-        Comment comment1 = new Comment("comment1",note);
-        Comment comment2 = new Comment("comment2",note);
+        Comment comment1 = new Comment("comment1", note);
+        Comment comment2 = new Comment("comment2", note);
         when(commentRepository.findByNoteId(1L)).thenReturn(Arrays.asList(comment1,comment2));
         assertThat(commentService.getCommentsByNoteId(1L)).contains(comment1, comment2);
     }
