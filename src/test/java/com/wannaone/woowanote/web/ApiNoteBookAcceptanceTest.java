@@ -5,8 +5,6 @@ import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.support.ErrorMessage;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +14,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
-    @Autowired
-    private MessageSourceAccessor msa;
-
     @Test
     public void showAllNoteBooks() {
         ResponseEntity<List<NoteBook>> response =
@@ -33,7 +28,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         ResponseEntity<ErrorDetails> response = getForEntity("/api/notebooks", null, ErrorDetails.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-        assertThat(response.getBody().getMessage()).isEqualTo(msa.getMessage(ErrorMessage.REQUIRE_LOGIN.getMessageKey()));
+        assertThat(response.getBody().getMessage()).isEqualTo(ErrorMessage.REQUIRE_LOGIN.getMessageKey());
     }
 
     @Test
