@@ -22,19 +22,19 @@ class Note {
         })
     }
 
-    getNoteSuccessCallback(data) {
+    getNoteSuccessCallback(note) {
         this.clearNoteSection();
-        this.renderNote(data);
+        this.renderNote(note);
     }
 
-    renderNote(data) {
-        this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(data));
-        this.editor.innerHTML = data.text;
-        this.noteId = data.id;
+    renderNote(note) {
+        this.noteSection.insertAdjacentHTML('beforeend', this.noteSectionFormatter(note));
+        this.editor.innerHTML = note.text;
+        this.noteId = note.id;
     }
 
-    noteSectionFormatter(data) {
-        return getNoteSectionTemplate(data, datetimeFormatter(data.registerDatetime));
+    noteSectionFormatter(note) {
+        return getNoteSectionTemplate(note, datetimeFormatter(note.registerDatetime));
     }
 
     clearNoteSection() {
@@ -46,7 +46,6 @@ class Note {
     }
 
     initButton() {
-//        this.noteSaveButton.addEventListener("click", this.saveHandler.bind(this));
         this.noteSaveButton.addEventListener("click", () => this.updateHandler());
         this.noteDeleteButton.addEventListener("click", () => this.deleteHandler());
     }
@@ -69,41 +68,12 @@ class Note {
                 })
     }
 
-    noteUpdateSuccessCallback(data) {
-        noteList.updateNoteItem(data);
+    noteUpdateSuccessCallback(note) {
+        noteList.updateNoteItem(note);
     }
 
     noteUpdateFailHandler() {
         console.log('노트 수정에 실패했습니다.');
-    }
-
-    // 새 노트 저장
-    saveHandler() {
-        const title = $("#note-section-note-title").value;
-        //TODO: if new post, it should be update time.
-        const text = this.editor.innerHTML;
-        const noteBookId = $('.notebook-focus').dataset.notebookId;
-        fetchManager({
-                    url: `/api/notes/notebook/${noteBookId}`,
-                    method: 'POST',
-                    headers: {'content-type': 'application/json'},
-                    body: JSON.stringify({
-                            title: title,
-                            text: text
-                    }),
-
-
-                    onSuccess: this.postNoteSuccessCallback.bind(this),
-                    onFailure: this.postNoteFailHandler
-                })
-    }
-
-    postNoteSuccessCallback(data){
-        noteList.renderNoteItem(data);
-    }
-
-    postNoteFailHandler() {
-        console.log('노트 작성에 실패했습니다.');
     }
 
     deleteHandler() {

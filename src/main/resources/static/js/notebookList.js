@@ -25,6 +25,7 @@ class NoteBookList {
             onFailure: this.getNoteBookFailCallback
         });
     }
+
     changeNoteBookEventHandler(e){
         const targetNotebook = e.target.closest('li');
         this.focusNoteBook(targetNotebook);
