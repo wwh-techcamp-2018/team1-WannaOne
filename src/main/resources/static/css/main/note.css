@@ -25,6 +25,8 @@
 .main-content {
     text-align: left;
     padding: 25px;
+    grid-column: 3;
+    grid-row:2;
 }
 
 #note-section-meta {

@@ -19,6 +19,7 @@ button {
     grid-gap: 3px;
 }
 .header {
+    position: relative;
     grid-area: 1 / span 3;
     background: #04BFBF;
 }
@@ -32,4 +33,13 @@ button {
     font-size: 27px;
     color: white;
     font-family: 'Shrikhand', cursive;
+}
+
+#logout {
+    position: relative;
+    left: 80%;
+    padding-bottom: 7px;
+    color: white;
+    background: transparent;
+    font-size: 16px;
 }

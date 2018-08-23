@@ -35,7 +35,10 @@
 </head>
 <body>
 <div class="grid-container">
-    <div class="header"> <span id="logo">Woowa Note</span> </div>
+    <div class="header">
+        <span id="logo">Woowa Note</span>
+        <button id="logout">로그아웃</button>
+    </div>
     <div class="side-bar-left">
         <ul class="notebook-title">
             <li>노트북<img src="/img/add.png" id="add-notebook-input-btn"></li>
@@ -79,7 +82,7 @@
                             el: document.querySelector('#editSection'),
                             initialEditType: 'wysiwyg',
                             hideModeSwitch: true,
-                            height: '75%',
+                            height: '85%',
                             hooks: {
                                 'addImageBlobHook': function(blob, callback) {
                                     imageUpload(blob, callback);
