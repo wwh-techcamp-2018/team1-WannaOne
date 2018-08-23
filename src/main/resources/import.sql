@@ -11,3 +11,7 @@ INSERT INTO note(id, title, text, register_datetime, update_datetime, note_book_
 INSERT INTO note(id, title, text, register_datetime, update_datetime, note_book_id, deleted, writer_id) values (2, '두번째 제목', '두번째 내용', '2018-08-14 13:00:00', '2018-08-14 13:55:00', 1, false, 1);
 INSERT INTO note(id, title, text, register_datetime, update_datetime, note_book_id, deleted, writer_id) values (3, '세번째 제목', '세번째 내용', '2018-08-14 13:00:00', '2018-08-14 13:56:00', 1, false, 1);
 INSERT INTO note(id, title, text, register_datetime, update_datetime, note_book_id, deleted, writer_id) values (4, '네번째 제목', '네번째 내용', '2018-08-14 13:00:00', '2018-08-14 13:57:00', 2, false, 1);
+INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(1, '첫 댓글', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 1, 2);
+INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(2, '아이디어가 떨어지네요...', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 1, 1);
+INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(3, '우아노트 화이팅!!!', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 1, 2);
+INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(4, '두번째 글의 첫 댓글', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 2, 1);
