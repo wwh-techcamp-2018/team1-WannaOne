@@ -23,7 +23,7 @@ public class NoteBookService {
     }
 
     public NoteBook save(NoteBook noteBook, User owner) {
-        owner.addNoteBook(noteBook);
+        //owner는 영속성 컨텍스트에 포함되지 않음. 근데 id값을 가지고 있어서 정상적으로 save 되는 것 같음.
         noteBook.setOwner(owner);
         return noteBookRepository.save(noteBook);
     }
