@@ -7,7 +7,8 @@ class Login {
         this.loginButton = $('#loginButton');
         this.emailInput = $('#email');
         this.passwordInput = $('#password');
-
+        this.emailValidationEl = $('#email-validation');
+        this.passwordValidationEl = $('#password-validation');
         this.loginButton.addEventListener('click', this.handlerLoginEvent.bind(this));
     }
 
@@ -25,7 +26,7 @@ class Login {
                 password: password
             }),
             onSuccess: this.loginSuccessCallback,
-            onFailure: this.loginFailureCallback
+            onFailure: this.loginFailureCallback.bind(this)
         });
     }
 
@@ -34,13 +35,13 @@ class Login {
     }
 
     loginFailureCallback(response) {
+        this.hideValidationError();
         const status = response.status;
         response.json().then((response) => {
-            if(status === 500) {
+            if(status === 500 || response.message !== undefined) {
                 //아이디 또는 비밀번호가 잘못된 경우
-                const validationEl = $('#password-validation');
-                validationEl.style.display = 'block';
-                validationEl.innerHTML = response.message;
+                this.passwordValidationEl.style.display = 'block';
+                this.passwordValidationEl.innerHTML = response.message;
             } else if(status === 400) {
                 //비밀번호나 이메일 양식이 맞지 않는 경우
                 response.errors.forEach((error) => {
@@ -48,8 +49,12 @@ class Login {
                     validationEl.style.display = 'block';
                     validationEl.innerHTML = error.errorMessage;
                 });
-
             }
         });
+    }
+
+    hideValidationError() {
+        this.emailValidationEl.style.display = 'none';
+        this.passwordValidationEl.style.display = 'none';
     }
 }
