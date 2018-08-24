@@ -1,18 +1,18 @@
 class SignUp {
     constructor() {
-        this.emailIdInput = $('#email_id')
-        this.emailDomainInput = $('#email_domain')
-        this.emailCaution = $('#email_caution');
+        this.emailInput = $('#email')
+        this.emailCaution = $('#email-validation');
         this.passwordInput = $('#password');
-        this.passwordCheckInput = $('#password_check');
-        this.passwordCheckCaution = $('#password_check_caution');
+        this.passwordCheckInput = $('#passwordCheck');
+        this.passwordCheckCaution = $('#passwordCheck-validation');
         this.nameInput = $('#name');
         this.signUpButton = $('#signUpButton');
         this.cautionEl = $All('.caution');
 
+        this.passwordInput.addEventListener('keyup', this.displayPasswordCheckMessage.bind(this));
         this.passwordCheckInput.addEventListener('keyup', this.displayPasswordCheckMessage.bind(this));
         this.signUpButton.addEventListener('click', this.handlerSignUpEvent.bind(this));
-        $('.submit-btn').addEventListener('click', function(event){
+        this.signUpButton.addEventListener('click', function(event){
             event.preventDefault();
         });
     }
@@ -30,20 +30,20 @@ class SignUp {
     displayPasswordCheckMessage() {
         if(!this.checkPassword()) {
             this.passwordCheckCaution.innerHTML = '비밀번호와 확인 비밀번호가 다릅니다.';
-            this.passwordCheckCaution.style.color = 'red';
-            this.signUpButton.disabled = true;
         } else {
-            this.passwordCheckCaution.innerHTML = '비밀번호와 확인 비밀번호가 일치합니다.';
-            this.passwordCheckCaution.style.color = 'blue';
-            this.signUpButton.disabled = false;
+            this.passwordCheckCaution.innerHTML = '';
         }
+        this.passwordCheckCaution.style.display = 'block';
     }
 
     handlerSignUpEvent(evt) {
-        if(!this.checkPassword()) return;
+        if(!this.checkPassword()) {
+            this.hideValidationError();
+            this.displayPasswordCheckMessage();
+            return;
+        }
 
-        const emailId = this.emailIdInput.value;
-        const emailDomain = this.emailDomainInput.value;
+        const email = this.emailInput.value;
         const password = this.passwordInput.value;
         const name = this.nameInput.value;
 
@@ -52,7 +52,7 @@ class SignUp {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                email: emailId + '@' + emailDomain,
+                email: email,
                 password: password,
                 name: name
             }),
@@ -66,9 +66,7 @@ class SignUp {
     }
 
     signUpFailureCallback(response) {
-        this.cautionEl.forEach((caution) => {
-            caution.style.display = 'none';
-        });
+        this.hideValidationError();
         const status = response.status;
         response.json().then((response) => {
             if(status === 403) {
@@ -78,11 +76,17 @@ class SignUp {
             } else if (status == 400) {
                 // validation error.
                 response.errors.forEach((error) => {
-                    const validationCaution = $(`#${error.fieldName}_caution`);
+                    const validationCaution = $(`#${error.fieldName}-validation`);
                     validationCaution.style.display = 'block';
                     validationCaution.innerHTML = error.errorMessage;
                 });
             }
+        });
+    }
+
+    hideValidationError() {
+        this.cautionEl.forEach((caution) => {
+            caution.style.display = 'none';
         });
     }
 }
