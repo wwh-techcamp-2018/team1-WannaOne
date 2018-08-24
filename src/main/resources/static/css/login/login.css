@@ -1,124 +1,100 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-.ru-hero {
-    margin-top: 120px;
-    margin-bottom: 100px;
+html,body{
+    height:100%;
+    margin:0;
+    padding:0;
 }
-.ru-hero .row {
+body {
     overflow: hidden;
+}
+p, div {
     padding: 0;
-}
-.row {
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 0 40px;
+    margin: 0;
 }
 
-.ru-primary-cta {
-    position: relative;
-    width: 50%;
-    float: left;
-    height: 0;
-    padding-top: 50%;
-}
-
-.ru-primary-cta .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+.container {
     width: 100%;
-    text-align: center;
-    padding: 0 40px;
-}
-
-.ru-upsell.business {
-    position: relative;
-    width: 50%;
-    float: left;
-    height: 0;
-    padding-top: 50%;
-    background: #fbfcfd;
-}
-
-.ru-upsell.business .image {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    height: 100%;
+    background: url("https://s3.ap-northeast-2.amazonaws.com/woowanote-dooho-s3/src/login_background.jpeg");
+    background-repeat: no-repeat;
+    background-position: 50% bottom;
+    background-size: cover;
     overflow: hidden;
+    box-sizing: border-box;
+}
+.content {
+    position: relative;
+    width: 700px;
+    min-height: 450px;
+    margin: 100px auto 0px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0px 0px 24px 2px slategrey;
+    border-radius: 15px;
+    box-sizing: border-box;
 }
 
-.ru-upsell.business .image img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    height: 120%;
-}
-
-.ru-upsell.business .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 100%;
+.welcome-message {
+    margin: 40px auto 0px;
     text-align: center;
-    padding: 0 40px;
+    font-size: 25px;
 }
 
-.ru-upsell.business h2 {
-    font-size: 32px;
-    color: #fff;
-    margin-bottom: 20px;
+.welcome-message > span {
+    font-family: 'Shrikhand', cursive;
+    color: #04BFBF;
 }
 
-.ru-upsell.business .pricing {
-    font-family: "Gotham_SSm_3r", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #fff;
-    margin-bottom: 15px;
+.content > form {
+    width: 400px;
+    margin: 40px auto 0px;
 }
 
-.ru-upsell.business .description {
-    color: #fff;
-    margin-bottom: 40px;
-}
-
-.ctas > button {
-    font-size: 13px;
-    min-width: 180px;
-    padding: 17px 20px 16px;
-}
-
-.content > form > button {
-    display: block;
+.content > form > .form-group {
     width: 100%;
-    padding: 15px 18px 14px;
+    margin-top: 20px;
 }
 
-p, ul, ol, table {
-    font-family: "webfont";
-    font-size: 13px;
-    line-height: 21px;
+#email, #password {
+    width: 100%;
+    height: 60px;
+    padding-left: 23px;
+    border: #04BFBF solid 3px;
+    border-radius: 12px / 10px;
+    box-sizing: border-box;
+    font-size: 17px;
+}
+
+#loginButton {
+    width: 100%;
+    height: 70px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    background-color: #04BFBF;
+    border: none;
+    border-radius: 12px / 10px;
+    color: white;
+    font-size: 20px;
 }
 
 .no-account {
     margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: slategray;
 }
 
-.content > form {
-    width:400px;
-    margin:auto;
+.no-account > a {
+    color: #e57085;
 }
 
-.content > form > .form-group {
-    margin-top:15px;
-}
 
 #password-validation, #email-validation {
     color:red !important;
     display: none;
+    margin-top: 5px;
+    margin-left: 25px;
+    font-size: 13px;
 }

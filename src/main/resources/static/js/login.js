@@ -36,9 +36,7 @@ class Login {
     }
 
     loginFailureCallback(response) {
-        this.cautionEl.forEach((caution) => {
-            caution.style.display = 'none';
-        });
+        this.hideValidationError();
         const status = response.status;
         response.json().then((response) => {
             if(status === 401) {
@@ -53,6 +51,12 @@ class Login {
                     validationEl.innerHTML = error.errorMessage;
                 });
             }
+        });
+    }
+
+    hideValidationError() {
+        this.cautionEl.forEach((caution) => {
+            caution.style.display = 'none';
         });
     }
 }
