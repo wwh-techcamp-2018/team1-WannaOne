@@ -85,6 +85,7 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
+        this.noteBooks.push(notebook);
         this.renderNoteBook(notebook);
         this.clearInput();
     }
