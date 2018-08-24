@@ -1,6 +1,7 @@
 class NoteList {
     constructor() {
         this.noteListEl = $('.note-list');
+        this.noteListNum = $('.side-bar-middle-notebook-meta');
         this.currentNoteIndex = 0;
     }
 
@@ -11,6 +12,7 @@ class NoteList {
     renderNoteList(notes) {
         this.clearNoteListSection();
         this.notes = notes;
+        this.noteListNum.innerHTML = `${notes.length}개의 노트`;
         this.notes.forEach((note) => this.renderNoteItem(note));
     }
 

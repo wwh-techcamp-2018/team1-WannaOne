@@ -1,7 +1,7 @@
 .side-bar-middle {
     background: #F2EFEB;
-    display: grid;
-    grid-template-rows: 90px auto;
+    grid-column: 2;
+    grid-row: 2;
     /* border: #d9d7d3 solid 0.5px; */
 }
 
@@ -86,7 +86,7 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-body {
-  height: 600px;
+  height: 700px;
   padding: 0px 19px;
   border-left: #c1bfbc solid 0.5px;
   border-right: #c1bfbc solid 0.5px;

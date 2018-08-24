@@ -27,6 +27,6 @@ public class SecurityControllerAdvice {
     public ResponseEntity unAuthentication(UnAuthenticationException exception) {
         log.debug("UnAuthenticationException is happened!");
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDetails);
     }
 }

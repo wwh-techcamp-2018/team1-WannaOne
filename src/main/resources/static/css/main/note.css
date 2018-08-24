@@ -5,11 +5,11 @@
 }
 
 #editSection {
-    width: 850px;
+    width: 100%;
 }
 
 .note-save-delete {
-    left: 750px;
+    left: 85%;
     position: relative;
     margin: 10px;
 }
@@ -25,6 +25,8 @@
 .main-content {
     text-align: left;
     padding: 25px;
+    grid-column: 3;
+    grid-row:2;
 }
 
 #note-section-meta {

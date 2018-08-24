@@ -25,11 +25,11 @@ public class UserDto {
      */
     @JsonIgnore
     @NotBlank
-    @Size(min = 4, max = 30)
+    @Size(min = 4, max = 15)
     private String password;
 
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 20)
     private String name;
 
     public UserDto(String email) {
