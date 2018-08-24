@@ -78,6 +78,19 @@ p, div {
     font-size: 20px;
 }
 
+.yes-account {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: slategray;
+}
+
+.yes-account > a {
+    color: #e57085;
+}
+
+
 #email-validation, #password-validation, #passwordCheck-validation, #name-validation {
     color:red !important;
     display: none;
