@@ -66,6 +66,7 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-header {
+  position:relative;
   box-sizing: border-box;
   background-color: white;
   border: #c1bfbc solid 0.5px;
@@ -103,5 +104,5 @@ p.note-list-title, p.note-list-snippet {
     margin-left:10px;
     margin-top:1px;
     position:absolute;
-    left:365px;
+    left:168px;
 }
