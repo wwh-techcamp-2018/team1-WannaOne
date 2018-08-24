@@ -296,3 +296,8 @@ button,
 .tb_join span.tb_in_txt.caution {
     color: #f15858
 }
+
+#email_caution, #password_caution, #name_caution {
+    color:red !important;
+    display: none;
+}
