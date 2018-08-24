@@ -85,6 +85,9 @@ class MainApp {
      */
     selectNoteBookEventHandler(e){
         const targetNotebook = e.target.closest('li');
+        if(!targetNotebook) {
+            return;
+        }
         this.noteBook.focusNoteBook(targetNotebook);
         this.noteBook.setTitle();
         this.renewNoteList(this.noteBook.getNoteBookId());
