@@ -54,7 +54,7 @@ class NotebookList {
     }
 
     setTitle() {
-        this.notebookTitleEl.firstElementChild.innerHTML = this.noteBooks[this.currentIndex].title;
+        this.notebookTitleEl.innerText = this.noteBooks[this.currentIndex].title;
     }
 
     focusNoteBook(noteBookEl) {

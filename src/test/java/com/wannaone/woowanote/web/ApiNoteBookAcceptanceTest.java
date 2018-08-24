@@ -20,7 +20,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
                 getForEntityWithParameterizedWithBasicAuth("/api/notebooks", null, new ParameterizedTypeReference<List<NoteBook>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().get(0).getTitle()).isEqualTo("AWS 공부");
+        assertThat(response.getBody().get(0).getTitle()).isEqualTo("tech");
     }
 
     @Test
