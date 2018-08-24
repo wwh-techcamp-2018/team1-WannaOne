@@ -123,7 +123,7 @@ class MainApp {
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
             this.noteList.renderNoteList(notebook.notes);
-            let isFocus = this.noteList.focusNoteItem(0);
+            const isFocus = this.noteList.focusNoteItem(0);
             if(!isFocus) {
                 this.note.clearNoteSection();
             } else {
