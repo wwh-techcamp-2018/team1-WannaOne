@@ -107,7 +107,6 @@ class MainApp {
         fetchManager({
                     url: '/api/users/logout',
                     method: 'POST',
-                    redirect: 'follow',
                     onSuccess: this.logoutSuccess,
                     onFailure: this.logoutFailure
                 });
