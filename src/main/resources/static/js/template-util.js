@@ -1,6 +1,6 @@
 function getNoteSectionTemplate(note) {
     return `<input id="note-section-note-title" data-note-id=${note.id} value="${note.title}"></input>
-                <p id="note-section-meta">${note.registerDatetime}</p>`;
+                <p id="note-section-meta">작성한 날짜: ${note.registerDatetime} &emsp; 수정한 날짜: ${note.updateDatetime}</p>`;
 }
 
 function getNoteBookListTemplate(notebook) {
