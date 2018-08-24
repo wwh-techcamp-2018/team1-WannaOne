@@ -77,6 +77,9 @@ p.note-list-title, p.note-list-snippet {
   font-size: 21px;
   text-align: left;
   display:inline;
+  width:100px;
+  word-break:break-all;
+  word-wrap:break-word;
 }
 
 .side-bar-middle-notebook-meta {
