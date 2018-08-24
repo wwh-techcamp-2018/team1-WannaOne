@@ -12,21 +12,30 @@
     text-align: left;
     padding: 0;
     line-height: 2;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .notebook-list li {
     width: 100%;
+    height: 20px;
     position: relative;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
+    padding: 0px 15px;
+    box-sizing: border-box;
+    margin: 10px 0px;
+}
+
+.notebook-list > li:hover {
+    color: #e57085;
 }
 
 .notebook-focus {
-    background-color : lightgray;
+    color: #e57085;
+    border-left: solid #e57085 1px;
 }
 
 .notebook-title {
