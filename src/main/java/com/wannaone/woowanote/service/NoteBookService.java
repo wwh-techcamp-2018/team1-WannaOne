@@ -8,6 +8,7 @@ import com.wannaone.woowanote.support.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class NoteBookService {
         return noteBookRepository.findByOwnerId(ownerId);
     }
 
+    @Transactional
     public NoteBook save(NoteBook noteBook, User owner) {
-        //owner는 영속성 컨텍스트에 포함되지 않음. 근데 id값을 가지고 있어서 정상적으로 save 되는 것 같음.
         noteBook.setOwner(owner);
         return noteBookRepository.save(noteBook);
     }
