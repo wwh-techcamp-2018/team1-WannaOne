@@ -123,8 +123,13 @@ class MainApp {
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
             this.noteList.renderNoteList(notebook.notes);
-            this.noteList.focusNoteItem(0);
-            this.note.renderNoteContent(this.noteList.getNote());
+            let isFocus = this.noteList.focusNoteItem(0);
+            if(!isFocus) {
+                this.note.clearNoteSection();
+            } else {
+                this.note.renderNoteContent(this.noteList.getNote());
+            }
+
         };
         const failCallback = () => {
             console.log("노트북 정보를 가져오는데 실패했습니다.");

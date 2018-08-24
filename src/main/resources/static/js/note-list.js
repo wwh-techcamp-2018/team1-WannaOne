@@ -37,9 +37,9 @@ class NoteList {
             }
             this.noteListEl.children[index].firstElementChild.classList.add('note-item-focus');
             this.currentNoteIndex = index;
-        } else {
-            //TODO: 빈 화면 처리 나중에 해주어야 함.
+            return true;
         }
+        return false;
     }
 
     getNoteId() {

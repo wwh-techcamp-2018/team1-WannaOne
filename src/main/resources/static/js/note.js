@@ -2,11 +2,15 @@ class Note {
     constructor() {
         this.noteSection = $('#note-section');
         this.editorEl = $('.te-ww-container .tui-editor-contents');
+        this.editSection = $('#editSection');
         this.noteSection = $('#note-section');
+        this.btns = $('.note-save-delete');
     }
 
     clearNoteSection() {
         this.noteSection.innerHTML = '';
+        this.editSection.style.display = 'none';
+        this.btns.style.display ='none';
     }
 
     updateNote(successCallback, failCallback) {
@@ -46,6 +50,8 @@ class Note {
         this.note = note;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         this.editorEl.innerHTML = note.text;
+        this.editSection.style.display='block';
+        this.btns.style.display='block';
     }
 
     getNoteTitle() {
