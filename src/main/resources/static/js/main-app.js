@@ -37,9 +37,7 @@ class MainApp {
             }
             this.noteBook.renderNotebooks(notebooks);
             this.noteBook.setTitle();
-            this.noteList.renderNoteList(this.noteBook.getNotes());
-            this.noteList.focusNoteItem(0);
-            this.note.renderNoteContent(this.noteList.getNote());
+            this.renewNoteList(this.noteBook.getNoteBookId());
         };
         const failCallback = () => {
             console.log("최초의 노트북 리스트를 받아오는데 실패했습니다.");
