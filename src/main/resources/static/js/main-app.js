@@ -24,6 +24,26 @@ class MainApp {
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
+        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
+        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
+    }
+
+    updateNoteOnDragOverInNoteBookEventHandler(evt){
+        const targetNotebook = evt.target.closest('li');
+        if(!targetNotebook) {
+            return;
+        }
+        const noteId = evt.dataTransfer.getData("noteId");
+        const noteBookId = targetNotebook.dataset.notebookId;
+        const successCallback = () => {
+            this.noteBook.focusNoteBook(targetNotebook);
+            this.noteBook.setTitle();
+            this.renewNoteList(this.noteBook.getNoteBookId());
+        }
+        const failCallback = () => {
+            console.log('노트를 이동시키는데 실패했습니다.');
+        };
+        this.noteList.fetchNoteUpdateParentNoteBook(noteId, noteBookId, successCallback, failCallback);
     }
 
     /**

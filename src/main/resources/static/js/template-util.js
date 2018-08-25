@@ -8,7 +8,7 @@ function getNoteBookListTemplate(notebook) {
 }
 
 function getNoteItemTemplate(note) {
-    return `<li data-note-id="${note.id}">
+    return `<li data-note-id="${note.id}" draggable="true">
                 <div class="note-item">`
         + getNoteItemContentTemplate(note)
         + `</div></li>`;
