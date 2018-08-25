@@ -32,7 +32,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
 
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity<Comment> commentCreateResponse = template().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
+        ResponseEntity<Comment> commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(commentCreateResponse.getBody().getContent()).isEqualTo(commentContent);
         assertThat(commentCreateResponse.getBody().getId()).isNotNull();
@@ -42,7 +42,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     public void createCommentNoteNotFound() throws Exception {
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity commentCreateResponse = template().postForEntity("/api/notes/-1/comments", commentDto, Void.class);
+        ResponseEntity commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/-1/comments", commentDto, Void.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

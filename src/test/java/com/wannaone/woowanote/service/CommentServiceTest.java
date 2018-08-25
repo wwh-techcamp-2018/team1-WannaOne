@@ -2,7 +2,9 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.CommentDto;
+import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.CommentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +32,13 @@ public class CommentServiceTest {
     @Test
     public void createTest() throws Exception {
         CommentDto commentDto = new CommentDto("test comment");
+        User user = UserDto.defaultUserDto().toEntity();
         Note note = new Note("title", "text");
         when(noteService.getNote(1L)).thenReturn(note);
-        commentService.save(commentDto, 1L);
         Comment comment = commentDto.toEntity(note);
-        verify(commentRepository).save(comment);
+        comment.addWriter(user);
+        when(commentRepository.save(commentDto.toEntity(note))).thenReturn(comment);
+        assertThat(commentService.save(commentDto, 1L, user)).isEqualTo(comment);
     }
 
     @Test

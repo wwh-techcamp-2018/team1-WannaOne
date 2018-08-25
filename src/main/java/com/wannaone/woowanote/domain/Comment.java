@@ -29,6 +29,10 @@ public class Comment extends AuditingDateEntity {
     @JsonBackReference
     private Note note;
 
+    public void addWriter(User writer) {
+        this.writer = writer;
+    }
+
     public Comment(String content, Note note) {
         this.content = content;
         this.note = note;
