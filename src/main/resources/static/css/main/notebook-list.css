@@ -48,8 +48,8 @@
 }
 
 #add-notebook-input-btn {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin-left: 80px;
     cursor: pointer;
 }
@@ -60,15 +60,23 @@
 
 #notebook-title-input {
     margin-left: 0px;
-    padding-left: 0px;
-    width: 100px;
+    padding-left: .375rem;
+    width: 118px;
     height: 17px;
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+    padding-right:30px;
 }
 
 #remove-notebook-input-btn {
-    width: 18px;
-    height: 18px;
-    margin-left: 25px;
+    width: 7px;
+    height: 7px;
+    margin-left: -15px;
     align: center;
     cursor: pointer;
+}
+
+#notebook-title-validation {
+    font-size: 12px;
+    color:#e57085;
 }

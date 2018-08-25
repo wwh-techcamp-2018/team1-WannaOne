@@ -7,6 +7,7 @@ public enum ErrorMessage {
     NOTE_BOOK_NOT_FOUND("NotFound.noteBook"),
     NOTE_NOT_FOUND("NotFound.note"),
     REQUIRE_LOGIN("로그인이 필요합니다."),
+    NOTE_BOOK_NOT_BLANK("NotBlank.noteBookDto.title"),
     UNAUTHORIZED("unauthorized.message");
     private String messageKey;
 
