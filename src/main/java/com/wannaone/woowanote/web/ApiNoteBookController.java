@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.web;
 
-import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.security.LoginUser;

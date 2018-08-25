@@ -4,7 +4,6 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.dto.CommentDto;
 import com.wannaone.woowanote.repository.CommentRepository;
-import com.wannaone.woowanote.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
