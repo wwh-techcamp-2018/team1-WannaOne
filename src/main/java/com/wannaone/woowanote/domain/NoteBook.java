@@ -47,6 +47,7 @@ public class NoteBook implements Serializable {
 
     public NoteBook(String title) {
         this.title = title;
+        this.deleted = false;
     }
 
     public void addNote(Note note) {

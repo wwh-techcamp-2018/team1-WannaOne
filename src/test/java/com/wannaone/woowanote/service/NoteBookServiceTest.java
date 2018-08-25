@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,7 +31,7 @@ public class NoteBookServiceTest {
         User loginUser = new User(1L, "doy@woowahan.com", "1234");
         NoteBook testNoteBook1 = new NoteBook("노트북1");
         NoteBook testNoteBook2 = new NoteBook("노트북2");
-        when(noteBookRepository.findByOwnerId(loginUser.getId())).thenReturn(Arrays.asList(testNoteBook1, testNoteBook2));
+        when(noteBookRepository.findByOwnerIdAndDeletedFalse(loginUser.getId())).thenReturn(Arrays.asList(testNoteBook1, testNoteBook2));
 
         List<NoteBook> noteList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteList).containsAll(Arrays.asList(testNoteBook1, testNoteBook2));
@@ -41,8 +40,7 @@ public class NoteBookServiceTest {
     @Test
     public void getAllNoteBook_success_when_list_empty() {
         User loginUser = new User(1L, "doy@woowahan.com", "1234");
-        when(noteBookRepository.findByOwnerId(loginUser.getId())).thenReturn(new ArrayList<>());
-
+        when(noteBookRepository.findByOwnerIdAndDeletedFalse(loginUser.getId())).thenReturn(new ArrayList<>());
         List<NoteBook> noteBookList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteBookList).isEmpty();
     }

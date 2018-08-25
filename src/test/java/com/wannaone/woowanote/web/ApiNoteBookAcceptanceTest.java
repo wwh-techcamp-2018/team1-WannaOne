@@ -90,8 +90,8 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     @Test
     public void deleteNoteBookTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         NoteBook createdNoteBook = response.getBody();
 
@@ -105,8 +105,8 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     @Test
     public void deleteNoteBookTestUnAuthorized() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         NoteBook createdNoteBook = response.getBody();
 
