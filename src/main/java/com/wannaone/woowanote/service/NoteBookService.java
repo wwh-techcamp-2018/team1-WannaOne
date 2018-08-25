@@ -21,7 +21,7 @@ public class NoteBookService {
     private MessageSourceAccessor msa;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
-        return noteBookRepository.findByOwnerId(ownerId);
+        return noteBookRepository.findByOwnerIdAndDeletedFalse(ownerId);
     }
 
     @Transactional
