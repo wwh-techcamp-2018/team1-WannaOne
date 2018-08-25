@@ -30,7 +30,7 @@ public class AuditingEntityAcceptanceTest extends AcceptanceTest {
 
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity<Comment> commentCreateResponse = template().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
+        ResponseEntity<Comment> commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
         Comment comment = commentCreateResponse.getBody();
 
         assertThat(comment.getRegisterDatetime()).isNotNull();

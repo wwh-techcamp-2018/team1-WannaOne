@@ -1,6 +1,8 @@
 package com.wannaone.woowanote.web;
 
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.CommentDto;
+import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +16,8 @@ public class ApiCommentController {
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity post(@PathVariable Long noteId, @RequestBody CommentDto commentDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDto, noteId));
+    public ResponseEntity post(@PathVariable Long noteId, @RequestBody CommentDto commentDto, @LoginUser User loginUser) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(commentDto, noteId, loginUser));
     }
 
     @GetMapping
