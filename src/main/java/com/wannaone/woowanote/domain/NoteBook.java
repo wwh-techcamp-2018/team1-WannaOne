@@ -46,4 +46,8 @@ public class NoteBook implements Serializable {
     public void addNote(Note note) {
         this.notes.add(note);
     }
+
+    public void removeNote(Note note) {
+        this.notes.remove(note);
+    }
 }

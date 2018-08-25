@@ -63,6 +63,10 @@ public abstract class AcceptanceTest {
         return template().exchange(url, HttpMethod.PUT, createHttpEntity(body),responseType);
     }
 
+    protected <T> ResponseEntity<T> patchForEntityWithBasicAuth(String url, Object body, Class<T> responseType) {
+        return basicAuthTemplate().exchange(url, HttpMethod.PATCH, createHttpEntity(body),responseType);
+    }
+
     protected <T> ResponseEntity<T> deleteForEntity(String url, Class<T> responseType) {
         return basicAuthTemplate().exchange(url, HttpMethod.DELETE, createHttpEntity(null), responseType);
     }

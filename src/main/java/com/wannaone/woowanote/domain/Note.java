@@ -64,6 +64,10 @@ public class Note extends AuditingDateEntity {
         this.noteBook = noteBook;
     }
 
+    public void updateNoteBook(NoteBook noteBook) {
+        this.noteBook = noteBook;
+    }
+
     public Note update(Note note) {
         this.title = note.title;
         this.text = note.text;
