@@ -59,7 +59,7 @@
 #add-notebook-input-btn {
     width: 15px;
     height: 15px;
-    margin-left: 80px;
+    float: right;
     cursor: pointer;
 }
 
