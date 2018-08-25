@@ -11,7 +11,12 @@ class NotebookList {
 
     }
 
+    clearNoteBookList() {
+        this.notebookListEl.innerHTML = '';
+    }
+
     initNotebookList(successCallback, failCallback) {
+        this.clearNoteBookList();
         this.fetchNotebookList(successCallback, failCallback);
         this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
         this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
@@ -27,13 +32,27 @@ class NotebookList {
         });
     }
 
+    fetchDeleteNoteBook(noteBookId, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notebooks/${noteBookId}`,
+            method: 'DELETE',
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
+    }
+
     renderNotebooks(noteBooks) {
         this.noteBooks = noteBooks;
         this.noteBooks.forEach((notebook) => {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+        this.notebookListEl.firstElementChild.firstElementChild.classList.add('notebook-focus');
+    }
+
+    deleteNoteBook(deleteTarget, successCallback, failCallback) {
+        const noteBookId = deleteTarget.closest('LI').dataset.notebookId;
+        this.fetchDeleteNoteBook(noteBookId, successCallback, failCallback);
     }
     
     getNotes() {

@@ -84,7 +84,19 @@ class MainApp {
      * @param e
      */
     selectNoteBookEventHandler(e){
-        const targetNotebook = e.target.closest('li');
+        const target = e.target;
+        //노트북 삭제 버튼이 클릭된 경우
+        if(target.tagName === 'I' && confirm('해당 노트북을 삭제하시겠습니까?')) {
+            const successCallback = () => {
+                this.initMainPage();
+            };
+            const failCallback = () => {
+                console.log('노트북 삭제에 실패했습니다.');
+            };
+            this.noteBook.deleteNoteBook(target, successCallback, failCallback);
+            return;
+        }
+        const targetNotebook = target.closest('span');
         if(!targetNotebook) {
             return;
         }
