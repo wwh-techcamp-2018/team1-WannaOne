@@ -8,13 +8,13 @@ function getNoteBookListTemplate(notebook) {
 }
 
 function getNoteItemTemplate(note) {
-    return `<li data-note-id="${note.id}" draggable="true">
+    return `<li data-note-id="${note.id}">
                 <div class="note-item">`
         + getNoteItemContentTemplate(note)
         + `</div></li>`;
 }
 
 function getNoteItemContentTemplate(note) {
-    return `<div class="note-list-title">${note.title}</div>
+    return `<div class="note-list-title" data-note-id="${note.id}" draggable="true">${note.title}</div>
                <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
 }

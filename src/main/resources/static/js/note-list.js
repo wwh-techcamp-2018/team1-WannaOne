@@ -11,9 +11,6 @@ class NoteList {
     }
 
     updateNoteOnDragStartEventHandler(evt) {
-        if(!(evt.target.tagName === 'LI')) {
-            return;
-        }
         evt.dataTransfer.setData("noteId", evt.target.dataset.noteId);
     }
 
