@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/main/notebook-list.css">
     <link rel="stylesheet" href="/css/main/note-list.css">
     <link rel="stylesheet" href="/css/main/note.css">
+    <link rel="stylesheet" href="/css/main/comment.css">
 
     <!--scripts for tui-editor -->
     <script src="/js/editor/jquery.js"></script>
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="/css/editor/tui-editor-contents.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!---------------------------->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
     <script src="/js/template-util.js"></script>
     <script src="/js/main-app.js"></script>
@@ -32,6 +34,7 @@
     <script src="/js/note-list.js"></script>
     <script src="/js/util.js"></script>
     <script src="/js/fileupload.js"></script>
+    <script src="/js/comment.js"></script>
 
 </head>
 <body>
@@ -43,7 +46,10 @@
     <div class="side-bar-left">
         <ul class="notebook-title">
             <li>노트북<img src="/img/add.png" id="add-notebook-input-btn"></li>
-            <li><div class="notebook-input-wrapper"><input type="text" id="notebook-title-input"><img src="/img/remove.png" id="remove-notebook-input-btn"></div></li>
+            <li>
+                <div class="notebook-input-wrapper"><input type="text" id="notebook-title-input"><img
+                        src="/img/remove.png" id="remove-notebook-input-btn"></div>
+            </li>
         </ul>
         <ul class="notebook-list">
         </ul>
@@ -51,25 +57,25 @@
     <div class="side-bar-middle">
         <div class="side-bar-middle-header">
             <div class="side-bar-middle-notebook-title">
-              AWS 공부
+                AWS 공부
             </div>
             <img src="/img/add.png" id="add-note-btn">
             <div class="side-bar-middle-notebook-meta">
-              6개의  노트
+                6개의 노트
             </div>
         </div>
         <div class="side-bar-middle-body">
-          <ul class="note-list">
+            <ul class="note-list">
 
 
-        </ul>
-      </div>
+            </ul>
+        </div>
     </div>
     <div class="main-content">
         <section id="note-section">
         </section>
         <div id="editSection"></div>
-        <div class = "note-save-delete">
+        <div class="note-save-delete">
             <button id="note-delete-button">
                 <i class="material-icons">delete</i>
             </button>
@@ -77,19 +83,34 @@
                 <i class="material-icons">save</i>
             </button>
         </div>
+        <div class="comment-section">
+            <div class="comment-list-section">
+                댓글 총 100개
+                <ul>
+                    <li>댓글 1</li>
+                    <li>댓글 2</li>
+                </ul>
+            </div>
+            <div class="comment-write-section">
+                <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
+                <input id="comment-input" type="text" placeholder="댓글을 작성하세요">
+                <i class="fas fa-pen-alt" id="add-comment-button"></i>
+            </div>
+        </div>
     </div>
+
     <script>
         var editor = new tui.Editor({
-                            el: document.querySelector('#editSection'),
-                            initialEditType: 'wysiwyg',
-                            hideModeSwitch: true,
-                            height: '85%',
-                            hooks: {
-                                'addImageBlobHook': function(blob, callback) {
-                                    imageUpload(blob, callback);
-                                }
-                            }
-                          });
+            el: document.querySelector('#editSection'),
+            initialEditType: 'wysiwyg',
+            hideModeSwitch: true,
+            height: '85%',
+            hooks: {
+                'addImageBlobHook': function (blob, callback) {
+                    imageUpload(blob, callback);
+                }
+            }
+        });
     </script>
 
 </div>

@@ -1,0 +1,36 @@
+.comment-section {
+    border-top: 1px solid gray;
+    padding-top: 10px;
+    display: none;
+}
+
+.comment-write-section > img{
+    vertical-align: middle;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.comment-write-section > input {
+    width: 85%;
+    height: 30px;
+    border-radius: 18px;
+    padding-left:5px;
+    border: 1px solid lightgray;
+    padding-right:30px;
+}
+
+.comment-write-section > input:focus {
+    border: 2px solid #55BCBE;
+    border-radius: 18px;
+    outline-style:none;
+    box-shadow:none;
+}
+
+.comment-write-section > i {
+    margin-left: -35px;
+}
+
+.comment-write-section > i:hover {
+    color:#e57085;
+}
