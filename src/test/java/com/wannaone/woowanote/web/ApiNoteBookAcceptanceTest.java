@@ -2,6 +2,7 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
+import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.support.ErrorMessage;
 import org.junit.Test;
@@ -68,5 +69,32 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
         ResponseEntity<NoteBook> response = template().getForEntity("/api/notebooks/1", NoteBook.class);
         assertThat(response.getBody().getNotes()).doesNotContain(testNote.delete());
+    }
+
+    @Test
+    public void deleteNoteBookTest() {
+        String noteBookName = "내가 쓴 첫번 째 노트북";
+        NoteBook noteBook = new NoteBook(noteBookName);
+        ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        NoteBook createdNoteBook = response.getBody();
+
+        ResponseEntity deleteNoteBookResponse = deleteForEntity("/api/notebooks/" + createdNoteBook.getId(),  Void.class);
+        assertThat(deleteNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<NoteBook> getNoteBookByNoteBookIdResponse = template().getForEntity("/api/notebooks/" + createdNoteBook.getId(), NoteBook.class);
+        assertThat(getNoteBookByNoteBookIdResponse.getBody().isDeleted()).isTrue();
+    }
+
+    @Test
+    public void deleteNoteBookTestUnAuthorized() {
+        String noteBookName = "내가 쓴 첫번 째 노트북";
+        NoteBook noteBook = new NoteBook(noteBookName);
+        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        NoteBook createdNoteBook = response.getBody();
+
+        ResponseEntity<ErrorDetails> deleteNoteBookResponse = deleteForEntity(UserDto.defaultUserDto().setEmail("anotherUser").toEntity(), "/api/notebooks/" + createdNoteBook.getId(),  ErrorDetails.class);
+        assertThat(deleteNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 }

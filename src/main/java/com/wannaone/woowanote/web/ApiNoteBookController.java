@@ -25,6 +25,12 @@ public class ApiNoteBookController {
         return new ResponseEntity(noteBookService.save(noteBook, owner), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{noteBookId}")
+    public ResponseEntity delete(@PathVariable Long noteBookId, @LoginUser User owner) {
+        noteBookService.delete(noteBookId, owner);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping("/{noteBookId}")
     public ResponseEntity getNoteBook(@PathVariable Long noteBookId) {
         return new ResponseEntity(noteBookService.getNoteBookByNoteBookId(noteBookId), HttpStatus.OK);

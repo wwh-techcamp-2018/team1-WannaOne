@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public abstract class AcceptanceTest {
 
     protected User defaultUser() {
         return findByEmail(DEFAULT_LOGIN_USER);
+    }
+
+    protected User anotherUser() {
+        return UserDto.defaultUserDto().setEmail("anotherUser@woowahan.com").toEntity();
     }
 
     protected User findByEmail(String email) {

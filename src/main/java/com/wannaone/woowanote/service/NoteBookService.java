@@ -3,6 +3,7 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
+import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,15 @@ public class NoteBookService {
 
     public NoteBook getNoteBookByNoteBookId(Long noteBookId) {
         return noteBookRepository.findById(noteBookId).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.NOTE_BOOK_NOT_FOUND.getMessageKey())));
+    }
+
+    @Transactional
+    public NoteBook delete(Long noteBookId, User owner) {
+        NoteBook deleteNoteBook = getNoteBookByNoteBookId(noteBookId);
+        if(!deleteNoteBook.getOwner().equalsForNonPersistenceEntity(owner)) {
+            throw new UnAuthorizedException(msa.getMessage(ErrorMessage.UNAUTHORIZED.getMessageKey()));
+        }
+        deleteNoteBook.delete();
+        return deleteNoteBook;
     }
 }

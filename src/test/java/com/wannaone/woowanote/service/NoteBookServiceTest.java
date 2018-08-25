@@ -2,6 +2,7 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -52,5 +54,17 @@ public class NoteBookServiceTest {
 
         NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(1L);
         assertThat(noteBook).isEqualTo(testNoteBook);
+    }
+
+    @Test
+    public void deleteNoteBookByNoteBookId() {
+        NoteBook testNoteBook = new NoteBook("노트북1");
+
+        User user = UserDto.defaultUserDto().toEntity();
+        testNoteBook.setOwner(user);
+
+        when(noteBookRepository.findById(1L)).thenReturn(Optional.of(testNoteBook));
+
+        assertThat(noteBookService.delete(1L, user).isDeleted()).isEqualTo(true);
     }
 }

@@ -2,6 +2,7 @@ package com.wannaone.woowanote.security;
 
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,13 @@ public class SecurityControllerAdvice {
     @ExceptionHandler(UnAuthenticationException.class)
     public ResponseEntity unAuthentication(UnAuthenticationException exception) {
         log.debug("UnAuthenticationException is happened!");
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDetails);
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity unAuthentication(UnAuthorizedException exception) {
+        log.debug("UnAuthorizedException is happened!");
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDetails);
     }
