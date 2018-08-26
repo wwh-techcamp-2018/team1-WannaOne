@@ -31,7 +31,12 @@
 
 .notebook-list li > i {
     margin-top:5px;
+    display: none;
     float:right;
+}
+
+.notebook-list li:hover > i {
+    display: block;
 }
 
 .notebook-list li > i:hover {
