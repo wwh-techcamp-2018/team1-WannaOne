@@ -5,6 +5,7 @@
     <title>Woowanote</title>
     <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/main.css">
+    <link rel="stylesheet" href="/css/main/notification.css">
     <link rel="stylesheet" href="/css/main/notebook-list.css">
     <link rel="stylesheet" href="/css/main/note-list.css">
     <link rel="stylesheet" href="/css/main/note.css">
@@ -29,6 +30,7 @@
 
     <script src="/js/template-util.js"></script>
     <script src="/js/main-app.js"></script>
+    <script src="/js/notification.js"></script>
     <script src="/js/note.js"></script>
     <script src="/js/notebook-list.js"></script>
     <script src="/js/note-list.js"></script>
@@ -41,7 +43,20 @@
 <div class="grid-container">
     <div class="header">
         <span id="logo">Woowa Note</span>
+        <span><img src="/img/notification.png" id="notification-btn"></span>
         <button id="logout">로그아웃</button>
+        <div class="notification-wrapper notification-hide">
+            <div class="notification-title">
+                <span>Notification</span>
+                <span><img src="/img/remove.png" id="remove-notification-btn"></span>
+            </div>
+            <div class="notification-content notification-scrollable">
+                <ul class="notification-ul">
+                    <li>noti 1</li>
+                    <li>noti 2</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="side-bar-left">
         <ul class="notebook-title">

@@ -1,0 +1,66 @@
+#notification-btn {
+    position: relative;
+    left: 80%;
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.notification-hide {
+    display: none;
+}
+
+.notification-wrapper {
+    width: 300px;
+    background-color: #fff;
+    margin: 3px 0px;
+    padding-left: 3px;
+    padding-bottom: 10px;
+    box-shadow: 1px 1px 1px 1px #aaaaaa;
+    z-index: 1;
+    border-radius: 5px;
+    text-align: left;
+    position: absolute;
+    right: 10px;
+}
+
+.notification-title {
+    font-size: 15px;
+    color: #888888;
+    margin: 10px 10px 5px 10px;
+    font-weight: bold;
+}
+
+#remove-notification-btn {
+    position: relative;
+    left: 63%;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.notification-content ul {
+    margin: 0px 5px 5px 0px;
+    padding: 0px;
+}
+
+.notification-content li {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    height: 40px;
+    margin: 3px 7px;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    color: #999999;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    list-style: none;
+}
+
+.notification-scrollable {
+    max-height: 400px;
+    overflow: scroll;
+}

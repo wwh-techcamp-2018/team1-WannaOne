@@ -10,6 +10,8 @@ class MainApp {
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
+        this.notification = new Notification();
+
         this.initMainPage();
         this.initEventListener();
     }
@@ -106,6 +108,7 @@ class MainApp {
             this.note.renderNoteContent(this.noteList.getNote());
         }
     }
+
     logoutEventHandler(e) {
         fetchManager({
                     url: '/api/users/logout',
@@ -114,14 +117,15 @@ class MainApp {
                     onFailure: this.logoutFailure
                 });
     }
+
     logoutSuccess() {
         console.log("success");
         document.location.href="/login.html";
     }
+
     logoutFailure() {
         console.log("fail");
     }
-
 
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
