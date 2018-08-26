@@ -8,19 +8,22 @@ class NotebookList {
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
         this.removeNotebookInputButton = $('#remove-notebook-input-btn');
-
+        this.initNoteBookEventListener();
     }
 
     clearNoteBookList() {
         this.notebookListEl.innerHTML = '';
     }
 
-    initNotebookList(successCallback, failCallback) {
-        this.clearNoteBookList();
-        this.fetchNotebookList(successCallback, failCallback);
+    initNoteBookEventListener() {
         this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
         this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
         this.notebookTitleInput.addEventListener('keyup', this.handlerAddNoteBookEvent.bind(this));
+    }
+
+    initNotebookList(successCallback, failCallback) {
+        this.clearNoteBookList();
+        this.fetchNotebookList(successCallback, failCallback);
     }
 
     fetchNotebookList(successCallback, failCallback) {

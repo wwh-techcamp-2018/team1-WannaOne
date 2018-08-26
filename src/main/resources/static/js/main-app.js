@@ -117,7 +117,7 @@ class MainApp {
             this.noteBook.deleteNoteBook(target, successCallback, failCallback);
             return;
         }
-        const targetNotebook = target.closest('span');
+        const targetNotebook = target.closest('li');
         if(!targetNotebook) {
             return;
         }
