@@ -1,5 +1,6 @@
 class NoteList {
     constructor() {
+        this.noteListBar = $('.side-bar-middle');
         this.noteListEl = $('.note-list');
         this.noteListNum = $('.side-bar-middle-notebook-meta');
         this.currentNoteIndex = 0;
@@ -8,6 +9,10 @@ class NoteList {
 
     initEvent() {
         this.noteListEl.addEventListener('dragstart', this.updateNoteOnDragStartEventHandler.bind(this));
+    }
+
+    toggleNoteListBar() {
+        this.noteListBar.classList.toggle('note-list-hide');
     }
 
     updateNoteOnDragStartEventHandler(evt) {
