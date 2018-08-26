@@ -72,17 +72,6 @@ public class User implements Serializable {
         return password;
     }
 
-    public boolean equalsForNonPersistenceEntity(Object nonPersistenceEntity) {
-        if (this == nonPersistenceEntity) return true;
-        if (nonPersistenceEntity == null || getClass() != nonPersistenceEntity.getClass()) return false;
-        User user = (User) nonPersistenceEntity;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(photoUrl, user.photoUrl);
-    }
-
     @Override
     public String toString() {
         return "User{" +

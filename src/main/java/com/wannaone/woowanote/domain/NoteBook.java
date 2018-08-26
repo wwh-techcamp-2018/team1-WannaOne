@@ -50,6 +50,10 @@ public class NoteBook implements Serializable {
         this.deleted = false;
     }
 
+    public boolean isNoteBookOwner(User compareUser) {
+        return this.owner.getId().equals(compareUser.getId());
+    }
+
     public void addNote(Note note) {
         this.notes.add(note);
     }

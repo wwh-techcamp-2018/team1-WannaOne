@@ -39,7 +39,7 @@ public class NoteBookService {
     @Transactional
     public NoteBook delete(Long noteBookId, User owner) {
         NoteBook deleteNoteBook = getNoteBookByNoteBookId(noteBookId);
-        if(!deleteNoteBook.getOwner().equalsForNonPersistenceEntity(owner)) {
+        if(!deleteNoteBook.isNoteBookOwner(owner)) {
             throw new UnAuthorizedException(msa.getMessage(ErrorMessage.UNAUTHORIZED.getMessageKey()));
         }
         deleteNoteBook.delete();

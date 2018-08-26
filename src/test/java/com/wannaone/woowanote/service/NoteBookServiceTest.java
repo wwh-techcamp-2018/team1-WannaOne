@@ -58,7 +58,7 @@ public class NoteBookServiceTest {
     public void deleteNoteBookByNoteBookId() {
         NoteBook testNoteBook = new NoteBook("노트북1");
 
-        User user = UserDto.defaultUserDto().toEntity();
+        User user = new User(1L, "유저", "1234");
         testNoteBook.setOwner(user);
 
         when(noteBookRepository.findById(1L)).thenReturn(Optional.of(testNoteBook));
