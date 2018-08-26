@@ -24,7 +24,7 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     @Autowired
-    private NoteBookRepository noteBookRepository;
+    private NoteBookService noteBookService;
 
     @Autowired
     private MessageSourceAccessor msa;
@@ -38,8 +38,7 @@ public class NoteService {
     }
 
     public Note save(Long noteBookId, User writer) {
-        NoteBook noteBook = noteBookRepository.findById(noteBookId)
-                .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.noteBook")));
+        NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
         Note newNote = new Note(writer);
         newNote.addNoteBook(noteBook);
         noteRepository.save(newNote);
@@ -58,5 +57,16 @@ public class NoteService {
     @Transactional
     public Note deleteNote(Long id) {
         return getNote(id).delete();
+    }
+
+    @Transactional
+    public Note updateNoteWithParentNoteBook(Long noteId, Long noteBookId) {
+        Note updateNote = getNote(noteId);
+        NoteBook prevParentNoteBook = updateNote.getNoteBook();
+        NoteBook newParentNoteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
+        prevParentNoteBook.removeNote(updateNote);
+        newParentNoteBook.addNote(updateNote);
+        updateNote.updateNoteBook(newParentNoteBook);
+        return updateNote;
     }
 }

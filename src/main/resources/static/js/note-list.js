@@ -3,6 +3,25 @@ class NoteList {
         this.noteListEl = $('.note-list');
         this.noteListNum = $('.side-bar-middle-notebook-meta');
         this.currentNoteIndex = 0;
+        this.initEvent();
+    }
+
+    initEvent() {
+        this.noteListEl.addEventListener('dragstart', this.updateNoteOnDragStartEventHandler.bind(this));
+    }
+
+    updateNoteOnDragStartEventHandler(evt) {
+        evt.dataTransfer.setData("noteId", evt.target.dataset.noteId);
+    }
+
+    fetchNoteUpdateParentNoteBook(noteId, noteBookId, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notes/${noteId}/notebooks/${noteBookId}`,
+            method: 'PATCH',
+            headers: {'content-type': 'application/json'},
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
     }
 
     renderNoteItem(note) {
