@@ -74,7 +74,8 @@
             </div>
             <img src="/img/add.png" id="add-note-btn">
             <div class="side-bar-middle-notebook-meta">
-              6개의  노트
+                <span class="note-list-count">6개의 노트</span>
+                <span class="share-this-notebook">이 노트북을 공유하기</span>
             </div>
         </div>
         <div class="side-bar-middle-body">
@@ -112,6 +113,16 @@
     </script>
 
 </div>
-
+<div class="share-notebook-popup">
+    <p>노트북을 공유하세요!</p>
+    <div class="share-invitation">
+        <input type="text" placeholder="초대할 동료의 이름을 입력하세요.">
+    </div>
+    <ul id="share-invitation-list">
+        <li>두호<i class="material-icons invitation-cancel-button">close</i></li>
+        <li>도연<i class="material-icons invitation-cancel-button">close</i></li>
+    </ul>
+    <button>공유하기</button>
+</div>
 </body>
 </html>

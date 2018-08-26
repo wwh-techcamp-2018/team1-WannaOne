@@ -5,7 +5,7 @@
     /* border: #d9d7d3 solid 0.5px; */
 }
 
-.note-list {
+.note-list, #share-invitation-list {
     list-style-type: none;
     padding: 0;
 }
@@ -88,7 +88,16 @@ p.note-list-title, p.note-list-snippet {
   text-align: left;
   margin-top: 12px;
   display:block;
+}
 
+.share-this-notebook {
+    position: absolute;
+    left: 105px;
+    cursor: pointer;
+}
+
+.share-this-notebook:hover {
+    color: #233A40;
 }
 
 .side-bar-middle-body {
@@ -109,3 +118,60 @@ p.note-list-title, p.note-list-snippet {
     position:absolute;
     left:168px;
 }
+
+.share-notebook-popup {
+    width: 500px;
+    min-height: 200px;
+    z-index: 1;
+    position: absolute;
+    left: 550px;
+    top: 150px;
+    padding: 30px;
+    background-color: #F2EFEB;
+    box-shadow: 0px 0px 24px 2px slategrey;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.share-invitation > input {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    border: none;
+    border-bottom: #04BFBF solid 3px;
+    background-color: #F2EFEB;
+    box-sizing: border-box;
+    font-size: 17px;
+}
+
+#share-invitation-list, #share-invitation-list > li > i {
+    font-size: 13px;
+    color: slategrey;
+}
+
+#share-invitation-list > li {
+    padding: 3px 10px;
+}
+
+.invitation-cancel-button {
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.share-notebook-popup > button {
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    right: 40px;
+    border: #04BFBF solid 0.7px;
+    font-size: 15px;
+    color: gray;
+    border-radius: 12px / 10px;
+    cursor: pointer;
+}
+
+.share-notebook-popup > button:hover {
+    background-color: #04BFBF;
+    color: white;
+}
+
