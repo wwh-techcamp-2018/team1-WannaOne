@@ -94,7 +94,17 @@ class NotebookList {
         this.notebookTitleInput.value = '';
     }
 
-    addNoteBookFailureCallback() {
+    addNoteBookFailureCallback(error) {
+        error.json().then((error) => {
+            error.errors.forEach((error) => {
+                const validationEl = $(`#notebook-${error.fieldName}-validation`);
+                validationEl.style.display = 'block';
+                validationEl.innerHTML = error.errorMessage;
+                setTimeout(() => {
+                    validationEl.style.display = 'none';
+                }, 2000);
+            })
+        });
         console.log("노트북 추가 실패")
     }
 

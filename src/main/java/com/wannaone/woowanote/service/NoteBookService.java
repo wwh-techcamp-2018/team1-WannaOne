@@ -2,6 +2,7 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
@@ -24,9 +25,10 @@ public class NoteBookService {
     }
 
     @Transactional
-    public NoteBook save(NoteBook noteBook, User owner) {
-        noteBook.setOwner(owner);
-        return noteBookRepository.save(noteBook);
+    public NoteBook save(NoteBookDto noteBookDto, User owner) {
+        NoteBook newNoteBook = noteBookDto.toEntity();
+        newNoteBook.setOwner(owner);
+        return noteBookRepository.save(newNoteBook);
     }
 
     public NoteBook getNoteBookByNoteBookId(Long noteBookId) {
