@@ -51,7 +51,7 @@ class Note {
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         this.editorEl.innerHTML = note.text;
         this.editSection.style.display='block';
-        this.btns.style.display='block';
+        this.btns.style.display='inline-block';
     }
 
     getNoteTitle() {

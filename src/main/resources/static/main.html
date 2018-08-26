@@ -41,12 +41,25 @@
         <button id="logout">로그아웃</button>
     </div>
     <div class="side-bar-left">
-        <ul class="notebook-title">
-            <li>노트북<img src="/img/add.png" id="add-notebook-input-btn"></li>
-            <li><div class="notebook-input-wrapper"><input type="text" id="notebook-title-input"><img src="/img/remove.png" id="remove-notebook-input-btn"></div></li>
-        </ul>
-        <ul class="notebook-list">
-        </ul>
+        <div class="side-bar-left-header">
+            <div class="notebook-title">노트북
+                <!--<img src="/img/add.png" id="add-notebook-input-btn">-->
+            </div>
+            <div id="add-notebook-input-btn">
+                <i class="material-icons">
+                    add_circle
+                </i>
+                <span>새로운 노트북을 만들어보세요</span>
+            </div>
+
+            <div class="notebook-input-wrapper">
+                <input type="text" id="notebook-title-input">
+            </div>
+        </div>
+        <div class="side-bar-left-body">
+            <ul class="notebook-list">
+            </ul>
+        </div>
     </div>
     <div class="side-bar-middle">
         <div class="side-bar-middle-header">

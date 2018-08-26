@@ -56,7 +56,6 @@ p.note-list-title, p.note-list-snippet {
     -webkit-box-orient: vertical;
     font-size: 11px;
     text-align: justify;
-    margin-bottom: 10px;
     line-height: 1.5;
     color: gray;
 }
@@ -66,6 +65,7 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-header {
+  height: 85px;
   position:relative;
   box-sizing: border-box;
   background-color: white;
@@ -92,7 +92,7 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-body {
-  height: 700px;
+  height: calc(100vh - 128px);
   padding: 0px 19px;
   border-left: #c1bfbc solid 0.5px;
   border-right: #c1bfbc solid 0.5px;

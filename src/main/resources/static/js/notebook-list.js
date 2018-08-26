@@ -4,19 +4,17 @@ class NotebookList {
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
 
-        this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
+        this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
-        this.removeNotebookInputButton = $('#remove-notebook-input-btn');
-
-    }
-
-    initNotebookList(successCallback, failCallback) {
-        this.fetchNotebookList(successCallback, failCallback);
+//        this.removeNotebookInputButton = $('#remove-notebook-input-btn');
         this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
-        this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
-        this.notebookTitleInput.addEventListener('keyup', this.handlerAddNoteBookEvent.bind(this));
     }
+
+//    initNotebookList(successCallback, failCallback) {
+//        this.fetchNotebookList(successCallback, failCallback);
+//        this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
+//    }
 
     fetchNotebookList(successCallback, failCallback) {
         fetchManager({
@@ -67,21 +65,30 @@ class NotebookList {
         this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
     }
 
-    handlerAddNoteBookEvent(evt) {
-        if(evt.keyCode === 13) {
-            const notebookTitle = this.notebookTitleInput.value;
-            if(!notebookTitle) return;
-            fetchManager({
-                url: '/api/notebooks',
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify({
-                    title: notebookTitle
-                }),
-                onSuccess: this.addNoteBookSuccessCallback.bind(this),
-                onFailure: this.addNoteBookFailureCallback
-            });
+    IsValidInput(e) {
+        if(e.keyCode !== 13) {
+            return false;
         }
+        const notebookTitle = this.notebookTitleInput.value;
+        if(!notebookTitle.trim()) {
+            return false;
+        }
+        return true;
+    }
+
+    createNewNotebook(successCallback, failCallback) {
+        const notebookTitle = this.notebookTitleInput.value;
+        if(!notebookTitle) return;
+        fetchManager({
+            url: '/api/notebooks',
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                title: notebookTitle
+            }),
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
     }
 
     addNoteBookSuccessCallback(notebook) {
@@ -92,6 +99,7 @@ class NotebookList {
 
     clearInput() {
         this.notebookTitleInput.value = '';
+        this.notebookInputWrapper.style.display = "none";
     }
 
     addNoteBookFailureCallback() {

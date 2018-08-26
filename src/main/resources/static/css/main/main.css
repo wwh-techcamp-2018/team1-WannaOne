@@ -1,5 +1,5 @@
 html,body{
-    overflow-x: hidden;
+    overflow: hidden;
     height:100%;
     margin:0;
     padding:0;
@@ -15,7 +15,7 @@ button {
     height: 100vh;
     display: grid;
     grid-template-columns: 190px 220px auto;
-    grid-template-rows: 40px auto;
+    grid-template-rows: 40px calc(100vh - 43px);
     grid-gap: 3px;
 }
 .header {

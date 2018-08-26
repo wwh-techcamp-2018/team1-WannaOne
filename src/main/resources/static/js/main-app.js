@@ -1,5 +1,6 @@
 class MainApp {
     constructor() {
+        this.notebookTitleInput = $('#notebook-title-input');
         this.noteBookListEl = $('.notebook-list');
         this.noteListEl = $('.note-list');
         this.addNoteBtn = $('#add-note-btn');
@@ -18,6 +19,7 @@ class MainApp {
      * 노트북 클릭, 노트 클릭 시 발생할 이벤트 정의
      */
     initEventListener() {
+        this.notebookTitleInput.addEventListener('keyup', this.createNewNotebookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
@@ -30,22 +32,20 @@ class MainApp {
      * 제일 처음 노트북 로드하고 메인 페이지를 렌더링하는 메소드
      */
     initMainPage() {
-        const successCallback = (notebooks) => {
-            if (!notebooks.length) {
-                console.log('노트북이 존재하지 않습니다.');
-                return;
-            }
-            this.noteBook.renderNotebooks(notebooks);
-            this.noteBook.setTitle();
-            this.noteList.renderNoteList(this.noteBook.getNotes());
-            this.noteList.focusNoteItem(0);
-            this.note.renderNoteContent(this.noteList.getNote());
+        this.renewNotebookList();
+    }
+
+    createNewNotebookEventHandler(e) {
+        if(e.keyCode !== 13) {
+            return;
+        }
+        const successCallback = (newNotebook) => {
+            this.noteBook.addNoteBookSuccessCallback(newNotebook);
         };
         const failCallback = () => {
-            console.log("최초의 노트북 리스트를 받아오는데 실패했습니다.");
+            console.log('새로운 노트북 생성에 실패했습니다..');
         };
-
-        this.noteBook.initNotebookList(successCallback.bind(this), failCallback);
+        this.noteBook.createNewNotebook(successCallback, failCallback);
     }
 
     createNewNoteEventHandler() {
@@ -120,6 +120,25 @@ class MainApp {
     }
     logoutFailure() {
         console.log("fail");
+    }
+
+    renewNotebookList() {
+        const successCallback = (notebooks) => {
+            if (!notebooks.length) {
+                console.log('노트북이 존재하지 않습니다.');
+                return;
+            }
+            this.noteBook.renderNotebooks(notebooks);
+            this.noteBook.setTitle();
+            this.noteList.renderNoteList(this.noteBook.getNotes());
+            this.noteList.focusNoteItem(0);
+            this.note.renderNoteContent(this.noteList.getNote());
+        };
+        const failCallback = () => {
+            console.log("최초의 노트북 리스트를 받아오는데 실패했습니다.");
+        };
+
+        this.noteBook.fetchNotebookList(successCallback.bind(this), failCallback);
     }
 
 
