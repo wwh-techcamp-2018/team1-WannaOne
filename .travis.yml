@@ -41,9 +41,9 @@ before_deploy:
 
 deploy:
   - provider: s3
-    access_key_id: $AWS_DEPLOY_ACCESS_KEY # Travis repo settings에 설정된 값
-    secret_access_key: $AWS_DEPLOY_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: woowanote-deploy # S3 버킷
+    access_key_id: $AWS_ACCESS_KEY_ID # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_ACCESS_KEY # Travis repo settings에 설정된 값
+    bucket: woowanotes3 # S3 버킷
     region: ap-northeast-2
     skip_cleanup: true
     acl: public_read
@@ -54,9 +54,9 @@ deploy:
       branch: develop
 
   - provider: codedeploy
-    access_key_id: $AWS_DEPLOY_ACCESS_KEY # Travis repo settings에 설정된 값
-    secret_access_key: $AWS_DEPLOY_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: woowanote-deploy # S3 버킷
+    access_key_id: $AWS_ACCESS_KEY_ID # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_ACCESS_KEY # Travis repo settings에 설정된 값
+    bucket: woowanotes3 # S3 버킷
     key: woowanote.zip # 빌드 파일을 압축해서 전달
     bundle_type: zip
     application: woowanote # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션

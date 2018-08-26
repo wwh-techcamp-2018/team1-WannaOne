@@ -5,12 +5,44 @@ class Note {
         this.editSection = $('#editSection');
         this.noteSection = $('#note-section');
         this.btns = $('.note-save-delete');
+
+        this.comment = new Comment();
+        this.commentSection = $('.comment-section');
+        this.addCommentBtn = $('#add-comment-button');
+        this.commentInput = $('#comment-input');
+
+        this.initEvent();
+
+    }
+
+    initEvent() {
+        this.addCommentBtn.addEventListener('click', this.addCommentClickEventHandler.bind(this));
+        this.commentInput.addEventListener('keyup', ({keyCode}) => {
+            if(keyCode === 13) {
+                this.addCommentClickEventHandler();
+            }
+        });
+    }
+
+    addCommentClickEventHandler() {
+        const content = this.commentInput.value;
+        const successCallback = (response) => {
+          //TODO 댓글 조회 기능 구현 시, render가 되든 새로고침이 되든 필요.
+            console.log(`${response} 댓글 작성 성공!`);
+            this.commentInput.value = '';
+        };
+        const failCallback = () => {
+            console.log('댓글 작성에 실패했습니다.');
+            this.commentInput.value = '';
+        }
+        this.comment.fetchWriteComment(content, this.note.id, successCallback, failCallback)
     }
 
     clearNoteSection() {
         this.noteSection.innerHTML = '';
         this.editSection.style.display = 'none';
-        this.btns.style.display ='none';
+        this.btns.style.display = 'none';
+        this.commentSection.style.display = 'none';
     }
 
     updateNote(successCallback, failCallback) {
@@ -50,8 +82,9 @@ class Note {
         this.note = note;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         this.editorEl.innerHTML = note.text;
-        this.editSection.style.display='block';
-        this.btns.style.display='block';
+        this.editSection.style.display = 'block';
+        this.btns.style.display = 'block';
+        this.commentSection.style.display = 'block';
     }
 
     getNoteTitle() {

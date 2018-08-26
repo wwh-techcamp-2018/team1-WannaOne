@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoteBookDto {
     @NotBlank
+    @Size(max = 30)
     private String title;
     public NoteBook toEntity(){
         return new NoteBook(this.title);
