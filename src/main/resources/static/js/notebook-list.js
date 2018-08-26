@@ -46,6 +46,7 @@ class NotebookList {
 
     renderNotebooks(noteBooks) {
         this.noteBooks = noteBooks;
+        this.currentIndex = 0;
         this.noteBooks.forEach((notebook) => {
             this.renderNoteBook(notebook);
         });
