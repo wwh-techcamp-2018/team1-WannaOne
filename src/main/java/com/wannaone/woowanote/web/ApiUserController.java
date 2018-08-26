@@ -1,9 +1,6 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
-import com.wannaone.woowanote.domain.Note;
-import com.wannaone.woowanote.domain.NoteBook;
-import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.dto.UserDto;
@@ -11,7 +8,6 @@ import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

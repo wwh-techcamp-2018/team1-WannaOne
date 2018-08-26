@@ -1,23 +1,21 @@
 package com.wannaone.woowanote.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wannaone.woowanote.dto.LoginDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
 @Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
@@ -72,5 +70,16 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                '}';
     }
 }

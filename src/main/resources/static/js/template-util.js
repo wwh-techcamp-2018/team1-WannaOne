@@ -4,7 +4,10 @@ function getNoteSectionTemplate(note) {
 }
 
 function getNoteBookListTemplate(notebook) {
-    return `<li data-notebook-id=${notebook.id}>${notebook.title}</li>`;
+    return `<li data-notebook-id=${notebook.id}>
+                <span>${notebook.title}</span>
+                <i class="far fa-trash-alt"></i>
+            </li>`;
 }
 
 function getNoteItemTemplate(note) {

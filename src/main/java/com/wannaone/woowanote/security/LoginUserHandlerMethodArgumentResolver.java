@@ -11,9 +11,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    @Autowired
-    private MessageSourceAccessor msa;
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(LoginUser.class);

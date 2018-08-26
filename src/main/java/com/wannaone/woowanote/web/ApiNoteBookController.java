@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.web;
 
-import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.security.LoginUser;
@@ -26,6 +25,12 @@ public class ApiNoteBookController {
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid NoteBookDto noteBookDto, @LoginUser User owner) {
         return new ResponseEntity(noteBookService.save(noteBookDto, owner), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{noteBookId}")
+    public ResponseEntity delete(@PathVariable Long noteBookId, @LoginUser User owner) {
+        noteBookService.delete(noteBookId, owner);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/{noteBookId}")

@@ -15,7 +15,7 @@
     font-size: 13px;
 }
 
-.notebook-list li {
+.notebook-list li > span {
     width: 100%;
     height: 20px;
     position: relative;
@@ -29,7 +29,21 @@
     margin: 10px 0px;
 }
 
-.notebook-list > li:hover {
+.notebook-list li > i {
+    margin-top:5px;
+    display: none;
+    float:right;
+}
+
+.notebook-list li:hover > i {
+    display: block;
+}
+
+.notebook-list li > i:hover {
+    color: #e57085;
+}
+
+.notebook-list > li > span:hover {
     color: #e57085;
 }
 
@@ -50,7 +64,7 @@
 #add-notebook-input-btn {
     width: 15px;
     height: 15px;
-    margin-left: 80px;
+    float: right;
     cursor: pointer;
 }
 

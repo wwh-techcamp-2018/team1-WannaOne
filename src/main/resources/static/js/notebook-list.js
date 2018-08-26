@@ -8,14 +8,22 @@ class NotebookList {
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
         this.removeNotebookInputButton = $('#remove-notebook-input-btn');
-
+        this.initNoteBookEventListener();
     }
 
-    initNotebookList(successCallback, failCallback) {
-        this.fetchNotebookList(successCallback, failCallback);
+    clearNoteBookList() {
+        this.notebookListEl.innerHTML = '';
+    }
+
+    initNoteBookEventListener() {
         this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
         this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
         this.notebookTitleInput.addEventListener('keyup', this.handlerAddNoteBookEvent.bind(this));
+    }
+
+    initNotebookList(successCallback, failCallback) {
+        this.clearNoteBookList();
+        this.fetchNotebookList(successCallback, failCallback);
     }
 
     fetchNotebookList(successCallback, failCallback) {
@@ -27,13 +35,28 @@ class NotebookList {
         });
     }
 
+    fetchDeleteNoteBook(noteBookId, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notebooks/${noteBookId}`,
+            method: 'DELETE',
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
+    }
+
     renderNotebooks(noteBooks) {
         this.noteBooks = noteBooks;
+        this.currentIndex = 0;
         this.noteBooks.forEach((notebook) => {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+        this.notebookListEl.firstElementChild.firstElementChild.classList.add('notebook-focus');
+    }
+
+    deleteNoteBook(deleteTarget, successCallback, failCallback) {
+        const noteBookId = deleteTarget.closest('LI').dataset.notebookId;
+        this.fetchDeleteNoteBook(noteBookId, successCallback, failCallback);
     }
     
     getNotes() {
