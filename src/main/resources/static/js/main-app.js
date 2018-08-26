@@ -69,6 +69,9 @@ class MainApp {
     }
 
     deleteNoteEventHandler() {
+        if(!confirm('해당 노트를 삭제하시겠습니까?')) {
+            return;
+        }
         const successCallback = () => {
             this.renewNoteList(this.noteBook.getNoteBookId());
         };
