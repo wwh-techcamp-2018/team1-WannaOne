@@ -22,6 +22,7 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
+        this.editSection.addEventListener('click', this.showEditor.bind(this));
     }
 
     addCommentClickEventHandler() {
@@ -46,6 +47,7 @@ class Note {
     }
 
     updateNote(successCallback, failCallback) {
+        this.hideEditor();
         fetchManager({
             url: `/api/notes/${this.getNoteId()}`,
             method: 'PUT',
@@ -76,6 +78,7 @@ class Note {
         }
         this.clearNoteSection();
         this.renderNote(data);
+        this.hideEditor();
     }
 
     renderNote(note) {
@@ -85,6 +88,18 @@ class Note {
         this.editSection.style.display = 'block';
         this.btns.style.display = 'block';
         this.commentSection.style.display = 'block';
+    }
+
+    hideEditor() {
+        $('.te-toolbar-section').style.display = 'none';
+        $('.tui-editor-defaultUI').style.border = 'none';
+        $('.te-ww-container .tui-editor-contents').style.padding = '0px 16px 0px 0px';
+    }
+
+    showEditor() {
+        $('.te-toolbar-section').style.display = 'block';
+        $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
+        $('.te-ww-container .tui-editor-contents').style.padding = '0px 25px 0px 25px';
     }
 
     getNoteTitle() {
