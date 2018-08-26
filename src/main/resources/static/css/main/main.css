@@ -24,10 +24,9 @@ button {
     background: #04BFBF;
 }
 
-
 #logo {
     position: relative;
-    left: 50px;
+    left: 15px;
     padding-top: 3px;
     padding-bottom: 0px;
     font-size: 27px;
@@ -38,10 +37,10 @@ button {
 #logout {
     position: relative;
     left: 80%;
-    padding-bottom: 7px;
+    margin: 0px 10px;
     color: white;
     background: transparent;
-    font-size: 16px;
+    cursor: pointer;
 }
 
 .main-content {
