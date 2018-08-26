@@ -13,24 +13,28 @@
 }
 
 .side-bar-left-body {
+    height: calc(100vh - 200px);
     margin: 0;
     box-sizing: border-box;
+    overflow: scroll;
 }
 
 .notebook-list {
-    height: calc(100vh - 43px);
+    min-height: 150px;
+}
+
+.notebook-list, .shared-notebook-list {
     padding: 0;
     margin: 0;
     list-style-type: none;
     text-align: left;
     line-height: 2;
     font-size: 13px;
-    overflow: scroll;
 }
 
 .side-bar-left-body li {
     height: 25px;
-    margin: 10px 20px;
+    margin: 10px 20px 0px;
     padding: 0px 20px;
     text-align: left;
     white-space: nowrap;
@@ -40,7 +44,7 @@
     box-sizing: border-box;
 }
 
-.notebook-list > li:hover {
+.notebook-list > li:hover, .shared-notebook-list > li:hover {
     color: #e57085;
 }
 
@@ -94,4 +98,16 @@
     margin-left: 25px;
     align: center;
     cursor: pointer;
+}
+
+.side-bar-left-body > hr {
+    display: block;
+    margin: 18px 8px 10px 6px;
+    border-style: solid;
+    border-width: 0.5px;
+}
+
+.shared-notebook-header {
+    font-size: 13px;
+    margin: 0px 10px;
 }
