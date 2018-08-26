@@ -1,9 +1,7 @@
 package com.wannaone.woowanote.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.wannaone.woowanote.exception.UnAuthorizedException;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -60,5 +58,9 @@ public class NoteBook implements Serializable {
 
     public void delete() {
         this.deleted = true;
+    }
+
+    public void removeNote(Note note) {
+        this.notes.remove(note);
     }
 }

@@ -1,7 +1,9 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
+import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -60,6 +62,23 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getTitle()).isEqualTo(updateNote.getTitle());
         assertThat(response.getBody().getText()).isEqualTo(updateNote.getText());
+    }
+
+    @Test
+    public void updateParentNoteBook() {
+        NoteBookDto firstNoteBookDto = new NoteBookDto("내가 쓴 첫번 째 노트북");
+        ResponseEntity<NoteBook> firstNoteBookCreateResponse = basicAuthTemplate().postForEntity("/api/notebooks", firstNoteBookDto, NoteBook.class);
+        Long firstNoteBookId = firstNoteBookCreateResponse.getBody().getId();
+        NoteBookDto secondNoteBookDto = new NoteBookDto("내가 쓴 두번 째 노트북");
+        ResponseEntity<NoteBook> secondNoteBookCreateResponse = basicAuthTemplate().postForEntity("/api/notebooks", secondNoteBookDto, NoteBook.class);
+        Long secondNoteBookId = secondNoteBookCreateResponse.getBody().getId();
+
+        ResponseEntity<Note> defaultNoteCreateResponse =  basicAuthTemplate().postForEntity("/api/notes/notebook/" + firstNoteBookId, null, Note.class);
+        Long updateNoteId = defaultNoteCreateResponse.getBody().getId();
+        ResponseEntity<Note> updateNoteResponse = patchForEntityWithBasicAuth("/api/notes/" + updateNoteId + "/notebooks/" + secondNoteBookId, null,  Note.class);
+
+        assertThat(updateNoteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //TODO 정상적으로 DB 반영되는데 테스트에서 getNoteBookId를 해주고 싶은데.. LAZY라서 안 받아와진다. 근데 front에서는 받아와지는데 왜 이건 안되는거임?
     }
 
     @Test
