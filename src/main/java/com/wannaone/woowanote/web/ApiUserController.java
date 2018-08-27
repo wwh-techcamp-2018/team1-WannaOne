@@ -1,18 +1,17 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -48,5 +47,10 @@ public class ApiUserController {
         return new NoteBookDto("나의 우아한 노트북");
     }
 
-
+    @PostMapping("/shared/{noteBookId}")
+    //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
+    public ResponseEntity registerNewSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
+        userService.addSharedNoteBook(loginUser, noteBookService.getNoteBookByNoteBookId(noteBookId));
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -65,6 +65,10 @@ public class NoteBook implements Serializable {
         this.notes.add(note);
     }
 
+    public void addPeer(User loginUser) {
+        this.peers.add(loginUser);
+    }
+
     public void delete() {
         this.deleted = true;
     }

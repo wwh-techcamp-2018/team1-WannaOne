@@ -1,9 +1,11 @@
 package com.wannaone.woowanote.service;
 
+import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -39,5 +42,14 @@ public class UserService {
 
     public boolean isExistUser(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    @Transactional
+    public NoteBook addSharedNoteBook(User user, NoteBook sharedNoteBook) {
+        User loginUser = userRepository.findById(user.getId())
+                .orElseThrow(()-> new UnAuthorizedException(msa.getMessage("unauthorized.message")));
+        loginUser.addSharedNoteBook(sharedNoteBook);
+        sharedNoteBook.addPeer(loginUser);
+        return sharedNoteBook;
     }
 }

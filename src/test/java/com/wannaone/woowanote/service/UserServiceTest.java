@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.service;
 
+import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
@@ -56,6 +57,17 @@ public class UserServiceTest {
         User user = UserDto.defaultUserDto().setPassword("11").toEntityWithPasswordEncode(mockPasswordEncoder);
         LoginDto loginDto = LoginDto.defaultLoginDto();
         assertThat(userService.login(loginDto)).isEqualTo(user);
+    }
+
+    @Test
+    public void addSharedNoteBookTest() {
+        NoteBook testNoteBook = new NoteBook("노트북1");
+        User user = new User(1L, "유저", "1234");
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        userService.addSharedNoteBook(user, testNoteBook);
+        assertThat(user.getShared().contains(testNoteBook)).isTrue();
+        assertThat(testNoteBook.getPeers().contains(user)).isTrue();
+
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {

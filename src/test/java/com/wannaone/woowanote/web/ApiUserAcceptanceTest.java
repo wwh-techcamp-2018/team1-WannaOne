@@ -81,4 +81,10 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         ResponseEntity response = basicAuthTemplate().postForEntity("/api/users/logout", null, Void.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
+    @Test
+    public void receiveInvitationTest() {
+        ResponseEntity response = basicAuthTemplate().postForEntity("/api/users/shared/5", null, Void.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
