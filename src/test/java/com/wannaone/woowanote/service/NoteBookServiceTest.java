@@ -3,7 +3,6 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.repository.NoteBookRepository;
-import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
