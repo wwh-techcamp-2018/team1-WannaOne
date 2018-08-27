@@ -24,7 +24,9 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
-        this.editSection.addEventListener('click', this.showEditor.bind(this));
+        this.editSection.addEventListener('focusin', this.showEditor.bind(this));
+        this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
+
     }
 
     toggleExpandNoteContent() {
@@ -54,7 +56,6 @@ class Note {
     }
 
     updateNote(successCallback, failCallback) {
-        this.hideEditor();
         fetchManager({
             url: `/api/notes/${this.getNoteId()}`,
             method: 'PUT',
@@ -101,13 +102,13 @@ class Note {
     hideEditor() {
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
-        $('.te-ww-container .tui-editor-contents').style.padding = '0px 16px 0px 0px';
+        $('.te-ww-container .tui-editor-contents').style.padding = '3px 16px 0px 0px';
     }
 
     showEditor() {
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
-        $('.te-ww-container .tui-editor-contents').style.padding = '0px 25px 0px 25px';
+        $('.te-ww-container .tui-editor-contents').style.padding = '3px 25px 0px 25px';
     }
 
     getNoteTitle() {
