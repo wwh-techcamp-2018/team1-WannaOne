@@ -116,7 +116,7 @@ class NotebookList {
         error.json().then((error) => {
             error.errors.forEach((error) => {
                 const validationEl = $(`#notebook-${error.fieldName}-validation`);
-                validationEl.style.display = 'block';
+                validationEl.style.display = 'inline-block';
                 validationEl.innerHTML = error.errorMessage;
                 setTimeout(() => {
                     validationEl.style.display = 'none';
