@@ -1,16 +1,13 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
-import com.wannaone.woowanote.domain.Note;
-import com.wannaone.woowanote.domain.NoteBook;
-import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
+import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +27,7 @@ public class ApiUserController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid UserDto userDto) {
-        noteBookService.save(getDefaultNoteBook(), userService.save(userDto));
+        noteBookService.save(getDefaultNoteBookDto(), userService.save(userDto));
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -47,8 +44,8 @@ public class ApiUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    private NoteBook getDefaultNoteBook() {
-        return new NoteBook("나의 우아한 노트북");
+    private NoteBookDto getDefaultNoteBookDto() {
+        return new NoteBookDto("나의 우아한 노트북");
     }
 
 

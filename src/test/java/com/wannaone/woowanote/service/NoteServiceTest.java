@@ -24,7 +24,7 @@ public class NoteServiceTest {
     private NoteRepository noteRepository;
 
     @Mock
-    private NoteBookRepository noteBookRepository;
+    private NoteBookService noteBookService;
 
     @InjectMocks
     private NoteService noteService;
@@ -65,9 +65,9 @@ public class NoteServiceTest {
     public void createNewNote() {
         NoteBook testNoteBook = new NoteBook("노트북1");
         User writer = User.defaultUser();
-        when(noteBookRepository.findById(3l)).thenReturn(Optional.of(testNoteBook));
-        assertThat(noteService.save(3l, writer).getTitle()).isEqualTo("나의 우아한 노트");
-        assertThat(noteService.save(3l, writer).getText()).isEmpty();
+        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(testNoteBook);
+        assertThat(noteService.save(3L, writer).getTitle()).isEqualTo("나의 우아한 노트");
+        assertThat(noteService.save(3L, writer).getText()).isEmpty();
     }
 
     @Test

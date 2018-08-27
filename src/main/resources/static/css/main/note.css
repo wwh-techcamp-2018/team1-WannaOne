@@ -30,7 +30,11 @@
     grid-row:2;
 }
 
+.main-content-expand {
+    grid-column: 2 / span 2;
+}
+
 #note-section-meta {
     color: gray;
-    fonot-size: 14px;
+    font-size: 14px;
 }

@@ -4,7 +4,10 @@ function getNoteSectionTemplate(note) {
 }
 
 function getNoteBookListTemplate(notebook) {
-    return `<li data-notebook-id=${notebook.id}>${notebook.title}</li>`;
+    return `<li data-notebook-id=${notebook.id}>
+                <span>${notebook.title}</span>
+                <i class="far fa-trash-alt"></i>
+            </li>`;
 }
 
 function getNoteItemTemplate(note) {
@@ -15,6 +18,6 @@ function getNoteItemTemplate(note) {
 }
 
 function getNoteItemContentTemplate(note) {
-    return `<div class="note-list-title">${note.title}</div>
+    return `<div class="note-list-title" data-note-id="${note.id}" draggable="true">${note.title}</div>
                <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
 }

@@ -11,6 +11,8 @@ class MainApp {
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
+        this.notification = new Notification();
+
         this.initMainPage();
         this.initEventListener();
     }
@@ -22,10 +24,31 @@ class MainApp {
         this.notebookTitleInput.addEventListener('keyup', this.createNewNotebookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
+        this.noteBook.hideNoteListButton.addEventListener("click", this.toggleNoteListHandler.bind(this));
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
+        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
+        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
+    }
+
+    updateNoteOnDragOverInNoteBookEventHandler(evt){
+        const targetNotebook = evt.target.closest('li');
+        if(!targetNotebook) {
+            return;
+        }
+        const noteId = evt.dataTransfer.getData("noteId");
+        const noteBookId = targetNotebook.dataset.notebookId;
+        const successCallback = () => {
+            this.noteBook.focusNoteBook(targetNotebook);
+            this.noteBook.setTitle();
+            this.renewNoteList(this.noteBook.getNoteBookId());
+        }
+        const failCallback = () => {
+            console.log('노트를 이동시키는데 실패했습니다.');
+        };
+        this.noteList.fetchNoteUpdateParentNoteBook(noteId, noteBookId, successCallback, failCallback);
     }
 
     /**
@@ -69,6 +92,9 @@ class MainApp {
     }
 
     deleteNoteEventHandler() {
+        if(!confirm('해당 노트를 삭제하시겠습니까?')) {
+            return;
+        }
         const successCallback = () => {
             this.renewNoteList(this.noteBook.getNoteBookId());
         };
@@ -84,7 +110,19 @@ class MainApp {
      * @param e
      */
     selectNoteBookEventHandler(e){
-        const targetNotebook = e.target.closest('li');
+        const target = e.target;
+        //노트북 삭제 버튼이 클릭된 경우
+        if(target.tagName === 'I' && confirm('해당 노트북을 삭제하시겠습니까?')) {
+            const successCallback = () => {
+                this.initMainPage();
+            };
+            const failCallback = () => {
+                console.log('노트북 삭제에 실패했습니다.');
+            };
+            this.noteBook.deleteNoteBook(target, successCallback, failCallback);
+            return;
+        }
+        const targetNotebook = target.closest('li');
         if(!targetNotebook) {
             return;
         }
@@ -106,6 +144,13 @@ class MainApp {
             this.note.renderNoteContent(this.noteList.getNote());
         }
     }
+
+    toggleNoteListHandler() {
+        this.noteBook.toggleHideNoteListButton();
+        this.noteList.toggleNoteListBar();
+        this.note.toggleExpandNoteContent();
+    }
+
     logoutEventHandler(e) {
         fetchManager({
                     url: '/api/users/logout',
@@ -114,10 +159,12 @@ class MainApp {
                     onFailure: this.logoutFailure
                 });
     }
+
     logoutSuccess() {
         console.log("success");
         document.location.href="/login.html";
     }
+
     logoutFailure() {
         console.log("fail");
     }

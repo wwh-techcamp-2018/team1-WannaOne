@@ -119,6 +119,10 @@ p.note-list-title, p.note-list-snippet {
     left:168px;
 }
 
+.note-list-hide {
+    display: none;
+}
+
 .share-notebook-popup {
     width: 400px;
     min-height: 100px;

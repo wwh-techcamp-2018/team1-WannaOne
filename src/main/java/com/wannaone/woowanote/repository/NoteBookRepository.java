@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NoteBookRepository extends CrudRepository<NoteBook, Long> {
     List<NoteBook> findByOwnerId(Long ownerId);
+    List<NoteBook> findByOwnerIdAndDeletedFalse(Long ownerId);
 }

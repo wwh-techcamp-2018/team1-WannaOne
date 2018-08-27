@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,10 @@ public abstract class AcceptanceTest {
         return findByEmail(DEFAULT_LOGIN_USER);
     }
 
+    protected User anotherUser() {
+        return UserDto.defaultUserDto().setEmail("anotherUser@woowahan.com").toEntity();
+    }
+
     protected User findByEmail(String email) {
         return userRepository.findByEmail(email).get();
     }
@@ -61,6 +66,10 @@ public abstract class AcceptanceTest {
 
     protected <T> ResponseEntity<T> putForEntity(String url, Object body, Class<T> responseType) {
         return template().exchange(url, HttpMethod.PUT, createHttpEntity(body),responseType);
+    }
+
+    protected <T> ResponseEntity<T> patchForEntityWithBasicAuth(String url, Object body, Class<T> responseType) {
+        return basicAuthTemplate().exchange(url, HttpMethod.PATCH, createHttpEntity(body),responseType);
     }
 
     protected <T> ResponseEntity<T> deleteForEntity(String url, Class<T> responseType) {

@@ -53,4 +53,9 @@ public class ApiNoteController {
         noteService.deleteNote(id);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/{id}/notebooks/{newParentNoteBookId}")
+    public ResponseEntity<Note> updateParentNoteBook(@PathVariable Long id, @PathVariable Long newParentNoteBookId) {
+        return ResponseEntity.status(HttpStatus.OK).body(noteService.updateNoteWithParentNoteBook(id, newParentNoteBookId));
+    }
 }

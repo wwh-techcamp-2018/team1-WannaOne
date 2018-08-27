@@ -4,6 +4,7 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.dto.CommentDto;
+import com.wannaone.woowanote.dto.NoteBookDto;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,8 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     @Test
     public void createComment() throws Exception {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBook noteBook = new NoteBook(noteBookName);
-        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate().postForEntity("/api/notebooks", noteBook, NoteBook.class);
+        NoteBookDto noteBookDto  = new NoteBookDto(noteBookName);
+        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         Long noteBookId = createNoteBookResponse.getBody().getId();
         assertThat(createNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(createNoteBookResponse.getBody().getTitle()).isEqualTo(noteBookName);
@@ -32,7 +33,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
 
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity<Comment> commentCreateResponse = template().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
+        ResponseEntity<Comment> commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(commentCreateResponse.getBody().getContent()).isEqualTo(commentContent);
         assertThat(commentCreateResponse.getBody().getId()).isNotNull();
@@ -42,7 +43,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     public void createCommentNoteNotFound() throws Exception {
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity commentCreateResponse = template().postForEntity("/api/notes/-1/comments", commentDto, Void.class);
+        ResponseEntity commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/-1/comments", commentDto, Void.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

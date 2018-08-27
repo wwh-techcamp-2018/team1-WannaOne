@@ -1,5 +1,6 @@
 class NoteList {
     constructor() {
+        this.noteListBar = $('.side-bar-middle');
         this.noteListEl = $('.note-list');
         this.noteListCount = $('.note-list-count');
         this.currentNoteIndex = 0;
@@ -10,6 +11,29 @@ class NoteList {
         $('.share-notebook-open-button').addEventListener("click", this.openShareNotebookPopupHandler.bind(this));
         document.addEventListener("click", this.closeShareNotebookPopupHandler.bind(this));
 
+        this.initEvent();
+    }
+
+    initEvent() {
+        this.noteListEl.addEventListener('dragstart', this.updateNoteOnDragStartEventHandler.bind(this));
+    }
+
+    toggleNoteListBar() {
+        this.noteListBar.classList.toggle('note-list-hide');
+    }
+
+    updateNoteOnDragStartEventHandler(evt) {
+        evt.dataTransfer.setData("noteId", evt.target.dataset.noteId);
+    }
+
+    fetchNoteUpdateParentNoteBook(noteId, noteBookId, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notes/${noteId}/notebooks/${noteBookId}`,
+            method: 'PATCH',
+            headers: {'content-type': 'application/json'},
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
     }
 
     renderNoteItem(note) {

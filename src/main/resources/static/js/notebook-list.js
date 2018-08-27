@@ -4,6 +4,8 @@ class NotebookList {
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
 
+        this.hideNoteListButton = $('#hide-note-list-btn');
+        this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
@@ -16,6 +18,20 @@ class NotebookList {
 //        this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
 //    }
 
+    clearNoteBookList() {
+        this.notebookListEl.innerHTML = '';
+    }
+
+    initNotebookList(successCallback, failCallback) {
+        this.clearNoteBookList();
+        this.fetchNotebookList(successCallback, failCallback);
+    }
+
+    toggleHideNoteListButton() {
+        this.hideNoteListButton.classList.toggle('fa-angle-left');
+        this.hideNoteListButton.classList.toggle('fa-angle-right');
+    }
+
     fetchNotebookList(successCallback, failCallback) {
         fetchManager({
             url: '/api/notebooks',
@@ -25,13 +41,28 @@ class NotebookList {
         });
     }
 
+    fetchDeleteNoteBook(noteBookId, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notebooks/${noteBookId}`,
+            method: 'DELETE',
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
+    }
+
     renderNotebooks(noteBooks) {
         this.noteBooks = noteBooks;
+        this.currentIndex = 0;
         this.noteBooks.forEach((notebook) => {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+        this.notebookListEl.firstElementChild.firstElementChild.classList.add('notebook-focus');
+    }
+
+    deleteNoteBook(deleteTarget, successCallback, failCallback) {
+        const noteBookId = deleteTarget.closest('LI').dataset.notebookId;
+        this.fetchDeleteNoteBook(noteBookId, successCallback, failCallback);
     }
     
     getNotes() {
@@ -102,7 +133,17 @@ class NotebookList {
         this.notebookInputWrapper.style.display = "none";
     }
 
-    addNoteBookFailureCallback() {
+    addNoteBookFailureCallback(error) {
+        error.json().then((error) => {
+            error.errors.forEach((error) => {
+                const validationEl = $(`#notebook-${error.fieldName}-validation`);
+                validationEl.style.display = 'block';
+                validationEl.innerHTML = error.errorMessage;
+                setTimeout(() => {
+                    validationEl.style.display = 'none';
+                }, 2000);
+            })
+        });
         console.log("노트북 추가 실패")
     }
 
