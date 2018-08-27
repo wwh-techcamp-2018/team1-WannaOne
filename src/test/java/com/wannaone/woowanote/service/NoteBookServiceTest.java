@@ -2,8 +2,8 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.NoteBookRepository;
+import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,6 +22,8 @@ import static org.mockito.Mockito.when;
 public class NoteBookServiceTest {
     @Mock
     private NoteBookRepository noteBookRepository;
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private NoteBookService noteBookService;
@@ -64,5 +66,14 @@ public class NoteBookServiceTest {
         when(noteBookRepository.findById(1L)).thenReturn(Optional.of(testNoteBook));
 
         assertThat(noteBookService.delete(1L, user).isDeleted()).isEqualTo(true);
+    }
+
+    @Test
+    public void getNoteBooksByPeerIdTest() {
+        User loginUser = new User(1L, "doy@woowahan.com", "1234");
+        NoteBook testNoteBook = new NoteBook("노트북1");
+        when(userRepository.findById(1L)).thenReturn(Optional.of(loginUser));
+        when(noteBookRepository.findByPeersContainingAndDeletedFalse(loginUser)).thenReturn(Arrays.asList(testNoteBook));
+        assertThat(noteBookService.getNoteBooksByPeerId(1L)).contains(testNoteBook);
     }
 }

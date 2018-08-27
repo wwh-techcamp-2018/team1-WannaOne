@@ -22,6 +22,11 @@ public class ApiNoteBookController {
         return new ResponseEntity(noteBookService.getNoteBooksByOwnerId(loginUser.getId()), HttpStatus.OK);
     }
 
+    @GetMapping("/shared")
+    public ResponseEntity showAllSharedNoteBook(@LoginUser User loginUser) {
+        return new ResponseEntity(noteBookService.getNoteBooksByPeerId(loginUser.getId()), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid NoteBookDto noteBookDto, @LoginUser User owner) {
         return new ResponseEntity(noteBookService.save(noteBookDto, owner), HttpStatus.CREATED);

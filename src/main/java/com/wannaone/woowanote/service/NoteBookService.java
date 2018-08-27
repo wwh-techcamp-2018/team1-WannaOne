@@ -6,6 +6,7 @@ import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
+import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -20,9 +21,16 @@ public class NoteBookService {
     private NoteBookRepository noteBookRepository;
     @Autowired
     private MessageSourceAccessor msa;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
         return noteBookRepository.findByOwnerIdAndDeletedFalse(ownerId);
+    }
+
+    @Transactional
+    public List<NoteBook> getNoteBooksByPeerId(Long userId) {
+        return noteBookRepository.findByPeersContainingAndDeletedFalse(userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException()));
     }
 
     @Transactional

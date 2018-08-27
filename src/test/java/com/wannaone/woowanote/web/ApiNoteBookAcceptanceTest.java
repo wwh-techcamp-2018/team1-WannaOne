@@ -113,4 +113,26 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         ResponseEntity<ErrorDetails> deleteNoteBookResponse = deleteForEntity(UserDto.defaultUserDto().setEmail("anotherUser").toEntity(), "/api/notebooks/" + createdNoteBook.getId(),  ErrorDetails.class);
         assertThat(deleteNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
+
+    @Test
+    public void showAllSharedNoteBook() {
+
+        UserDto user = UserDto.defaultUserDto().setEmail("test@woowahan.com");
+        ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
+
+        String noteBookName = "내가 쓴 첫번 째 노트북";
+        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate(user.toEntity())
+                .postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
+        Long noteBookId = createNoteBookResponse.getBody().getId();
+
+
+        ResponseEntity<NoteBook> addSharedResponse = basicAuthTemplate().postForEntity("/api/users/shared/" + noteBookId, null, NoteBook.class);
+        assertThat(addSharedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(addSharedResponse.getBody().getId()).isEqualTo(noteBookId);
+        assertThat(addSharedResponse.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
+
+        ResponseEntity<List<NoteBook>> sharedNoteBookResponse = getForEntityWithParameterizedWithBasicAuth("/api/notebooks/shared", null, new ParameterizedTypeReference<List<NoteBook>>() {});
+        assertThat(sharedNoteBookResponse.getBody().get(0).getId()).isEqualTo(createNoteBookResponse.getBody().getId());
+    }
 }
