@@ -62,6 +62,7 @@
 }
 
 #add-notebook-input-btn {
+    display: none;
     width: 15px;
     height: 15px;
     float: right;
@@ -93,4 +94,9 @@
 #notebook-title-validation {
     font-size: 12px;
     color:#e57085;
+}
+
+#hide-note-list-btn {
+    float: right;
+    cursor: pointer;
 }

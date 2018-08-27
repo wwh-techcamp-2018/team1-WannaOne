@@ -4,6 +4,7 @@ class NotebookList {
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
 
+        this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
@@ -24,6 +25,11 @@ class NotebookList {
     initNotebookList(successCallback, failCallback) {
         this.clearNoteBookList();
         this.fetchNotebookList(successCallback, failCallback);
+    }
+
+    toggleHideNoteListButton() {
+        this.hideNoteListButton.classList.toggle('fa-angle-left');
+        this.hideNoteListButton.classList.toggle('fa-angle-right');
     }
 
     fetchNotebookList(successCallback, failCallback) {

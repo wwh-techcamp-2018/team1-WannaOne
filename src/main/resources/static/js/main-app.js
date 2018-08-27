@@ -22,6 +22,7 @@ class MainApp {
     initEventListener() {
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
+        this.noteBook.hideNoteListButton.addEventListener("click", this.toggleNoteListHandler.bind(this));
         this.addNoteBtn.addEventListener("click", this.createNewNoteEventHandler.bind(this));
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
@@ -140,6 +141,12 @@ class MainApp {
             this.noteList.focusNoteItem(index);
             this.note.renderNoteContent(this.noteList.getNote());
         }
+    }
+
+    toggleNoteListHandler() {
+        this.noteBook.toggleHideNoteListButton();
+        this.noteList.toggleNoteListBar();
+        this.note.toggleExpandNoteContent();
     }
 
     logoutEventHandler(e) {

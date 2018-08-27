@@ -109,3 +109,7 @@ p.note-list-title, p.note-list-snippet {
     position:absolute;
     left:168px;
 }
+
+.note-list-hide {
+    display: none;
+}

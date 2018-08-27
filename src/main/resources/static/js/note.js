@@ -1,5 +1,6 @@
 class Note {
     constructor() {
+        this.noteContent = $('.main-content');
         this.noteSection = $('#note-section');
         this.editorEl = $('.te-ww-container .tui-editor-contents');
         this.editSection = $('#editSection');
@@ -23,6 +24,10 @@ class Note {
             }
         });
         this.editSection.addEventListener('click', this.showEditor.bind(this));
+    }
+
+    toggleExpandNoteContent() {
+        this.noteContent.classList.toggle('main-content-expand');
     }
 
     addCommentClickEventHandler() {
