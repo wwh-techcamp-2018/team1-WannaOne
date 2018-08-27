@@ -115,7 +115,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void showAllSharedNoteBook() {
+    public void showAllSharedNoteBookTest() {
 
         UserDto user = UserDto.defaultUserDto().setEmail("test@woowahan.com");
         ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
