@@ -65,8 +65,8 @@ class MainApp {
         const successCallback = (newNotebook) => {
             this.noteBook.addNoteBookSuccessCallback(newNotebook);
         };
-        const failCallback = () => {
-            console.log('새로운 노트북 생성에 실패했습니다..');
+        const failCallback = (error) => {
+            this.noteBook.addNoteBookFailureCallback(error);
         };
         this.noteBook.createNewNotebook(successCallback, failCallback);
     }
@@ -114,7 +114,7 @@ class MainApp {
         //노트북 삭제 버튼이 클릭된 경우
         if(target.tagName === 'I' && confirm('해당 노트북을 삭제하시겠습니까?')) {
             const successCallback = () => {
-                this.initMainPage();
+                this.renewNotebookList();
             };
             const failCallback = () => {
                 console.log('노트북 삭제에 실패했습니다.');
@@ -175,6 +175,7 @@ class MainApp {
                 console.log('노트북이 존재하지 않습니다.');
                 return;
             }
+            this.noteBook.clearNoteBookList();
             this.noteBook.renderNotebooks(notebooks);
             this.noteBook.setTitle();
             this.noteList.renderNoteList(this.noteBook.getNotes());

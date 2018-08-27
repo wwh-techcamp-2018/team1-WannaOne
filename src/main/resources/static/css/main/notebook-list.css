@@ -10,6 +10,7 @@
 .side-bar-left-header {
     min-height: 50px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .side-bar-left-body {
@@ -34,8 +35,8 @@
 
 .side-bar-left-body li {
     height: 25px;
-    margin: 10px 20px 0px;
-    padding: 0px 20px;
+    margin: 10px 10px 0px;
+    padding: 0px 12px;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -133,6 +134,8 @@
 }
 
 #hide-note-list-btn {
-    float: right;
+    position: absolute;
+    left: 190px;
+    top: 3px;
     cursor: pointer;
-}}
+}

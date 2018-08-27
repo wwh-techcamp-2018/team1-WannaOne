@@ -9,22 +9,12 @@ class NotebookList {
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
-//        this.removeNotebookInputButton = $('#remove-notebook-input-btn');
         this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
+        document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
-
-//    initNotebookList(successCallback, failCallback) {
-//        this.fetchNotebookList(successCallback, failCallback);
-//        this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
-//    }
 
     clearNoteBookList() {
         this.notebookListEl.innerHTML = '';
-    }
-
-    initNotebookList(successCallback, failCallback) {
-        this.clearNoteBookList();
-        this.fetchNotebookList(successCallback, failCallback);
     }
 
     toggleHideNoteListButton() {
@@ -57,7 +47,7 @@ class NotebookList {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.firstElementChild.classList.add('notebook-focus');
+        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
     }
 
     deleteNoteBook(deleteTarget, successCallback, failCallback) {
@@ -94,17 +84,6 @@ class NotebookList {
 
     renderNoteBook(notebook) {
         this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
-    }
-
-    IsValidInput(e) {
-        if(e.keyCode !== 13) {
-            return false;
-        }
-        const notebookTitle = this.notebookTitleInput.value;
-        if(!notebookTitle.trim()) {
-            return false;
-        }
-        return true;
     }
 
     createNewNotebook(successCallback, failCallback) {
@@ -145,6 +124,13 @@ class NotebookList {
             })
         });
         console.log("노트북 추가 실패")
+    }
+
+    closeNotebookInputHandler(e) {
+        if (this.addNotebookInputButton.contains(e.target) || this.notebookTitleInput.contains(e.target)) {
+            return;
+        }
+        this.notebookInputWrapper.style.display = 'none';
     }
 
 }
