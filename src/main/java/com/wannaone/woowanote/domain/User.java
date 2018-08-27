@@ -40,6 +40,15 @@ public class User implements Serializable {
     @JsonIgnore
     private List<NoteBook> noteBooks = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "shared_note_book",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "note_book_id")
+    )
+    @JsonIgnore
+    private List<NoteBook> shared = new ArrayList<>();
+
     public User(Long id, String email, String password) {
         this.id = id;
         this.email = email;
