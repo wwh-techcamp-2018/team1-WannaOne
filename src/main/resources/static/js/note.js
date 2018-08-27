@@ -25,8 +25,8 @@ class Note {
             }
         });
         this.editSection.addEventListener('focusin', this.showEditor.bind(this));
-        this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
-
+        document.addEventListener('click', this.hideEditor.bind(this));
+        //this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
     }
 
     toggleExpandNoteContent() {
@@ -99,7 +99,10 @@ class Note {
         this.commentSection.style.display = 'block';
     }
 
-    hideEditor() {
+    hideEditor(e) {
+        if (this.editSection.contains(e.target)) {
+            return;
+        }
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
         $('.te-ww-container .tui-editor-contents').style.padding = '3px 16px 0px 0px';
