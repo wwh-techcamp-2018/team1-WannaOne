@@ -60,19 +60,33 @@
         </div>
     </div>
     <div class="side-bar-left">
-        <ul class="notebook-title">
-            <li>노트북
-                <i class="fas fa-plus" id="add-notebook-input-btn"></i>
-                <i class="fas fa-angle-left" id="hide-note-list-btn"></i></li>
-            <li>
-                <div class="notebook-input-wrapper">
-                    <input type="text" placeholder="노트북 제목 입력 후 엔터" id="notebook-title-input"><img src="/img/remove.png" id="remove-notebook-input-btn">
-                </div>
-                <small id="notebook-title-validation" style="display:none;" class="form-text text-muted caution">We'll display validation message</small>
-            </li>
-        </ul>
-        <ul class="notebook-list">
-        </ul>
+        <div class="side-bar-left-header">
+            <div class="notebook-title">노트북
+                <!--<img src="/img/add.png" id="add-notebook-input-btn">-->
+            </div>
+            <i class="fas fa-angle-left" id="hide-note-list-btn"></i>
+            <div id="add-notebook-input-btn">
+                <i class="material-icons">
+                    add_circle
+                </i>
+                <span>새로운 노트북을 만들어보세요</span>
+            </div>
+
+            <div class="notebook-input-wrapper">
+                <input type="text" id="notebook-title-input" placeholder="노트북 이름을 입력하세요">
+            </div>
+            <small id="notebook-title-validation" style="display:none;" class="form-text text-muted caution">We'll display validation message</small>
+        </div>
+        <div class="side-bar-left-body">
+            <ul class="notebook-list">
+            </ul>
+            <hr>
+            <div class="shared-notebook-header">나의 공유노트북</div>
+            <ul class="shared-notebook-list">
+                <li data-notebook-id=1>도쿄 여행 공유 노트북</li>
+                <li data-notebook-id=2>우아노트 개발 공유 노트북</li>
+            </ul>
+        </div>
     </div>
     <div class="side-bar-middle">
         <div class="side-bar-middle-header">
@@ -81,15 +95,16 @@
             </div>
             <img src="/img/add.png" id="add-note-btn">
             <div class="side-bar-middle-notebook-meta">
-                6개의 노트
+                <span class="note-list-count">6개의 노트</span>
+                <span class="share-notebook-open-button">이 노트북을 공유하기</span>
             </div>
         </div>
         <div class="side-bar-middle-body">
-            <ul class="note-list">
+          <ul class="note-list">
 
 
-            </ul>
-        </div>
+        </ul>
+      </div>
     </div>
     <div class="main-content">
         <section id="note-section">
@@ -132,6 +147,16 @@
     </script>
 
 </div>
-
+<div class="share-notebook-popup">
+    <p>동료와 이 노트북을 공유하세요.</p>
+    <div class="share-invitation">
+        <input type="text" placeholder="초대할 동료의 이메일을 입력해주세요">
+    </div>
+    <ul id="share-invitation-list">
+        <li>두호<i class="material-icons invitation-cancel-button">close</i></li>
+        <li>도연<i class="material-icons invitation-cancel-button">close</i></li>
+    </ul>
+    <button>공유하기</button>
+</div>
 </body>
 </html>

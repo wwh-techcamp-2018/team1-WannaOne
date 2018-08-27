@@ -7,24 +7,14 @@ class NotebookList {
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
+        this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
-        this.removeNotebookInputButton = $('#remove-notebook-input-btn');
-        this.initNoteBookEventListener();
+        this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
+        document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
 
     clearNoteBookList() {
         this.notebookListEl.innerHTML = '';
-    }
-
-    initNoteBookEventListener() {
-        this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
-        this.removeNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "none");
-        this.notebookTitleInput.addEventListener('keyup', this.handlerAddNoteBookEvent.bind(this));
-    }
-
-    initNotebookList(successCallback, failCallback) {
-        this.clearNoteBookList();
-        this.fetchNotebookList(successCallback, failCallback);
     }
 
     toggleHideNoteListButton() {
@@ -57,7 +47,7 @@ class NotebookList {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.firstElementChild.classList.add('notebook-focus');
+        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
     }
 
     deleteNoteBook(deleteTarget, successCallback, failCallback) {
@@ -96,21 +86,19 @@ class NotebookList {
         this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
     }
 
-    handlerAddNoteBookEvent(evt) {
-        if(evt.keyCode === 13) {
-            const notebookTitle = this.notebookTitleInput.value;
-            if(!notebookTitle) return;
-            fetchManager({
-                url: '/api/notebooks',
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify({
-                    title: notebookTitle
-                }),
-                onSuccess: this.addNoteBookSuccessCallback.bind(this),
-                onFailure: this.addNoteBookFailureCallback
-            });
-        }
+    createNewNotebook(successCallback, failCallback) {
+        const notebookTitle = this.notebookTitleInput.value;
+        if(!notebookTitle) return;
+        fetchManager({
+            url: '/api/notebooks',
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                title: notebookTitle
+            }),
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
     }
 
     addNoteBookSuccessCallback(notebook) {
@@ -121,13 +109,14 @@ class NotebookList {
 
     clearInput() {
         this.notebookTitleInput.value = '';
+        this.notebookInputWrapper.style.display = "none";
     }
 
     addNoteBookFailureCallback(error) {
         error.json().then((error) => {
             error.errors.forEach((error) => {
                 const validationEl = $(`#notebook-${error.fieldName}-validation`);
-                validationEl.style.display = 'block';
+                validationEl.style.display = 'inline-block';
                 validationEl.innerHTML = error.errorMessage;
                 setTimeout(() => {
                     validationEl.style.display = 'none';
@@ -135,6 +124,13 @@ class NotebookList {
             })
         });
         console.log("노트북 추가 실패")
+    }
+
+    closeNotebookInputHandler(e) {
+        if (this.addNotebookInputButton.contains(e.target) || this.notebookTitleInput.contains(e.target)) {
+            return;
+        }
+        this.notebookInputWrapper.style.display = 'none';
     }
 
 }

@@ -94,7 +94,7 @@ class Note {
         this.editorEl.innerHTML = note.text;
         this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
-        this.btns.style.display = 'block';
+        this.btns.style.display = 'inline-block';
         this.commentSection.style.display = 'block';
     }
 
