@@ -5,6 +5,7 @@ import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,8 @@ public class UserServiceTest {
     public static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private NoteBookService noteBookService;
     @Mock
     private MessageSourceAccessor msa;
     @Spy
@@ -61,10 +64,11 @@ public class UserServiceTest {
 
     @Test
     public void addSharedNoteBookTest() {
-        NoteBook testNoteBook = new NoteBook("노트북1");
+        NoteBook testNoteBook = new NoteBook(1L, "노트북1");
         User user = new User(1L, "유저", "1234");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        userService.addSharedNoteBook(user, testNoteBook);
+        when(noteBookService.getNoteBookByNoteBookId(1L)).thenReturn(testNoteBook);
+        userService.addSharedNoteBook(user, 1L);
         assertThat(user.getShared().contains(testNoteBook)).isTrue();
         assertThat(testNoteBook.getPeers().contains(user)).isTrue();
 

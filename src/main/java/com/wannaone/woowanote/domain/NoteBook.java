@@ -57,6 +57,12 @@ public class NoteBook implements Serializable {
         this.deleted = false;
     }
 
+    public NoteBook(Long id, String title) {
+        this.id = id;
+        this.title = title;
+        this.deleted = false;
+    }
+
     public boolean isNoteBookOwner(User compareUser) {
         return this.owner.getId().equals(compareUser.getId());
     }

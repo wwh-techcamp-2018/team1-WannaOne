@@ -22,6 +22,8 @@ import javax.annotation.Resource;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NoteBookService noteBookService;
     @Resource(name = "bCryptPasswordEncoder")
     private PasswordEncoder bCryptPasswordEncoder;
     @Autowired
@@ -45,9 +47,10 @@ public class UserService {
     }
 
     @Transactional
-    public NoteBook addSharedNoteBook(User user, NoteBook sharedNoteBook) {
+    public NoteBook addSharedNoteBook(User user, Long noteBookId) {
         User loginUser = userRepository.findById(user.getId())
                 .orElseThrow(()-> new UnAuthorizedException(msa.getMessage("unauthorized.message")));
+        NoteBook sharedNoteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
         loginUser.addSharedNoteBook(sharedNoteBook);
         sharedNoteBook.addPeer(loginUser);
         return sharedNoteBook;
