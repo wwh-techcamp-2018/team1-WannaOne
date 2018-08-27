@@ -65,6 +65,11 @@ public class User implements Serializable {
         this.noteBooks.add(noteBook);
     }
 
+    public void addSharedNoteBook(NoteBook sharedNoteBook) {
+        this.shared.add(sharedNoteBook);
+    }
+
+
     public static User defaultUser() {
         return new User("defaultUser", "password", "user");
     }
