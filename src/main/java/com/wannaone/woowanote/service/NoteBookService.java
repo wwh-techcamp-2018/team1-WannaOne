@@ -22,7 +22,7 @@ public class NoteBookService {
     @Autowired
     private MessageSourceAccessor msa;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
         return noteBookRepository.findByOwnerIdAndDeletedFalse(ownerId);
@@ -30,7 +30,7 @@ public class NoteBookService {
 
     @Transactional
     public List<NoteBook> getNoteBooksByPeerId(Long userId) {
-        return noteBookRepository.findByPeersContainingAndDeletedFalse(userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException()));
+        return noteBookRepository.findByPeersContainingAndDeletedFalse(userService.findByUserId(userId));
     }
 
     @Transactional

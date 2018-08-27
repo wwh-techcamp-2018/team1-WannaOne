@@ -4,6 +4,7 @@ import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
@@ -54,5 +55,9 @@ public class UserService {
         loginUser.addSharedNoteBook(sharedNoteBook);
         sharedNoteBook.addPeer(loginUser);
         return sharedNoteBook;
+    }
+
+    public User findByUserId(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException("유저 정보를 찾을 수 없습니다."));
     }
 }

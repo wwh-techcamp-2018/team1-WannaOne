@@ -23,7 +23,7 @@ public class NoteBookServiceTest {
     @Mock
     private NoteBookRepository noteBookRepository;
     @Mock
-    private UserRepository userRepository;
+    private UserService userService;
 
     @InjectMocks
     private NoteBookService noteBookService;
@@ -72,7 +72,7 @@ public class NoteBookServiceTest {
     public void getNoteBooksByPeerIdTest() {
         User loginUser = new User(1L, "doy@woowahan.com", "1234");
         NoteBook testNoteBook = new NoteBook("노트북1");
-        when(userRepository.findById(1L)).thenReturn(Optional.of(loginUser));
+        when(userService.findByUserId(1L)).thenReturn(loginUser);
         when(noteBookRepository.findByPeersContainingAndDeletedFalse(loginUser)).thenReturn(Arrays.asList(testNoteBook));
         assertThat(noteBookService.getNoteBooksByPeerId(1L)).contains(testNoteBook);
     }
