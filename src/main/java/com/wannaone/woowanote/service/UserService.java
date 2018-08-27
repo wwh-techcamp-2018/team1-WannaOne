@@ -40,4 +40,13 @@ public class UserService {
     public boolean isExistUser(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    }
+
 }
