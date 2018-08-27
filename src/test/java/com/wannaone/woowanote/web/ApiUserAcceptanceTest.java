@@ -4,6 +4,7 @@ import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.service.UserService;
+import com.wannaone.woowanote.support.ErrorMessage;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         ResponseEntity<ValidationErrorsResponse> response = template().postForEntity("/api/users", user, ValidationErrorsResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage("Email.userDto.email"));
+        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage(ErrorMessage.EMAIL_NOT_VALID.getMessageKey()));
     }
 
     @Test

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorMessage {
+    EMAIL_NOT_VALID("Pattern.userDto.email"),
     NOTE_BOOK_NOT_FOUND("NotFound.noteBook"),
     NOTE_NOT_FOUND("NotFound.note"),
     REQUIRE_LOGIN("로그인이 필요합니다."),
