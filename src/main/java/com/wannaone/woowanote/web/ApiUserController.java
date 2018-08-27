@@ -49,7 +49,7 @@ public class ApiUserController {
 
     @PostMapping("/shared/{noteBookId}")
     //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
-    public ResponseEntity registerNewSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
+    public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
 }
