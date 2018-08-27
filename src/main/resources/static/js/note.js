@@ -9,6 +9,7 @@ class Note {
 
         this.comment = new Comment();
         this.commentSection = $('.comment-section');
+        this.commentListSection = $('.comment-list-section');
         this.addCommentBtn = $('#add-comment-button');
         this.commentInput = $('#comment-input');
 
@@ -33,7 +34,8 @@ class Note {
     addCommentClickEventHandler() {
         const content = this.commentInput.value;
         const successCallback = (response) => {
-          //TODO 댓글 조회 기능 구현 시, render가 되든 새로고침이 되든 필요.
+            this.commentListSection.firstElementChild.insertAdjacentHTML('beforeend', getCommentTemplate(response));
+            this.commentListSection.firstChild.nodeValue = `댓글 총 ${this.commentListSection.firstElementChild.childElementCount}개`;
             console.log(`${response} 댓글 작성 성공!`);
             this.commentInput.value = '';
         };
@@ -90,6 +92,7 @@ class Note {
         this.note = note;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         this.editorEl.innerHTML = note.text;
+        this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
         this.btns.style.display = 'block';
         this.commentSection.style.display = 'block';
