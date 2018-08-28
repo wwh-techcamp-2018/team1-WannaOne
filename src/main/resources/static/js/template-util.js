@@ -65,3 +65,10 @@ function getSharedNoteBookHeader() {
 function getInvitedGuestItemTemplate(invitedGuest) {
     return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
 }
+
+function getNotificationItem(notification) {
+    return `<li class="invitation-request" data-invitation-id="${notification.id}">${notification.message}
+                <button class="invitation-accept-button" type="button">수락</button>
+                <button class="invitation-reject-button" type="button">거절</button>
+            </li>`;
+}
