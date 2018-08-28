@@ -19,6 +19,8 @@ public class NoteBookDto {
 
     private String title;
 
+    private User owner;
+
     private List<NoteDto> notes = new ArrayList<>();
 
     private List<User> peers = new ArrayList<>();
@@ -28,6 +30,7 @@ public class NoteBookDto {
     public NoteBookDto(NoteBook noteBook) {
         this.id = noteBook.getId();
         this.title = noteBook.getTitle();
+        this.owner = noteBook.getOwner();
         for (Note note : noteBook.getNotes()) {
             this.notes.add(NoteDto.fromEntity(note));
         }
