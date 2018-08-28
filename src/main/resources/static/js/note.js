@@ -2,9 +2,11 @@ class Note {
     constructor() {
         this.noteContent = $('.main-content');
         this.noteSection = $('#note-section');
-        this.editorEl = $('.te-ww-container .tui-editor-contents');
+        this.editorEl = $('.te-md-container .te-editor .CodeMirror-code');
         this.editSection = $('#editSection');
         this.noteSection = $('#note-section');
+        this.previewTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild.nextElementSibling;
+        this.writeTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild;
         this.btns = $('.note-save-delete');
 
         this.comment = new Comment();
@@ -23,7 +25,7 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
-        this.editSection.addEventListener('focusin', this.showEditor.bind(this));
+        this.editSection.addEventListener('click', this.showEditor.bind(this));
         document.addEventListener('click', this.hideEditor.bind(this));
         //this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
     }
@@ -85,13 +87,20 @@ class Note {
         }
         this.clearNoteSection();
         this.renderNote(data);
-        this.hideEditor();
+        editor.moveCursorToStart();
+        this.previewTabBtn.click();
+        if (editor.getMarkdown() != "") {
+            this.hideEditor();
+        }
     }
 
     renderNote(note) {
         this.note = note;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
-        this.editorEl.innerHTML = note.text;
+        editor.setValue(note.text);
+        if (note.text == "") {
+            this.showEditor();
+        }
         this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
         this.initSaveAndDeleteButton(note);
@@ -103,16 +112,36 @@ class Note {
             if (this.editSection.contains(e.target)) {
                 return;
             }
+            if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
+                return;
+            }
         }
+        if (editor.getMarkdown() == "") {
+            return;
+        }
+        editor.show();
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
-        $('.te-ww-container .tui-editor-contents').style.padding = '3px 16px 0px 0px';
+        $('.te-md-container .te-preview').style.padding = '0px';
+        this.previewTabBtn.click();
+
     }
 
-    showEditor() {
+    showEditor(e) {
+        if (e!= null) {
+            if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
+                return;
+            }
+        }
+        if (this.writeTabBtn.classList.contains('te-tab-active') && $('.te-toolbar-section').style.display=='block') {
+            return;
+        }
+        editor.show();
+
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
-        $('.te-ww-container .tui-editor-contents').style.padding = '3px 25px 0px 25px';
+        $('.te-md-container .te-preview').style.padding = '0px 25px 0px 25px';
+        this.writeTabBtn.click();
     }
 
     initSaveAndDeleteButton(note) {
@@ -128,7 +157,7 @@ class Note {
     }
 
     getNoteText() {
-        return this.editorEl.innerHTML;
+        return editor.getMarkdown();
     }
 
     getNoteId() {
