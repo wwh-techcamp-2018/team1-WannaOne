@@ -61,7 +61,7 @@ public class ApiUserController {
 
 
     @GetMapping("/search/{searchNameText}")
-    public ResponseEntity search(@PathVariable String searchNameText) {
-        return ResponseEntity.ok().body(userService.searchLikeUserName(searchNameText));
+    public ResponseEntity search(@PathVariable String searchNameText, @LoginUser User loginUser) {
+        return ResponseEntity.ok().body(userService.searchLikeUserName(searchNameText, loginUser));
     }
 }

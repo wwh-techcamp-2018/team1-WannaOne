@@ -112,7 +112,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         ResponseEntity createUserResponse = template().postForEntity("/api/users", user, Void.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
-        ResponseEntity<List<User>> searchLikeUserNameResponse = getForEntityWithParameterized("/api/users/search/abcdefg", null, new ParameterizedTypeReference<List<User>>() {});
+        ResponseEntity<List<InvitationGuestDto>> searchLikeUserNameResponse = getForEntityWithParameterizedWithBasicAuth("/api/users/search/abcdefg", null, new ParameterizedTypeReference<List<InvitationGuestDto>>() {});
         assertThat(searchLikeUserNameResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<String> emails = searchLikeUserNameResponse.getBody().stream().map((userInfo) -> user.getEmail()).collect(Collectors.toList());
         assertThat(emails).contains(userEmail);

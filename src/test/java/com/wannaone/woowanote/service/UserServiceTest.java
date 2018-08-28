@@ -107,7 +107,7 @@ public class UserServiceTest {
         InvitationGuestDto secondInvitationGuestDto = new InvitationGuestDto(secondUser);
 
         when(userRepository.findByEmailLike("%유저%")).thenReturn(Arrays.asList(firstUser, secondUser));
-        assertThat(userService.searchLikeUserName("유저")).contains(firstInvitationGuestDto, secondInvitationGuestDto);
+        assertThat(userService.searchLikeUserName("유저", secondUser).contains(firstInvitationGuestDto));
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {

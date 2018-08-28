@@ -77,8 +77,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
     }
 
-    public List<InvitationGuestDto> searchLikeUserName(String searchName) {
-        return this.userRepository.findByEmailLike("%" + searchName + "%").stream()
+    public List<InvitationGuestDto> searchLikeUserName(String searchName, User loginUser) {
+        return this.userRepository.findByEmailLike("%" + searchName + "%").stream().filter((user) -> !user.getEmail().equals(loginUser.getEmail()))
                 .map((user) -> new InvitationGuestDto(user)).collect(Collectors.toList());
     }
 }
