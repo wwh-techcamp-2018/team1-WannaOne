@@ -48,4 +48,8 @@ public class NoteBookDto {
     public static NoteBookDto fromEntity(NoteBook noteBook, User loginUser) {
         return new NoteBookDto(noteBook, loginUser);
     }
+
+    public int getPeersSize() {
+        return this.peers.size();
+    }
 }
