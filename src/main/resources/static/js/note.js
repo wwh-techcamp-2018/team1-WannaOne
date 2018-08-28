@@ -14,7 +14,6 @@ class Note {
         this.commentInput = $('#comment-input');
 
         this.initEvent();
-
     }
 
     initEvent() {
@@ -100,8 +99,10 @@ class Note {
     }
 
     hideEditor(e) {
-        if (this.editSection.contains(e.target)) {
-            return;
+        if (e!=null) {
+            if (this.editSection.contains(e.target)) {
+                return;
+            }
         }
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';

@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.service;
 
-import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.NoteBookTitleDto;
@@ -14,6 +13,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,12 +28,12 @@ public class NoteBookService {
     private UserService userService;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
-        return userService.findByUserId(ownerId).getNoteBooks();
+        return userService.findUserById(ownerId).getNoteBooks();
 
     }
 
     public List<NoteBook> getNoteBooksByPeerId(Long ownerId) {
-        return userService.findByUserId(ownerId).getShared();
+        return userService.findUserById(ownerId).getSharedNotebooks();
 
     }
 
@@ -51,7 +51,8 @@ public class NoteBookService {
 
     @Transactional
     public List<NoteBookDto> getNoteBookAndSharedNoteBook(Long userId) {
-        return Stream.concat(getNoteBookDtosByOwnerId(userId).stream(), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
+        return Stream.concat(getNoteBookDtosByOwnerId(userId)
+                .stream().sorted(Comparator.comparingInt(NoteBookDto::getPeersSize)), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional
