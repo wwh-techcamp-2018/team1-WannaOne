@@ -29,11 +29,11 @@ public class NoteBookService {
 
     public List<NoteBookDto> getNoteBookDtosByOwnerId(Long ownerId) {
         List<NoteBook> noteBooks = getNoteBooksByOwnerId(ownerId);
-        List<NoteBookDto> responseNoteBookDtos = new ArrayList<>();
+        List<NoteBookDto> noteBookDtos = new ArrayList<>();
         for (NoteBook notebook : noteBooks) {
-            responseNoteBookDtos.add(NoteBookDto.fromEntity(notebook));
+            noteBookDtos.add(NoteBookDto.fromEntity(notebook));
         }
-        return responseNoteBookDtos;
+        return noteBookDtos;
     }
 
     @Transactional
