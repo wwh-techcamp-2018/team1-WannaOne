@@ -138,6 +138,6 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
 
         ResponseEntity<List<NotificationMessageDto>> invitationListResponse = getForEntityWithParameterizedWithBasicAuth("/api/users/invitations", null, new ParameterizedTypeReference<List<NotificationMessageDto>>() {});
         assertThat(invitationListResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(invitationListResponse.getBody().size()).isEqualTo(1);
+        assertThat(invitationListResponse.getBody().size()).isEqualTo(3);
     }
 }
