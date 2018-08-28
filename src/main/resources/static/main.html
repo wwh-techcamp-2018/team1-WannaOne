@@ -110,7 +110,7 @@
         <section id="note-section">
         </section>
         <div id="editSection"></div>
-        <div class = "note-save-delete">
+        <div class = "note-save-delete" style="display:none">
             <button id="note-delete-button">
                 <i class="material-icons">delete</i>
             </button>
@@ -135,7 +135,7 @@
     <script>
         var editor = new tui.Editor({
             el: document.querySelector('#editSection'),
-            initialEditType: 'wysiwyg',
+            initialEditType: 'markdown',
             hideModeSwitch: true,
             height: '85%',
             hooks: {
@@ -144,6 +144,7 @@
                 }
             }
         });
+        editor.hide();
     </script>
 
 </div>
