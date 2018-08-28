@@ -48,7 +48,7 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
+    public InvitationGuestDto precheckInvitationValidity(InvitationPrecheckingDto precheckingDto) {
         User guest = findUserByEmail(precheckingDto.getGuestEmail());
         if (guest.hasSharedNotebook(precheckingDto.getNotebookId())) {
             throw new InvalidInvitationException(msa.getMessage("Invalid.invitation"));

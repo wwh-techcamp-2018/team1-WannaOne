@@ -7,7 +7,6 @@ import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.InvalidInvitationException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
-import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,25 +64,25 @@ public class UserServiceTest {
     }
 
     @Test
-    public void precheckInvitationTest() {
+    public void precheckInvitationValidityTest() {
         InvitationPrecheckingDto nonduplicatePrecheckingDto = new InvitationPrecheckingDto("dooho@woowahan.com", 3L);
         User guest = new User("dooho@woowahan.com", "123", "dooho");
         NoteBook noteBook1 = new NoteBook(1L, guest, "noteBook1");
         NoteBook noteBook2 = new NoteBook(2L, guest, "noteBook2");
         guest.addSharedNoteBook(noteBook1, noteBook2);
         when(userRepository.findByEmail("dooho@woowahan.com")).thenReturn(Optional.ofNullable(guest));
-        assertThat(userService.precheckInvitation(nonduplicatePrecheckingDto).getName()).isEqualTo("dooho");
+        assertThat(userService.precheckInvitationValidity(nonduplicatePrecheckingDto).getName()).isEqualTo("dooho");
     }
 
     @Test(expected = InvalidInvitationException.class)
-    public void precheckInvitationTest_when_duplicate() {
+    public void precheckInvitationValidityTest_when_duplicate() {
         InvitationPrecheckingDto duplicatePrecheckingDto = new InvitationPrecheckingDto("dooho@woowahan.com", 1L);
         User guest = new User("dooho@woowahan.com", "123", "dooho");
         NoteBook noteBook1 = new NoteBook(1L, guest, "noteBook1");
         NoteBook noteBook2 = new NoteBook(2L, guest, "noteBook2");
         guest.addSharedNoteBook(noteBook1, noteBook2);
         when(userRepository.findByEmail("dooho@woowahan.com")).thenReturn(Optional.ofNullable(guest));
-        userService.precheckInvitation(duplicatePrecheckingDto);
+        userService.precheckInvitationValidity(duplicatePrecheckingDto);
     }
 
 

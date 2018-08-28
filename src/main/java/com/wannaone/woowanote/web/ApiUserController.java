@@ -46,7 +46,7 @@ public class ApiUserController {
 
     @GetMapping("/invite")
     public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
-        return userService.precheckInvitation(precheckingDto);
+        return userService.precheckInvitationValidity(precheckingDto);
     }
 
     @PostMapping("/shared/{noteBookId}")
