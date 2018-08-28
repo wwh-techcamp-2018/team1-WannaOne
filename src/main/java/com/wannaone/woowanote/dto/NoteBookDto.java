@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
@@ -49,5 +50,10 @@ public class NoteBookDto {
 
     public static NoteBookDto fromEntity(NoteBook noteBook, User loginUser) {
         return new NoteBookDto(noteBook, loginUser);
+    }
+
+    @JsonIgnore
+    public int getPeersSize() {
+        return this.peers.size();
     }
 }
