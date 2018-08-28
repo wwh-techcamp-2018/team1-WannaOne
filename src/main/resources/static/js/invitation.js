@@ -3,12 +3,14 @@ class Invitation {
         this.invitationAddressInputEl = $('.share-invitation > input');
         this.notebookTitleEl = $('.side-bar-middle-notebook-title');
         this.invitationListEl = $('#share-invitation-list');
+        // this.invitationCancelBtn = $('.invitation-cancel-button');
 
         this.initEventListener();
     }
 
     initEventListener() {
         this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
+        // this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
     }
 
     precheckInvitationAddressHandler(e) {
@@ -24,6 +26,10 @@ class Invitation {
         };
         this.precheckAddress(successCallback, failCallback);
     }
+
+    // invitationCancelHandler(e) {
+    //     this.invitationListEl.removeChild(e.target.closest('li'));
+    // }
 
     precheckAddress(successCallback, failCallback) {
         const email = this.invitationAddressInputEl.value;
