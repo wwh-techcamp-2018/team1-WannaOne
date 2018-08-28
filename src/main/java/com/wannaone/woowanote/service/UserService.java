@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -94,5 +94,10 @@ public class UserService {
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    }
+
+    public List<InvitationGuestDto> searchEmailLike(String searchEmailText, User loginUser) {
+        return this.userRepository.findByEmailLike("%" + searchEmailText + "%").stream().filter((user) -> !user.getEmail().equals(loginUser.getEmail()))
+                .map((user) -> new InvitationGuestDto(user)).collect(Collectors.toList());
     }
 }
