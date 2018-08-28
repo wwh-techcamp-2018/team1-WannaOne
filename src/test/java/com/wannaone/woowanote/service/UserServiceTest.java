@@ -1,13 +1,17 @@
 package com.wannaone.woowanote.service;
 
+import com.wannaone.woowanote.domain.Invitation;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.InvitationDto;
 import com.wannaone.woowanote.dto.InvitationPrecheckingDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.InvalidInvitationException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
+import com.wannaone.woowanote.support.InvitationStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,6 +37,8 @@ public class UserServiceTest {
     public static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private InvitationRepository invitationRepository;
     @Mock
     private NoteBookService noteBookService;
     @Mock
@@ -83,6 +91,49 @@ public class UserServiceTest {
         guest.addSharedNoteBook(noteBook1, noteBook2);
         when(userRepository.findByEmail("dooho@woowahan.com")).thenReturn(Optional.ofNullable(guest));
         userService.precheckInvitationValidity(duplicatePrecheckingDto);
+    }
+
+    @Test
+    public void createInvitationTest() {
+        Long hostId = 1L;
+        Long guestId = 2L;
+        Long notebookId = 3L;
+        User host = User.defaultUser();
+        User guest = new User("dooho@woowahan.com", "123", "dooho");
+        NoteBook notebook = new NoteBook(1L, host, "noteBook");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(host));
+        when(userRepository.findById(2L)).thenReturn(Optional.ofNullable(guest));
+        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(notebook);
+
+
+        Invitation invitation = userService.createInvitation(hostId, guestId, notebookId);
+        assertThat(invitation.getHost()).isEqualTo(host);
+        assertThat(invitation.getGuest()).isEqualTo(guest);
+        assertThat(invitation.getNoteBook()).isEqualTo(notebook);
+        assertThat(invitation.getStatus()).isEqualTo(InvitationStatus.PENDING);
+    }
+
+    @Test
+    public void inviteTest() {
+        Long hostId = 1L;
+        Long guestId = 2L;
+        Long notebookId = 3L;
+        User host = new User(hostId, "dooho@woowahan.com", "123");
+        User guest = new User(guestId, "kyunam@woowahan.com", "234");
+        NoteBook notebook = new NoteBook(notebookId, host, "noteBook");
+
+        List<Long> guestIdList = Arrays.asList(2L);
+        InvitationDto invitationDto = new InvitationDto(guestIdList, notebookId);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(host));
+        when(userRepository.findById(2L)).thenReturn(Optional.ofNullable(guest));
+        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(notebook);
+
+        userService.invite(host, invitationDto);
+
+        Invitation invitation = userService.createInvitation(hostId, guestId, notebookId);
+        verify(invitationRepository).save(invitation);
     }
 
 
