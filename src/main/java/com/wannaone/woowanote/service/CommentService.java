@@ -4,8 +4,10 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.CommentDto;
+import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +17,12 @@ import java.util.List;
 public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
+
     @Autowired
     private NoteService noteService;
+
+    @Autowired
+    private MessageSourceAccessor msa;
 
     @Transactional
     public Comment save(CommentDto commentDto, Long noteId, User loginUser) {
@@ -29,6 +35,16 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsByNoteId(Long noteId) {
-        return commentRepository.findByNoteId(noteId);
+        return commentRepository.findByNoteIdAndDeletedFalse(noteId);
+    }
+
+    public Comment getComment(Long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.comment")));
+    }
+
+    @Transactional
+    public Comment delete(Long id) {
+        return getComment(id).delete();
     }
 }
