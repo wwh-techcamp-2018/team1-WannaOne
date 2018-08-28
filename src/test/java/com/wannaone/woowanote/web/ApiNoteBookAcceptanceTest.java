@@ -132,7 +132,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         assertThat(addSharedResponse.getBody().getId()).isEqualTo(noteBookId);
         assertThat(addSharedResponse.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
 
-        ResponseEntity<List<NoteBook>> sharedNoteBookResponse = getForEntityWithParameterizedWithBasicAuth("/api/notebooks/shared", null, new ParameterizedTypeReference<List<NoteBook>>() {});
+        ResponseEntity<List<NoteBook>> sharedNoteBookResponse = getForEntityWithParameterizedWithBasicAuth("/api/notebooks/all", null, new ParameterizedTypeReference<List<NoteBook>>() {});
         assertThat(sharedNoteBookResponse.getBody().stream()
                 .filter((notebook) -> notebook.getId().equals(createNoteBookResponse.getBody().getId())).count()).isEqualTo(1);
     }
