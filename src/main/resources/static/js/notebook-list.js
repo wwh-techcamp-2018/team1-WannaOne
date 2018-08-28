@@ -8,9 +8,15 @@ class NotebookList {
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
-        this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
-        this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
+        this.addNotebookInputButton.addEventListener('click', () => {
+            const display = this.notebookInputWrapper.style.display;
+            if(display === 'block') {
+                this.notebookInputWrapper.style.display = 'none';
+                return;
+            }
+            this.notebookInputWrapper.style.display = 'block';
+        });
         document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
 
