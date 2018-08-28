@@ -30,6 +30,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <script src="/js/template-util.js"></script>
     <script src="/js/main-app.js"></script>
     <script src="/js/notification.js"></script>
@@ -41,6 +44,8 @@
     <script src="/js/comment.js"></script>
     <script src="/js/invitation.js"></script>
     <script src="/js/auto-complete.js"></script>
+    <script src="/js/websocket-manager.js"></script>
+
 
 </head>
 <body>
@@ -56,11 +61,6 @@
             </div>
             <div class="notification-content notification-scrollable">
                 <ul class="notification-ul">
-                    <li class="invitation-request" data-notebook-id="5" data-host="dain">dain님의 맛집노트북 공유 초대
-                        <button class="invitation-accept-button" type="button">수락</button>
-                        <button class="invitation-reject-button" type="button">거절</button>
-                    </li>
-                    <li>noti 2</li>
                 </ul>
             </div>
         </div>

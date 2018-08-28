@@ -61,6 +61,12 @@ public class ApiUserController {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
 
+    @GetMapping("/invitations")
+    public ResponseEntity showInvitations(@LoginUser User loginUser) {
+        return new ResponseEntity(userService.getInvitations(loginUser), HttpStatus.OK);
+    }
+
+
     private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
         return new NoteBookTitleDto("나의 우아한 노트북");
     }
@@ -69,5 +75,10 @@ public class ApiUserController {
     @GetMapping("/search/{searchEmailText}")
     public ResponseEntity search(@PathVariable String searchEmailText, @LoginUser User loginUser) {
         return ResponseEntity.ok().body(userService.searchEmailLike(searchEmailText, loginUser));
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity showMyInfo(@LoginUser User loginUser) {
+        return ResponseEntity.ok().body(loginUser);
     }
 }
