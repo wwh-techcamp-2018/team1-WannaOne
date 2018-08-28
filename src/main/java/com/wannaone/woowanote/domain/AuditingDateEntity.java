@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public abstract class AuditingDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Column(nullable = false, updatable = false)
     @JsonSerialize(using = LocalDateTimeSerializer.class)

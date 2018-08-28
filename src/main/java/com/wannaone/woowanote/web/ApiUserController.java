@@ -61,6 +61,12 @@ public class ApiUserController {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
 
+    @GetMapping("/invitations")
+    public ResponseEntity showInvitations(@LoginUser User loginUser) {
+        return new ResponseEntity(userService.getInvitations(loginUser), HttpStatus.OK);
+    }
+
+
     private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
         return new NoteBookTitleDto("나의 우아한 노트북");
     }
