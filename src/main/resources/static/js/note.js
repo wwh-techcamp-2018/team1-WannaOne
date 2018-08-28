@@ -116,6 +116,9 @@ class Note {
                 return;
             }
         }
+        if (this.previewTabBtn.classList.contains('te-tab-active') && $('.te-toolbar-section').style.display=='none') {
+            return;
+        }
         if (editor.getMarkdown() == "") {
             return;
         }
