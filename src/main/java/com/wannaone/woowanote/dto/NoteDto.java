@@ -52,6 +52,7 @@ public class NoteDto {
     }
 
     public NoteDto(Note note, User loginUser) {
+        this.id = note.getId();
         this.title = note.getTitle();
         this.text = note.getText();
         this.writer = note.getWriter();
