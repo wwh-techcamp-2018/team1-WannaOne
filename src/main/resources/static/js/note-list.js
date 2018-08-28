@@ -110,7 +110,7 @@ class NoteList {
         if ($('.share-notebook-open-button').contains(e.target) || this.shareNotebookPopup.contains(e.target)) {
             return;
         }
-//        this.clearShareNotebookPopup(); <- 이거 나중에 붙여주세요
+       this.clearShareNotebookPopup();
         this.shareNotebookPopup.style.display = 'none';
     }
 

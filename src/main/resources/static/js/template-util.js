@@ -61,3 +61,7 @@ function getNoteItemContentTemplate(note) {
 function getSharedNoteBookHeader() {
     return `<hr><div class="shared-notebook-header">나의 공유노트북</div>`;
 }
+
+function getInvitedGuestItemTemplate(invitedGuest) {
+    return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
+}
