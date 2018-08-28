@@ -25,9 +25,7 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
-        this.editSection.addEventListener('click', this.showEditor.bind(this));
-        document.addEventListener('click', this.hideEditor.bind(this));
-        //this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
+        document.addEventListener('click', this.modeSwitchHandler.bind(this));
     }
 
     toggleExpandNoteContent() {
@@ -45,8 +43,8 @@ class Note {
         const failCallback = () => {
             console.log('댓글 작성에 실패했습니다.');
             this.commentInput.value = '';
-        }
-        this.comment.fetchWriteComment(content, this.note.id, successCallback, failCallback)
+        };
+        this.comment.fetchWriteComment(content, this.note.id, successCallback, failCallback);
     }
 
     clearNoteSection() {
@@ -107,21 +105,7 @@ class Note {
         this.commentSection.style.display = 'block';
     }
 
-    hideEditor(e) {
-        if (e!=null) {
-            if (this.editSection.contains(e.target)) {
-                return;
-            }
-            if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
-                return;
-            }
-        }
-        if (this.previewTabBtn.classList.contains('te-tab-active') && $('.te-toolbar-section').style.display=='none') {
-            return;
-        }
-        if (editor.getMarkdown() == "") {
-            return;
-        }
+    hideEditor() {
         editor.show();
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
@@ -130,17 +114,8 @@ class Note {
 
     }
 
-    showEditor(e) {
-        if (e!= null) {
-            if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
-                return;
-            }
-        }
-        if (this.writeTabBtn.classList.contains('te-tab-active') && $('.te-toolbar-section').style.display=='block') {
-            return;
-        }
-        editor.show();
-
+    showEditor() {
+        // editor.show(); <- 이것 빼야 제대로 모드 전환 되는 것 같은데 맞나요?
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
         $('.te-md-container .te-preview').style.padding = '0px 25px 0px 25px';
@@ -165,5 +140,47 @@ class Note {
 
     getNoteId() {
         return this.note.id;
+    }
+
+    modeSwitchHandler(e) {
+        const currentMode = $('.te-toolbar-section').style.display == 'none' ? 'view' : 'edit';
+
+        if (currentMode == 'edit') {
+            if (e!=null) {
+                if (this.editSection.contains(e.target)) {
+                    return;
+                }
+                if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
+                    return;
+                }
+            }
+            if (this.previewTabBtn.classList.contains('te-tab-active')) {
+                return;
+            }
+            if (editor.getMarkdown() == "") {
+                return;
+            }
+
+            this.hideEditor();
+            return;
+        }
+
+        if (currentMode == 'view') {
+            if (!this.editSection.contains(e.target)) {
+                return;
+            }
+
+            if (e!= null) {
+                if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
+                    return;
+                }
+            }
+            if (this.writeTabBtn.classList.contains('te-tab-active')) {
+                return;
+            }
+
+            this.showEditor();
+            return;
+        }
     }
 }
