@@ -8,12 +8,15 @@ import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class NoteBookService {
@@ -31,6 +34,11 @@ public class NoteBookService {
     @Transactional
     public List<NoteBook> getNoteBooksByPeerId(Long userId) {
         return noteBookRepository.findByPeersContainingAndDeletedFalse(userService.findByUserId(userId));
+    }
+
+    @Transactional
+    public List<NoteBook> getNoteBookAndSharedNoteBook(Long userId) {
+        return Stream.concat(getNoteBooksByOwnerId(userId).stream(), getNoteBooksByPeerId(userId).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional

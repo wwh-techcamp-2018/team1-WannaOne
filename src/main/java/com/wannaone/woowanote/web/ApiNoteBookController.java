@@ -22,9 +22,9 @@ public class ApiNoteBookController {
         return new ResponseEntity(noteBookService.getNoteBooksByOwnerId(loginUser.getId()), HttpStatus.OK);
     }
 
-    @GetMapping("/shared")
-    public ResponseEntity showAllSharedNoteBook(@LoginUser User loginUser) {
-        return new ResponseEntity(noteBookService.getNoteBooksByPeerId(loginUser.getId()), HttpStatus.OK);
+    @GetMapping("/all")
+    public ResponseEntity showNoteBookAndSharedNoteBook(@LoginUser User loginUser) {
+        return new ResponseEntity(noteBookService.getNoteBookAndSharedNoteBook(loginUser.getId()), HttpStatus.OK);
     }
 
     @PostMapping
