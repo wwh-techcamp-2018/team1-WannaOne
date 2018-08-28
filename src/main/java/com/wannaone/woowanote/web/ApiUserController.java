@@ -1,11 +1,9 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
-import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import com.wannaone.woowanote.dto.UserDto;
-import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
@@ -47,12 +45,6 @@ public class ApiUserController {
     @GetMapping("/invite")
     public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
         return userService.precheckInvitationValidity(precheckingDto);
-    }
-
-    @PostMapping("/shared/{noteBookId}")
-    //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
-    public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
-        return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
 
     private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
