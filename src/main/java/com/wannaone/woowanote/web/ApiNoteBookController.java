@@ -1,7 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.NoteBookDto;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class ApiNoteBookController {
 
     @GetMapping
     public ResponseEntity showAll(@LoginUser User loginUser) {
-        return new ResponseEntity(noteBookService.getNoteBooksByOwnerId(loginUser.getId()), HttpStatus.OK);
+        return new ResponseEntity(noteBookService.getNoteBookDtosByOwnerId(loginUser.getId()), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid NoteBookDto noteBookDto, @LoginUser User owner) {
+    public ResponseEntity create(@RequestBody @Valid NoteBookTitleDto noteBookDto, @LoginUser User owner) {
         return new ResponseEntity(noteBookService.save(noteBookDto, owner), HttpStatus.CREATED);
     }
 
@@ -34,7 +34,7 @@ public class ApiNoteBookController {
     }
 
     @GetMapping("/{noteBookId}")
-    public ResponseEntity getNoteBook(@PathVariable Long noteBookId) {
-        return new ResponseEntity(noteBookService.getNoteBookByNoteBookId(noteBookId), HttpStatus.OK);
+    public ResponseEntity getNoteBook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
+        return new ResponseEntity(noteBookService.getNoteBookDtoByNoteBookId(noteBookId, loginUser), HttpStatus.OK);
     }
 }

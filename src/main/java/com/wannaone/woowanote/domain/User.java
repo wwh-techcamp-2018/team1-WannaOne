@@ -15,7 +15,6 @@ import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode
 @Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
@@ -84,6 +83,19 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 
     @Override
