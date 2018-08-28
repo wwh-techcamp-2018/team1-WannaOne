@@ -25,8 +25,8 @@ class Note {
             }
         });
         this.editSection.addEventListener('focusin', this.showEditor.bind(this));
-        this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
-
+        document.addEventListener('click', this.hideEditor.bind(this));
+        //this.editSection.addEventListener('focusout', this.hideEditor.bind(this));
     }
 
     toggleExpandNoteContent() {
@@ -95,11 +95,14 @@ class Note {
         this.editorEl.innerHTML = note.text;
         this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
-        this.btns.style.display = 'inline-block';
+        this.initSaveAndDeleteButton(note);
         this.commentSection.style.display = 'block';
     }
 
-    hideEditor() {
+    hideEditor(e) {
+        if (this.editSection.contains(e.target)) {
+            return;
+        }
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
         $('.te-ww-container .tui-editor-contents').style.padding = '3px 16px 0px 0px';
@@ -109,6 +112,14 @@ class Note {
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
         $('.te-ww-container .tui-editor-contents').style.padding = '3px 25px 0px 25px';
+    }
+
+    initSaveAndDeleteButton(note) {
+        if(note.isWriter) {
+            this.btns.style.display = 'inline-block';
+            return;
+        }
+        this.btns.style.display = 'none';
     }
 
     getNoteTitle() {

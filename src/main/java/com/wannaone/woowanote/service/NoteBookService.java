@@ -1,14 +1,14 @@
 package com.wannaone.woowanote.service;
 
+import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
-import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
@@ -28,21 +28,34 @@ public class NoteBookService {
     private UserService userService;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
-        return noteBookRepository.findByOwnerIdAndDeletedFalse(ownerId);
+        return userService.findByUserId(ownerId).getNoteBooks();
+
+    }
+
+    public List<NoteBook> getNoteBooksByPeerId(Long ownerId) {
+        return userService.findByUserId(ownerId).getShared();
+
     }
 
     @Transactional
-    public List<NoteBook> getNoteBooksByPeerId(Long userId) {
-        return noteBookRepository.findByPeersContainingAndDeletedFalse(userService.findByUserId(userId));
+    public List<NoteBookDto> getNoteBookDtosByOwnerId(Long ownerId) {
+        return getNoteBooksByOwnerId(ownerId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+
     }
 
     @Transactional
-    public List<NoteBook> getNoteBookAndSharedNoteBook(Long userId) {
-        return Stream.concat(getNoteBooksByOwnerId(userId).stream(), getNoteBooksByPeerId(userId).stream()).distinct().collect(Collectors.toList());
+    public List<NoteBookDto> getSharedNoteBookDtosByPeerId(Long userId) {
+        return getNoteBooksByPeerId(userId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public List<NoteBookDto> getNoteBookAndSharedNoteBook(Long userId) {
+        return Stream.concat(getNoteBookDtosByOwnerId(userId).stream(), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional
-    public NoteBook save(NoteBookDto noteBookDto, User owner) {
+    public NoteBook save(NoteBookTitleDto noteBookDto, User owner) {
         NoteBook newNoteBook = noteBookDto.toEntity();
         newNoteBook.setOwner(owner);
         return noteBookRepository.save(newNoteBook);
@@ -50,6 +63,10 @@ public class NoteBookService {
 
     public NoteBook getNoteBookByNoteBookId(Long noteBookId) {
         return noteBookRepository.findById(noteBookId).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.NOTE_BOOK_NOT_FOUND.getMessageKey())));
+    }
+
+    public NoteBookDto getNoteBookDtoByNoteBookId(Long noteBookId, User loginUser) {
+        return NoteBookDto.fromEntity(getNoteBookByNoteBookId(noteBookId), loginUser);
     }
 
     @Transactional

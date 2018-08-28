@@ -5,6 +5,7 @@ import com.wannaone.woowanote.dto.LoginDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -15,7 +16,6 @@ import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode
 @Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
@@ -38,6 +38,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
+    @Where(clause = "deleted = false")
     private List<NoteBook> noteBooks = new ArrayList<>();
 
     @ManyToMany
@@ -47,6 +48,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "note_book_id")
     )
     @JsonIgnore
+    @Where(clause = "deleted = false")
     private List<NoteBook> shared = new ArrayList<>();
 
     public User(Long id, String email, String password) {
@@ -84,6 +86,19 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 
     @Override
