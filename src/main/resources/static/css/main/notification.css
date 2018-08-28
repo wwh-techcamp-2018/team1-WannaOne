@@ -32,7 +32,7 @@
     font-weight: bold;
 }
 
-#remove-notification-btn {
+#close-notification-btn {
     position: relative;
     left: 63%;
     width: 15px;
@@ -46,6 +46,7 @@
 }
 
 .notification-content li {
+    position: relative;
     font-size: 14px;
     font-weight: bold;
     padding: 5px;
@@ -63,4 +64,30 @@
 .notification-scrollable {
     max-height: 400px;
     overflow: scroll;
+}
+
+.invitation-accept-button {
+    position: absolute;
+    display:block;
+    left: 187px;
+    top: 26px;
+    color: white;
+    background-color: #04BFBF;
+}
+
+.invitation-reject-button {
+    position: absolute;
+    display:block;
+    left: 227px;
+    top: 26px;
+    color: white;
+    background-color: #e57085;
+}
+
+.notification-content .checked{
+    background:rgba(0,0,0,0.2);
+}
+
+.notification-content li:hover{
+    background:rgba(0,0,0,0.2);
 }
