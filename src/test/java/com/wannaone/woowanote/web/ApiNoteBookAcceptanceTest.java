@@ -3,6 +3,8 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.dto.NoteBookDto;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
+import com.wannaone.woowanote.dto.NoteDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.support.ErrorMessage;
@@ -23,8 +25,8 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     private MessageSourceAccessor msa;
     @Test
     public void showAllNoteBooks() {
-        ResponseEntity<List<NoteBook>> response =
-                getForEntityWithParameterizedWithBasicAuth("/api/notebooks", null, new ParameterizedTypeReference<List<NoteBook>>() {});
+        ResponseEntity<List<NoteBookDto>> response =
+                getForEntityWithParameterizedWithBasicAuth("/api/notebooks", null, new ParameterizedTypeReference<List<NoteBookDto>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get(0).getTitle()).isEqualTo("tech");
@@ -41,7 +43,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     @Test
     public void createNoteBookTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
         ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -52,7 +54,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
     @Test
     public void getNoteBookByNoteBookId() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
         ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getTitle()).isEqualTo(noteBookName);
@@ -60,7 +62,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
         Long noteBookId = response.getBody().getId();
 
-        ResponseEntity<NoteBook> noteBookDetailResponse = template().getForEntity("/api/notebooks/" + noteBookId, NoteBook.class);
+        ResponseEntity<NoteBookDto> noteBookDetailResponse = basicAuthTemplate().getForEntity("/api/notebooks/" + noteBookId, NoteBookDto.class);
 
         assertThat(noteBookDetailResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(noteBookDetailResponse.getBody().getTitle()).isEqualTo(noteBookName);
@@ -73,24 +75,23 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         Long testNoteId = createNoteResponse.getBody().getId();
         deleteForEntity("/api/notes/" + testNoteId, Void.class);
 
-        ResponseEntity<NoteBook> response = template().getForEntity("/api/notebooks/1", NoteBook.class);
-        assertThat(response.getBody().getNotes()).doesNotContain(testNote.delete());
+        ResponseEntity<NoteBookDto> response = basicAuthTemplate().getForEntity("/api/notebooks/1", NoteBookDto.class);
+        assertThat(response.getBody().getNotes()).doesNotContain(NoteDto.fromEntity(testNote.delete()));
     }
 
     @Test
     public void getNoteBookNotBlankValidationMessageTest() {
         String noteBookName = "    ";
-        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
         ResponseEntity<ValidationErrorsResponse> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, ValidationErrorsResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getErrors().get(0).getErrorMessage()).isEqualTo(msa.getMessage(ErrorMessage.NOTE_BOOK_NOT_BLANK.getMessageKey()));
     }
 
     @Test
     public void deleteNoteBookTest() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
         ResponseEntity<NoteBook> response = basicAuthTemplate(defaultUser()).postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         NoteBook createdNoteBook = response.getBody();
@@ -98,14 +99,14 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         ResponseEntity deleteNoteBookResponse = deleteForEntity("/api/notebooks/" + createdNoteBook.getId(),  Void.class);
         assertThat(deleteNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        ResponseEntity<NoteBook> getNoteBookByNoteBookIdResponse = template().getForEntity("/api/notebooks/" + createdNoteBook.getId(), NoteBook.class);
+        ResponseEntity<NoteBookDto> getNoteBookByNoteBookIdResponse = basicAuthTemplate().getForEntity("/api/notebooks/" + createdNoteBook.getId(), NoteBookDto.class);
         assertThat(getNoteBookByNoteBookIdResponse.getBody().isDeleted()).isTrue();
     }
 
     @Test
     public void deleteNoteBookTestUnAuthorized() {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBookDto noteBookDto = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
         ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         NoteBook createdNoteBook = response.getBody();
