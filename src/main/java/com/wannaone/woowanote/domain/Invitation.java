@@ -2,6 +2,7 @@ package com.wannaone.woowanote.domain;
 
 import com.wannaone.woowanote.support.InvitationStatus;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Invitation extends AuditingDateEntity {
 
     @ManyToOne
@@ -26,5 +28,11 @@ public class Invitation extends AuditingDateEntity {
     private NoteBook noteBook;
 
     @Enumerated(EnumType.STRING)
-    private InvitationStatus status;
+    private InvitationStatus status = InvitationStatus.PENDING;
+
+    public Invitation(User host, User guest, NoteBook noteBook) {
+        this.host = host;
+        this.guest = guest;
+        this.noteBook = noteBook;
+    }
 }

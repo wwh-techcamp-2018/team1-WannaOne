@@ -49,6 +49,12 @@ public class ApiUserController {
         return userService.precheckInvitationValidity(precheckingDto);
     }
 
+    @PostMapping("/invite")
+    public ResponseEntity invite(@LoginUser User host, @RequestBody InvitationDto invitationDto) {
+        userService.invite(host, invitationDto);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PostMapping("/shared/{noteBookId}")
     //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
     public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
