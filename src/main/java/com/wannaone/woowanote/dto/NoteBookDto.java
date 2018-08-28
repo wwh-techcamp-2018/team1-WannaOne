@@ -16,9 +16,13 @@ import java.util.List;
 @Getter
 public class NoteBookDto {
     private Long id;
+
     private String title;
+
     private User owner;
+
     private List<NoteDto> notes = new ArrayList<>();
+
     private List<User> peers = new ArrayList<>();
 
     private boolean deleted;
