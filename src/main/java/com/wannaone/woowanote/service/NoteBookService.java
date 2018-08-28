@@ -13,6 +13,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,7 +51,8 @@ public class NoteBookService {
 
     @Transactional
     public List<NoteBookDto> getNoteBookAndSharedNoteBook(Long userId) {
-        return Stream.concat(getNoteBookDtosByOwnerId(userId).stream(), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
+        return Stream.concat(getNoteBookDtosByOwnerId(userId)
+                .stream().sorted(Comparator.comparingInt(NoteBookDto::getPeersSize)), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional
