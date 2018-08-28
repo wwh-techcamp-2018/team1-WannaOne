@@ -19,10 +19,9 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class NoteDto {
+    private Long id;
     private String title;
-
     private String text;
-
     private User writer;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -39,6 +38,7 @@ public class NoteDto {
     private List<Comment> comments = new ArrayList<>();
 
     public NoteDto(Note note) {
+        this.id = note.getId();
         this.title = note.getTitle();
         this.text = note.getText();
         this.writer = note.getWriter();
