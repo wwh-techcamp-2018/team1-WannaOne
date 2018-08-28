@@ -85,6 +85,7 @@ class NotebookList {
             this.sharedNoteBookButton.style.display = 'inline-block';
         }
         this.notebookTitleEl.innerText = this.noteBooks[this.currentIndex].title;
+        this.notebookTitleEl.dataset.notebookId = this.noteBooks[this.currentIndex].id;
     }
 
     focusNoteBook(noteBookEl) {

@@ -12,6 +12,7 @@ class MainApp {
         this.noteList = new NoteList();
         this.note = new Note();
         this.notification = new Notification();
+        this.invitation = new Invitation();
 
         this.initMainPage();
         this.initEventListener();
