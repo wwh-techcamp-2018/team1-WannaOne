@@ -86,13 +86,13 @@ class AutoComplete {
     }
 
     getAutoCompleteTextList() {
-        const searchText = this.searchUserInputEl.value;
-        if(!searchText) {
+        const searchEmailText = this.searchUserInputEl.value;
+        if(!searchEmailText) {
             this.clearAutoCompleteEl();
             return;
         }
         fetchManager({
-            url: `/api/users/search/${searchText}`,
+            url: `/api/users/search/${searchEmailText}`,
             method: 'GET',
             headers: {'content-type': 'application/json'},
             onSuccess: (autoCompleteUsers) => {
