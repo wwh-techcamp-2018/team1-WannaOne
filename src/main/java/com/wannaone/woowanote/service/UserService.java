@@ -11,9 +11,6 @@ import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
-import com.wannaone.woowanote.support.InvitationStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    public static final Logger log = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -98,6 +94,11 @@ public class UserService {
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    }
+
+    public List<InvitationGuestDto> searchEmailLike(String searchEmailText, User loginUser) {
+        return this.userRepository.findByEmailLike("%" + searchEmailText + "%").stream().filter((user) -> !user.getEmail().equals(loginUser.getEmail()))
+                .map((user) -> new InvitationGuestDto(user)).collect(Collectors.toList());
     }
 
     public List<NotificationMessageDto> getInvitations(User loginUser) {

@@ -10,15 +10,12 @@ class Invitation {
     }
 
     initEventListener() {
-        this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
-        // this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
+        // this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
+        this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
         this.invitationSendBtn.addEventListener('click', this.sendInvitationHandler.bind(this));
     }
 
-    precheckInvitationAddressHandler(e) {
-        if(e.keyCode !== 13) {
-            return;
-        }
+    precheckInvitationAddress() {
         const successCallback = (invitedGuest) => {
             console.log(invitedGuest);
             this.invitationListEl.insertAdjacentHTML('beforeend', getInvitedGuestItemTemplate(invitedGuest));
@@ -30,9 +27,9 @@ class Invitation {
         this.precheckAddress(successCallback, failCallback);
     }
 
-    // invitationCancelHandler(e) {
-    //     this.invitationListEl.removeChild(e.target.closest('li'));
-    // }
+    invitationCancelHandler(e) {
+        this.invitationListEl.removeChild(e.target.closest('li'));
+    }
 
     sendInvitationHandler() {
         if (this.invitationListEl.childElementCount == 0) {

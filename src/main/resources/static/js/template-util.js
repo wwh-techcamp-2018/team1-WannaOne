@@ -72,3 +72,12 @@ function getNotificationItem(notification) {
                 <button class="invitation-reject-button" type="button">거절</button>
             </li>`;
 }
+
+
+function getAutoCompleteListItem(autoCompleteUser) {
+    return `<li data-user-id="${autoCompleteUser.id}" data-user-name="${autoCompleteUser.name}">${autoCompleteUser.email}</li>`;
+}
+
+function getInviteUserItem(userId, email) {
+    return `<li data-user-id="${userId}">${email}</li>`
+}

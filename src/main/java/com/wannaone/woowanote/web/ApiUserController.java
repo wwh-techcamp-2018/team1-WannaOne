@@ -71,4 +71,9 @@ public class ApiUserController {
         return new NoteBookTitleDto("나의 우아한 노트북");
     }
 
+
+    @GetMapping("/search/{searchEmailText}")
+    public ResponseEntity search(@PathVariable String searchEmailText, @LoginUser User loginUser) {
+        return ResponseEntity.ok().body(userService.searchEmailLike(searchEmailText, loginUser));
+    }
 }

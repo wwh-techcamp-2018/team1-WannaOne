@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/main/note-list.css">
     <link rel="stylesheet" href="/css/main/note.css">
     <link rel="stylesheet" href="/css/main/comment.css">
+    <link rel="stylesheet" href="/css/main/user-auto-complete.css">
 
     <!--scripts for tui-editor -->
     <script src="/js/editor/jquery.js"></script>
@@ -39,6 +40,7 @@
     <script src="/js/fileupload.js"></script>
     <script src="/js/comment.js"></script>
     <script src="/js/invitation.js"></script>
+    <script src="/js/auto-complete.js"></script>
 
 </head>
 <body>
@@ -140,7 +142,11 @@
 <div class="share-notebook-popup">
     <p>동료와 이 노트북을 공유하세요.</p>
     <div class="share-invitation">
-        <input type="text" placeholder="초대할 동료의 이메일을 입력해주세요">
+        <input type="text" id="search-user" autocomplete="off" placeholder="초대할 동료의 이메일을 입력해주세요">
+    </div>
+    <div class="user_suggestions">
+        <ul class="user-suggestion-ul">
+        </ul>
     </div>
     <ul id="share-invitation-list">
     </ul>
