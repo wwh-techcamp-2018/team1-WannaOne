@@ -15,3 +15,6 @@ INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, wr
 INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(2, '아이디어가 떨어지네요...', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 1, 1);
 INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(3, '우아노트 화이팅!!!', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 1, 2);
 INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, writer_id) values(4, '두번째 글의 첫 댓글', '2018-08-14 13:00:00', '2018-08-14 13:54:00', 2, 1);
+
+INSERT INTO shared_note_book(note_book_id, user_id) values(5, 1);
+INSERT INTO shared_note_book(note_book_id, user_id) values(6, 1);

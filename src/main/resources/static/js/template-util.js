@@ -11,7 +11,21 @@ function getCommentListTemplate(list) {
 }
 
 function getCommentTemplate(comment) {
-    return `<li>${comment.content}</li>`;
+    return `<li>
+                <table class="comment-show-section">
+                    <tr>
+                        <td width="5%" rowspan="2" class="comment-writer-img">
+                            <!-- TODO: 아이디 세팅-->
+                            <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
+                        </td>
+                        <td width="90%" class="comment-writer">${comment.writer.name}</td>
+                        <td width="5%" class="comment-delete-btn"><i class="material-icons">delete</i></td>
+                    </tr>
+                    <tr>
+                        <td class="comment-content">${comment.content}</td>
+                    </tr>
+                </table>
+            </li>`;
 }
 
 function getNoteBookListTemplate(notebook) {
@@ -19,6 +33,17 @@ function getNoteBookListTemplate(notebook) {
                 <span>${notebook.title}</span>
                 <i class="far fa-trash-alt"></i>
             </li>`;
+}
+
+function getSharedNoteBookTemplate(sharedNotebook, user) {
+    let html =  `<li data-notebook-id=${sharedNotebook.id}>
+                    <span>${sharedNotebook.title}</span>
+                    <i class="fas fa-share-alt"></i>`;
+    if(sharedNotebook.owner.id === user.id) {
+        html += `<i class="far fa-trash-alt"></i>
+                </li>`;
+    }
+    return html;
 }
 
 function getNoteItemTemplate(note) {
@@ -31,4 +56,8 @@ function getNoteItemTemplate(note) {
 function getNoteItemContentTemplate(note) {
     return `<div class="note-list-title" data-note-id="${note.id}" draggable="true">${note.title}</div>
                <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
+}
+
+function getSharedNoteBookHeader() {
+    return `<hr><div class="shared-notebook-header">나의 공유노트북</div>`;
 }

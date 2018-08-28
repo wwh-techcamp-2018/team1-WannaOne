@@ -3,9 +3,10 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
-import com.wannaone.woowanote.dto.NoteBookDto;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.security.LoginUser;
+import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ApiUserController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid UserDto userDto) {
-        noteBookService.save(getDefaultNoteBookDto(), userService.save(userDto));
+        noteBookService.save(getDefaultNoteBooTitlekDto(), userService.save(userDto));
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -43,8 +44,9 @@ public class ApiUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    private NoteBookDto getDefaultNoteBookDto() {
-        return new NoteBookDto("나의 우아한 노트북");
+    @GetMapping("/invite")
+    public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
+        return userService.precheckInvitationValidity(precheckingDto);
     }
 
     @PostMapping("/shared/{noteBookId}")
@@ -52,4 +54,9 @@ public class ApiUserController {
     public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
+
+    private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
+        return new NoteBookTitleDto("나의 우아한 노트북");
+    }
+
 }
