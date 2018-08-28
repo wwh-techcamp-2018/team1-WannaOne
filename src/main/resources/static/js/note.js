@@ -14,7 +14,6 @@ class Note {
         this.commentInput = $('#comment-input');
 
         this.initEvent();
-
     }
 
     initEvent() {

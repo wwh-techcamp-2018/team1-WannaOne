@@ -4,7 +4,50 @@
     display: none;
 }
 
-.comment-write-section > img{
+.comment-list-section {
+    margin: 0px;
+    padding: 0px;
+}
+
+.comment-list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.comment-list > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-show-section {
+    width: 94%;
+}
+
+.comment-writer-img {
+    padding-top: 3px;
+    vertical-align: top;
+}
+
+.comment-writer {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.comment-content {
+    font-size: 13px;
+}
+
+.comment-delete-btn {
+    color: #233A40;
+    cursor: pointer;
+}
+
+.comment-delete-btn:hover {
+    color: #E37186;
+}
+
+.comment-write-section > img, .comment-show-section img{
     vertical-align: middle;
     border-radius: 50%;
     height: 32px;
@@ -29,6 +72,7 @@
 
 .comment-write-section > i {
     margin-left: -35px;
+    cursor: pointer;
 }
 
 .comment-write-section > i:hover {
