@@ -71,7 +71,7 @@ public class UserService {
         User host = findUserById(hostId);
         User guest = findUserById(guestId);
         NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(notebookId);
-        return new Invitation(host, guest, noteBook, InvitationStatus.PENDING);
+        return new Invitation(host, guest, noteBook);
     }
 
     public void saveInvitation(Invitation invitation) {
