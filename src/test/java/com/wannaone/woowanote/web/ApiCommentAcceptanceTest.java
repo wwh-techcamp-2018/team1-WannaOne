@@ -4,7 +4,7 @@ import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.dto.CommentDto;
-import com.wannaone.woowanote.dto.NoteBookDto;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     @Test
     public void createComment() throws Exception {
         String noteBookName = "내가 쓴 첫번 째 노트북";
-        NoteBookDto noteBookDto  = new NoteBookDto(noteBookName);
+        NoteBookTitleDto noteBookDto  = new NoteBookTitleDto(noteBookName);
         ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate().postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
         Long noteBookId = createNoteBookResponse.getBody().getId();
         assertThat(createNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);

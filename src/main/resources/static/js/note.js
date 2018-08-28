@@ -95,7 +95,7 @@ class Note {
         this.editorEl.innerHTML = note.text;
         this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
-        this.btns.style.display = 'inline-block';
+        this.initSaveAndDeleteButton(note);
         this.commentSection.style.display = 'block';
     }
 
@@ -112,6 +112,14 @@ class Note {
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
         $('.te-ww-container .tui-editor-contents').style.padding = '3px 25px 0px 25px';
+    }
+
+    initSaveAndDeleteButton(note) {
+        if(note.isWriter) {
+            this.btns.style.display = 'inline-block';
+            return;
+        }
+        this.btns.style.display = 'none';
     }
 
     getNoteTitle() {

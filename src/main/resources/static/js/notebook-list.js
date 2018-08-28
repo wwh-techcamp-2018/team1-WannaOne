@@ -3,6 +3,7 @@ class NotebookList {
         this.currentIndex = 0;
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
+        this.sharedNoteBookButton = $('.share-notebook-open-button');
 
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
@@ -24,7 +25,7 @@ class NotebookList {
 
     fetchNotebookList(successCallback, failCallback) {
         fetchManager({
-            url: '/api/notebooks',
+            url: '/api/notebooks/all',
             method: 'GET',
             onSuccess: successCallback,
             onFailure: failCallback
@@ -43,7 +44,12 @@ class NotebookList {
     renderNotebooks(noteBooks) {
         this.noteBooks = noteBooks;
         this.currentIndex = 0;
+        let firstSharedNoteBook = true;
         this.noteBooks.forEach((notebook) => {
+            if(notebook.peers.length > 0 && firstSharedNoteBook) {
+                this.renderSharedNoteBookHeader();
+                firstSharedNoteBook = false;
+            }
             this.renderNoteBook(notebook);
         });
 
@@ -73,17 +79,34 @@ class NotebookList {
     }
 
     setTitle() {
+        if(this.noteBooks[this.currentIndex].peers.length > 0) {
+            this.sharedNoteBookButton.style.display = 'none';
+        } else {
+            this.sharedNoteBookButton.style.display = 'inline-block';
+        }
         this.notebookTitleEl.innerText = this.noteBooks[this.currentIndex].title;
     }
 
     focusNoteBook(noteBookEl) {
         $('.notebook-focus').classList.toggle('notebook-focus');
         noteBookEl.classList.toggle('notebook-focus');
-        this.currentIndex = getIndex(this.notebookListEl.children, noteBookEl);
+        this.currentIndex = getIndex($All('.notebook-list > li'), noteBookEl);
     }
 
     renderNoteBook(notebook) {
-        this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
+        if(!notebook.peers.length > 0) {
+            this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
+            if(!this.user) {
+                this.user = notebook.owner;
+            }
+            return;
+        }
+
+        this.notebookListEl.insertAdjacentHTML('beforeend', getSharedNoteBookTemplate(notebook, this.user));
+    }
+
+    renderSharedNoteBookHeader() {
+        this.notebookListEl.insertAdjacentHTML('beforeend', getSharedNoteBookHeader());
     }
 
     createNewNotebook(successCallback, failCallback) {

@@ -3,8 +3,7 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.NoteBookDto;
-import com.wannaone.woowanote.exception.RecordNotFoundException;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,10 +65,10 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void updateParentNoteBook() {
-        NoteBookDto firstNoteBookDto = new NoteBookDto("내가 쓴 첫번 째 노트북");
+        NoteBookTitleDto firstNoteBookDto = new NoteBookTitleDto("내가 쓴 첫번 째 노트북");
         ResponseEntity<NoteBook> firstNoteBookCreateResponse = basicAuthTemplate().postForEntity("/api/notebooks", firstNoteBookDto, NoteBook.class);
         Long firstNoteBookId = firstNoteBookCreateResponse.getBody().getId();
-        NoteBookDto secondNoteBookDto = new NoteBookDto("내가 쓴 두번 째 노트북");
+        NoteBookTitleDto secondNoteBookDto = new NoteBookTitleDto("내가 쓴 두번 째 노트북");
         ResponseEntity<NoteBook> secondNoteBookCreateResponse = basicAuthTemplate().postForEntity("/api/notebooks", secondNoteBookDto, NoteBook.class);
         Long secondNoteBookId = secondNoteBookCreateResponse.getBody().getId();
 

@@ -51,16 +51,26 @@
     position: relative;
 }
 
-.notebook-list > li:hover, .shared-notebook-list > li:hover {
+.notebook-list > li > span:hover, .shared-notebook-list > li > span:hover {
     color: #e57085;
 }
-.notebook-list li > i {
+.notebook-list > li > .fa-trash-alt {
     margin-top:5px;
     display: none;
     float:right;
 }
-.notebook-list li:hover > i {
+
+.notebook-list > li > i {
+    margin-top:5px;
+    float:right;
+}
+
+.notebook-list > li:hover > .fa-trash-alt {
     display: block;
+}
+
+.notebook-list > li:hover > .fa-trash-alt:hover {
+    color: #e57085;
 }
 
 .notebook-focus {
@@ -117,7 +127,7 @@
     cursor: pointer;
 }
 
-.side-bar-left-body > hr {
+.notebook-list > hr {
     display: block;
     margin: 18px 8px 10px 6px;
     border-style: solid;
