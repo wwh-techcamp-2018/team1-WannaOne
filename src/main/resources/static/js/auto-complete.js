@@ -124,6 +124,9 @@ class AutoComplete {
     }
 
     appendAutoCompleteTexts(autoCompleteUsers) {
+        if(!autoCompleteUsers) {
+            return;
+        }
         autoCompleteUsers.forEach((user) => {
             this.autoCompleteListEl.insertAdjacentHTML('beforeend', getAutoCompleteListItem(user));
         })
