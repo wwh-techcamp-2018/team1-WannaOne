@@ -22,7 +22,8 @@ class Invitation {
             this.invitationListEl.insertAdjacentHTML('beforeend', getInvitedGuestItemTemplate(invitedGuest));
         };
         const failCallback = () => {
-            console.log("fail했네요");
+            console.log("cannot invite this user");
+            //TODO 초대할 수 없는 사람일 경우 에러메시지 띄우기
         };
         this.precheckAddress(successCallback, failCallback);
     }
@@ -34,9 +35,6 @@ class Invitation {
     precheckAddress(successCallback, failCallback) {
         const email = this.invitationAddressInputEl.value;
         const notebookId = this.notebookTitleEl.dataset.notebookId;
-        console.log(email);
-        console.log(notebookId);
-
         const queryString = "?guestEmail=" + email + "&noteBookId=" + notebookId;
 
         fetchManager({
