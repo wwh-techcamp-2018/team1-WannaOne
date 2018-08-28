@@ -49,5 +49,5 @@ function getSharedNoteBookHeader() {
 }
 
 function getInvitedGuestItemTemplate(invitedGuest) {
-    return `<li>${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
+    return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
 }
