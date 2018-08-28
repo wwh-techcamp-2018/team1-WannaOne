@@ -3,29 +3,10 @@ class AutoComplete {
         this.searchUserInputEl = $('#search-user');
         this.autoCompleteListEl = $('.user-suggestion-ul');
         this.sharedInvitationListEl = $('#share-invitation-list');
-        this.invitation = new Invitation();
-        this.initEventListener();
     }
 
-    initEventListener() {
-        this.searchUserInputEl.addEventListener('keyup', this.autoCompleteKeyUpEventHandler.bind(this));
-        this.searchUserInputEl.addEventListener('keydown', (evt) => {
-            if(evt.keyCode === 13) {
-                evt.preventDefault();
-                const activeElement = this.getActiveElement();
-                this.searchUserInputEl.value = activeElement.innerHTML;
-                const name = activeElement.dataset.userName;
-                if(this.addCheck(name)) {
-                    alert('이미 추가된 유저입니다.');
-                    this.clearAutoCompleteEl();
-                    this.clearInput();
-                    return;
-                }
-                this.invitation.precheckInvitationAddress();
-                this.clearAutoCompleteEl();
-                this.clearInput();
-            }
-        });
+    getSearchUserInputEl() {
+        return this.searchUserInputEl;
     }
 
     addCheck(name) {

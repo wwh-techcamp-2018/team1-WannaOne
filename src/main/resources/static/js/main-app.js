@@ -13,10 +13,12 @@ class MainApp {
         this.noteList = new NoteList();
         this.note = new Note();
         this.notification = new Notification();
-        new AutoComplete();
+        this.autoComplete = new AutoComplete();
+        this.invitation = new Invitation();
 
         this.initMainPage();
         this.initEventListener();
+        this.initAutoCompleteEventListener();
     }
 
     /**
@@ -33,6 +35,27 @@ class MainApp {
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
         this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
         this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
+    }
+
+    initAutoCompleteEventListener() {
+        this.autoComplete.getSearchUserInputEl().addEventListener('keyup', this.autoComplete.autoCompleteKeyUpEventHandler.bind(this.autoComplete));
+        this.autoComplete.getSearchUserInputEl().addEventListener('keydown', (evt) => {
+            if(evt.keyCode === 13) {
+                evt.preventDefault();
+                const activeElement = this.autoComplete.getActiveElement();
+                this.autoComplete.getSearchUserInputEl().value = activeElement.innerHTML;
+                const name = activeElement.dataset.userName;
+                if(this.autoComplete.addCheck(name)) {
+                    alert('이미 추가된 유저입니다.');
+                    this.autoComplete.clearAutoCompleteEl();
+                    this.autoComplete.clearInput();
+                    return;
+                }
+                this.invitation.precheckInvitationAddress();
+                this.autoComplete.clearAutoCompleteEl();
+                this.autoComplete.clearInput();
+            }
+        });
     }
 
     updateNoteOnDragOverInNoteBookEventHandler(evt){
