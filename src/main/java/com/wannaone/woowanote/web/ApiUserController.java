@@ -3,7 +3,7 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
-import com.wannaone.woowanote.dto.NoteBookDto;
+import com.wannaone.woowanote.dto.NoteBookTitleDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.dto.*;
@@ -49,13 +49,14 @@ public class ApiUserController {
         return userService.precheckInvitation(precheckingDto);
     }
 
-    private NoteBookDto getDefaultNoteBookDto() {
-        return new NoteBookDto("나의 우아한 노트북");
-    }
-
     @PostMapping("/shared/{noteBookId}")
     //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
     public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
+
+    private NoteBookTitleDto getDefaultNoteBookDto() {
+        return new NoteBookTitleDto("나의 우아한 노트북");
+    }
+
 }

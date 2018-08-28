@@ -3,6 +3,7 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.NoteDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
@@ -30,7 +31,8 @@ public class NoteService {
     private MessageSourceAccessor msa;
 
     public Note getNote(Long id) {
-        return noteRepository.findByIdAndDeletedIsFalse(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
+        return noteRepository.findByIdAndDeletedIsFalse(id)
+                .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.note")));
     }
 
     public List<Note> getAllNotes() {

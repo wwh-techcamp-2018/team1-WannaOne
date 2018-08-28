@@ -6,6 +6,10 @@ import com.wannaone.woowanote.dto.InvitationGuestDto;
 import com.wannaone.woowanote.dto.InvitationPrecheckingDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.exception.RecordNotFoundException;
+import com.wannaone.woowanote.exception.UnAuthenticationException;
+import com.wannaone.woowanote.exception.UnAuthorizedException;
+import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +49,7 @@ public class UserService {
     }
 
     public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
-        User guest = getUserByEmail(precheckingDto.getGuestEmail());
+        User guest = findUserByEmail(precheckingDto.getGuestEmail());
         if (guest.hasSharedNotebook(precheckingDto.getNotebookId())) {
             throw new InvalidInvitationException(msa.getMessage("Invalid.invitation"));
         }
@@ -63,12 +67,11 @@ public class UserService {
         return sharedNoteBook;
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    public User findUserById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
     }
 
-    public User getUserByEmail(String email) {
+    public User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
     }
-
 }
