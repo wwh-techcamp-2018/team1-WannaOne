@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class InvitationGuestDto {
 
     private Long id;
+    private String email;
     private String photoUrl;
     private String name;
 
@@ -18,6 +19,6 @@ public class InvitationGuestDto {
     }
 
     public InvitationGuestDto(User guest) {
-        this(guest.getId(), guest.getPhotoUrl(), guest.getName());
+        this(guest.getId(), guest.getEmail(), guest.getPhotoUrl(), guest.getName());
     }
 }

@@ -9,14 +9,11 @@ class Invitation {
     }
 
     initEventListener() {
-        this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
+        // this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
         // this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
     }
 
-    precheckInvitationAddressHandler(e) {
-        if(e.keyCode !== 13) {
-            return;
-        }
+    precheckInvitationAddress() {
         const successCallback = (invitedGuest) => {
             console.log(invitedGuest);
             this.invitationListEl.insertAdjacentHTML('beforeend', getInvitedGuestItemTemplate(invitedGuest));

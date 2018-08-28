@@ -8,11 +8,12 @@ class MainApp {
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
 
+
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
         this.notification = new Notification();
-        this.invitation = new Invitation();
+        new AutoComplete();
 
         this.initMainPage();
         this.initEventListener();

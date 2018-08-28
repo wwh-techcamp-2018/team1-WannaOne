@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -76,7 +77,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
     }
 
-    public List<User> searchLikeUserName(String searchName) {
-        return this.userRepository.findByEmailLike("%" + searchName + "%");
+    public List<InvitationGuestDto> searchLikeUserName(String searchName) {
+        return this.userRepository.findByEmailLike("%" + searchName + "%").stream()
+                .map((user) -> new InvitationGuestDto(user)).collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.InvitationGuestDto;
 import com.wannaone.woowanote.dto.InvitationPrecheckingDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
@@ -102,9 +103,11 @@ public class UserServiceTest {
     public void searchLikeUserNameTest() {
         User firstUser = new User(1L, "유저1", "1234");
         User secondUser = new User(2L, "유저2", "1234");
+        InvitationGuestDto firstInvitationGuestDto = new InvitationGuestDto(firstUser);
+        InvitationGuestDto secondInvitationGuestDto = new InvitationGuestDto(secondUser);
 
         when(userRepository.findByEmailLike("%유저%")).thenReturn(Arrays.asList(firstUser, secondUser));
-        assertThat(userService.searchLikeUserName("유저")).contains(firstUser, secondUser);
+        assertThat(userService.searchLikeUserName("유저")).contains(firstInvitationGuestDto, secondInvitationGuestDto);
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {

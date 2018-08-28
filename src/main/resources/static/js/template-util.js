@@ -65,3 +65,11 @@ function getSharedNoteBookHeader() {
 function getInvitedGuestItemTemplate(invitedGuest) {
     return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
 }
+
+function getAutoCompleteListItem(autoCompleteUser) {
+    return `<li data-user-id="${autoCompleteUser.id}" data-user-name="${autoCompleteUser.name}">${autoCompleteUser.email}</li>`;
+}
+
+function getInviteUserItem(userId, email) {
+    return `<li data-user-id="${userId}">${email}</li>`
+}
