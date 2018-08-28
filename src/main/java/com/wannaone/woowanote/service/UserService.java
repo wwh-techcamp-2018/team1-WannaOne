@@ -54,7 +54,7 @@ public class UserService {
             throw new InvalidInvitationException(msa.getMessage("Invalid.invitation"));
         }
 
-        return new InvitationGuestDto(guest.getPhotoUrl(), guest.getName());
+        return new InvitationGuestDto(guest);
     }
 
     @Transactional
