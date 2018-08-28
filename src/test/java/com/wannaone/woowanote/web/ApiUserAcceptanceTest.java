@@ -1,5 +1,6 @@
 package com.wannaone.woowanote.web;
 
+import com.wannaone.woowanote.domain.Comment;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.LoginDto;
@@ -11,12 +12,14 @@ import com.wannaone.woowanote.service.UserService;
 import com.wannaone.woowanote.support.ErrorMessage;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -99,5 +102,18 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getId()).isEqualTo(5L);
         assertThat(response.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
+    }
+
+    @Test
+    public void searchLikeUserNameTest() {
+        String userEmail = "abcdefg@naver.com";
+        UserDto user = UserDto.defaultUserDto().setEmail(userEmail);
+        ResponseEntity createUserResponse = template().postForEntity("/api/users", user, Void.class);
+        assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+        ResponseEntity<List<User>> searchLikeUserNameResponse = getForEntityWithParameterized("/api/users/search/abcdefg", null, new ParameterizedTypeReference<List<User>>() {});
+        assertThat(searchLikeUserNameResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<String> emails = searchLikeUserNameResponse.getBody().stream().map((userInfo) -> user.getEmail()).collect(Collectors.toList());
+        assertThat(emails).contains(userEmail);
     }
 }

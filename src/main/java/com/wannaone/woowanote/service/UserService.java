@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -59,5 +60,9 @@ public class UserService {
 
     public User findByUserId(Long userId) {
         return this.userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException("유저 정보를 찾을 수 없습니다."));
+    }
+
+    public List<User> searchLikeUserName(String searchName) {
+        return this.userRepository.findByEmailLike("%" + searchName + "%");
     }
 }

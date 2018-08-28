@@ -52,4 +52,9 @@ public class ApiUserController {
     public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
+
+    @GetMapping("/search/{searchNameText}")
+    public ResponseEntity search(@PathVariable String searchNameText) {
+        return ResponseEntity.ok().body(userService.searchLikeUserName(searchNameText));
+    }
 }

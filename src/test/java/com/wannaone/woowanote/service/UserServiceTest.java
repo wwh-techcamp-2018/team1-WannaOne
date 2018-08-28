@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,7 +72,15 @@ public class UserServiceTest {
         userService.addSharedNoteBook(user, 1L);
         assertThat(user.getShared().contains(testNoteBook)).isTrue();
         assertThat(testNoteBook.getPeers().contains(user)).isTrue();
+    }
 
+    @Test
+    public void searchLikeUserNameTest() {
+        User firstUser = new User(1L, "유저1", "1234");
+        User secondUser = new User(2L, "유저2", "1234");
+
+        when(userRepository.findByEmailLike("유저")).thenReturn(Arrays.asList(firstUser, secondUser));
+        assertThat(userService.searchLikeUserName("유저")).contains(firstUser, secondUser);
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {
