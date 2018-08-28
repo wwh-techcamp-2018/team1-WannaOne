@@ -100,6 +100,19 @@ class NotebookList {
         this.currentIndex = getIndex($All('.notebook-list > li'), noteBookEl);
     }
 
+    addNoteBook(notebook) {
+        this.notebookListEl.children[this.getMyNoteBookLastIndex()].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
+    }
+
+    getMyNoteBookLastIndex() {
+        for(let i = 0; i<this.noteBooks.length; i++) {
+            if(this.noteBooks[i].peers.length > 0) {
+                return i - 2;
+            }
+        }
+        return 0;
+    }
+
     renderNoteBook(notebook) {
         if(!notebook.peers.length > 0) {
             this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
@@ -132,8 +145,8 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.noteBooks.push(notebook);
-        this.renderNoteBook(notebook);
+        this.noteBooks.splice(this.getMyNoteBookLastIndex(), 0, notebook);
+        this.addNoteBook(notebook);
         this.clearInput();
     }
 
