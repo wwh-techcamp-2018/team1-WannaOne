@@ -76,4 +76,9 @@ public class ApiUserController {
     public ResponseEntity search(@PathVariable String searchEmailText, @LoginUser User loginUser) {
         return ResponseEntity.ok().body(userService.searchEmailLike(searchEmailText, loginUser));
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity showMyInfo(@LoginUser User loginUser) {
+        return ResponseEntity.ok().body(loginUser);
+    }
 }

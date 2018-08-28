@@ -14,7 +14,6 @@ public class NotificationMessageDto {
     private String message;
 
     public NotificationMessageDto(Invitation invitation) {
-        log.info("meessag, {} ", invitation.getId());
         this.id = invitation.getId();
         this.message = invitation.getHost().getName() +"님의 " + invitation.getNoteBook().getTitle() + " 공유 초대";
     }
