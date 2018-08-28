@@ -122,7 +122,7 @@ class Note {
         editor.show();
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
-        $('.te-ww-container .tui-editor-contents').style.padding = '3px 16px 0px 0px';
+        $('.te-md-container .te-preview').style.padding = '0px';
         this.previewTabBtn.click();
 
     }
@@ -140,7 +140,7 @@ class Note {
 
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
-        $('.te-ww-container .tui-editor-contents').style.padding = '3px 25px 0px 25px';
+        $('.te-md-container .te-preview').style.padding = '0px 25px 0px 25px';
         this.writeTabBtn.click();
     }
 
