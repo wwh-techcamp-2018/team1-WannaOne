@@ -37,19 +37,7 @@ public class NoteDto {
 
     private boolean isWriter;
 
-    // TODO: CommentDto 만들기
-    private List<Comment> comments = new ArrayList<>();
-
-    public NoteDto(Note note) {
-        this.id = note.getId();
-        this.title = note.getTitle();
-        this.text = note.getText();
-        this.writer = note.getWriter();
-        this.registerDatetime = note.getRegisterDatetime();
-        this.updateDatetime = note.getUpdateDatetime();
-        this.isWriter = true;
-        this.comments = note.getComments();
-    }
+    private List<CommentDto> comments = new ArrayList<>();
 
     public NoteDto(Note note, User loginUser) {
         this.id = note.getId();
@@ -59,11 +47,9 @@ public class NoteDto {
         this.registerDatetime = note.getRegisterDatetime();
         this.updateDatetime = note.getUpdateDatetime();
         this.isWriter = matchWriter(loginUser);
-        this.comments = note.getComments();
-    }
-
-    public static NoteDto fromEntity(Note note) {
-        return new NoteDto(note);
+        for (Comment comment : note.getComments()) {
+            this.comments.add(CommentDto.fromEntity(comment, loginUser));
+        }
     }
 
     public static NoteDto fromEntity(Note note, User loginUser) {

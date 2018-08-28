@@ -27,28 +27,15 @@ public class NoteBookDto {
 
     private boolean deleted;
 
-    public NoteBookDto(NoteBook noteBook) {
+    public NoteBookDto(NoteBook noteBook, User loginUser) {
         this.id = noteBook.getId();
         this.title = noteBook.getTitle();
         this.owner = noteBook.getOwner();
-        for (Note note : noteBook.getNotes()) {
-            this.notes.add(NoteDto.fromEntity(note));
-        }
-        this.peers = noteBook.getPeers();
-        this.deleted = noteBook.isDeleted();
-    }
-
-    public NoteBookDto(NoteBook noteBook, User loginUser) {
-        this.title = noteBook.getTitle();
         for (Note note : noteBook.getNotes()) {
             this.notes.add(NoteDto.fromEntity(note, loginUser));
         }
         this.peers = noteBook.getPeers();
         this.deleted = noteBook.isDeleted();
-    }
-
-    public static NoteBookDto fromEntity(NoteBook noteBook) {
-        return new NoteBookDto(noteBook);
     }
 
     public static NoteBookDto fromEntity(NoteBook noteBook, User loginUser) {

@@ -19,12 +19,12 @@ public class ApiNoteBookController {
 
     @GetMapping
     public ResponseEntity showAll(@LoginUser User loginUser) {
-        return new ResponseEntity(noteBookService.getNoteBookDtosByOwnerId(loginUser.getId()), HttpStatus.OK);
+        return new ResponseEntity(noteBookService.getNoteBookDtosByOwnerId(loginUser), HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity showNoteBookAndSharedNoteBook(@LoginUser User loginUser) {
-        return new ResponseEntity(noteBookService.getNoteBookAndSharedNoteBook(loginUser.getId()), HttpStatus.OK);
+        return new ResponseEntity(noteBookService.getNoteBookAndSharedNoteBook(loginUser), HttpStatus.OK);
     }
 
     @PostMapping
