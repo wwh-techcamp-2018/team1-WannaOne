@@ -36,7 +36,7 @@ public class NoteBookServiceTest {
         loginUser.addNoteBook(testNoteBook1);
         loginUser.addNoteBook(testNoteBook2);
 
-        when(userService.findByUserId(1L)).thenReturn(loginUser);
+        when(userService.findUserById(1L)).thenReturn(loginUser);
 
         List<NoteBook> noteList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteList).containsAll(Arrays.asList(testNoteBook1, testNoteBook2));
@@ -45,7 +45,7 @@ public class NoteBookServiceTest {
     @Test
     public void getAllNoteBook_success_when_list_empty() {
         User loginUser = new User(1L, "doy@woowahan.com", "1234");
-        when(userService.findByUserId(loginUser.getId())).thenReturn(loginUser);
+        when(userService.findUserById(loginUser.getId())).thenReturn(loginUser);
         List<NoteBook> noteBookList = noteBookService.getNoteBooksByOwnerId(loginUser.getId());
         assertThat(noteBookList).isEmpty();
     }
@@ -76,7 +76,7 @@ public class NoteBookServiceTest {
         User loginUser = new User(1L, "doy@woowahan.com", "1234");
         NoteBook testNoteBook = new NoteBook("노트북1");
         loginUser.addSharedNoteBook(testNoteBook);
-        when(userService.findByUserId(1L)).thenReturn(loginUser);
+        when(userService.findUserById(1L)).thenReturn(loginUser);
         assertThat(noteBookService.getNoteBooksByPeerId(1L)).contains(testNoteBook);
     }
 }

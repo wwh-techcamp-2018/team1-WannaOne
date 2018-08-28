@@ -50,6 +50,12 @@ public class NoteBook implements Serializable {
     }
 
     public NoteBook(String title) {
+        this(null, null, title);
+    }
+
+    public NoteBook(Long id, User user, String title) {
+        this.id = id;
+        this.owner = user;
         this.title = title;
         this.deleted = false;
     }
@@ -78,5 +84,9 @@ public class NoteBook implements Serializable {
 
     public void removeNote(Note note) {
         this.notes.remove(note);
+    }
+
+    public boolean hasSameId(Long id) {
+        return this.id == id;
     }
 }

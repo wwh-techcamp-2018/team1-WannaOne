@@ -28,12 +28,12 @@ public class NoteBookService {
     private UserService userService;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
-        return userService.findByUserId(ownerId).getNoteBooks();
+        return userService.findUserById(ownerId).getNoteBooks();
 
     }
 
     public List<NoteBook> getNoteBooksByPeerId(Long ownerId) {
-        return userService.findByUserId(ownerId).getShared();
+        return userService.findUserById(ownerId).getSharedNotebooks();
 
     }
 

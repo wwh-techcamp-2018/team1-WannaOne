@@ -2,15 +2,16 @@ package com.wannaone.woowanote.service;
 
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.InvitationGuestDto;
+import com.wannaone.woowanote.dto.InvitationPrecheckingDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
+import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,6 +48,15 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
+    public InvitationGuestDto precheckInvitationValidity(InvitationPrecheckingDto precheckingDto) {
+        User guest = findUserByEmail(precheckingDto.getGuestEmail());
+        if (guest.hasSharedNotebook(precheckingDto.getNotebookId())) {
+            throw new InvalidInvitationException(msa.getMessage("Invalid.invitation"));
+        }
+
+        return new InvitationGuestDto(guest.getPhotoUrl(), guest.getName());
+    }
+
     @Transactional
     public NoteBook addSharedNoteBook(User user, Long noteBookId) {
         User loginUser = userRepository.findById(user.getId())
@@ -57,7 +67,11 @@ public class UserService {
         return sharedNoteBook;
     }
 
-    public User findByUserId(Long userId) {
-        return this.userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException("유저 정보를 찾을 수 없습니다."));
+    public User findUserById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.user")));
     }
 }
