@@ -41,4 +41,9 @@ dependencies {
 	compile("org.mariadb.jdbc:mariadb-java-client")
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
+
+	compile("org.springframework.boot:spring-boot-starter-websocket")
+	compile("org.webjars:webjars-locator-core")
+	compile("org.webjars:sockjs-client:1.0.2")
+	compile("org.webjars:stomp-websocket:2.3.3")
 }
