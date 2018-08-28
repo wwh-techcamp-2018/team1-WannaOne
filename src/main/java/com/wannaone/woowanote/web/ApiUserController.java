@@ -27,7 +27,7 @@ public class ApiUserController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid UserDto userDto) {
-        noteBookService.save(getDefaultNoteBookDto(), userService.save(userDto));
+        noteBookService.save(getDefaultNoteBooTitlekDto(), userService.save(userDto));
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -55,7 +55,7 @@ public class ApiUserController {
         return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
     }
 
-    private NoteBookTitleDto getDefaultNoteBookDto() {
+    private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
         return new NoteBookTitleDto("나의 우아한 노트북");
     }
 

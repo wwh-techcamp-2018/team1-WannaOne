@@ -20,8 +20,11 @@ import java.util.List;
 @Getter
 public class NoteDto {
     private Long id;
+
     private String title;
+
     private String text;
+
     private User writer;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)

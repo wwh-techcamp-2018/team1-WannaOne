@@ -1,6 +1,5 @@
 package com.wannaone.woowanote.service;
 
-import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.NoteBookTitleDto;
