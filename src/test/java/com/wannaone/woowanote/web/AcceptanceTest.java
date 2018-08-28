@@ -61,7 +61,7 @@ public abstract class AcceptanceTest {
     }
 
     protected <T> ResponseEntity<T> getForEntity(String url, Object body, Class<T> responseType) {
-        return template().exchange(url, HttpMethod.GET, createHttpEntity(body),responseType);
+        return template().exchange(url, HttpMethod.GET, createHttpEntity(body), responseType);
     }
 
     protected <T> ResponseEntity<T> putForEntity(String url, Object body, Class<T> responseType) {

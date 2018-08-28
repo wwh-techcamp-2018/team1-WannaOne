@@ -1,18 +1,14 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.NoteBook;
-import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.InvitationGuestDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.exception.ErrorDetails;
-import com.wannaone.woowanote.repository.NoteBookRepository;
-import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.service.UserService;
 import com.wannaone.woowanote.support.ErrorMessage;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
@@ -26,10 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private NoteBookRepository noteBookRepository;
 
     @Autowired
     private MessageSourceAccessor msa;
@@ -99,5 +91,12 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getId()).isEqualTo(5L);
         assertThat(response.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
+    }
+
+    @Test
+    public void precheckInvitationTest() throws Exception {
+        ResponseEntity<InvitationGuestDto> response = basicAuthTemplate().getForEntity("/api/users/invite?guestEmail=dain@woowahan.com&noteBookId=1", InvitationGuestDto.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getName()).isEqualTo("dain");
     }
 }

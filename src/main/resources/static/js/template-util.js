@@ -35,6 +35,17 @@ function getNoteBookListTemplate(notebook) {
             </li>`;
 }
 
+function getSharedNoteBookTemplate(sharedNotebook, user) {
+    let html =  `<li data-notebook-id=${sharedNotebook.id}>
+                    <span>${sharedNotebook.title}</span>
+                    <i class="fas fa-share-alt"></i>`;
+    if(sharedNotebook.owner.id === user.id) {
+        html += `<i class="far fa-trash-alt"></i>
+                </li>`;
+    }
+    return html;
+}
+
 function getNoteItemTemplate(note) {
     return `<li data-note-id="${note.id}">
                 <div class="note-item">`
@@ -45,4 +56,8 @@ function getNoteItemTemplate(note) {
 function getNoteItemContentTemplate(note) {
     return `<div class="note-list-title" data-note-id="${note.id}" draggable="true">${note.title}</div>
                <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
+}
+
+function getSharedNoteBookHeader() {
+    return `<hr><div class="shared-notebook-header">나의 공유노트북</div>`;
 }

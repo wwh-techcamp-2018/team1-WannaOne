@@ -2,19 +2,19 @@ package com.wannaone.woowanote.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wannaone.woowanote.dto.LoginDto;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode
 @Getter
 public class User implements Serializable {
     private static final long serialVersionUID = 7342736640368461848L;
@@ -37,6 +37,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
+    @Where(clause = "deleted = false")
     private List<NoteBook> noteBooks = new ArrayList<>();
 
     @ManyToMany
@@ -46,7 +47,8 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "note_book_id")
     )
     @JsonIgnore
-    private List<NoteBook> shared = new ArrayList<>();
+    @Where(clause = "deleted = false")
+    private List<NoteBook> sharedNotebooks = new ArrayList<>();
 
     public User(Long id, String email, String password) {
         this.id = id;
@@ -64,10 +66,9 @@ public class User implements Serializable {
         this.noteBooks.add(noteBook);
     }
 
-    public void addSharedNoteBook(NoteBook sharedNoteBook) {
-        this.shared.add(sharedNoteBook);
+    public void addSharedNoteBook(NoteBook... noteBooks) {
+        Arrays.stream(noteBooks).forEach((noteBook) -> this.sharedNotebooks.add(noteBook));
     }
-
 
     public static User defaultUser() {
         return new User("defaultUser", "password", "user");
@@ -86,6 +87,19 @@ public class User implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -94,5 +108,12 @@ public class User implements Serializable {
                 ", name='" + name + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 '}';
+    }
+
+    public boolean hasSharedNotebook(Long notebookId) {
+        if (sharedNotebooks.isEmpty()) {
+            return false;
+        }
+        return this.sharedNotebooks.stream().anyMatch((noteBook -> noteBook.hasSameId(notebookId)));
     }
 }
