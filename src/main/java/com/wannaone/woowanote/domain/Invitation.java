@@ -28,6 +28,5 @@ public class Invitation extends AuditingDateEntity {
     private NoteBook noteBook;
 
     @Enumerated(EnumType.STRING)
-    //TODO default 값을 pending으로 지정하고 싶은데 잘 안됨.
-    private InvitationStatus status;
+    private InvitationStatus status = InvitationStatus.PENDING;
 }
