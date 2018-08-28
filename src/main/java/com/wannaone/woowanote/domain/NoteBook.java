@@ -1,9 +1,7 @@
 package com.wannaone.woowanote.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Where;
 
@@ -52,6 +50,12 @@ public class NoteBook implements Serializable {
     }
 
     public NoteBook(String title) {
+        this(null, null, title);
+    }
+
+    public NoteBook(Long id, User user, String title) {
+        this.id = id;
+        this.owner = user;
         this.title = title;
         this.deleted = false;
     }
@@ -80,5 +84,9 @@ public class NoteBook implements Serializable {
 
     public void removeNote(Note note) {
         this.notes.remove(note);
+    }
+
+    public boolean hasSameId(Long id) {
+        return this.id == id;
     }
 }

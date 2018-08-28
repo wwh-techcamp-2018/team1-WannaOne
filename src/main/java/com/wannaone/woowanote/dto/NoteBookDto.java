@@ -18,9 +18,9 @@ public class NoteBookDto {
 
     private String title;
 
-//    private List<User> peers = new ArrayList<>();
-
     private List<NoteDto> notes = new ArrayList<>();
+
+    private List<User> peers = new ArrayList<>();
 
     private boolean deleted;
 
@@ -30,6 +30,7 @@ public class NoteBookDto {
         for (Note note : noteBook.getNotes()) {
             this.notes.add(NoteDto.fromEntity(note));
         }
+        this.peers = noteBook.getPeers();
         this.deleted = noteBook.isDeleted();
     }
 
@@ -38,6 +39,7 @@ public class NoteBookDto {
         for (Note note : noteBook.getNotes()) {
             this.notes.add(NoteDto.fromEntity(note, loginUser));
         }
+        this.peers = noteBook.getPeers();
         this.deleted = noteBook.isDeleted();
     }
 

@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -113,5 +114,27 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
         ResponseEntity<ErrorDetails> deleteNoteBookResponse = deleteForEntity(UserDto.defaultUserDto().setEmail("anotherUser").toEntity(), "/api/notebooks/" + createdNoteBook.getId(),  ErrorDetails.class);
         assertThat(deleteNoteBookResponse.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    public void showAllSharedNoteBookTest() {
+
+        UserDto user = UserDto.defaultUserDto().setEmail("test@woowahan.com");
+        ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
+
+        String noteBookName = "내가 쓴 유니크한 노트북!@#$%";
+        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
+        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate(user.toEntity())
+                .postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
+        Long noteBookId = createNoteBookResponse.getBody().getId();
+
+
+        ResponseEntity<NoteBook> addSharedResponse = basicAuthTemplate().postForEntity("/api/users/shared/" + noteBookId, null, NoteBook.class);
+        assertThat(addSharedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(addSharedResponse.getBody().getId()).isEqualTo(noteBookId);
+        assertThat(addSharedResponse.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
+
+        ResponseEntity<List<NoteBookDto>> sharedNoteBookResponse = getForEntityWithParameterizedWithBasicAuth("/api/notebooks/all", null, new ParameterizedTypeReference<List<NoteBookDto>>() {});
+        assertThat(sharedNoteBookResponse.getBody().stream().map((notebook) -> notebook.getTitle()).collect(Collectors.toList())).contains(noteBookName);
     }
 }

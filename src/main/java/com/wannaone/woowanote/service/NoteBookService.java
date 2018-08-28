@@ -13,8 +13,9 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class NoteBookService {
@@ -22,18 +23,34 @@ public class NoteBookService {
     private NoteBookRepository noteBookRepository;
     @Autowired
     private MessageSourceAccessor msa;
+    @Autowired
+    private UserService userService;
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
-        return noteBookRepository.findByOwnerIdAndDeletedFalse(ownerId);
+        return userService.findUserById(ownerId).getNoteBooks();
+
     }
 
+    public List<NoteBook> getNoteBooksByPeerId(Long ownerId) {
+        return userService.findUserById(ownerId).getSharedNotebooks();
+
+    }
+
+    @Transactional
     public List<NoteBookDto> getNoteBookDtosByOwnerId(Long ownerId) {
-        List<NoteBook> noteBooks = getNoteBooksByOwnerId(ownerId);
-        List<NoteBookDto> noteBookDtos = new ArrayList<>();
-        for (NoteBook notebook : noteBooks) {
-            noteBookDtos.add(NoteBookDto.fromEntity(notebook));
-        }
-        return noteBookDtos;
+        return getNoteBooksByOwnerId(ownerId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+
+    }
+
+    @Transactional
+    public List<NoteBookDto> getSharedNoteBookDtosByPeerId(Long userId) {
+        return getNoteBooksByPeerId(userId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public List<NoteBookDto> getNoteBookAndSharedNoteBook(Long userId) {
+        return Stream.concat(getNoteBookDtosByOwnerId(userId).stream(), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional
