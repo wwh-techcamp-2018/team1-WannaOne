@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.NoteBook;
+import com.wannaone.woowanote.dto.InvitationDto;
 import com.wannaone.woowanote.dto.InvitationGuestDto;
 import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -82,6 +86,16 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void logoutTest() throws Exception {
         ResponseEntity response = basicAuthTemplate().postForEntity("/api/users/logout", null, Void.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void inviteTest() throws Exception {
+        Long guestId = 2L;
+        Long notebookId = 1L;
+        List<Long> guestIdList = Arrays.asList(guestId);
+        InvitationDto invitationDto = new InvitationDto(guestIdList, notebookId);
+        ResponseEntity response = basicAuthTemplate().postForEntity("/api/users/invite", invitationDto, Void.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
