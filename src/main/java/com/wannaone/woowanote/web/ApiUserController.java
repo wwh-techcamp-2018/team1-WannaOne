@@ -6,6 +6,7 @@ import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.NoteBookDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.security.LoginUser;
+import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class ApiUserController {
     public ResponseEntity logout(HttpSession session) {
         SessionUtil.logout(session);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/invite")
+    public InvitationGuestDto precheckInvitation(InvitationPrecheckingDto precheckingDto) {
+        return userService.precheckInvitation(precheckingDto);
     }
 
     private NoteBookDto getDefaultNoteBookDto() {
