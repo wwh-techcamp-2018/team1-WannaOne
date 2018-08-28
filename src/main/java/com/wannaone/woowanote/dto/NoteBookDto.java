@@ -16,11 +16,9 @@ import java.util.List;
 @Getter
 public class NoteBookDto {
     private Long id;
-
     private String title;
-
+    private User owner;
     private List<NoteDto> notes = new ArrayList<>();
-
     private List<User> peers = new ArrayList<>();
 
     private boolean deleted;
@@ -28,6 +26,7 @@ public class NoteBookDto {
     public NoteBookDto(NoteBook noteBook) {
         this.id = noteBook.getId();
         this.title = noteBook.getTitle();
+        this.owner = noteBook.getOwner();
         for (Note note : noteBook.getNotes()) {
             this.notes.add(NoteDto.fromEntity(note));
         }
