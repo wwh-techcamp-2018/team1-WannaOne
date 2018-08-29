@@ -17,6 +17,11 @@
 
 .note-save-delete button {
     color: #233A40;
+    cursor: pointer;
+}
+
+.note-save-delete button:hover {
+    color:#e57085;
 }
 
 .tui-editor-contents {

@@ -33,7 +33,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
 
         String commentContent = "댓글 내용";
         CommentDto commentDto = new CommentDto(commentContent);
-        ResponseEntity<Comment> commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/" + noteId + "/comments", commentDto, Comment.class);
+        ResponseEntity<CommentDto> commentCreateResponse = basicAuthTemplate().postForEntity("/api/notes/" + noteId + "/comments", commentDto, CommentDto.class);
         assertThat(commentCreateResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(commentCreateResponse.getBody().getContent()).isEqualTo(commentContent);
         assertThat(commentCreateResponse.getBody().getId()).isNotNull();
@@ -52,5 +52,16 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
         ResponseEntity<List<Comment>> commentShowResponse = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
         assertThat(commentShowResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(commentShowResponse.getBody().get(0).getContent()).contains("댓글");
+    }
+
+    @Test
+    public void delete() throws Exception {
+        ResponseEntity<List<Comment>> commentShowResponse1 = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
+
+        ResponseEntity commentDeleteResponse = deleteForEntity("/api/notes/1/comments/2", Void.class);
+        assertThat(commentDeleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<List<Comment>> commentShowResponse2 = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
+        assertThat(commentShowResponse2.getBody().size()).isEqualTo(commentShowResponse1.getBody().size() - 1);
     }
 }

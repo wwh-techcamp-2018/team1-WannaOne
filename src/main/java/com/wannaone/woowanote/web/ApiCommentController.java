@@ -24,4 +24,10 @@ public class ApiCommentController {
     public ResponseEntity show(@PathVariable Long noteId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getCommentsByNoteId(noteId));
     }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity delete(@PathVariable Long noteId, @PathVariable Long commentId) {
+        commentService.delete(commentId);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -7,7 +7,8 @@ class MainApp {
         this.noteSaveBtn = $('#note-save-button');
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
-
+        this.editSection = $('#editSection');
+        this.noteSection = $('#note-section');
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
@@ -26,7 +27,6 @@ class MainApp {
      * 노트북 클릭, 노트 클릭 시 발생할 이벤트 정의
      */
     initEventListener() {
-        document.addEventListener('click', this.modeSwitchHandler.bind(this));
         this.notebookTitleInput.addEventListener('keyup', this.createNewNotebookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
@@ -35,6 +35,8 @@ class MainApp {
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
+        this.editSection.addEventListener('focusout', () => {this.autosaveHandler();});
+        this.noteSection.addEventListener('focusout', () => {this.autosaveHandler();});
         this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); });
     }
@@ -82,7 +84,19 @@ class MainApp {
      * 제일 처음 노트북 로드하고 메인 페이지를 렌더링하는 메소드
      */
     initMainPage() {
-        this.renewNotebookList();
+        const successCallback = (user) => {
+            this.noteBook.setOwner(user);
+            this.renewNotebookList();
+        };
+        fetchManager({
+            url: '/api/users/profile',
+            method: 'GET',
+            onSuccess: successCallback,
+            onFailure: () => {
+                console.log('유저 정보를 가져오는데 실패했습니다.');
+            }
+        });
+
     }
 
     createNewNotebookEventHandler(e) {
@@ -139,7 +153,7 @@ class MainApp {
     selectNoteBookEventHandler(e){
         const target = e.target;
         //노트북 삭제 버튼이 클릭된 경우
-        if(target.tagName === 'I' && confirm('해당 노트북을 삭제하시겠습니까?')) {
+        if(target.classList.contains('fa-trash-alt') && confirm('해당 노트북을 삭제하시겠습니까?')) {
             const successCallback = () => {
                 this.renewNotebookList();
             };
@@ -187,19 +201,16 @@ class MainApp {
                 });
     }
 
-    modeSwitchHandler(e) {
-        let handler = {
-            'editMode' : this.note.showEditor.bind(this.note),
-            'viewMode' : () => {
-                this.note.hideEditor();
-                this.updateNoteEventHandler();
-            },
-            'stay' : ()=>{}
+    autosaveHandler() {
+        const successCallback = (updatedNotebook) => {
+            this.noteList.updateNoteItem(updatedNotebook);
         };
 
-        handler[this.note.modeSwitch(e)]();
+        const failCallback = () => {
+            console.log('autosave fail ㅠㅠ');
+        };
+        this.note.updateNote(successCallback.bind(this), failCallback);
     }
-
 
     logoutSuccess() {
         console.log("success");
@@ -230,7 +241,6 @@ class MainApp {
         this.noteBook.fetchNotebookList(successCallback.bind(this), failCallback);
     }
 
-
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
             this.noteList.renderNoteList(notebook.notes);
@@ -247,7 +257,6 @@ class MainApp {
         };
         this.noteList.fetchNoteList(noteBookId, successCallback.bind(this), failCallback);
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {

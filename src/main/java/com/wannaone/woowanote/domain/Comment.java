@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -29,6 +30,9 @@ public class Comment extends AuditingDateEntity {
     @JsonBackReference
     private Note note;
 
+    @ColumnDefault(value = "false")
+    private boolean deleted;
+
     public void addWriter(User writer) {
         this.writer = writer;
     }
@@ -36,5 +40,10 @@ public class Comment extends AuditingDateEntity {
     public Comment(String content, Note note) {
         this.content = content;
         this.note = note;
+    }
+
+    public Comment delete() {
+        this.deleted = true;
+        return this;
     }
 }

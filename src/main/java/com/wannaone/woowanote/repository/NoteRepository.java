@@ -9,6 +9,5 @@ import java.util.Optional;
 public interface NoteRepository extends CrudRepository<Note, Long> {
     @Override
     List<Note> findAll();
-
     Optional<Note> findByIdAndDeletedIsFalse(Long id);
 }
