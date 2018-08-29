@@ -58,9 +58,10 @@ p.note-list-title, p.note-list-snippet {
     text-align: justify;
     line-height: 1.5;
     color: gray;
+    word-break: break-all;
 }
 
-.note-list-snippet > span {
+.note-list-datetime {
     color: #04BFBF;
 }
 

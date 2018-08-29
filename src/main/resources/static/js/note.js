@@ -8,7 +8,6 @@ class Note {
         this.previewTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild.nextElementSibling;
         this.writeTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild;
         this.btns = $('.note-save-delete');
-
         this.comment = new Comment();
         this.initEvent();
     }
@@ -81,6 +80,7 @@ class Note {
         this.editSection.style.display = 'block';
         this.initSaveAndDeleteButton(note);
         this.renderComment();
+        $('.te-preview').scroll(0,0);
     }
 
     renderComment() {
