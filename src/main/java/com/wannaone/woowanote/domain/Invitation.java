@@ -30,6 +30,9 @@ public class Invitation extends AuditingDateEntity {
     @Enumerated(EnumType.STRING)
     private InvitationStatus status = InvitationStatus.PENDING;
 
+    public void setStatus(InvitationStatus status) {
+        this.status = status;
+    }
     public Invitation(User host, User guest, NoteBook noteBook) {
         this.host = host;
         this.guest = guest;

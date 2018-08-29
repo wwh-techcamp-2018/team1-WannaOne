@@ -55,9 +55,9 @@ class Notification {
     acceptInvitationHandler(e) {
         e.preventDefault();
         const liElement = e.target.closest('li');
-        const noteBookId = liElement.dataset.notebookId;
-        const successCallback = (notebook) => {
-                    console.log("노트북 공유 초대 수락 성공. 제목: ", notebook.title);
+        const invitationId = liElement.dataset.invitationId;
+        const successCallback = () => {
+                    console.log("노트북 공유 초대 수락 성공");
                     //TODO: sharedNotebookList 다시 가져오거나 해당 노트북만 추가 해주기.
                     liElement.classList.add('checked');
                     liElement.firstElementChild.disabled = true;
@@ -69,13 +69,18 @@ class Notification {
         const failCallback = () => {
                     console.log("노트북 공유 초대 수락에 실패했습니다.");
                 };
-        this.fetchAcceptInvitation(noteBookId, successCallback, failCallback);
+        this.fetchAcceptInvitation(invitationId, successCallback, failCallback);
     }
 
-    fetchAcceptInvitation(noteBookId, successCallback, failCallback) {
+    fetchAcceptInvitation(invitationId, successCallback, failCallback) {
         fetchManager({
-                url: `/api/users/shared/${noteBookId}`,
+                url: '/api/invitations',
                 method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({
+                                response: 'ACCEPTED',
+                                invitationId: invitationId
+                            }),
                 onSuccess: successCallback,
                 onFailure: failCallback
                 });
@@ -83,7 +88,7 @@ class Notification {
 
     rejectInvitationHandler(e) {
         e.preventDefault();
-        const notification = e.target.closest('li').dataset.notebookId;
+        const notification = e.target.closest('li').dataset.invitationId;
         //TODO: 작성해야 함
         //this.fetchRejectInvitation(noteBookId, successCallback, failCallback);
     }

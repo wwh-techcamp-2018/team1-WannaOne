@@ -2,10 +2,7 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
-import com.wannaone.woowanote.dto.NoteBookDto;
-import com.wannaone.woowanote.dto.NoteBookTitleDto;
-import com.wannaone.woowanote.dto.NoteDto;
-import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.support.ErrorMessage;
 import com.wannaone.woowanote.validation.ValidationErrorsResponse;
@@ -118,23 +115,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void showAllSharedNoteBookTest() {
-
-        UserDto user = UserDto.defaultUserDto().setEmail("test@woowahan.com");
-        ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
-
-        String noteBookName = "내가 쓴 유니크한 노트북!@#$%";
-        NoteBookTitleDto noteBookDto = new NoteBookTitleDto(noteBookName);
-        ResponseEntity<NoteBook> createNoteBookResponse = basicAuthTemplate(user.toEntity())
-                .postForEntity("/api/notebooks", noteBookDto, NoteBook.class);
-        Long noteBookId = createNoteBookResponse.getBody().getId();
-
-
-        ResponseEntity<NoteBook> addSharedResponse = basicAuthTemplate().postForEntity("/api/users/shared/" + noteBookId, null, NoteBook.class);
-        assertThat(addSharedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(addSharedResponse.getBody().getId()).isEqualTo(noteBookId);
-        assertThat(addSharedResponse.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
-
         ResponseEntity<List<NoteBookDto>> sharedNoteBookResponse = getForEntityWithParameterizedWithBasicAuth("/api/notebooks/all", null, new ParameterizedTypeReference<List<NoteBookDto>>() {});
-        assertThat(sharedNoteBookResponse.getBody().stream().map((notebook) -> notebook.getTitle()).collect(Collectors.toList())).contains(noteBookName);
+        assertThat(sharedNoteBookResponse.getBody().stream().map((notebook) -> notebook.getTitle()).collect(Collectors.toList())).contains("HTML,CSS, JS 기초");
     }
 }
