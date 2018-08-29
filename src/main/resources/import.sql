@@ -19,4 +19,6 @@ INSERT INTO comment(id, content, register_datetime, update_datetime, note_id, wr
 INSERT INTO shared_note_book(note_book_id, user_id) values(5, 1);
 INSERT INTO shared_note_book(note_book_id, user_id) values(6, 1);
 
-INSERT INTO invitation(id, register_datetime, update_datetime, host_id, guest_id, note_book_id, status) values(1, now(), now(), 1, 2, 1, 'PENDING');
+INSERT INTO invitation(id, register_datetime, update_datetime, host_id, guest_id, note_book_id, status) values(1, now(), now(), 2, 1, 5, 'PENDING');
+INSERT INTO invitation(id, register_datetime, update_datetime, host_id, guest_id, note_book_id, status) values(2, now(), now(), 2, 1, 6, 'PENDING');
+

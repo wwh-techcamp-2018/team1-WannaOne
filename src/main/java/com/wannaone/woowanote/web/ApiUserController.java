@@ -2,9 +2,6 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.LoginDto;
-import com.wannaone.woowanote.dto.NoteBookTitleDto;
-import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteBookService;
@@ -55,8 +52,25 @@ public class ApiUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/shared/{noteBookId}")
+    //TODO: 경로랑 함수이름 추천좀..ㅎㅎ
+    public ResponseEntity addSharedNotebook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
+        return new ResponseEntity(userService.addSharedNoteBook(loginUser, noteBookId), HttpStatus.OK);
+    }
+
+    @GetMapping("/invitations")
+    public ResponseEntity showInvitations(@LoginUser User loginUser) {
+        return new ResponseEntity(userService.getInvitations(loginUser), HttpStatus.OK);
+    }
+
+
     private NoteBookTitleDto getDefaultNoteBooTitlekDto() {
         return new NoteBookTitleDto("나의 우아한 노트북");
     }
 
+
+    @GetMapping("/search/{searchEmailText}")
+    public ResponseEntity search(@PathVariable String searchEmailText, @LoginUser User loginUser) {
+        return ResponseEntity.ok().body(userService.searchEmailLike(searchEmailText, loginUser));
+    }
 }

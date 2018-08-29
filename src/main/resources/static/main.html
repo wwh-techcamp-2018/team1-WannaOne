@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/main/note-list.css">
     <link rel="stylesheet" href="/css/main/note.css">
     <link rel="stylesheet" href="/css/main/comment.css">
+    <link rel="stylesheet" href="/css/main/user-auto-complete.css">
 
     <!--scripts for tui-editor -->
     <script src="/js/editor/jquery.js"></script>
@@ -39,14 +40,15 @@
     <script src="/js/fileupload.js"></script>
     <script src="/js/comment.js"></script>
     <script src="/js/invitation.js"></script>
+    <script src="/js/auto-complete.js"></script>
 
 </head>
 <body>
 <div class="grid-container">
     <div class="header">
         <span id="logo">Woowa Note</span>
-        <span><img src="/img/notification.png" id="notification-btn"></span>
-        <span id="logout">로그아웃</span>
+        <span><i class="far fa-bell" id="notification-btn"></i></span>
+        <span id="logout"><i class="fas fa-sign-out-alt"></i></span>
         <div class="notification-wrapper notification-hide">
             <div class="notification-title">
                 <span>Notification</span>
@@ -54,11 +56,6 @@
             </div>
             <div class="notification-content notification-scrollable">
                 <ul class="notification-ul">
-                    <li class="invitation-request" data-invitation-id="1" data-host="doy">doy님의 맛집노트북 공유 초대
-                        <button class="invitation-accept-button" type="button">수락</button>
-                        <button class="invitation-reject-button" type="button">거절</button>
-                    </li>
-                    <li>noti 2</li>
                 </ul>
             </div>
         </div>
@@ -145,7 +142,11 @@
 <div class="share-notebook-popup">
     <p>동료와 이 노트북을 공유하세요.</p>
     <div class="share-invitation">
-        <input type="text" placeholder="초대할 동료의 이메일을 입력해주세요">
+        <input type="text" id="search-user" autocomplete="off" placeholder="초대할 동료의 이메일을 입력해주세요">
+    </div>
+    <div class="user_suggestions">
+        <ul class="user-suggestion-ul">
+        </ul>
     </div>
     <ul id="share-invitation-list">
     </ul>

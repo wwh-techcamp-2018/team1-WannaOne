@@ -3,10 +3,7 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.Invitation;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.InvitationDto;
-import com.wannaone.woowanote.dto.InvitationPrecheckingDto;
-import com.wannaone.woowanote.dto.LoginDto;
-import com.wannaone.woowanote.dto.UserDto;
+import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.exception.InvalidInvitationException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.repository.InvitationRepository;
@@ -146,7 +143,33 @@ public class UserServiceTest {
         userService.addSharedNoteBook(user, 1L);
         assertThat(user.getSharedNotebooks().contains(testNoteBook)).isTrue();
         assertThat(testNoteBook.getPeers().contains(user)).isTrue();
+    }
 
+    @Test
+    public void searchLikeUserNameTest() {
+        User firstUser = new User(1L, "유저1", "1234");
+        User secondUser = new User(2L, "유저2", "1234");
+        InvitationGuestDto firstInvitationGuestDto = new InvitationGuestDto(firstUser);
+        InvitationGuestDto secondInvitationGuestDto = new InvitationGuestDto(secondUser);
+
+        when(userRepository.findByEmailLike("%유저%")).thenReturn(Arrays.asList(firstUser, secondUser));
+        assertThat(userService.searchEmailLike("유저", secondUser).contains(firstInvitationGuestDto));
+    }
+
+    @Test
+    public void getInvitationsTest() {
+        Long hostId = 1L;
+        Long guestId = 2L;
+        Long notebookId = 3L;
+        User host = new User(hostId, "dooho@woowahan.com", "123", "dooho");
+        User guest = new User(guestId, "kyunam@woowahan.com", "234", "kyunam");
+        NoteBook notebook = new NoteBook(notebookId, host, "noteBook");
+        List<Long> guestIdList = Arrays.asList(2L);
+
+        Invitation invitation = new Invitation(6L, host, guest, notebook);
+        when(invitationRepository.findByGuestId(2L)).thenReturn(Arrays.asList(invitation));
+
+        assertThat(userService.getInvitations(guest).contains(new NotificationMessageDto(invitation))).isTrue();
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {
