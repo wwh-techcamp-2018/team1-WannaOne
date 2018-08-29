@@ -63,7 +63,7 @@ class Note {
         this.comment.updateNoteInfo(data);
         editor.show();
         editor.moveCursorToStart();
-        if (editor.getMarkdown() != "") {
+        if (data.text != "") {
             this.previewTabBtn.click();
             this.hideEditor();
         } else {
@@ -140,9 +140,6 @@ class Note {
                 if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
                     return;
                 }
-            }
-            if (this.previewTabBtn.classList.contains('te-tab-active')) {
-                return;
             }
             if (editor.getMarkdown() == "") {
                 return;
