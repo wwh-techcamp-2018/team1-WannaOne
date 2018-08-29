@@ -39,7 +39,7 @@ public class CommentService {
     }
 
     public Comment getComment(Long id) {
-        return commentRepository.findById(id)
+        return commentRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new RecordNotFoundException(msa.getMessage("NotFound.comment")));
     }
 
