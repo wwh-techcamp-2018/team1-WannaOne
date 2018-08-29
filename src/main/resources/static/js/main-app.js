@@ -7,8 +7,7 @@ class MainApp {
         this.noteSaveBtn = $('#note-save-button');
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
-        this.editSection = $('#editSection');
-        this.noteSection = $('#note-section');
+
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
@@ -35,10 +34,8 @@ class MainApp {
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
-        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this));
-        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); });
-        this.editSection.addEventListener('focusout', () => {this.autosaveHandler();});
-        this.noteSection.addEventListener('focusout', () => {this.autosaveHandler();});
+        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
+        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
     }
 
     initAutoCompleteEventListener() {
@@ -87,7 +84,9 @@ class MainApp {
         const successCallback = (user) => {
             this.noteBook.setOwner(user);
             this.renewNotebookList();
-        };
+            $('.profile-thumbnail').src = user.photoUrl;
+            $('.profile-name').innerHTML = user.name;
+        }
         fetchManager({
             url: '/api/users/profile',
             method: 'GET',
@@ -199,17 +198,6 @@ class MainApp {
                     onSuccess: this.logoutSuccess,
                     onFailure: this.logoutFailure
                 });
-    }
-
-    autosaveHandler() {
-        const successCallback = (updatedNotebook) => {
-            this.noteList.updateNoteItem(updatedNotebook);
-        };
-
-        const failCallback = () => {
-            console.log('autosave fail ㅠㅠ');
-        };
-        this.note.updateNote(successCallback.bind(this), failCallback);
     }
 
     logoutSuccess() {

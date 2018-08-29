@@ -111,7 +111,7 @@ p.note-list-title, p.note-list-snippet {
     overflow: scroll;
 }
 
-#add-note-btn {
+#add-note-btn-section {
     left: 168px;
     margin-top: 5px;
     padding-right: 0px;
@@ -121,7 +121,17 @@ p.note-list-title, p.note-list-snippet {
     color: slategrey;
 }
 
-#add-note-btn:hover {
+#add-note-btn-section > .shared-info {
+    display:none;
+    float:right;
+}
+
+#add-note-btn-section > .shared-info > .shared-count {
+    font-size:2px;
+}
+
+
+#add-note-btn-section > #add-note-btn:hover {
     color:#e57085;
 }
 

@@ -1,6 +1,6 @@
 #notification-btn {
     position: relative;
-    left: calc(93vw - 210px);
+    left: calc(95vw - 210px);
     font-size: 22px;
     color: white;
     background: transparent;
@@ -8,7 +8,8 @@
 }
 
 #notification-btn:hover {
-    color: rgba(255,255,255,0.5);
+    text-shadow: 2px 2px rgba(0,0,0,0.25);
+
 }
 
 .button__badge {
@@ -84,19 +85,21 @@
 .invitation-accept-button {
     position: absolute;
     display:block;
-    left: 187px;
+    left: 199px;
     top: 26px;
     color: white;
     background-color: #04BFBF;
+    cursor: pointer;
 }
 
 .invitation-reject-button {
     position: absolute;
     display:block;
-    left: 227px;
+    left: 239px;
     top: 26px;
     color: white;
     background-color: #e57085;
+    cursor: pointer;
 }
 
 .notification-content .checked{

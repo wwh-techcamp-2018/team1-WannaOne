@@ -28,6 +28,7 @@ input {
 }
 
 #logo {
+    text-shadow: 2px 2px rgb(0,0,0,0.4);
     position: relative;
     left: 15px;
     padding-top: 3px;
@@ -40,14 +41,14 @@ input {
 #logout {
     font-size: 22px;
     position: relative;
-    left: calc(94vw - 210px);
+    left: calc(96vw - 210px);
     color: white;
     background: transparent;
     cursor: pointer;
 }
 
 #logout:hover {
-    color: rgba(255,255,255,0.5);
+    text-shadow: 2px 2px rgba(0,0,0,0.25);
 }
 
 .main-content {

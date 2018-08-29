@@ -1,6 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.NoteBook;
+import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.*;
 import com.wannaone.woowanote.exception.ErrorDetails;
 import com.wannaone.woowanote.service.UserService;
@@ -126,8 +127,9 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         Long notebookId = 1L;
         List<Long> guestIdList = Arrays.asList(guestId);
         InvitationDto invitationDto = new InvitationDto(guestIdList, notebookId);
-        ResponseEntity response = basicAuthTemplate(UserDto.defaultUserDto()
-                .setEmail("dain@woowahan.com").toEntity()).postForEntity("/api/users/invite", invitationDto, Void.class);
+
+        User host = UserDto.defaultUserDto().setEmail("dain@woowahan.com").toEntity();
+        basicAuthTemplate(host).postForEntity("/api/users/invite", invitationDto, Void.class);
 
         ResponseEntity<List<NotificationMessageDto>> invitationListResponse = getForEntityWithParameterizedWithBasicAuth("/api/users/invitations", null, new ParameterizedTypeReference<List<NotificationMessageDto>>() {});
         assertThat(invitationListResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
