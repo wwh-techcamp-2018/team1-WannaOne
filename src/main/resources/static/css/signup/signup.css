@@ -5,12 +5,18 @@ html,body{
     margin:0;
     padding:0;
 }
+
 body {
     overflow: hidden;
 }
+
 p, div {
     padding: 0;
     margin: 0;
+}
+
+input, button {
+    outline: none;
 }
 
 .container {
@@ -82,6 +88,10 @@ p, div {
     cursor: pointer;
 }
 
+#signUpButton:hover {
+    background-color: #27b2b0;
+}
+
 .yes-account {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -93,7 +103,6 @@ p, div {
 .yes-account > a {
     color: #e57085;
 }
-
 
 #email-validation, #password-validation, #passwordCheck-validation, #name-validation {
     color:red !important;
