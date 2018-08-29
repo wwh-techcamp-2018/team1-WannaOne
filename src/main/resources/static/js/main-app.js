@@ -8,6 +8,7 @@ class MainApp {
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
         this.editSection = $('#editSection');
+        this.noteSection = $('#note-section');
 
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
@@ -37,6 +38,7 @@ class MainApp {
         this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); });
         this.editSection.addEventListener('focusout', () => {this.autosaveHandler();});
+        this.noteSection.addEventListener('focusout', () => {this.autosaveHandler();});
     }
 
     initAutoCompleteEventListener() {
@@ -239,7 +241,6 @@ class MainApp {
         this.noteBook.fetchNotebookList(successCallback.bind(this), failCallback);
     }
 
-
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
             this.noteList.renderNoteList(notebook.notes);
@@ -256,7 +257,6 @@ class MainApp {
         };
         this.noteList.fetchNoteList(noteBookId, successCallback.bind(this), failCallback);
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {

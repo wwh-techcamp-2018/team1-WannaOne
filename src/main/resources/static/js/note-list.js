@@ -124,5 +124,11 @@ class NoteList {
         currentNoteItemEl.getElementsByClassName('note-list-title')[0].innerText = updatedNote.title;
         currentNoteItemEl.getElementsByClassName('note-list-snippet-text')[0].innerText = updatedNote.text;
         currentNoteItemEl.getElementsByClassName('note-list-datetime')[0].innerText = updatedNote.updateDatetime;
+
+        this.notes.splice(this.currentNoteIndex, 1);
+        this.notes.splice(0, 0, updatedNote);
+
+        this.noteListEl.removeChild(currentNoteItemEl);
+        this.noteListEl.insertAdjacentElement('afterbegin', currentNoteItemEl);
     }
 }
