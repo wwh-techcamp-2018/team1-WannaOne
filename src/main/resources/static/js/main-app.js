@@ -19,6 +19,7 @@ class MainApp {
         this.initMainPage();
         this.initEventListener();
         this.initAutoCompleteEventListener();
+        this.webSocketManager = new WebSocketManager();
     }
 
     /**

@@ -8,6 +8,7 @@ import com.wannaone.woowanote.exception.InvalidInvitationException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
+import com.wannaone.woowanote.support.InvitationMessageSender;
 import com.wannaone.woowanote.support.InvitationStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,8 @@ public class UserServiceTest {
     public static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private InvitationMessageSender invitationMessageSender;
     @Mock
     private InvitationRepository invitationRepository;
     @Mock

@@ -1,6 +1,6 @@
 #notification-btn {
     position: relative;
-    left: 84%;
+    left: calc(93vw - 210px);
     font-size: 22px;
     color: white;
     background: transparent;
