@@ -19,13 +19,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {
-
     @Mock
     private NoteRepository noteRepository;
-
     @Mock
     private NoteBookService noteBookService;
-
+    @Mock
+    private NewNoteNotificationMessageSender newNoteNotificationMessageSender;
     @InjectMocks
     private NoteService noteService;
 
