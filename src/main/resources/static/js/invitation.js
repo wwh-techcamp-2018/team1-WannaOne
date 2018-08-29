@@ -3,8 +3,12 @@ class Invitation {
         this.invitationAddressInputEl = $('.share-invitation > input');
         this.notebookTitleEl = $('.side-bar-middle-notebook-title');
         this.invitationListEl = $('#share-invitation-list');
+        this.invitationInputEl = $('.share-invitation > input');
+        this.shareNotebookPopup = $('.share-notebook-popup');
         // this.invitationCancelBtn = $('.invitation-cancel-button');
         this.invitationSendBtn = $('.share-notebook-popup > button');
+        this.shareNotebookPopup.style.display = "none";
+
 
         this.initEventListener();
     }
@@ -31,13 +35,19 @@ class Invitation {
         this.invitationListEl.removeChild(e.target.closest('li'));
     }
 
+    closeShareNotebookPopup() {
+        this.shareNotebookPopup.style.display = 'none';
+        this.invitationInputEl.innerText = "";
+        this.invitationListEl.innerHTML = "";
+    }
+
     sendInvitationHandler() {
         if (this.invitationListEl.childElementCount == 0) {
             return;
         }
         const successCallback = () => {
-            console.log('invitation 성공');
-            //TODO 팝업창 닫기
+            alert('초대 요청이 전송되었습니다.');
+            this.closeShareNotebookPopup();
         };
         const failCallback = () => {
             console.log("invitation 실패");
