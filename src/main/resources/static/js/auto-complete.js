@@ -21,7 +21,11 @@ class AutoComplete {
     }
 
     focusAutoCompleteText(index) {
-        this.autoCompleteListEl.children[index].classList.toggle('focus');
+        const focusElement = this.autoCompleteListEl.children[index];
+        if(!focusElement) {
+            return;
+        }
+        focusElement.classList.toggle('focus');
     }
 
     getActiveElement() {
