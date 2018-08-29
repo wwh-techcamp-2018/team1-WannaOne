@@ -35,15 +35,19 @@ class Invitation {
         this.invitationListEl.removeChild(e.target.closest('li'));
     }
 
+    closeShareNotebookPopup() {
+        this.shareNotebookPopup.style.display = 'none';
+        this.invitationInputEl.innerText = "";
+        this.invitationListEl.innerHTML = "";
+    }
+
     sendInvitationHandler() {
         if (this.invitationListEl.childElementCount == 0) {
             return;
         }
         const successCallback = () => {
             alert('초대 요청이 전송되었습니다.');
-            this.shareNotebookPopup.style.display = 'none';
-            this.invitationInputEl.innerText = "";
-            this.invitationListEl.innerHTML = "";
+            this.closeShareNotebookPopup();
         };
         const failCallback = () => {
             console.log("invitation 실패");
