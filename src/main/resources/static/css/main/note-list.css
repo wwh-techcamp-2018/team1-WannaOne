@@ -65,29 +65,31 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-header {
-  height: 85px;
-  position:relative;
-  box-sizing: border-box;
-  background-color: white;
-  border: #c1bfbc solid 0.5px;
-  padding: 16px 15px;
+    height: 100px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: white;
+    border: #c1bfbc solid 0.5px;
+    padding: 16px 15px;
 }
 
 .side-bar-middle-notebook-title {
-  font-size: 21px;
-  text-align: left;
-  display:inline;
-  width:100px;
-  word-break:break-all;
-  word-wrap:break-word;
+    font-size: 21px;
+    width: 200px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .side-bar-middle-notebook-meta {
-  font-size: 12px;
-  color: gray;
-  text-align: left;
-  margin-top: 12px;
-  display:block;
+    font-size: 12px;
+    color: gray;
+    text-align: left;
+    margin-top: 12px;
+    display: block;
 }
 
 .share-notebook-open-button {
@@ -101,22 +103,25 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-body {
-  height: calc(100vh - 128px);
-  padding: 0px 19px;
-  border-left: #c1bfbc solid 0.5px;
-  border-right: #c1bfbc solid 0.5px;
-  overflow: scroll;
+    height: calc(100vh - 128px);
+    padding: 0px 19px;
+    border-left: #c1bfbc solid 0.5px;
+    border-right: #c1bfbc solid 0.5px;
+    overflow: scroll;
 }
 
 #add-note-btn {
-    width: 20px;
-    height: 20px;
-    margin-left: 80px;
+    left: 168px;
+    margin-top: 5px;
+    padding-right: 0px;
+    margin-right: 0px;
+    font-size: 12px;
     cursor: pointer;
-    margin-left:10px;
-    margin-top:1px;
-    position:absolute;
-    left:168px;
+    color: slategrey;
+}
+
+#add-note-btn:hover {
+    color:#e57085;
 }
 
 .note-list-hide {
