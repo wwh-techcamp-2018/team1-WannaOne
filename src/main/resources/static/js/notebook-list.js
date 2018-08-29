@@ -110,7 +110,13 @@ class NotebookList {
     }
 
     addNoteBook(notebook) {
-        $All('.notebook-list > li')[this.getMyNoteBookLastIndex() - 1].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
+        const index = this.getMyNoteBookLastIndex() - 1;
+        const targetElement = $All('.notebook-list > li')[index];
+        if(index < 0) {
+            this.notebookListEl.insertAdjacentHTML('afterbegin', getNoteBookListTemplate(notebook));
+            return;
+        }
+        targetElement.insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
     }
 
     getMyNoteBookLastIndex() {
@@ -151,6 +157,8 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
+        debugger;
+        console.log(notebook);
         this.noteBooks.splice(this.getMyNoteBookLastIndex() + 1, 0, notebook);
         this.addNoteBook(notebook);
         this.clearInput();
