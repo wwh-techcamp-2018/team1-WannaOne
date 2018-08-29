@@ -56,7 +56,10 @@ function getNoteItemTemplate(note) {
 
 function getNoteItemContentTemplate(note) {
     return `<div class="note-list-title" data-note-id="${note.id}" draggable="true">${note.title}</div>
-               <div class="note-list-snippet"><span>${note.updateDatetime} </span>${note.text}</div>`;
+               <div class="note-list-snippet">
+               <span class="note-list-datetime">${note.updateDatetime} </span>
+               <span class="note-list-snippet-text">${note.text}</span>
+                    </div>`;
 }
 
 function getSharedNoteBookHeader() {
