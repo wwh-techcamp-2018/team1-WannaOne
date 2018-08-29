@@ -1,7 +1,7 @@
 package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.InvitationResponseDto;
+import com.wannaone.woowanote.dto.InvitationAnswerDto;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.InvitationService;
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ public class ApiInvitationController {
     @Autowired
     private InvitationService invitationService;
     @PostMapping
-    public ResponseEntity processInvitationStatus(@LoginUser User loginUser, @RequestBody InvitationResponseDto statusDto) {
-        invitationService.processInvitationResponse(loginUser, statusDto);
+    public ResponseEntity processInvitationStatus(@LoginUser User loginUser, @RequestBody InvitationAnswerDto statusDto) {
+        invitationService.processInvitationAnswer(loginUser, statusDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

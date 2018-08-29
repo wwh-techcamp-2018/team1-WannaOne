@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvitationResponseDto {
+public class InvitationAnswerDto {
     private InvitationStatus response;
     private Long invitationId;
 }

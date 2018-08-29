@@ -3,7 +3,7 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.Invitation;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.InvitationResponseDto;
+import com.wannaone.woowanote.dto.InvitationAnswerDto;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.support.InvitationStatus;
 import org.junit.Test;
@@ -33,10 +33,10 @@ public class InvitationServiceTest {
         User host = new User(2L, "dain@woowahan.com", "1234");
         NoteBook notebook = new NoteBook(1L, host, "sharing_notebook");
         Invitation invitation = new Invitation(host, loginUser, notebook,InvitationStatus.PENDING);
-        InvitationResponseDto invitationResponseDto = new InvitationResponseDto(InvitationStatus.ACCEPTED, 1L);
+        InvitationAnswerDto invitationAnswerDto = new InvitationAnswerDto(InvitationStatus.ACCEPTED, 1L);
 
         when(invitationRepository.findById(1L)).thenReturn(Optional.of(invitation));
-        Invitation invitationResult = invitationService.processInvitationResponse(loginUser, invitationResponseDto);
+        Invitation invitationResult = invitationService.processInvitationAnswer(loginUser, invitationAnswerDto);
 
         assertThat(invitationResult.getStatus()).isEqualTo(InvitationStatus.ACCEPTED);
     }
