@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/main/note.css">
     <link rel="stylesheet" href="/css/main/comment.css">
     <link rel="stylesheet" href="/css/main/user-auto-complete.css">
+    <link rel="stylesheet" href="/css/main/profile.css">
 
     <!--scripts for tui-editor -->
     <script src="/js/editor/jquery.js"></script>
@@ -91,14 +92,24 @@
             <ul class="notebook-list">
             </ul>
         </div>
+        <div class="profile-section">
+            <img class="profile-thumbnail">
+            <span class="profile-name"></span>
+        </div>
     </div>
     <div class="side-bar-middle">
         <div class="side-bar-middle-header">
             <div class="side-bar-middle-notebook-title">
             </div>
-            <div id="add-note-btn">
-                <i class="far fa-sticky-note"></i>
-                <span>새 노트 만들기</span>
+            <div id="add-note-btn-section">
+                <span id="add-note-btn">
+                    <i class="far fa-sticky-note"></i>
+                    <span>새 노트 만들기</span>
+                </span>
+                <span class="shared-info">
+                    <i class="fas fa-user-friends"></i>
+                    <span class="shared-count">0</span>
+                </span>
             </div>
             <div class="side-bar-middle-notebook-meta">
                 <span class="note-list-count"></span>
@@ -107,8 +118,6 @@
         </div>
         <div class="side-bar-middle-body">
           <ul class="note-list">
-
-
         </ul>
       </div>
     </div>

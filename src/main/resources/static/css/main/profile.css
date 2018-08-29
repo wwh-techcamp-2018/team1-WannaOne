@@ -1,0 +1,19 @@
+.profile-section > img {
+    vertical-align: middle;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.profile-section {
+    height:157px;
+    padding-top:30px;
+    padding-left:15px;
+    padding-bottom:0px;
+    margin-bottom:0px;
+}
+
+.profile-name {
+    font-size: 14px;
+    margin-left:6px;
+}

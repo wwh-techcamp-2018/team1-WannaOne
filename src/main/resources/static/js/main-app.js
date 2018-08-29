@@ -87,6 +87,8 @@ class MainApp {
         const successCallback = (user) => {
             this.noteBook.setOwner(user);
             this.renewNotebookList();
+            $('.profile-thumbnail').src = user.photoUrl;
+            $('.profile-name').innerHTML = user.name;
         };
         fetchManager({
             url: '/api/users/profile',
