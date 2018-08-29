@@ -24,11 +24,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentServiceTest {
-
     @Mock
     private NoteService noteService;
-    @Mock
-    private NoteRepository noteRepository;
     @Mock
     private CommentRepository commentRepository;
     @InjectMocks
@@ -60,7 +57,6 @@ public class CommentServiceTest {
         Note note = new Note("title", "text");
         Comment comment = new Comment("comment", note);
 
-        when(noteRepository.findById(1L)).thenReturn(Optional.of(note));
         when(commentRepository.findById(1L)).thenReturn(Optional.of(comment));
         assertThat(commentService.delete(1L).isDeleted()).isEqualTo(true);
     }

@@ -58,7 +58,7 @@ public class ApiCommentAcceptanceTest extends AcceptanceTest {
     public void delete() throws Exception {
         ResponseEntity<List<Comment>> commentShowResponse1 = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
 
-        ResponseEntity commentDeleteResponse = deleteForEntity("/api/notes/1/comments/1", Void.class);
+        ResponseEntity commentDeleteResponse = deleteForEntity("/api/notes/1/comments/2", Void.class);
         assertThat(commentDeleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ResponseEntity<List<Comment>> commentShowResponse2 = getForEntityWithParameterized("/api/notes/1/comments", null, new ParameterizedTypeReference<List<Comment>>() {});
