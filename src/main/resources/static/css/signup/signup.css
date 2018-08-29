@@ -37,7 +37,7 @@ p, div {
 }
 
 .welcome-message {
-    margin: 40px auto 0px;
+    margin: 20px auto 0px;
     text-align: center;
     font-size: 25px;
 }
@@ -45,16 +45,18 @@ p, div {
 .welcome-message > span {
     font-family: 'Shrikhand', cursive;
     color: #04BFBF;
+    font-size: 40px;
 }
 
 .content > form {
     width: 400px;
-    margin: 40px auto 0px;
+    margin: 20px auto 0px;
 }
 
 .content > form > .form-group {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #email, #password, #passwordCheck, #name {
@@ -77,6 +79,7 @@ p, div {
     border-radius: 12px / 10px;
     color: white;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .yes-account {
