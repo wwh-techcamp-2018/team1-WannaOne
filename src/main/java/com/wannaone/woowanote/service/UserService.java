@@ -12,6 +12,7 @@ import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.support.InvitationMessageSender;
+import com.wannaone.woowanote.support.InvitationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -104,6 +105,8 @@ public class UserService {
 
     public List<NotificationMessageDto> getInvitations(User loginUser) {
         return this.invitationRepository.findByGuestId(loginUser.getId())
-                .stream().map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
+                .stream()
+                .filter((invitation -> invitation.getStatus() == InvitationStatus.PENDING))
+                .map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
     }
 }
