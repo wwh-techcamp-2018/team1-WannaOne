@@ -28,6 +28,7 @@ input {
 }
 
 #logo {
+    text-shadow: 2px 2px rgb(0,0,0,0.4);
     position: relative;
     left: 15px;
     padding-top: 3px;
