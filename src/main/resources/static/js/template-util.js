@@ -3,17 +3,8 @@ function getNoteSectionTemplate(note) {
                 <p id="note-section-meta">작성한 날짜: ${note.registerDatetime} &emsp; 수정한 날짜: ${note.updateDatetime}</p>`;
 }
 
-//function getCommentListTemplate(list) {
-//    let result = `댓글 총 ${list.length}개`;
-//
-//    `<ul class="comment-list">`;
-//    list.forEach(comment => result += getCommentTemplate(comment));
-//    result = `댓글 총 ${list.length}개` + result + `</ul>`;
-//    return result;
-//}
-
 function getCommentTemplate(comment) {
-    let result = `<li data-comment-id=${comment.id}>
+    let result = `<li data-comment-id=${comment.id} data-is-writer=${comment.isWriter}>
                     <table class="comment-show-section">
                         <tr>
                             <td width="5%" rowspan="2" class="comment-writer-img">

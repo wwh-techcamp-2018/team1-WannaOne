@@ -87,6 +87,9 @@ class Note {
         this.comment.getCommentSection().style.display = 'block';
         this.note.comments.forEach((comment) => {
             this.comment.getCommentListUl().insertAdjacentHTML('beforeend', getCommentTemplate(comment));
+            if (comment.isWriter === true) {
+                this.comment.getCommentListUl().lastElementChild.classList.add('is-writer');
+            }
         });
         this.comment.updateCommentCount();
     }

@@ -54,7 +54,7 @@
     width: 85%;
     height: 30px;
     border-radius: 18px;
-    padding-left:5px;
+    padding-left:15px;
     border: 1px solid lightgray;
     padding-right:30px;
 }
@@ -73,4 +73,25 @@
 
 #add-comment-button:hover, .delete-comment-button:hover {
     color:#e57085;
+}
+
+.comment-list .comment-show-section {
+    background:#EFF1EC;
+    padding:10px;
+    margin:10px;
+    position:relative;
+    border-radius:5px;
+}
+.comment-list .comment-show-section:after {
+    content:"";
+    width:0;
+    height:0;
+    border-top:20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid #EFF1EC;
+    border-left:none;
+    right:auto;
+    left:-20px;
+    position: absolute;
+    top:10px;
 }
