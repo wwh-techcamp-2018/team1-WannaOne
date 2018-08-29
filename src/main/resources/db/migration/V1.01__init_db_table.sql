@@ -1,110 +1,65 @@
-create table comment (
-    id bigint not null auto_increment,
-    register_datetime datetime not null,
-    update_datetime datetime,
-    content varchar(255) not null,
-    deleted bit default false not null,
-    note_id bigint,
-    writer_id bigint,
-    primary key (id)
-) ENGINE=InnoDB;
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `photo_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=innoDB;
 
-create table invitation (
-    id bigint not null auto_increment,
-    register_datetime datetime not null,
-    update_datetime datetime,
-    status varchar(255),
-    guest_id bigint,
-    host_id bigint,
-    note_book_id bigint,
-    primary key (id)
-) ENGINE=InnoDB;
+CREATE TABLE `note_book` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  `title` varchar(255) NOT NULL,
+  `owner_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2oy7sj4kvqpja2mkrxyxl0w9m` (`owner_id`)
+) ENGINE=innoDB;
 
-create table note (
-    id bigint not null auto_increment,
-    register_datetime datetime not null,
-    update_datetime datetime,
-    deleted bit default false not null,
-    text LONGTEXT,
-    title varchar(255),
-    note_book_id bigint,
-    writer_id bigint,
-    primary key (id)
-) ENGINE=InnoDB;
+CREATE TABLE `note` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `register_datetime` datetime NOT NULL,
+  `update_datetime` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  `text` longtext,
+  `title` varchar(255) DEFAULT NULL,
+  `note_book_id` bigint(20) DEFAULT NULL,
+  `writer_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKrvvxymn6mnvx141furq7gp6kf` (`note_book_id`),
+  KEY `FKhfjy6wwn1qkaxe6cyow7ymecv` (`writer_id`)
+) ENGINE=innoDB;
 
+CREATE TABLE `comment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `register_datetime` datetime NOT NULL,
+  `update_datetime` datetime DEFAULT NULL,
+  `content` varchar(255) NOT NULL,
+  `deleted` bit(1) NOT NULL DEFAULT b'0',
+  `note_id` bigint(20) DEFAULT NULL,
+  `writer_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK41heeawfghvw9jccau0d1tjox` (`note_id`),
+  KEY `FKciieobgjeefmyp0mfyt1ehptd` (`writer_id`)
+) ENGINE=innoDB;
 
-create table note_book (
-    id bigint not null auto_increment,
-    deleted bit default false not null,
-    title varchar(255) not null,
-    owner_id bigint,
-    primary key (id)
-) ENGINE=InnoDB;
+CREATE TABLE `invitation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `register_datetime` datetime NOT NULL,
+  `update_datetime` datetime DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `guest_id` bigint(20) DEFAULT NULL,
+  `host_id` bigint(20) DEFAULT NULL,
+  `note_book_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKoadbyobtnkj8d0jk9u77icllj` (`guest_id`),
+  KEY `FKfxhrhurpl67d7q6qmvl681gxj` (`host_id`),
+  KEY `FKq2u2pi7qmdm6xlrwk0ux1ouhj` (`note_book_id`)
+) ENGINE=innoDB;
 
-
-create table shared_note_book (
-    note_book_id bigint not null,
-    user_id bigint not null
-) ENGINE=InnoDB;
-
-create table user (
-    id bigint not null auto_increment,
-    email varchar(255) not null,
-    name varchar(255) not null,
-    password varchar(255) not null,
-    photo_url varchar(255),
-    primary key (id)
-) ENGINE=InnoDB;
-
-alter table comment
-    add constraint FK41heeawfghvw9jccau0d1tjox
-    foreign key (note_id)
-    references note (id)
-
-alter table comment
-    add constraint FKciieobgjeefmyp0mfyt1ehptd
-    foreign key (writer_id)
-    references user (id)
-
-alter table invitation
-       add constraint FKoadbyobtnkj8d0jk9u77icllj
-       foreign key (guest_id)
-       references user (id)
-
-
-alter table invitation
-    add constraint FKfxhrhurpl67d7q6qmvl681gxj
-    foreign key (host_id)
-    references user (id);
-
-
-alter table invitation
-    add constraint FKq2u2pi7qmdm6xlrwk0ux1ouhj
-    foreign key (note_book_id)
-    references note_book (id);
-
-
-alter table note
-    add constraint FKrvvxymn6mnvx141furq7gp6kf
-    foreign key (note_book_id)
-    references note_book (id);
-
-alter table note
-    add constraint FKhfjy6wwn1qkaxe6cyow7ymecv
-    foreign key (writer_id)
-    references user (id);
-
-alter table note_book
-    add constraint FK2oy7sj4kvqpja2mkrxyxl0w9m
-    foreign key (owner_id)
-    references user (id);
-
-alter table shared_note_book
-    add constraint FK1nsd5xlnculbpkqpymtohbvwh
-    foreign key (user_id)
-    references user (id);
-
-alter table shared_note_book
-    add constraint FKm1slcmjahsm6vegt18df7l74e
-    foreign key (note_book_id)
-    references note_book (id);
+CREATE TABLE `shared_note_book` (
+  `note_book_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  KEY `FK1nsd5xlnculbpkqpymtohbvwh` (`user_id`),
+  KEY `FKm1slcmjahsm6vegt18df7l74e` (`note_book_id`)
+) ENGINE=innoDB;
