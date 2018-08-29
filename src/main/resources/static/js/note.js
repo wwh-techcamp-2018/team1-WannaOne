@@ -25,7 +25,7 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
-        document.addEventListener('click', this.modeSwitchHandler.bind(this));
+        // document.addEventListener('click', this.modeSwitch.bind(this));
     }
 
     toggleExpandNoteContent() {
@@ -143,45 +143,38 @@ class Note {
         return this.note.id;
     }
 
-    modeSwitchHandler(e) {
+    modeSwitch(e) {
         const currentMode = $('.te-toolbar-section').style.display == 'none' ? 'view' : 'edit';
 
         if (currentMode == 'edit') {
             if (e!=null) {
                 if (this.editSection.contains(e.target)) {
-                    return;
+                    return 'stay';
                 }
                 if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
-                    return;
+                    return 'stay';
                 }
             }
-            if (this.previewTabBtn.classList.contains('te-tab-active')) {
-                return;
-            }
+
             if (editor.getMarkdown() == "") {
-                return;
+                return 'stay';
             }
 
-            this.hideEditor();
-            return;
+            return 'viewMode';
         }
 
         if (currentMode == 'view') {
             if (!this.editSection.contains(e.target)) {
-                return;
+                return 'stay';
             }
 
             if (e!= null) {
                 if (this.writeTabBtn.contains(e.target) || this.previewTabBtn.contains(e.target)) {
-                    return;
+                    return 'stay';
                 }
             }
-            if (this.writeTabBtn.classList.contains('te-tab-active')) {
-                return;
-            }
 
-            this.showEditor();
-            return;
+            return 'editMode';
         }
     }
 }

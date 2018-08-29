@@ -25,6 +25,7 @@ class MainApp {
      * 노트북 클릭, 노트 클릭 시 발생할 이벤트 정의
      */
     initEventListener() {
+        document.addEventListener('click', this.modeSwitchHandler.bind(this));
         this.notebookTitleInput.addEventListener('keyup', this.createNewNotebookEventHandler.bind(this));
         this.noteBookListEl.addEventListener('click', this.selectNoteBookEventHandler.bind(this));
         this.noteListEl.addEventListener("click", this.selectNoteEventHandler.bind(this));
@@ -33,8 +34,8 @@ class MainApp {
         this.noteSaveBtn.addEventListener('click', this.updateNoteEventHandler.bind(this));
         this.noteDeleteBtn.addEventListener('click', this.deleteNoteEventHandler.bind(this));
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
-        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
-        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
+        this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this));
+        this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); });
     }
 
     initAutoCompleteEventListener() {
@@ -58,6 +59,19 @@ class MainApp {
         });
     }
 
+    modeSwitchHandler(e) {
+        let handler = {
+            'editMode' : this.note.showEditor.bind(this.note),
+            'viewMode' : () => {
+                this.note.hideEditor();
+                this.updateNoteEventHandler();
+            },
+            'stay' : ()=>{}
+        };
+
+        handler[this.note.modeSwitch(e)]();
+    }
+
     updateNoteOnDragOverInNoteBookEventHandler(evt){
         const targetNotebook = evt.target.closest('li');
         if(!targetNotebook) {
@@ -69,7 +83,7 @@ class MainApp {
             this.noteBook.focusNoteBook(targetNotebook);
             this.noteBook.setTitle();
             this.renewNoteList(this.noteBook.getNoteBookId());
-        }
+        };
         const failCallback = () => {
             console.log('노트를 이동시키는데 실패했습니다.');
         };
@@ -184,6 +198,7 @@ class MainApp {
                     onFailure: this.logoutFailure
                 });
     }
+
 
     logoutSuccess() {
         console.log("success");
