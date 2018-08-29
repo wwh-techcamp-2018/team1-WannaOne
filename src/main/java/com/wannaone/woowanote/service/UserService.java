@@ -59,32 +59,44 @@ public class UserService {
         if (guest.hasSharedNotebook(precheckingDto.getNotebookId())) {
             throw new InvalidInvitationException(msa.getMessage("Invalid.invitation"));
         }
-
         return new InvitationGuestDto(guest);
     }
 
-    public void invite(User host, InvitationDto invitationDto) {
-        // TODO : host check
-        // 1. peer check
+    public void checkSharedNoteBookOwner(User owner, InvitationDto invitationDto) {
+        NoteBook sharedNotebook = noteBookService.getNoteBookById(invitationDto.getNotebookId());
+        User sharedNotebookOwner = sharedNotebook.getOwner();
+        if(invitationDto.getGuestIdList().contains(sharedNotebookOwner.getId())) {
+            throw new AlreadyIncludeSharedNoteBookException(sharedNotebookOwner.getName());
+        }
+    }
+
+    public void checkIncludePeer(InvitationDto invitationDto) {
         NoteBook sharedNotebook = noteBookService.getNoteBookById(invitationDto.getNotebookId());
         List<UserNameDto> includedPeers = sharedNotebook.getPeers().stream()
-                                                        .filter((peer) -> invitationDto.getGuestIdList().contains(peer.getId()))
-                                                        .map((peer) -> new UserNameDto(peer.getName()))
-                                                        .collect(Collectors.toList());
+                .filter((peer) -> invitationDto.getGuestIdList().contains(peer.getId()))
+                .map((peer) -> new UserNameDto(peer.getName()))
+                .collect(Collectors.toList());
         if(!includedPeers.isEmpty()) {
             throw new AlreadyIncludeSharedNoteBookException(includedPeers);
         }
+    }
 
-        // 2. pending check
+    public void checkStatusIsPending(InvitationDto invitationDto) {
         List<Invitation> pendingInvitations = invitationService.getInvitationsByNoteBookId(invitationDto.getNotebookId());
         List<UserNameDto> pendingGuests = pendingInvitations.stream()
-                                                  .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
-                                                  .filter((invitation) -> invitationDto.getGuestIdList().contains(invitation.getGuest().getId()))
-                                                  .map((invitation) -> new UserNameDto(invitation.getGuest().getName()))
-                                                  .collect(Collectors.toList());
+                .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
+                .filter((invitation) -> invitationDto.getGuestIdList().contains(invitation.getGuest().getId()))
+                .map((invitation) -> new UserNameDto(invitation.getGuest().getName()))
+                .collect(Collectors.toList());
         if(!pendingGuests.isEmpty()) {
-            throw new AlreadyIncludeSharedNoteBookException(pendingGuests);
+            throw new AlreadyInviteGuestExcetion(pendingGuests);
         }
+    }
+
+    public void invite(User host, InvitationDto invitationDto) {
+        checkSharedNoteBookOwner(host, invitationDto);
+        checkIncludePeer(invitationDto);
+        checkStatusIsPending(invitationDto);
 
         invitationDto.getGuestIdList().forEach((guestId) -> {
             saveInvitation(createInvitation(host.getId(), guestId, invitationDto.getNotebookId()));

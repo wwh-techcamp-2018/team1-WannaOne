@@ -17,7 +17,7 @@ public class AlreadyIncludeSharedNoteBookException extends RuntimeException  {
         this.message += "님은 이미 이 노트북을 공유하고 있습니다.";
     }
 
-    public AlreadyIncludeSharedNoteBookException(String message) {
-        super(message);
+    public AlreadyIncludeSharedNoteBookException(String userName) {
+        this.message = userName + "님은 이미 이 노트북을 공유하고 있습니다.";
     }
 }
