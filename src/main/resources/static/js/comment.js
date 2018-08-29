@@ -55,6 +55,7 @@ class Comment {
         }
         const successCallback = (response) => {
             this.commentListUl.insertAdjacentHTML('beforeend', getCommentTemplate(response));
+            this.commentListUl.lastElementChild.classList.add('is-writer');
             this.updateCommentCount();
             this.commentInput.value = '';
             console.log('댓글 작성에 성공했습니다.');
