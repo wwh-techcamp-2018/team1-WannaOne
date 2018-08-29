@@ -40,7 +40,7 @@ input {
 #logout {
     font-size: 22px;
     position: relative;
-    left: 85%;
+    left: calc(94vw - 210px);
     color: white;
     background: transparent;
     cursor: pointer;
