@@ -138,7 +138,7 @@ class MainApp {
     selectNoteBookEventHandler(e){
         const target = e.target;
         //노트북 삭제 버튼이 클릭된 경우
-        if(target.tagName === 'I' && confirm('해당 노트북을 삭제하시겠습니까?')) {
+        if(target.classList.contains('fa-trash-alt') && confirm('해당 노트북을 삭제하시겠습니까?')) {
             const successCallback = () => {
                 this.renewNotebookList();
             };
