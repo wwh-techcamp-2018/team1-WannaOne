@@ -44,5 +44,7 @@ class WebSocketManager {
 
     handlerNotificationMessage(message) {
         this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
+        this.notificationBtn.innerHTML = getNotificationNumber(notificationUl.children.length);
+
     }
 }
