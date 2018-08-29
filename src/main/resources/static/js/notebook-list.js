@@ -114,6 +114,7 @@ class NotebookList {
         const targetElement = $All('.notebook-list > li')[index];
         if(index < 0) {
             this.notebookListEl.insertAdjacentHTML('afterbegin', getNoteBookListTemplate(notebook));
+            this.notebookListEl.firstElementChild.classList.add('notebook-focus');
             return;
         }
         targetElement.insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
