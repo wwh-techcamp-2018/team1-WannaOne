@@ -11,13 +11,13 @@ class Comment {
     }
 
     initEvent() {
-        this.commentListUl.addEventListener('click', this.deleteCommentClickEventHandler.bind(this));
-        this.addCommentBtn.addEventListener('click', this.addCommentClickEventHandler.bind(this));
         this.commentInput.addEventListener('keyup', ({keyCode}) => {
             if(keyCode === 13) {
                 this.addCommentClickEventHandler();
             }
         });
+        this.addCommentBtn.addEventListener('click', this.addCommentClickEventHandler.bind(this));
+        this.commentListUl.addEventListener('click', this.deleteCommentClickEventHandler.bind(this));
     }
 
     updateNoteInfo(note) {

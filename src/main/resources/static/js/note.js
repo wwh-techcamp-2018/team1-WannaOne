@@ -21,13 +21,6 @@ class Note {
         this.noteContent.classList.toggle('main-content-expand');
     }
 
-    clearNoteSection() {
-        this.noteSection.innerHTML = '';
-        this.editSection.style.display = 'none';
-        this.btns.style.display = 'none';
-        this.comment.getCommentSection().style.display = 'none';
-    }
-
     updateNote(successCallback, failCallback) {
         fetchManager({
             url: `/api/notes/${this.getNoteId()}`,
@@ -50,6 +43,14 @@ class Note {
             onSuccess: successCallback,
             onFailure: failCallback
         });
+    }
+
+    clearNoteSection() {
+        this.noteSection.innerHTML = '';
+        this.editSection.style.display = 'none';
+        this.btns.style.display = 'none';
+        this.comment.getCommentListUl().innerHTML = '';
+        this.comment.getCommentSection().style.display = 'none';
     }
 
     renderNoteContent(data) {
