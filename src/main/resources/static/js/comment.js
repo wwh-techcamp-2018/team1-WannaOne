@@ -49,6 +49,10 @@ class Comment {
 
     addCommentClickEventHandler() {
         const content = this.commentInput.value;
+        if(!content || !content.trim()) {
+            this.commentInput.value = '';
+            return;
+        }
         const successCallback = (response) => {
             this.commentListUl.insertAdjacentHTML('beforeend', getCommentTemplate(response));
             this.updateCommentCount();
@@ -58,7 +62,7 @@ class Comment {
         const failCallback = () => {
             this.commentInput.value = '';
             console.log('댓글 작성에 실패했습니다.');
-        }
+        };
         this.fetchWriteComment(content, this.noteId, successCallback.bind(this), failCallback)
     }
 
@@ -67,7 +71,7 @@ class Comment {
         if(target.tagName !== 'I' || !confirm('해당 댓글을 삭제하시겠습니까?')) {
             return;
         }
-        const successCallback = (response) => {
+        const successCallback = () => {
             const commentItemLi = e.target.closest('li');
             commentItemLi.parentNode.removeChild(commentItemLi);
             this.updateCommentCount();
@@ -76,7 +80,7 @@ class Comment {
         const failCallback = () => {
             console.log('댓글 삭제에 실패했습니다.');
         };
-        this.deleteComment(target, successCallback.bind(this), failCallback);
+        this.deleteComment(target, successCallback, failCallback);
     }
 
     deleteComment(deleteTarget, successCallback, failCallback) {
