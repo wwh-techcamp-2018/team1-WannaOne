@@ -68,3 +68,11 @@
     background-color: #04BFBF;
     color: white;
 }
+
+#invite-validation {
+    color:red !important;
+    display: none;
+    margin-top: 5px;
+    margin-left: 7px;
+    font-size: 13px;
+}

@@ -60,8 +60,7 @@ class Invitation {
             this.closeShareNotebookPopup();
         };
         const failCallback = (response) => {
-            console.log(response);
-            response.json().then((result) => console.log(result))
+            response.json().then((result) => this.showInvitationValidationMessage(result.message));
             console.log("invitation 실패");
         };
         this.sendInvitation(this.getInvitationData(), successCallback, failCallback);
