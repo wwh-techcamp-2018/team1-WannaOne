@@ -89,3 +89,8 @@ function getAutoCompleteListItem(autoCompleteUser) {
 function getInviteUserItem(userId, email) {
     return `<li data-user-id="${userId}">${email}</li>`
 }
+
+function getWriteNotificationItem(notification) {
+    return `<li class="invitation-request" data-invitation-id="${notification.id}">${notification.message}
+            </li>`;
+}
