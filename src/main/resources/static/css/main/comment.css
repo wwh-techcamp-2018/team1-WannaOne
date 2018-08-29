@@ -38,13 +38,9 @@
     font-size: 13px;
 }
 
-.comment-delete-btn {
+.delete-comment-button {
     color: #233A40;
     cursor: pointer;
-}
-
-.comment-delete-btn:hover {
-    color: #E37186;
 }
 
 .comment-write-section > img, .comment-show-section img{
@@ -75,6 +71,6 @@
     cursor: pointer;
 }
 
-.comment-write-section > i:hover {
+#add-comment-button:hover, .delete-comment-button:hover {
     color:#e57085;
 }
