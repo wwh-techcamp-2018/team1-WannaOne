@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class Note extends AuditingDateEntity {
 
     @OneToMany(mappedBy = "note")
     @JsonManagedReference
+    @Where(clause = "deleted = false")
+    @OrderBy("registerDatetime ASC")
     private List<Comment> comments = new ArrayList<>();
 
     @ColumnDefault(value = "false")

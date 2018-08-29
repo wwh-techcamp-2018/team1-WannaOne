@@ -38,21 +38,21 @@ public class NoteBookService {
     }
 
     @Transactional
-    public List<NoteBookDto> getNoteBookDtosByOwnerId(Long ownerId) {
-        return getNoteBooksByOwnerId(ownerId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+    public List<NoteBookDto> getNoteBookDtosByOwnerId(User loginUser) {
+        return getNoteBooksByOwnerId(loginUser.getId()).stream().map((noteBook) -> new NoteBookDto(noteBook, loginUser)).collect(Collectors.toList());
 
     }
 
     @Transactional
-    public List<NoteBookDto> getSharedNoteBookDtosByPeerId(Long userId) {
-        return getNoteBooksByPeerId(userId).stream().map((noteBook) -> new NoteBookDto(noteBook)).collect(Collectors.toList());
+    public List<NoteBookDto> getSharedNoteBookDtosByPeerId(User loginUser) {
+        return getNoteBooksByPeerId(loginUser.getId()).stream().map((noteBook) -> new NoteBookDto(noteBook, loginUser)).collect(Collectors.toList());
     }
 
 
     @Transactional
-    public List<NoteBookDto> getNoteBookAndSharedNoteBook(Long userId) {
-        return Stream.concat(getNoteBookDtosByOwnerId(userId)
-                .stream().sorted(Comparator.comparingInt(NoteBookDto::getPeersSize)), getSharedNoteBookDtosByPeerId(userId).stream()).distinct().collect(Collectors.toList());
+    public List<NoteBookDto> getNoteBookAndSharedNoteBook(User loginUser) {
+        return Stream.concat(getNoteBookDtosByOwnerId(loginUser)
+                .stream().sorted(Comparator.comparingInt(NoteBookDto::getPeersSize)), getSharedNoteBookDtosByPeerId(loginUser).stream()).distinct().collect(Collectors.toList());
     }
 
     @Transactional

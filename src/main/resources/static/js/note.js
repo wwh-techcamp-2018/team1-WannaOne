@@ -10,48 +10,15 @@ class Note {
         this.btns = $('.note-save-delete');
 
         this.comment = new Comment();
-        this.commentSection = $('.comment-section');
-        this.commentListSection = $('.comment-list-section');
-        this.addCommentBtn = $('#add-comment-button');
-        this.commentInput = $('#comment-input');
-
         this.initEvent();
     }
 
     initEvent() {
-        this.addCommentBtn.addEventListener('click', this.addCommentClickEventHandler.bind(this));
-        this.commentInput.addEventListener('keyup', ({keyCode}) => {
-            if(keyCode === 13) {
-                this.addCommentClickEventHandler();
-            }
-        });
         document.addEventListener('click', this.modeSwitchHandler.bind(this));
     }
 
     toggleExpandNoteContent() {
         this.noteContent.classList.toggle('main-content-expand');
-    }
-
-    addCommentClickEventHandler() {
-        const content = this.commentInput.value;
-        const successCallback = (response) => {
-            this.commentListSection.firstElementChild.insertAdjacentHTML('beforeend', getCommentTemplate(response));
-            this.commentListSection.firstChild.nodeValue = `댓글 총 ${this.commentListSection.firstElementChild.childElementCount}개`;
-            console.log(`${response} 댓글 작성 성공!`);
-            this.commentInput.value = '';
-        };
-        const failCallback = () => {
-            console.log('댓글 작성에 실패했습니다.');
-            this.commentInput.value = '';
-        };
-        this.comment.fetchWriteComment(content, this.note.id, successCallback, failCallback);
-    }
-
-    clearNoteSection() {
-        this.noteSection.innerHTML = '';
-        this.editSection.style.display = 'none';
-        this.btns.style.display = 'none';
-        this.commentSection.style.display = 'none';
     }
 
     updateNote(successCallback, failCallback) {
@@ -78,6 +45,14 @@ class Note {
         });
     }
 
+    clearNoteSection() {
+        this.noteSection.innerHTML = '';
+        this.editSection.style.display = 'none';
+        this.btns.style.display = 'none';
+        this.comment.getCommentListUl().innerHTML = '';
+        this.comment.getCommentSection().style.display = 'none';
+    }
+
     renderNoteContent(data) {
         if(!data) {
             //TODO 선택될 노트가 없는 경우. 예외처리!!
@@ -85,6 +60,7 @@ class Note {
         }
         this.clearNoteSection();
         this.renderNote(data);
+        this.comment.updateNoteInfo(data);
         editor.show();
         editor.moveCursorToStart();
         if (editor.getMarkdown() != "") {
@@ -102,10 +78,17 @@ class Note {
         if (note.text == "") {
             this.showEditor();
         }
-        this.commentListSection.innerHTML = getCommentListTemplate(note.comments);
         this.editSection.style.display = 'block';
         this.initSaveAndDeleteButton(note);
-        this.commentSection.style.display = 'block';
+        this.renderComment();
+    }
+
+    renderComment() {
+        this.comment.getCommentSection().style.display = 'block';
+        this.note.comments.forEach((comment) => {
+            this.comment.getCommentListUl().insertAdjacentHTML('beforeend', getCommentTemplate(comment));
+        });
+        this.comment.updateCommentCount();
     }
 
     hideEditor() {

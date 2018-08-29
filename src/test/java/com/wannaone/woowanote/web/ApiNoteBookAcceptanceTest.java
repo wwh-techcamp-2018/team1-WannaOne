@@ -74,7 +74,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         deleteForEntity("/api/notes/" + testNoteId, Void.class);
 
         ResponseEntity<NoteBookDto> response = basicAuthTemplate().getForEntity("/api/notebooks/1", NoteBookDto.class);
-        assertThat(response.getBody().getNotes()).doesNotContain(NoteDto.fromEntity(testNote.delete()));
+        assertThat(response.getBody().getNotes()).doesNotContain(NoteDto.fromEntity(testNote.delete(), defaultUser()));
     }
 
     @Test

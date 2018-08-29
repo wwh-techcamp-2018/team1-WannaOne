@@ -3,29 +3,39 @@ function getNoteSectionTemplate(note) {
                 <p id="note-section-meta">작성한 날짜: ${note.registerDatetime} &emsp; 수정한 날짜: ${note.updateDatetime}</p>`;
 }
 
-function getCommentListTemplate(list) {
-    let result = `<ul class='comment-list'>`;
-    list.forEach(comment => result += getCommentTemplate(comment));
-    result = `댓글 총 ${list.length}개` + result + `</ul>`;
+//function getCommentListTemplate(list) {
+//    let result = `댓글 총 ${list.length}개`;
+//
+//    `<ul class="comment-list">`;
+//    list.forEach(comment => result += getCommentTemplate(comment));
+//    result = `댓글 총 ${list.length}개` + result + `</ul>`;
+//    return result;
+//}
+
+function getCommentTemplate(comment) {
+    let result = `<li data-comment-id=${comment.id}>
+                    <table class="comment-show-section">
+                        <tr>
+                            <td width="5%" rowspan="2" class="comment-writer-img">
+                                <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
+                            </td>
+                            <td width="90%" class="comment-writer">${comment.writer.name}</td>`
+    result += getCommentDeleteTemplate(comment);
+    result += `</tr>
+               <tr>
+                   <td class="comment-content">${comment.content}</td>
+               </tr>
+           </table>
+       </li>`;
     return result;
 }
 
-function getCommentTemplate(comment) {
-    return `<li>
-                <table class="comment-show-section">
-                    <tr>
-                        <td width="5%" rowspan="2" class="comment-writer-img">
-                            <!-- TODO: 아이디 세팅-->
-                            <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
-                        </td>
-                        <td width="90%" class="comment-writer">${comment.writer.name}</td>
-                        <td width="5%" class="comment-delete-btn"><i class="material-icons">delete</i></td>
-                    </tr>
-                    <tr>
-                        <td class="comment-content">${comment.content}</td>
-                    </tr>
-                </table>
-            </li>`;
+function getCommentDeleteTemplate(comment) {
+    let html = '';
+    if(comment.isWriter) {
+         html += `<td width="5%" class="delete-comment-button"><i class="far fa-trash-alt"></i></td>`;
+    }
+    return html;
 }
 
 function getNoteBookListTemplate(notebook) {
