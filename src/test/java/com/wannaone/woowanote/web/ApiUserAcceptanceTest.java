@@ -99,13 +99,6 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-    @Test
-    public void receiveInvitationTest() {
-        ResponseEntity<NoteBook> response = basicAuthTemplate().postForEntity("/api/users/shared/5", null, NoteBook.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().getId()).isEqualTo(5L);
-        assertThat(response.getBody().getPeers().get(0).getEmail()).isEqualTo("doy@woowahan.com");
-    }
 
     @Test
     public void precheckInvitationTest() throws Exception {
