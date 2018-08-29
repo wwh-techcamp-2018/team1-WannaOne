@@ -46,6 +46,10 @@ input {
     cursor: pointer;
 }
 
+#logout:hover {
+    color: rgba(255,255,255,0.5);
+}
+
 .main-content {
     overflow-x: hidden;
     overflow-y: scroll;

@@ -73,6 +73,13 @@ function getNotificationItem(notification) {
             </li>`;
 }
 
+function getNotificationNumber(number) {
+    if (number == 0) {
+        return ``;
+    }
+    return `<span class="button__badge">${number}</span>`
+}
+
 
 function getAutoCompleteListItem(autoCompleteUser) {
     return `<li data-user-id="${autoCompleteUser.id}" data-user-name="${autoCompleteUser.name}">${autoCompleteUser.email}</li>`;
