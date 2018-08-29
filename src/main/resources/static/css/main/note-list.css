@@ -60,7 +60,7 @@ p.note-list-title, p.note-list-snippet {
     color: gray;
 }
 
-.note-list-snippet > span {
+.note-list-datetime {
     color: #04BFBF;
 }
 
