@@ -59,19 +59,6 @@ class MainApp {
         });
     }
 
-    modeSwitchHandler(e) {
-        let handler = {
-            'editMode' : this.note.showEditor.bind(this.note),
-            'viewMode' : () => {
-                this.note.hideEditor();
-                this.updateNoteEventHandler();
-            },
-            'stay' : ()=>{}
-        };
-
-        handler[this.note.modeSwitch(e)]();
-    }
-
     updateNoteOnDragOverInNoteBookEventHandler(evt){
         const targetNotebook = evt.target.closest('li');
         if(!targetNotebook) {
@@ -197,6 +184,19 @@ class MainApp {
                     onSuccess: this.logoutSuccess,
                     onFailure: this.logoutFailure
                 });
+    }
+
+    modeSwitchHandler(e) {
+        let handler = {
+            'editMode' : this.note.showEditor.bind(this.note),
+            'viewMode' : () => {
+                this.note.hideEditor();
+                this.updateNoteEventHandler();
+            },
+            'stay' : ()=>{}
+        };
+
+        handler[this.note.modeSwitch(e)]();
     }
 
 

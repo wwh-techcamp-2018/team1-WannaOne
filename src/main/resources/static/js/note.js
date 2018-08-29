@@ -25,7 +25,6 @@ class Note {
                 this.addCommentClickEventHandler();
             }
         });
-        // document.addEventListener('click', this.modeSwitch.bind(this));
     }
 
     toggleExpandNoteContent() {
