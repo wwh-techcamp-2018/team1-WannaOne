@@ -40,6 +40,8 @@ public class UserServiceTest {
     @Mock
     private InvitationRepository invitationRepository;
     @Mock
+    private InvitationService invitationService;
+    @Mock
     private NoteBookService noteBookService;
     @Mock
     private MessageSourceAccessor msa;
@@ -133,7 +135,7 @@ public class UserServiceTest {
         userService.invite(host, invitationDto);
 
         Invitation invitation = userService.createInvitation(hostId, guestId, notebookId);
-        verify(invitationRepository).save(invitation);
+        verify(invitationService).save(invitation);
     }
 
 
@@ -169,7 +171,7 @@ public class UserServiceTest {
         List<Long> guestIdList = Arrays.asList(2L);
 
         Invitation invitation = new Invitation(6L, host, guest, notebook);
-        when(invitationRepository.findByGuestId(2L)).thenReturn(Arrays.asList(invitation));
+        when(invitationService.getInvitationsByGuestId(2L)).thenReturn(Arrays.asList(invitation));
 
         assertThat(userService.getInvitations(guest).contains(new NotificationMessageDto(invitation))).isTrue();
     }
