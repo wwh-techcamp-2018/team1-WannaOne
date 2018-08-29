@@ -57,7 +57,7 @@ public class CommentServiceTest {
         Note note = new Note("title", "text");
         Comment comment = new Comment("comment", note);
 
-        when(commentRepository.findById(1L)).thenReturn(Optional.of(comment));
+        when(commentRepository.findByIdAndDeletedFalse(1L)).thenReturn(Optional.of(comment));
         assertThat(commentService.delete(1L).isDeleted()).isEqualTo(true);
     }
 }
