@@ -106,7 +106,7 @@ public class UserService {
     public List<NotificationMessageDto> getInvitations(User loginUser) {
         return this.invitationRepository.findByGuestId(loginUser.getId())
                 .stream()
-                .filter((invitation -> invitation.getStatus() == InvitationStatus.PENDING))
+                .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
                 .map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
     }
 }
