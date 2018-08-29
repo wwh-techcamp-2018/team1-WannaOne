@@ -77,7 +77,7 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
         deleteForEntity("/api/notes/" + testNoteId, Void.class);
 
         ResponseEntity<NoteBookDto> response = basicAuthTemplate().getForEntity("/api/notebooks/1", NoteBookDto.class);
-        assertThat(response.getBody().getNotes()).doesNotContain(NoteDto.fromEntity(testNote.delete()));
+        assertThat(response.getBody().getNotes()).doesNotContain(NoteDto.fromEntity(testNote.delete(), defaultUser()));
     }
 
     @Test
@@ -118,7 +118,6 @@ public class ApiNoteBookAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void showAllSharedNoteBookTest() {
-
         UserDto user = UserDto.defaultUserDto().setEmail("test@woowahan.com");
         ResponseEntity response = template().postForEntity("/api/users", user, Void.class);
 
