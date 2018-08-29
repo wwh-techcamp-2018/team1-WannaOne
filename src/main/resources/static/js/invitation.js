@@ -49,7 +49,9 @@ class Invitation {
             alert('초대 요청이 전송되었습니다.');
             this.closeShareNotebookPopup();
         };
-        const failCallback = () => {
+        const failCallback = (response) => {
+            console.log(response);
+            response.json().then((result) => console.log(result))
             console.log("invitation 실패");
         };
         this.sendInvitation(this.getInvitationData(), successCallback, failCallback);
@@ -75,7 +77,7 @@ class Invitation {
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(invitationData),
             onSuccess: successCallback,
-            onFailure: failCallback
+            onFailure: failCallback.bind(this)
         });
     }
 
