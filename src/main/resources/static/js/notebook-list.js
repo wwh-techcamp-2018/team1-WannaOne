@@ -157,8 +157,6 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        debugger;
-        console.log(notebook);
         this.noteBooks.splice(this.getMyNoteBookLastIndex() + 1, 0, notebook);
         this.addNoteBook(notebook);
         this.clearInput();
