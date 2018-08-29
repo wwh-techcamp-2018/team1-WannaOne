@@ -13,8 +13,6 @@ class Notification {
     initEventListener() {
         this.notificationBtn.addEventListener('click', this.toggleNotificationHandler.bind(this));
         this.closeNotificationBtn.addEventListener('click', this.toggleNotificationHandler.bind(this));
-        // this.invitationAcceptBtn.addEventListener('click', this.acceptInvitationHandler.bind(this));
-        // this.invitationRejectBtn.addEventListener('click', this.rejectInvitationHandler.bind(this));
         this.notificationUl.addEventListener('click', this.responseInvitationHandler.bind(this))
     }
 
@@ -31,12 +29,16 @@ class Notification {
         this.notificationEl.classList.toggle('notification-hide');
     }
 
+    updateNotificationCount() {
+        this.notificationBtn.innerHTML = getNotificationNumber(this.notificationUl.childElementCount);
+    }
+
     getMessages() {
         const successCallback = (messages) => {
             messages.forEach((message) => {
                 this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
             });
-            this.notificationBtn.innerHTML = getNotificationNumber(messages.length);
+            this.updateNotificationCount();
         }
         const failCallback = () => {
             console.log("알림 목록 가져오기 실패");
@@ -58,39 +60,47 @@ class Notification {
         const liElement = e.target.closest('li');
         const invitationId = liElement.dataset.invitationId;
         const successCallback = () => {
-                    console.log("노트북 공유 초대 수락 성공");
-                    //TODO: sharedNotebookList 다시 가져오거나 해당 노트북만 추가 해주기.
-                    liElement.classList.add('checked');
-                    liElement.firstElementChild.disabled = true;
-                    liElement.firstElementChild.classList.add('checked');
-                    liElement.firstElementChild.nextElementSibling.disabled = true;
-                    liElement.firstElementChild.nextElementSibling.classList.add('checked');
-                    alert("공유노트북이 추가되었습니다.");
-                };
+            alert("공유노트북이 추가되었습니다.");
+            console.log("노트북 공유 초대 수락 성공");
+            window.location.reload(true);
+        };
         const failCallback = () => {
-                    console.log("노트북 공유 초대 수락에 실패했습니다.");
-                };
-        this.fetchAcceptInvitation(invitationId, successCallback, failCallback);
+            console.log("노트북 공유 초대 수락에 실패했습니다.");
+        };
+        this.fetchRespondInvitation(invitationId, 'ACCEPTED', successCallback, failCallback);
     }
 
-    fetchAcceptInvitation(invitationId, successCallback, failCallback) {
+    rejectInvitationHandler(e) {
+        e.preventDefault();
+        if(!confirm('공유 초대를 거절하시겠습니까?')) return;
+        const liElement = e.target.closest('li');
+        const invitationId = liElement.dataset.invitationId;
+        const successCallback = () => {
+            this.rejectNotification(liElement);
+            this.updateNotificationCount();
+            console.log("노트북 공유 초대 거절에 성공했습니다.");
+        };
+        const failCallback = () => {
+            console.log("노트북 공유 초대 거절에 실패했습니다.");
+        };
+        this.fetchRespondInvitation(invitationId, 'REJECTED', successCallback, failCallback);
+    }
+
+    fetchRespondInvitation(invitationId, status, successCallback, failCallback) {
         fetchManager({
                 url: '/api/invitations',
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
-                                response: 'ACCEPTED',
-                                invitationId: invitationId
-                            }),
+                            response: status,
+                            invitationId: invitationId
+                        }),
                 onSuccess: successCallback,
                 onFailure: failCallback
-                });
+        });
     }
 
-    rejectInvitationHandler(e) {
-        e.preventDefault();
-        const notification = e.target.closest('li').dataset.invitationId;
-        //TODO: 작성해야 함
-        //this.fetchRejectInvitation(noteBookId, successCallback, failCallback);
+    rejectNotification(liElement) {
+        liElement.parentElement.removeChild(liElement);
     }
 }

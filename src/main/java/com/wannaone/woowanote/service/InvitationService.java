@@ -33,7 +33,6 @@ public class InvitationService {
         if (responseDto.getResponse() == InvitationStatus.ACCEPTED) {
             acceptInvitation(loginUser, invitation.getNoteBook().getId());
         }
-        //TODO:다른 status도 처리
         invitation.setStatus(responseDto.getResponse());
         return invitation;
     }
