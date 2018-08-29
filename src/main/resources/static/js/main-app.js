@@ -90,6 +90,7 @@ class MainApp {
             this.renewNotebookList();
             $('.profile-thumbnail').src = user.photoUrl;
             $('.profile-name').innerHTML = user.name;
+            $('.comment-write-thumbnail').src = user.photoUrl;
         }
         fetchManager({
             url: '/api/users/profile',

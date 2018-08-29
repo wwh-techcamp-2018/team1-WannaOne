@@ -97,7 +97,7 @@ class NotebookList {
         const peersCount = selectedNoteBook.peers.length;
         if(peersCount > 0) {
             this.sharedInfoSection.style.display = 'block';
-            this.sharedInfoCountEl.innerHTML = peersCount;
+            this.sharedInfoCountEl.innerHTML = peersCount + 1;
             return;
         }
         this.sharedInfoSection.style.display = 'none';

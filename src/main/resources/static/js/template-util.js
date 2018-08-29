@@ -8,7 +8,7 @@ function getCommentTemplate(comment) {
                     <table class="comment-show-section">
                         <tr>
                             <td width="5%" rowspan="2" class="comment-writer-img">
-                                <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
+                                <img src="${comment.writer.photoUrl}">
                             </td>
                             <td width="90%" class="comment-writer">${comment.writer.name}</td>`
     result += getCommentDeleteTemplate(comment);
@@ -88,4 +88,9 @@ function getAutoCompleteListItem(autoCompleteUser) {
 
 function getInviteUserItem(userId, email) {
     return `<li data-user-id="${userId}">${email}</li>`
+}
+
+function getWriteNotificationItem(notification) {
+    return `<li class="invitation-request" data-invitation-id="${notification.id}">${notification.message}
+            </li>`;
 }
