@@ -20,6 +20,10 @@ class NotebookList {
         document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
 
+    setOwner(owner) {
+        this.owner = owner;
+    }
+
     clearNoteBookList() {
         this.notebookListEl.innerHTML = '';
     }
@@ -85,11 +89,6 @@ class NotebookList {
     }
 
     setTitle() {
-        if(this.noteBooks[this.currentIndex].peers.length > 0) {
-            this.sharedNoteBookButton.style.display = 'none';
-        } else {
-            this.sharedNoteBookButton.style.display = 'inline-block';
-        }
         this.notebookTitleEl.innerText = this.noteBooks[this.currentIndex].title;
         this.notebookTitleEl.dataset.notebookId = this.noteBooks[this.currentIndex].id;
     }
@@ -101,13 +100,13 @@ class NotebookList {
     }
 
     addNoteBook(notebook) {
-        this.notebookListEl.children[this.getMyNoteBookLastIndex()].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
+        $All('.notebook-list > li')[this.getMyNoteBookLastIndex() - 1].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
     }
 
     getMyNoteBookLastIndex() {
         for(let i = 0; i<this.noteBooks.length; i++) {
             if(this.noteBooks[i].peers.length > 0) {
-                return i - 2;
+                return i - 1;
             }
         }
         return 0;
@@ -116,13 +115,10 @@ class NotebookList {
     renderNoteBook(notebook) {
         if(!notebook.peers.length > 0) {
             this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
-            if(!this.user) {
-                this.user = notebook.owner;
-            }
             return;
         }
 
-        this.notebookListEl.insertAdjacentHTML('beforeend', getSharedNoteBookTemplate(notebook, this.user));
+        this.notebookListEl.insertAdjacentHTML('beforeend', getSharedNoteBookTemplate(notebook, this.owner));
     }
 
     renderSharedNoteBookHeader() {
@@ -145,7 +141,7 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.noteBooks.splice(this.getMyNoteBookLastIndex(), 0, notebook);
+        this.noteBooks.splice(this.getMyNoteBookLastIndex() + 1, 0, notebook);
         this.addNoteBook(notebook);
         this.clearInput();
     }

@@ -81,7 +81,19 @@ class MainApp {
      * 제일 처음 노트북 로드하고 메인 페이지를 렌더링하는 메소드
      */
     initMainPage() {
-        this.renewNotebookList();
+        const successCallback = (user) => {
+            this.noteBook.setOwner(user);
+            this.renewNotebookList();
+        }
+        fetchManager({
+            url: '/api/users/profile',
+            method: 'GET',
+            onSuccess: successCallback,
+            onFailure: () => {
+                console.log('유저 정보를 가져오는데 실패했습니다.');
+            }
+        });
+
     }
 
     createNewNotebookEventHandler(e) {

@@ -144,7 +144,6 @@ public class UserServiceTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(noteBookService.getNoteBookByNoteBookId(1L)).thenReturn(testNoteBook);
         userService.addSharedNoteBook(user, 1L);
-        assertThat(user.getSharedNotebooks().contains(testNoteBook)).isTrue();
         assertThat(testNoteBook.getPeers().contains(user)).isTrue();
     }
 

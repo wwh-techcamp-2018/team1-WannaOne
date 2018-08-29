@@ -85,7 +85,6 @@ public class UserService {
         User loginUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new UnAuthorizedException(msa.getMessage("unauthorized.message")));
         NoteBook sharedNoteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
-        loginUser.addSharedNoteBook(sharedNoteBook);
         sharedNoteBook.addPeer(loginUser);
         return sharedNoteBook;
     }
