@@ -1,0 +1,35 @@
+.user_suggestions {
+    font-family: Verdana, 나눔고딕, "Nanum", "Malgun Gothic", sans-serif;
+    font-size: 15px;
+    z-index: 3;
+}
+
+.user_suggestions ul {
+    margin-top:0px;
+    background-color: #ffffff;
+    max-height: 120px;
+    overflow: scroll;
+    padding-left:0px;
+}
+
+.user_suggestions li {
+    list-style:none;
+    height:30px;
+    padding-left:5px;
+    margin-top:10px;
+}
+
+.user_suggestions .selected {
+    background-color: lightgray;
+}
+.user_suggestions > ul > strong {
+    color: deeppink;
+}
+
+.user_suggestions > ul > .focus {
+    color: #55BCBE;
+}
+
+.auto-complete > li > strong {
+    color: red;
+}

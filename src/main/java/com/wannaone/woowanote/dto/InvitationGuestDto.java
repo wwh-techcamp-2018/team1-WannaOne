@@ -3,13 +3,13 @@ package com.wannaone.woowanote.dto;
 import com.wannaone.woowanote.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 public class InvitationGuestDto {
 
     private Long id;
+    private String email;
     private String photoUrl;
     private String name;
 
@@ -18,6 +18,6 @@ public class InvitationGuestDto {
     }
 
     public InvitationGuestDto(User guest) {
-        this(guest.getId(), guest.getPhotoUrl(), guest.getName());
+        this(guest.getId(), guest.getEmail(), guest.getPhotoUrl(), guest.getName());
     }
 }

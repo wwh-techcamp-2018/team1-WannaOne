@@ -1,9 +1,9 @@
 #notification-btn {
     position: relative;
-    left: 80%;
-    top: 10%;
-    width: 25px;
-    height: 25px;
+    left: 84%;
+    font-size: 22px;
+    color: white;
+    background: transparent;
     cursor: pointer;
 }
 
