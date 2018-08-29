@@ -6,6 +6,7 @@ class WebSocketManager {
     constructor() {
         this.initWebSocket();
         this.notificationUl = $('.notification-ul');
+        this.notificationBtn = $('#notification-btn');
     }
 
     initWebSocket() {
@@ -44,7 +45,7 @@ class WebSocketManager {
 
     handlerNotificationMessage(message) {
         this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
-        this.notificationBtn.innerHTML = getNotificationNumber(notificationUl.children.length);
+        this.notificationBtn.innerHTML = getNotificationNumber(this.notificationUl.children.length);
 
     }
 }
