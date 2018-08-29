@@ -14,6 +14,8 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class InvitationService {
     private static final Logger log = LoggerFactory.getLogger(InvitationService.class);
@@ -36,13 +38,25 @@ public class InvitationService {
         invitation.setStatus(responseDto.getResponse());
         return invitation;
     }
-    public Invitation getInvitationById(Long id) {
-        return invitationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.INVITATION_NOT_FOUND.getMessageKey())));
-    }
 
     public void acceptInvitation(User loginUser, Long noteBookId) {
         userService.addSharedNoteBook(loginUser, noteBookId);
     }
 
+    public Invitation getInvitationById(Long id) {
+        return invitationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.INVITATION_NOT_FOUND.getMessageKey())));
+    }
+
+    public List<Invitation> getInvitationsByGuestId(Long id) {
+        return invitationRepository.findByGuestId(id);
+    }
+
+    public List<Invitation> getInvitationsByNoteBookId(Long id) {
+        return invitationRepository.findByNoteBookId(id);
+    }
+
+    public Invitation save(Invitation invitation) {
+        return invitationRepository.save(invitation);
+    }
 
 }

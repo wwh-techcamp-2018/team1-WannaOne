@@ -4,7 +4,6 @@ import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
-import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +64,7 @@ public class NoteServiceTest {
     public void createNewNote() {
         NoteBook testNoteBook = new NoteBook("노트북1");
         User writer = User.defaultUser();
-        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(testNoteBook);
+        when(noteBookService.getNoteBookById(3L)).thenReturn(testNoteBook);
         assertThat(noteService.save(3L, writer).getTitle()).isEqualTo("나의 우아한 노트");
         assertThat(noteService.save(3L, writer).getText()).isEmpty();
     }

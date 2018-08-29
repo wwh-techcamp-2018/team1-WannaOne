@@ -104,7 +104,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(host));
         when(userRepository.findById(2L)).thenReturn(Optional.ofNullable(guest));
-        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(notebook);
+        when(noteBookService.getNoteBookById(3L)).thenReturn(notebook);
 
 
         Invitation invitation = userService.createInvitation(hostId, guestId, notebookId);
@@ -128,7 +128,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(host));
         when(userRepository.findById(2L)).thenReturn(Optional.ofNullable(guest));
-        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(notebook);
+        when(noteBookService.getNoteBookById(3L)).thenReturn(notebook);
 
         userService.invite(host, invitationDto);
 
@@ -142,7 +142,7 @@ public class UserServiceTest {
         NoteBook testNoteBook = new NoteBook(1L, "노트북1");
         User user = new User(1L, "유저", "1234");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(noteBookService.getNoteBookByNoteBookId(1L)).thenReturn(testNoteBook);
+        when(noteBookService.getNoteBookById(1L)).thenReturn(testNoteBook);
         userService.addSharedNoteBook(user, 1L);
         assertThat(testNoteBook.getPeers().contains(user)).isTrue();
     }
