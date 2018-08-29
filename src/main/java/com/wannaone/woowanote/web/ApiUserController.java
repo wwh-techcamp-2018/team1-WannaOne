@@ -2,11 +2,8 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.LoginDto;
-import com.wannaone.woowanote.dto.NoteBookTitleDto;
-import com.wannaone.woowanote.dto.UserDto;
-import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.dto.*;
+import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
