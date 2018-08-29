@@ -55,20 +55,20 @@
     color: #e57085;
 }
 .notebook-list > li > .fa-trash-alt {
-    margin-top:5px;
     display: none;
     float:right;
+    margin-left:5px;
  }
 
 .notebook-list > li > .fa-share-alt {
-     margin-top:2px;
-     font-size:8px;
-     float:none;
+    margin-left: 0px;
+    margin-right: 6px;
+    font-size: 8px;
+    float: left;
 }
 
 .notebook-list > li > i {
     margin-top:5px;
-    margin-left:5px;
 }
 
 .notebook-list > li:hover > .fa-trash-alt {
