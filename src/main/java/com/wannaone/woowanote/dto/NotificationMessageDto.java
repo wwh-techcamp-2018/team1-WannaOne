@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 @Data
 @AllArgsConstructor
 public class NotificationMessageDto {
-    private static final Logger log = LoggerFactory.getLogger(NotificationMessageDto.class);
     private Long id;
     private String message;
 
