@@ -23,8 +23,8 @@ class Login {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                email: email,
-                password: password
+                email: replaceTagBrackets(email),
+                password: replaceTagBrackets(password)
             }),
             onSuccess: this.loginSuccessCallback,
             onFailure: this.loginFailureCallback.bind(this)
