@@ -8,7 +8,7 @@ class Invitation {
         // this.invitationCancelBtn = $('.invitation-cancel-button');
         this.invitationSendBtn = $('.share-notebook-popup > button');
         this.shareNotebookPopup.style.display = "none";
-
+        this.invitationValidationEl = $('#invite-validation');
 
         this.initEventListener();
     }
@@ -17,6 +17,16 @@ class Invitation {
         // this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
         this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
         this.invitationSendBtn.addEventListener('click', this.sendInvitationHandler.bind(this));
+    }
+
+    hideInvitationValidationMessage() {
+        this.invitationValidationEl.style.display = 'none';
+    }
+
+    showInvitationValidationMessage(text) {
+        this.invitationValidationEl.innerHTML = text;
+        this.invitationValidationEl.style.display = 'block';
+        setTimeout(this.hideInvitationValidationMessage.bind(this), 2000);
     }
 
     precheckInvitationAddress() {

@@ -52,9 +52,9 @@ class SignUp {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                email: email,
-                password: password,
-                name: name
+                email: replaceTagBrackets(email),
+                password: replaceTagBrackets(password),
+                name: replaceTagBrackets(name)
             }),
             onSuccess: this.signUpSuccessCallback,
             onFailure: this.signUpFailureCallback.bind(this)

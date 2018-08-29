@@ -44,6 +44,10 @@ class MainApp {
             if(evt.keyCode === 13) {
                 evt.preventDefault();
                 const activeElement = this.autoComplete.getActiveElement();
+                if(!activeElement) {
+                    this.invitation.showInvitationValidationMessage('유저 정보를 찾을 수 없습니다.');
+                    return;
+                }
                 this.autoComplete.getSearchUserInputEl().value = activeElement.innerHTML;
                 const name = activeElement.dataset.userName;
                 if(this.autoComplete.addCheck(name)) {
@@ -86,6 +90,7 @@ class MainApp {
             this.renewNotebookList();
             $('.profile-thumbnail').src = user.photoUrl;
             $('.profile-name').innerHTML = user.name;
+            $('.comment-write-thumbnail').src = user.photoUrl;
         }
         fetchManager({
             url: '/api/users/profile',

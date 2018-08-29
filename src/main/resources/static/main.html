@@ -141,13 +141,40 @@
                 </ul>
             </div>
             <div class="comment-write-section">
-                <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p80x80/14358870_804012509736148_3098132645899318746_n.jpg?_nc_cat=0&oh=76ae40d5e3cf9954708a842bc2caa5ad&oe=5C378074">
+                <img class="comment-write-thumbnail" src="">
                 <input id="comment-input" type="text" placeholder="댓글을 작성하세요">
                 <i class="fas fa-pen-alt" id="add-comment-button"></i>
             </div>
         </div>
     </div>
     <script>
+    (function(root, factory) {
+        if (typeof define === 'function' && define.amd) {
+          define(['tui-editor'], factory);
+        } else if (typeof exports === 'object') {
+          factory(require('tui-editor'));
+        } else {
+          factory(root['tui']['Editor']);
+        }
+      })(this, function(Editor) {
+        // define youtube extension
+        Editor.defineExtension('youtube', function() {
+          // runs while markdown-it transforms code block to HTML
+          Editor.codeBlockManager.setReplacer('youtube', function(youtubeId) {
+            // Indentify multiple code blocks
+            var wrapperId = 'yt' + Math.random().toString(36).substr(2, 10);
+            // avoid sanitizing iframe tag
+            setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+
+            return '<div id="' + wrapperId + '"></div>';
+          });
+        });
+
+        function renderYoutube(wrapperId, youtubeId) {
+          var el = document.querySelector('#' + wrapperId);
+          el.innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + youtubeId + '"></iframe>';
+        }
+      });
         var editor = new tui.Editor({
             el: document.querySelector('#editSection'),
             initialEditType: 'markdown',
@@ -157,7 +184,8 @@
                 'addImageBlobHook': function (blob, callback) {
                     imageUpload(blob, callback);
                 }
-            }
+            },
+            exts:['youtube']
         });
         editor.hide();
     </script>
@@ -165,6 +193,7 @@
 </div>
 <div class="share-notebook-popup">
     <p>동료와 이 노트북을 공유하세요.</p>
+    <small id="invite-validation"class="form-text text-muted caution">검색된 유저가 없습니다.</small>
     <div class="share-invitation">
         <input type="text" id="search-user" autocomplete="off" placeholder="초대할 동료의 이메일을 입력해주세요">
     </div>

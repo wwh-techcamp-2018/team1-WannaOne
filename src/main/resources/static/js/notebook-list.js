@@ -97,7 +97,7 @@ class NotebookList {
         const peersCount = selectedNoteBook.peers.length;
         if(peersCount > 0) {
             this.sharedInfoSection.style.display = 'block';
-            this.sharedInfoCountEl.innerHTML = peersCount;
+            this.sharedInfoCountEl.innerHTML = peersCount + 1;
             return;
         }
         this.sharedInfoSection.style.display = 'none';
@@ -143,7 +143,7 @@ class NotebookList {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                title: notebookTitle
+                title: replaceTagBrackets(notebookTitle)
             }),
             onSuccess: successCallback,
             onFailure: failCallback

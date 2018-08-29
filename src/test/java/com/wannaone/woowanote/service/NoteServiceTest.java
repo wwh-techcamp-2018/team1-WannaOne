@@ -5,6 +5,7 @@ import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteRepository;
+import com.wannaone.woowanote.support.NewNoteNotificationMessageSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {
+
+    @Mock
+    private NewNoteNotificationMessageSender newNoteNotificationMessageSender;
 
     @Mock
     private NoteRepository noteRepository;
