@@ -85,10 +85,13 @@ class Note {
         }
         this.clearNoteSection();
         this.renderNote(data);
+        editor.show();
         editor.moveCursorToStart();
-        this.previewTabBtn.click();
         if (editor.getMarkdown() != "") {
+            this.previewTabBtn.click();
             this.hideEditor();
+        } else {
+            this.writeTabBtn.click();
         }
     }
 
@@ -106,7 +109,6 @@ class Note {
     }
 
     hideEditor() {
-        editor.show();
         $('.te-toolbar-section').style.display = 'none';
         $('.tui-editor-defaultUI').style.border = 'none';
         $('.te-md-container .te-preview').style.padding = '0px';
@@ -115,7 +117,6 @@ class Note {
     }
 
     showEditor() {
-        // editor.show(); <- 이것 빼야 제대로 모드 전환 되는 것 같은데 맞나요?
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
         $('.te-md-container .te-preview').style.padding = '0px 25px 0px 25px';
