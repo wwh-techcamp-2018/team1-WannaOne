@@ -35,4 +35,11 @@ public class Invitation extends AuditingDateEntity {
         this.guest = guest;
         this.noteBook = noteBook;
     }
+
+    public Invitation(Long id, User host, User guest, NoteBook noteBook) {
+        this.id = id;
+        this.host = host;
+        this.guest = guest;
+        this.noteBook = noteBook;
+    }
 }

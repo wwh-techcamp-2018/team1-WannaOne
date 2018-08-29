@@ -38,9 +38,9 @@ input {
 }
 
 #logout {
+    font-size: 22px;
     position: relative;
-    left: 80%;
-    margin: 0px 10px;
+    left: 85%;
     color: white;
     background: transparent;
     cursor: pointer;

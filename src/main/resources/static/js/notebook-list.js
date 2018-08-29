@@ -8,9 +8,15 @@ class NotebookList {
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
-        this.notebookTitleInput = $('#notebook-title-input');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
-        this.addNotebookInputButton.addEventListener('click', () => this.notebookInputWrapper.style.display = "block");
+        this.addNotebookInputButton.addEventListener('click', () => {
+            const display = this.notebookInputWrapper.style.display;
+            if(display === 'block') {
+                this.notebookInputWrapper.style.display = 'none';
+                return;
+            }
+            this.notebookInputWrapper.style.display = 'block';
+        });
         document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
 
@@ -94,6 +100,19 @@ class NotebookList {
         this.currentIndex = getIndex($All('.notebook-list > li'), noteBookEl);
     }
 
+    addNoteBook(notebook) {
+        this.notebookListEl.children[this.getMyNoteBookLastIndex()].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
+    }
+
+    getMyNoteBookLastIndex() {
+        for(let i = 0; i<this.noteBooks.length; i++) {
+            if(this.noteBooks[i].peers.length > 0) {
+                return i - 2;
+            }
+        }
+        return 0;
+    }
+
     renderNoteBook(notebook) {
         if(!notebook.peers.length > 0) {
             this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
@@ -126,8 +145,8 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.noteBooks.push(notebook);
-        this.renderNoteBook(notebook);
+        this.noteBooks.splice(this.getMyNoteBookLastIndex(), 0, notebook);
+        this.addNoteBook(notebook);
         this.clearInput();
     }
 
