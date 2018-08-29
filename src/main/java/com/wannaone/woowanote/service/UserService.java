@@ -11,7 +11,6 @@ import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
-import com.wannaone.woowanote.support.InvitationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -99,5 +98,10 @@ public class UserService {
     public List<InvitationGuestDto> searchEmailLike(String searchEmailText, User loginUser) {
         return this.userRepository.findByEmailLike("%" + searchEmailText + "%").stream().filter((user) -> !user.getEmail().equals(loginUser.getEmail()))
                 .map((user) -> new InvitationGuestDto(user)).collect(Collectors.toList());
+    }
+
+    public List<NotificationMessageDto> getInvitations(User loginUser) {
+        return this.invitationRepository.findByGuestId(loginUser.getId())
+                .stream().map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
     }
 }
