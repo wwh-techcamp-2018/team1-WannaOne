@@ -5,12 +5,18 @@ html,body{
     margin:0;
     padding:0;
 }
+
 body {
     overflow: hidden;
 }
+
 p, div {
     padding: 0;
     margin: 0;
+}
+
+input, button {
+    outline: none;
 }
 
 .container {
@@ -76,6 +82,11 @@ p, div {
     border-radius: 12px / 10px;
     color: white;
     font-size: 20px;
+    cursor: pointer;
+}
+
+#loginButton:hover {
+    background-color: #27b2b0;
 }
 
 .no-account {
@@ -89,7 +100,6 @@ p, div {
 .no-account > a {
     color: #e57085;
 }
-
 
 #password-validation, #email-validation {
     color:red !important;

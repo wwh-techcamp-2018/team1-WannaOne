@@ -44,8 +44,13 @@ class WebSocketManager {
     }
 
     handlerNotificationMessage(message) {
-        this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
+        let notificationMessageEl;
+        if(message.type === 'WRITE_NOTIFICATION') {
+            notificationMessageEl = getWriteNotificationItem(message);
+        } else if(message.type === 'INVITATION') {
+            notificationMessageEl = getNotificationItem(message);
+        }
+        this.notificationUl.insertAdjacentHTML('beforeend', notificationMessageEl);
         this.notificationBtn.innerHTML = getNotificationNumber(this.notificationUl.children.length);
-
     }
 }
