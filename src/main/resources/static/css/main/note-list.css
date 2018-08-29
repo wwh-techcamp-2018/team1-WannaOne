@@ -120,6 +120,10 @@ p.note-list-title, p.note-list-snippet {
     color: slategrey;
 }
 
+#add-note-btn:hover {
+    color:#e57085;
+}
+
 .note-list-hide {
     display: none;
 }
