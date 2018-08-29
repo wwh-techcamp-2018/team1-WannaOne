@@ -70,7 +70,7 @@ class MainApp {
             this.noteBook.focusNoteBook(targetNotebook);
             this.noteBook.setTitle();
             this.renewNoteList(this.noteBook.getNoteBookId());
-        }
+        };
         const failCallback = () => {
             console.log('노트를 이동시키는데 실패했습니다.');
         };
@@ -230,7 +230,6 @@ class MainApp {
         this.noteBook.fetchNotebookList(successCallback.bind(this), failCallback);
     }
 
-
     renewNoteList(noteBookId) {
         const successCallback = (notebook) => {
             this.noteList.renderNoteList(notebook.notes);
@@ -247,7 +246,6 @@ class MainApp {
         };
         this.noteList.fetchNoteList(noteBookId, successCallback.bind(this), failCallback);
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
