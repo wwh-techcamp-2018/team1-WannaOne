@@ -58,16 +58,27 @@
     margin-top:5px;
     display: none;
     float:right;
+ }
+
+.notebook-list > li > .fa-share-alt {
+     margin-top:2px;
+     font-size:8px;
+     float:none;
 }
 
 .notebook-list > li > i {
     margin-top:5px;
-    float:right;
+    margin-left:5px;
 }
 
 .notebook-list > li:hover > .fa-trash-alt {
     display: block;
 }
+
+.notebook-list > li:hover > span, .notebook-list > li:hover > .fa-share-alt {
+    color: #e57085;
+}
+
 
 .notebook-list > li:hover > .fa-trash-alt:hover {
     color: #e57085;
@@ -76,6 +87,14 @@
 .notebook-focus {
     color: #e57085;
     border-left: solid #e57085 1px;
+}
+
+.notebook-focus .fa-trash-alt {
+    color: white;
+}
+
+.notebook-focus .fa-trash-alt:hover {
+    color: #e57085;
 }
 
 .notebook-title {
