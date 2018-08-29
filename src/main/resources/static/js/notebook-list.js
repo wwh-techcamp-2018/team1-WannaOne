@@ -143,7 +143,7 @@ class NotebookList {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                title: notebookTitle
+                title: replaceTagBrackets(notebookTitle)
             }),
             onSuccess: successCallback,
             onFailure: failCallback
