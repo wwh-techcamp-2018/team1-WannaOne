@@ -9,7 +9,6 @@ import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.exception.*;
-import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
 import com.wannaone.woowanote.support.InvitationMessageSender;
 import com.wannaone.woowanote.support.InvitationStatus;
@@ -28,7 +27,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private InvitationRepository invitationRepository;
+    private InvitationService invitationService;
     @Autowired
     private NoteBookService noteBookService;
     @Resource(name = "bCryptPasswordEncoder")
@@ -65,6 +64,28 @@ public class UserService {
     }
 
     public void invite(User host, InvitationDto invitationDto) {
+        // TODO : host check
+        // 1. peer check
+        NoteBook sharedNotebook = noteBookService.getNoteBookById(invitationDto.getNotebookId());
+        List<UserNameDto> includedPeers = sharedNotebook.getPeers().stream()
+                                                        .filter((peer) -> invitationDto.getGuestIdList().contains(peer.getId()))
+                                                        .map((peer) -> new UserNameDto(peer.getName()))
+                                                        .collect(Collectors.toList());
+        if(!includedPeers.isEmpty()) {
+            throw new AlreadyIncludeSharedNoteBookException(includedPeers);
+        }
+
+        // 2. pending check
+        List<Invitation> pendingInvitations = invitationService.getInvitationsByNoteBookId(invitationDto.getNotebookId());
+        List<UserNameDto> pendingGuests = pendingInvitations.stream()
+                                                  .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
+                                                  .filter((invitation) -> invitationDto.getGuestIdList().contains(invitation.getGuest().getId()))
+                                                  .map((invitation) -> new UserNameDto(invitation.getGuest().getName()))
+                                                  .collect(Collectors.toList());
+        if(!pendingGuests.isEmpty()) {
+            throw new AlreadyIncludeSharedNoteBookException(pendingGuests);
+        }
+
         invitationDto.getGuestIdList().forEach((guestId) -> {
             saveInvitation(createInvitation(host.getId(), guestId, invitationDto.getNotebookId()));
         });
@@ -73,19 +94,19 @@ public class UserService {
     public Invitation createInvitation(Long hostId, Long guestId, Long notebookId) {
         User host = findUserById(hostId);
         User guest = findUserById(guestId);
-        NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(notebookId);
+        NoteBook noteBook = noteBookService.getNoteBookById(notebookId);
         return new Invitation(host, guest, noteBook);
     }
 
     public void saveInvitation(Invitation invitation) {
-        invitationMessageSender.sendPersonalMessage(invitation.getGuest(), invitationRepository.save(invitation));
+        invitationMessageSender.sendPersonalMessage(invitation.getGuest(), invitationService.save(invitation));
     }
 
     @Transactional
     public NoteBook addSharedNoteBook(User user, Long noteBookId) {
         User loginUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new UnAuthorizedException(msa.getMessage("unauthorized.message")));
-        NoteBook sharedNoteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
+        NoteBook sharedNoteBook = noteBookService.getNoteBookById(noteBookId);
         sharedNoteBook.addPeer(loginUser);
         return sharedNoteBook;
     }
@@ -104,7 +125,7 @@ public class UserService {
     }
 
     public List<NotificationMessageDto> getInvitations(User loginUser) {
-        return this.invitationRepository.findByGuestId(loginUser.getId())
+        return this.invitationService.getInvitationsByGuestId(loginUser.getId())
                 .stream()
                 .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
                 .map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
