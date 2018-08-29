@@ -25,13 +25,13 @@ public class CommentService {
     private MessageSourceAccessor msa;
 
     @Transactional
-    public Comment save(CommentDto commentDto, Long noteId, User loginUser) {
+    public CommentDto save(CommentDto commentDto, Long noteId, User loginUser) {
         Note note = noteService.getNote(noteId);
         Comment comment = commentRepository.save(commentDto.toEntity(note));
         note.addComment(comment);
         //Transactional을 명시해주지 않으면 writer 정보가 제대로 들어가지 않는다.
         comment.addWriter(loginUser);
-        return comment;
+        return CommentDto.fromEntity(comment, loginUser);
     }
 
     public List<Comment> getCommentsByNoteId(Long noteId) {
