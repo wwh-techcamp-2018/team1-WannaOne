@@ -21,9 +21,6 @@ import static org.mockito.Mockito.when;
 public class NoteServiceTest {
 
     @Mock
-    private NewNoteNotificationMessageSender newNoteNotificationMessageSender;
-
-    @Mock
     private NoteRepository noteRepository;
 
     @Mock

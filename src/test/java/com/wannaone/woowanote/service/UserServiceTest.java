@@ -31,20 +31,14 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
-
     public static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
+
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private InvitationMessageSender invitationMessageSender;
-    @Mock
-    private InvitationRepository invitationRepository;
     @Mock
     private InvitationService invitationService;
     @Mock
     private NoteBookService noteBookService;
-    @Mock
-    private MessageSourceAccessor msa;
     @Spy
     private PasswordEncoder mockPasswordEncoder = new MockPasswordEncoder();
     @InjectMocks
