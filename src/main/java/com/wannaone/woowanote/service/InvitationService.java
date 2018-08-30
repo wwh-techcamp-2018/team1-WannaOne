@@ -33,11 +33,13 @@ public class InvitationService {
     @Transactional
     public Invitation processInvitationAnswer(User loginUser, InvitationAnswerDto responseDto) {
         Invitation invitation = getInvitationById(responseDto.getInvitationId());
+        invitation.setStatus(responseDto.getResponse());
         if (responseDto.getResponse() == InvitationStatus.ACCEPTED) {
             acceptInvitation(loginUser, invitation.getNoteBook().getId());
+            notificationMessageSender.sendSharedNoteBookAcceptMessage(invitation);
+        } else if (responseDto.getResponse() == InvitationStatus.REJECTED) {
+            notificationMessageSender.sendSharedNoteBookRejectMessage(invitation);
         }
-        invitation.setStatus(responseDto.getResponse());
-        notificationMessageSender.sendSharedNoteBookAcceptMessage(invitation);
         return invitation;
     }
 

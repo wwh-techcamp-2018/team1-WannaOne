@@ -21,6 +21,7 @@ public class ApiInvitationController {
 
     @Autowired
     private InvitationService invitationService;
+
     @PostMapping
     public ResponseEntity processInvitationStatus(@LoginUser User loginUser, @RequestBody InvitationAnswerDto statusDto) {
         invitationService.processInvitationAnswer(loginUser, statusDto);
