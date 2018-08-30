@@ -118,7 +118,7 @@ class MainApp {
         const currentNoteId = this.noteList.getNoteId();
 
         const successCallback = (notebooks) => {
-            if (!notebooks.length) {
+            if (notebooks.length == 0) {
                 console.log('노트북이 존재하지 않습니다.');
                 return;
             }
@@ -302,6 +302,9 @@ class MainApp {
 
     renewNoteListForSharedNoteBook(noteBookId) {
         const successCallback = (notebook) => {
+            if(!notebook.notes) {
+                notebook.notes = [];
+            }
             this.noteList.renderNoteList(notebook.notes);
             this.noteList.focusNoteItemById(this.note.getNoteId());
         };
