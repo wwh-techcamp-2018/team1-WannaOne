@@ -145,7 +145,7 @@ class Note {
         }
 
         if (currentMode == 'view') {
-            if (this.writer.email != this.currentUserEmail) {
+            if (this.writer != undefined && this.writer.email != this.currentUserEmail) {
                 return;
             }
             if (!this.editSection.contains(e.target)) {
