@@ -104,6 +104,7 @@ class NoteList {
 
     openShareNotebookPopupHandler() {
         this.shareNotebookPopup.style.display = 'block';
+        this.invitationInputEl.focus();
     }
 
     closeShareNotebookPopupHandler(e) {

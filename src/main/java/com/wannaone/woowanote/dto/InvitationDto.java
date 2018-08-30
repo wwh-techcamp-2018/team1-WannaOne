@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvitationDto {
-
     private List<Long> guestIdList;
     private Long notebookId;
 }

@@ -41,6 +41,8 @@
 .delete-comment-button {
     color: #233A40;
     cursor: pointer;
+    float: right;
+    margin-right: 13px;
 }
 
 .comment-write-section > img, .comment-show-section img{

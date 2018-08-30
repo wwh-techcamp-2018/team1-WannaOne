@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Invitation extends AuditingDateEntity {
-
     @ManyToOne
     private User host;
 

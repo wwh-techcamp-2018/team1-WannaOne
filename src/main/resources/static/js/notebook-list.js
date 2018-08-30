@@ -18,6 +18,7 @@ class NotebookList {
                 return;
             }
             this.notebookInputWrapper.style.display = 'block';
+            this.notebookTitleInput.focus();
         });
         document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }

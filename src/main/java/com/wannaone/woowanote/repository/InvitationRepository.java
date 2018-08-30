@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface InvitationRepository extends CrudRepository<Invitation, Long> {
     List<Invitation> findByGuestId(Long guestId);
+    List<Invitation> findByNoteBookId(Long noteBookId);
 }
