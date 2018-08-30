@@ -3,9 +3,7 @@ package com.wannaone.woowanote.service;
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
-import com.wannaone.woowanote.dto.NoteDto;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
-import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
 import com.wannaone.woowanote.support.NewNoteNotificationMessageSender;
 import org.slf4j.Logger;
@@ -44,7 +42,7 @@ public class NoteService {
     }
     
     public Note save(Long noteBookId, User writer) {
-        NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
+        NoteBook noteBook = noteBookService.getNoteBookById(noteBookId);
         Note newNote = new Note(writer);
         newNote.addNoteBook(noteBook);
         noteRepository.save(newNote);
@@ -70,7 +68,7 @@ public class NoteService {
     public Note updateNoteWithParentNoteBook(Long noteId, Long noteBookId) {
         Note updateNote = getNote(noteId);
         NoteBook prevParentNoteBook = updateNote.getNoteBook();
-        NoteBook newParentNoteBook = noteBookService.getNoteBookByNoteBookId(noteBookId);
+        NoteBook newParentNoteBook = noteBookService.getNoteBookById(noteBookId);
         prevParentNoteBook.removeNote(updateNote);
         newParentNoteBook.addNote(updateNote);
         updateNote.updateNoteBook(newParentNoteBook);

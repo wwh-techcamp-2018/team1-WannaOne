@@ -124,7 +124,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
     @Test
     public void showInvitationTest() throws Exception {
         Long guestId = 1L;
-        Long notebookId = 1L;
+        Long notebookId = 7L;
         List<Long> guestIdList = Arrays.asList(guestId);
         InvitationDto invitationDto = new InvitationDto(guestIdList, notebookId);
 

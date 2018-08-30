@@ -40,6 +40,6 @@ public class ApiNoteBookController {
 
     @GetMapping("/{noteBookId}")
     public ResponseEntity getNoteBook(@PathVariable Long noteBookId, @LoginUser User loginUser) {
-        return new ResponseEntity(noteBookService.getNoteBookDtoByNoteBookId(noteBookId, loginUser), HttpStatus.OK);
+        return new ResponseEntity(noteBookService.getNoteBookDtoById(noteBookId, loginUser), HttpStatus.OK);
     }
 }

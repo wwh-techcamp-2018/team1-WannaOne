@@ -63,6 +63,7 @@ class Comment {
             this.updateCommentCount();
             this.commentInput.value = '';
             console.log('댓글 작성에 성공했습니다.');
+            $('.main-content').scroll(0, 100);
         };
         const failCallback = () => {
             this.commentInput.value = '';

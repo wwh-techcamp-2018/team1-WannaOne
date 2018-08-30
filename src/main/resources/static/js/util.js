@@ -46,3 +46,8 @@ function dateFormatter(datetimeString) {
 function getIndex(parentChildren, target) {
     return Array.prototype.indexOf.call(parentChildren, target);
 }
+
+function replaceTagBrackets(text) {
+    while (text != (text = text.replace(/<[^<>]*>/g, "")));
+    return text;
+}

@@ -8,7 +8,7 @@ class Invitation {
         // this.invitationCancelBtn = $('.invitation-cancel-button');
         this.invitationSendBtn = $('.share-notebook-popup > button');
         this.shareNotebookPopup.style.display = "none";
-
+        this.invitationValidationEl = $('#invite-validation');
 
         this.initEventListener();
     }
@@ -17,6 +17,16 @@ class Invitation {
         // this.invitationAddressInputEl.addEventListener('keyup', this.precheckInvitationAddressHandler.bind(this));
         this.invitationListEl.addEventListener('click', this.invitationCancelHandler.bind(this));
         this.invitationSendBtn.addEventListener('click', this.sendInvitationHandler.bind(this));
+    }
+
+    hideInvitationValidationMessage() {
+        this.invitationValidationEl.style.display = 'none';
+    }
+
+    showInvitationValidationMessage(text) {
+        this.invitationValidationEl.innerHTML = text;
+        this.invitationValidationEl.style.display = 'block';
+        setTimeout(this.hideInvitationValidationMessage.bind(this), 2000);
     }
 
     precheckInvitationAddress() {
@@ -49,7 +59,8 @@ class Invitation {
             alert('초대 요청이 전송되었습니다.');
             this.closeShareNotebookPopup();
         };
-        const failCallback = () => {
+        const failCallback = (response) => {
+            response.json().then((result) => this.showInvitationValidationMessage(result.message));
             console.log("invitation 실패");
         };
         this.sendInvitation(this.getInvitationData(), successCallback, failCallback);
@@ -75,7 +86,7 @@ class Invitation {
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(invitationData),
             onSuccess: successCallback,
-            onFailure: failCallback
+            onFailure: failCallback.bind(this)
         });
     }
 

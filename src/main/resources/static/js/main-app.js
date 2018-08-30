@@ -8,7 +8,6 @@ class MainApp {
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
 
-
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
@@ -44,10 +43,14 @@ class MainApp {
             if(evt.keyCode === 13) {
                 evt.preventDefault();
                 const activeElement = this.autoComplete.getActiveElement();
+                if(!activeElement) {
+                    this.invitation.showInvitationValidationMessage('사용자 정보를 찾을 수 없습니다.');
+                    return;
+                }
                 this.autoComplete.getSearchUserInputEl().value = activeElement.innerHTML;
                 const name = activeElement.dataset.userName;
                 if(this.autoComplete.addCheck(name)) {
-                    alert('이미 추가된 유저입니다.');
+                    this.invitation.showInvitationValidationMessage('이미 초대리스트에 추가된 사용자입니다.');
                     this.autoComplete.clearAutoCompleteEl();
                     this.autoComplete.clearInput();
                     return;

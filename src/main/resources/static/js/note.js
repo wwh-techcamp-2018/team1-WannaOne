@@ -8,7 +8,6 @@ class Note {
         this.previewTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild.nextElementSibling;
         this.writeTabBtn = $('.te-markdown-tab-section .te-tab').firstElementChild;
         this.btns = $('.note-save-delete');
-
         this.comment = new Comment();
         this.initEvent();
     }
@@ -63,24 +62,18 @@ class Note {
         this.comment.updateNoteInfo(data);
         editor.show();
         editor.moveCursorToStart();
-        if (editor.getMarkdown() != "") {
-            this.previewTabBtn.click();
-            this.hideEditor();
-        } else {
-            this.writeTabBtn.click();
-        }
+        this.previewTabBtn.click();
+        this.hideEditor();
     }
 
     renderNote(note) {
         this.note = note;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         editor.setValue(note.text);
-        if (note.text == "") {
-            this.showEditor();
-        }
         this.editSection.style.display = 'block';
         this.initSaveAndDeleteButton(note);
         this.renderComment();
+        $('.te-preview').scroll(0,0);
     }
 
     renderComment() {
@@ -141,13 +134,6 @@ class Note {
                     return;
                 }
             }
-            if (this.previewTabBtn.classList.contains('te-tab-active')) {
-                return;
-            }
-            if (editor.getMarkdown() == "") {
-                return;
-            }
-
             this.hideEditor();
             return;
         }

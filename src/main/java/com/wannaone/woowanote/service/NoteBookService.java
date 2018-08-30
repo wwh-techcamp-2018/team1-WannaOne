@@ -29,18 +29,15 @@ public class NoteBookService {
 
     public List<NoteBook> getNoteBooksByOwnerId(Long ownerId) {
         return userService.findUserById(ownerId).getNoteBooks();
-
     }
 
     public List<NoteBook> getNoteBooksByPeerId(Long ownerId) {
         return userService.findUserById(ownerId).getSharedNotebooks();
-
     }
 
     @Transactional
     public List<NoteBookDto> getNoteBookDtosByOwnerId(User loginUser) {
         return getNoteBooksByOwnerId(loginUser.getId()).stream().map((noteBook) -> new NoteBookDto(noteBook, loginUser)).collect(Collectors.toList());
-
     }
 
     @Transactional
@@ -62,17 +59,17 @@ public class NoteBookService {
         return noteBookRepository.save(newNoteBook);
     }
 
-    public NoteBook getNoteBookByNoteBookId(Long noteBookId) {
+    public NoteBook getNoteBookById(Long noteBookId) {
         return noteBookRepository.findById(noteBookId).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.NOTE_BOOK_NOT_FOUND.getMessageKey())));
     }
 
-    public NoteBookDto getNoteBookDtoByNoteBookId(Long noteBookId, User loginUser) {
-        return NoteBookDto.fromEntity(getNoteBookByNoteBookId(noteBookId), loginUser);
+    public NoteBookDto getNoteBookDtoById(Long noteBookId, User loginUser) {
+        return NoteBookDto.fromEntity(getNoteBookById(noteBookId), loginUser);
     }
 
     @Transactional
     public NoteBook delete(Long noteBookId, User owner) {
-        NoteBook deleteNoteBook = getNoteBookByNoteBookId(noteBookId);
+        NoteBook deleteNoteBook = getNoteBookById(noteBookId);
         if(!deleteNoteBook.isNoteBookOwner(owner)) {
             throw new UnAuthorizedException(msa.getMessage(ErrorMessage.UNAUTHORIZED.getMessageKey()));
         }

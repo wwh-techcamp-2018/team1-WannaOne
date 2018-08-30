@@ -18,6 +18,7 @@ class NotebookList {
                 return;
             }
             this.notebookInputWrapper.style.display = 'block';
+            this.notebookTitleInput.focus();
         });
         document.addEventListener('click', (e) => this.closeNotebookInputHandler(e));
     }
@@ -143,7 +144,7 @@ class NotebookList {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                title: notebookTitle
+                title: replaceTagBrackets(notebookTitle)
             }),
             onSuccess: successCallback,
             onFailure: failCallback
