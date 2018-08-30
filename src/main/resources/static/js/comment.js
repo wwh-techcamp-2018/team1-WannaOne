@@ -5,7 +5,7 @@ class Comment {
         this.commentListSection = $('.comment-list-section');
         this.addCommentBtn = $('#add-comment-button');
         this.commentInput = $('#comment-input');
-        this.commentCount = $('#comment-count');
+        this.commentCount = $All('.comment-count');
         this.openCommentBtn = $('.comment-fold');
 
         this.initEvent();
@@ -98,7 +98,9 @@ class Comment {
     }
 
     updateCommentCount() {
-        this.commentCount.innerHTML = this.commentListUl.childElementCount;
+        this.commentCount.forEach((comment) => {
+            comment.innerHTML = this.commentListUl.childElementCount;
+        });
     }
 
     getCommentListUl() {
