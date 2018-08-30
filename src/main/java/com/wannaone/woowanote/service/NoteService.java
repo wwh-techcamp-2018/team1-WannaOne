@@ -5,7 +5,7 @@ import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.NoteRepository;
-import com.wannaone.woowanote.support.NewNoteNotificationMessageSender;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class NoteService {
     private static final Logger log = LoggerFactory.getLogger(NoteService.class);
 
     @Autowired
-    private NewNoteNotificationMessageSender newNoteNotificationMessageSender;
+    private NotificationMessageSender notificationMessageSender;
 
     @Autowired
     private NoteRepository noteRepository;
@@ -50,7 +50,7 @@ public class NoteService {
         noteBook.addNote(newNote);
         log.debug("saving new note. noteBookId: {}, writer.name: {}",
                 noteBookId, Optional.ofNullable(writer).orElse(User.defaultUser()).getEmail());
-        newNoteNotificationMessageSender.sendSharedNoteBookCreateNoteNotificationMessage(newNote);
+        notificationMessageSender.sendSharedNoteBookCreateNoteNotificationMessage(newNote);
         return newNote;
     }
 

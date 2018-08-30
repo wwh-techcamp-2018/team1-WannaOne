@@ -8,8 +8,8 @@ import com.wannaone.woowanote.exception.InvalidInvitationException;
 import com.wannaone.woowanote.exception.UnAuthenticationException;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.repository.UserRepository;
-import com.wannaone.woowanote.support.InvitationMessageSender;
 import com.wannaone.woowanote.support.InvitationStatus;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
     @Mock
-    private InvitationMessageSender invitationMessageSender;
+    private NotificationMessageSender notificationMessageSender;
     @Mock
     private InvitationRepository invitationRepository;
     @Mock
@@ -173,7 +173,7 @@ public class UserServiceTest {
         Invitation invitation = new Invitation(6L, host, guest, notebook);
         when(invitationService.getInvitationsByGuestId(2L)).thenReturn(Arrays.asList(invitation));
 
-        assertThat(userService.getInvitations(guest).contains(new NotificationMessageDto(invitation))).isTrue();
+        assertThat(userService.getInvitations(guest).contains(NotificationMessageDto.getInvitationMessge(invitation))).isTrue();
     }
 
     private class MockPasswordEncoder implements PasswordEncoder {

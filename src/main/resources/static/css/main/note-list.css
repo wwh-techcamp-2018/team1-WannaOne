@@ -66,7 +66,6 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-header {
-    height: 100px;
     position: relative;
     box-sizing: border-box;
     background-color: white;
@@ -83,6 +82,8 @@ p.note-list-title, p.note-list-snippet {
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-top: 3px;
+    margin-bottom: 19px;
 }
 
 .side-bar-middle-notebook-meta {
@@ -111,14 +112,21 @@ p.note-list-title, p.note-list-snippet {
     overflow: scroll;
 }
 
-#add-note-btn-section {
+#add-note-btn-section, #shared-notebook-owner-section {
     left: 168px;
-    margin-top: 5px;
+    margin: 6px 0px;
     padding-right: 0px;
-    margin-right: 0px;
     font-size: 12px;
-    cursor: pointer;
     color: slategrey;
+    cursor: default;
+}
+
+#add-note-btn-section > #add-note-btn {
+    cursor: pointer;
+}
+
+#add-note-btn-section > #add-note-btn:hover {
+    color:#e57085;
 }
 
 #add-note-btn-section > .shared-info {
@@ -128,11 +136,6 @@ p.note-list-title, p.note-list-snippet {
 
 #add-note-btn-section > .shared-info > .shared-count {
     font-size:2px;
-}
-
-
-#add-note-btn-section > #add-note-btn:hover {
-    color:#e57085;
 }
 
 .note-list-hide {

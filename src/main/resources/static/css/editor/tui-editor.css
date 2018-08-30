@@ -74,7 +74,6 @@
 
 .te-md-container .te-preview {
     overflow: auto;
-    padding: 0 25px;
     height: 100%;
 }
 
@@ -83,7 +82,7 @@
 }
 
 .te-md-container .te-preview .tui-editor-contents {
-    padding-top: 11px;
+    padding-top: 0px;
 }
 
 .tui-editor .te-preview-style-tab>.te-editor,
@@ -1277,4 +1276,8 @@ only screen and (                min-resolution: 2dppx) {
     .te-dropdown-toolbar {
         max-width: none;
     }
+}
+
+.te-preview.te-tab-active {
+    padding: 0 !important;
 }
