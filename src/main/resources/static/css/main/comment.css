@@ -1,3 +1,18 @@
+.comment-fold {
+    display: inline-block;
+    position: relative;
+    left: 10px;
+}
+
+.comment-fold > span {
+    bottom: 7px;
+    position: relative;
+}
+
+.comment-fold > * {
+    cursor: pointer;
+}
+
 .comment-section {
     border-top: 1px solid gray;
     padding-top: 10px;
@@ -12,6 +27,8 @@
 .comment-list {
     list-style: none;
     padding-left: 0px;
+    width: 500px;
+    box-sizing: border-box;
 }
 
 .comment-list > li {

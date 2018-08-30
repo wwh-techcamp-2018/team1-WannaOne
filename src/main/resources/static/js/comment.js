@@ -47,6 +47,10 @@ class Comment {
         });
     }
 
+    openCommentPopupHandler() {
+        this.shareNotebookPopup.style.display = 'block';
+    }
+
     addCommentClickEventHandler() {
         const content = this.commentInput.value;
         if(!content || !content.trim()) {
