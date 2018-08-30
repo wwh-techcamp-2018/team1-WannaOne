@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Woowanote</title>
+    <link rel="stylesheet" type="text/css" href="/css/signup/signup.css">
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <script src="/js/util.js"></script>
+    <script src="/js/signup.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="welcome-message">
+            <span>Sign Up</span>
+        </div>
+        <form>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="이메일을 입력하세요">
+                <small id="email-validation" class="form-text text-muted caution">We'll display validation message
+                </small>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password"
+                       placeholder="비밀번호를 입력하세요(4-15자)">
+                <small id="password-validation" class="form-text text-muted caution">We'll display validation message
+                </small>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="passwordCheck"
+                       placeholder="비밀번호 확인을 입력하세요">
+                <small id="passwordCheck-validation" class="form-text text-muted caution">We'll display validation message
+                </small>
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="name"
+                       placeholder="이름을 입력하세요(20자 이하)">
+                <small id="name-validation" class="form-text text-muted caution">We'll display validation message
+                </small>
+            </div>
+            <button id="signUpButton" class="btn btn-success">회원가입</button>
+        </form>
+        <p class="yes-account">
+            이미 WoowaNote 회원이라면?
+            <a href="/login">로그인하기</a>
+        </p>
+    </div>
+</div>
+</body>
