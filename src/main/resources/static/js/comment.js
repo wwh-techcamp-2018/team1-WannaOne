@@ -51,7 +51,7 @@ class Comment {
 
     openCommentHandler() {
         // 원래는 팝업창 띄우기로 했었는데 일단은 스크롤 내리는 걸로만 처리.
-        $('.main-content').scrollTop = $('.main-content').offsetHeight;
+        $('.main-content').scroll(0, $('.main-content').offsetHeight);
     }
 
     addCommentClickEventHandler() {
