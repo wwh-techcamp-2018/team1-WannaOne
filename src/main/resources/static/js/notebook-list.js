@@ -1,18 +1,23 @@
 class NotebookList {
     constructor(noteBookListEl) {
         this.currentIndex = 0;
-        this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
+        this.notebookTitleEl = $(".side-bar-middle-notebook-title");
+        this.notebookListBody = $('.side-bar-middle-body');
         this.sharedNoteBookButton = $('.share-notebook-open-button');
         this.sharedNotebookOwnerSection = $('#shared-notebook-owner-section');
         this.shareNotebookOwnerEl = $('#shared-notebook-owner-name');
         this.sharedInfoSection = $('.shared-info');
         this.sharedInfoCountEl = $('.shared-count');
-
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
+        
+        this.initEventListener();
+    }
+    
+    initEventListener() {
         this.addNotebookInputButton.addEventListener('click', () => {
             const display = this.notebookInputWrapper.style.display;
             if(display === 'block') {
@@ -95,6 +100,7 @@ class NotebookList {
 
     setTitle() {
         const selectedNoteBook = this.noteBooks[this.currentIndex];
+        this.notebookListBody.scroll(0,0);
         this.notebookTitleEl.innerText = selectedNoteBook.title;
         this.notebookTitleEl.dataset.notebookId = selectedNoteBook.id;
         const peersCount = selectedNoteBook.peers.length;
