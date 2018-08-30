@@ -1,6 +1,9 @@
 function getNoteSectionTemplate(note) {
-    return `<input id="note-section-note-title" data-note-id=${note.id} value="${note.title}"></input>
-                <p id="note-section-meta">작성한 날짜: ${note.registerDatetime} &emsp; 수정한 날짜: ${note.updateDatetime}</p>`;
+    return `<input id="note-section-note-title" data-note-id=${note.id} value="${note.title}" autocomplete="off"></input>
+               <div class="note-section-meta">
+                    <div id="note-section-meta-writer"><img src="${note.writer.photoUrl}"><span>${note.writer.name}</span></div>
+                    <div id="note-section-meta-datetime"><span>작성한 날짜: ${note.registerDatetime} &emsp; 수정한 날짜: ${note.updateDatetime}</span></div>
+                </div>`;
 }
 
 function getCommentTemplate(comment) {

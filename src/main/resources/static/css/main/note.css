@@ -1,7 +1,11 @@
+* {
+    outline: 1px solid grey !important;
+}
+
 #note-section-note-title {
     border-style: none;
     font-size:30px;
-    height:50px;
+    height:65px;
     width: 100%;
 }
 
@@ -39,7 +43,36 @@
     grid-column: 2 / span 2;
 }
 
-#note-section-meta {
+.note-section-meta {
+    position: relative;
+    height: 40px;
     color: gray;
     font-size: 14px;
 }
+
+#note-section-meta-datetime {
+    display: inline-block;
+    position: relative;
+    left: 100px;
+    bottom: 9px;
+}
+
+#note-section-meta-writer {
+    position: relative;
+    left: 30px;
+    display: inline-block;
+}
+
+#note-section-meta-writer > img {
+    height: 32px;
+    border-radius: 50%;
+}
+
+#note-section-meta-writer > span {
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+}
+
+
+
