@@ -3,10 +3,11 @@ class NotebookList {
         this.currentIndex = 0;
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
+        this.notebookListBody = $('.side-bar-middle-body');
         this.sharedNoteBookButton = $('.share-notebook-open-button');
         this.sharedInfoSection = $('.shared-info');
         this.sharedInfoCountEl = $('.shared-count');
-
+        
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
@@ -93,6 +94,7 @@ class NotebookList {
 
     setTitle() {
         const selectedNoteBook = this.noteBooks[this.currentIndex];
+        this.notebookListBody.scroll(0,0);
         this.notebookTitleEl.innerText = selectedNoteBook.title;
         this.notebookTitleEl.dataset.notebookId = selectedNoteBook.id;
         const peersCount = selectedNoteBook.peers.length;
