@@ -10,28 +10,35 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-
     @GetMapping
-    public String redirect(HttpSession session) {
+    public String home(HttpSession session) {
         if (!SessionUtil.getUser(session).isPresent()) {
-            return "/login";
+            return "login";
         }
-        return "/main";
+        return "main";
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String login(HttpSession session) {
         if (SessionUtil.getUser(session).isPresent()) {
-            return "/main";
+            return "redirect:/main";
         }
-        return "/login";
+        return "login";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("signup")
     public String signup(HttpSession session) {
         if (SessionUtil.getUser(session).isPresent()) {
-            return "/main";
+            return "redirect:/main";
         }
-        return "/signup";
+        return "signup";
+    }
+
+    @GetMapping("main")
+    public String main(HttpSession session) {
+        if (SessionUtil.getUser(session).isPresent()) {
+            return "main";
+        }
+        return "redirect:/login";
     }
 }

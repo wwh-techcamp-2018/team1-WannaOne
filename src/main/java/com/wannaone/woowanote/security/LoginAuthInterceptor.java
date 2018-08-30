@@ -15,7 +15,7 @@ public class LoginAuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         try {
             if (request.getSession().getAttribute(SessionUtil.USER_SESSION_KEY) == null) {
-                response.sendRedirect("/login.html");
+                response.sendRedirect("/login");
                 log.info("로그인이 필요합니다.");
                 return false;
             }
