@@ -6,6 +6,7 @@ class Comment {
         this.addCommentBtn = $('#add-comment-button');
         this.commentInput = $('#comment-input');
         this.commentCount = $('#comment-count');
+        this.openCommentBtn = $('.comment-fold');
 
         this.initEvent();
     }
@@ -18,6 +19,7 @@ class Comment {
         });
         this.addCommentBtn.addEventListener('click', this.addCommentClickEventHandler.bind(this));
         this.commentListUl.addEventListener('click', this.deleteCommentClickEventHandler.bind(this));
+        this.openCommentBtn.addEventListener('click', this.openCommentHandler.bind(this));
     }
 
     updateNoteInfo(note) {
@@ -47,8 +49,9 @@ class Comment {
         });
     }
 
-    openCommentPopupHandler() {
-        this.shareNotebookPopup.style.display = 'block';
+    openCommentHandler() {
+        // 원래는 팝업창 띄우기로 했었는데 일단은 스크롤 내리는 걸로만 처리.
+        $('.main-content').scroll(0, document.body.scrollHeight);
     }
 
     addCommentClickEventHandler() {
@@ -63,7 +66,7 @@ class Comment {
             this.updateCommentCount();
             this.commentInput.value = '';
             console.log('댓글 작성에 성공했습니다.');
-            $('.main-content').scroll(0, 100);
+            $('.main-content').scroll(0, document.body.scrollHeight);
         };
         const failCallback = () => {
             this.commentInput.value = '';
