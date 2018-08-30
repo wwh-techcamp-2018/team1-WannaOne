@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,7 +42,7 @@ public class UserService {
         if (isExistUser(userDto.getEmail())) {
             throw new UserDuplicatedException(msa.getMessage("email.duplicate.message"));
         }
-        return userRepository.save(userDto.toEntityWithPasswordEncode(bCryptPasswordEncoder));
+        return userRepository.save(userDto.toEntityWithPasswordEncode(bCryptPasswordEncoder, giveRandomDefaultImage()));
     }
 
     public User login(LoginDto loginDto) {
@@ -141,5 +142,13 @@ public class UserService {
                 .stream()
                 .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
                 .map((invitation) -> NotificationMessageDto.getInvitationMessge(invitation)).collect(Collectors.toList());
+    }
+
+    public String giveRandomDefaultImage() {
+        int numOfRandomImage = 9;
+        String photoUrl = "https://s3.ap-northeast-2.amazonaws.com/woowanotes3/static/random-image/";
+        Random random = new Random();
+        int index = random.nextInt(numOfRandomImage);
+        return photoUrl + index + ".png";
     }
 }
