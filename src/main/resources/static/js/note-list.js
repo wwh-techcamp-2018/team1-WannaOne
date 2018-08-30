@@ -1,6 +1,7 @@
 class NoteList {
     constructor() {
         this.noteListBar = $('.side-bar-middle');
+        this.noteListBody = $('.side-bar-middle-body');
         this.noteListEl = $('.note-list');
         this.noteListCount = $('.note-list-count');
         this.currentNoteIndex = 0;
@@ -43,6 +44,7 @@ class NoteList {
     renderNoteList(notes) {
         this.clearNoteListSection();
         this.notes = notes;
+        this.noteListBody.scroll(0,0);
         this.noteListCount.innerHTML = `${notes.length}개의 노트`;
         this.notes.forEach((note) => this.renderNoteItem(note));
     }

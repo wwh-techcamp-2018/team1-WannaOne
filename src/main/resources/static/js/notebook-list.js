@@ -3,7 +3,7 @@ class NotebookList {
         this.currentIndex = 0;
         this.notebookListEl = noteBookListEl;
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
-        this.notebookListBody = $('.side-bar-middle-body');
+        this.noteListBody = $('.side-bar-middle-body');
         this.sharedNoteBookButton = $('.share-notebook-open-button');
         this.sharedNotebookOwnerSection = $('#shared-notebook-owner-section');
         this.shareNotebookOwnerEl = $('#shared-notebook-owner-name');
@@ -100,7 +100,7 @@ class NotebookList {
 
     setTitle() {
         const selectedNoteBook = this.noteBooks[this.currentIndex];
-        this.notebookListBody.scroll(0,0);
+        this.noteListBody.scroll(0,0);
         this.notebookTitleEl.innerText = selectedNoteBook.title;
         this.notebookTitleEl.dataset.notebookId = selectedNoteBook.id;
         const peersCount = selectedNoteBook.peers.length;
@@ -109,10 +109,12 @@ class NotebookList {
             this.shareNotebookOwnerEl.innerHTML = this.owner.name;
             this.sharedInfoSection.style.display = 'block';
             this.sharedInfoCountEl.innerHTML = peersCount + 1;
+            this.noteListBody.style.height = 'calc(100vh - 185px)';
             return;
         }
         this.sharedNotebookOwnerSection.style.display = 'none';
         this.sharedInfoSection.style.display = 'none';
+        this.noteListBody.style.height = 'calc(100vh - 165px)';
     }
 
     focusNoteBook(noteBookEl) {
