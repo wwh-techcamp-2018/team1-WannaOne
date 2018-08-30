@@ -36,7 +36,7 @@ class Notification {
     getMessages() {
         const successCallback = (messages) => {
             messages.forEach((message) => {
-                this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
+                this.notificationUl.insertAdjacentHTML('beforeend', getInvitationNotificationItem(message));
             });
             this.updateNotificationCount();
         };
