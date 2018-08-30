@@ -107,7 +107,7 @@ class NotebookList {
         const peersCount = selectedNoteBook.peers.length;
         if(peersCount > 0) {
             this.sharedNotebookOwnerSection.style.display = 'block';
-            this.shareNotebookOwnerEl.innerHTML = this.owner.name;
+            this.shareNotebookOwnerEl.innerHTML = selectedNoteBook.owner.name;
             this.sharedInfoSection.style.display = 'block';
             this.sharedInfoCountEl.innerHTML = peersCount + 1;
             this.noteListBody.style.height = 'calc(100vh - 185px)';
