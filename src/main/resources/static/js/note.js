@@ -83,7 +83,7 @@ class Note {
     }
 
     renderComment() {
-        this.comment.openCommentBtn.style.display = 'block';
+        this.comment.openCommentBtn.style.display = 'inline-block';
         this.comment.getCommentSection().style.display = 'block';
         this.note.comments.forEach((comment) => {
             this.comment.getCommentListUl().insertAdjacentHTML('beforeend', getCommentTemplate(comment));
