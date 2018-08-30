@@ -1,17 +1,21 @@
 class NotebookList {
     constructor(noteBookListEl) {
         this.currentIndex = 0;
-        this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
+        this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListBody = $('.side-bar-middle-body');
         this.sharedNoteBookButton = $('.share-notebook-open-button');
         this.sharedInfoSection = $('.shared-info');
         this.sharedInfoCountEl = $('.shared-count');
-        
         this.hideNoteListButton = $('#hide-note-list-btn');
         this.notebookTitleInput = $('#notebook-title-input');
         this.notebookInputWrapper = $('.notebook-input-wrapper');
         this.addNotebookInputButton = $('#add-notebook-input-btn');
+        
+        this.initEventListener();
+    }
+    
+    initEventListener() {
         this.addNotebookInputButton.addEventListener('click', () => {
             const display = this.notebookInputWrapper.style.display;
             if(display === 'block') {
