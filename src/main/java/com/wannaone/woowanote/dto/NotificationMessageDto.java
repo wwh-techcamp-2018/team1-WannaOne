@@ -35,7 +35,7 @@ public class NotificationMessageDto {
         NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
         notificationMessageDto.setId(invitation.getId());
         notificationMessageDto.setType(NotificationType.ACCEPT);
-        String message = invitation.getGuest() + "님이 " + invitation.getNoteBook().getTitle() + "초대를 수락했습니다.";
+        String message = invitation.getGuest().getName() + "님이 " + invitation.getNoteBook().getTitle() + "초대를 수락했습니다.";
         notificationMessageDto.setMessage(message);
         return notificationMessageDto;
     }

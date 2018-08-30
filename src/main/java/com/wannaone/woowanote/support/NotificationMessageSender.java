@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class NotificationMessageSender {
     @Autowired
@@ -24,8 +27,10 @@ public class NotificationMessageSender {
 
     public void sendSharedNoteBookCreateNoteNotificationMessage(Note note) {
         NotificationMessageDto notificationMessageDto = NotificationMessageDto.getWriteNotificationMessage(note);
-        note.getNoteBook().getPeers().stream().forEach((peer) -> {
-            String topic = "/topic/users/" + peer.getId();
+        List<User> subscribers = note.getNoteBook().getPeers().stream().collect(Collectors.toList());
+        subscribers.add(note.getNoteBook().getOwner());
+        subscribers.stream().forEach((subscriber) -> {
+            String topic = "/topic/users/" + subscriber.getId();
             simpMessageSendingOperations.convertAndSend(
                     topic,
                     notificationMessageDto
