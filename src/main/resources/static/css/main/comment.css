@@ -3,6 +3,7 @@
     position: relative;
     left: 30px;
     cursor: pointer;
+    margin: 18px 0px;
 }
 
 .comment-fold > span {
