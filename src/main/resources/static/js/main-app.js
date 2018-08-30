@@ -108,6 +108,10 @@ class MainApp {
         }
         const successCallback = (newNotebook) => {
             this.noteBook.addNoteBookSuccessCallback(newNotebook);
+            this.noteBook.setTitle();
+            this.noteList.renderNoteList(this.noteBook.getNotes());
+            this.noteList.focusNoteItem(0);
+            this.note.renderNoteContent(this.noteList.getNote());
         };
         const failCallback = (error) => {
             this.noteBook.addNoteBookFailureCallback(error);
