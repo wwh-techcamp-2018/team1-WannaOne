@@ -4,6 +4,7 @@ import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteService;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ApiNoteController {
     private NoteService noteService;
 
     @Autowired
-    private MessageSourceAccessor msa;
+    private NotificationMessageSender notificationMessageSender;
 
     @GetMapping("/{id}")
     public Note show(@PathVariable Long id) {
@@ -45,7 +46,9 @@ public class ApiNoteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Note> update(@PathVariable Long id, @RequestBody Note updateNote) {
-        return ResponseEntity.status(HttpStatus.OK).body(noteService.updateNote(id, updateNote));
+        Note updatedNote = noteService.updateNote(id, updateNote);
+        notificationMessageSender.sendSharedNoteBookCreateNoteNotificationMessage(updatedNote);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedNote);
     }
 
     @DeleteMapping("/{id}")
