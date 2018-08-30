@@ -87,24 +87,22 @@
     overflow: scroll;
 }
 
-.invitation-accept-button {
+.invitation-accept-button, .invitation-reject-button {
     position: absolute;
     display:block;
-    left: 199px;
-    top: 26px;
+    top: 35px;
     color: white;
-    background-color: #04BFBF;
     cursor: pointer;
 }
 
+.invitation-accept-button {
+    left: 199px;
+    background-color: #04BFBF;
+}
+
 .invitation-reject-button {
-    position: absolute;
-    display:block;
     left: 239px;
-    top: 26px;
-    color: white;
     background-color: #e57085;
-    cursor: pointer;
 }
 
 .notification-content .checked{
