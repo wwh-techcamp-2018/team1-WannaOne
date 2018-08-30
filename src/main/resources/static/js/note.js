@@ -58,11 +58,11 @@ class Note {
     }
 
     renderNoteContent(data) {
+        this.clearNoteSection();
         if(!data) {
             //TODO 선택될 노트가 없는 경우. 예외처리!!
             return;
         }
-        this.clearNoteSection();
         this.renderNote(data);
         this.comment.updateNoteInfo(data);
         editor.show();
