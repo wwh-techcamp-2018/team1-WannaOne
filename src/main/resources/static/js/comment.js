@@ -32,7 +32,7 @@ class Comment {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                content: content
+                content: replaceTagBrackets(content)
             }),
             onSuccess: successCallback,
             onFailure: failCallback
