@@ -90,6 +90,10 @@ class NoteList {
     }
 
     getNoteId() {
+        const currentNote = this.notes[this.currentNoteIndex];
+        if(!currentNote) {
+            return -1;
+        }
         return this.notes[this.currentNoteIndex].id;
     }
 

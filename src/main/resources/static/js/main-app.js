@@ -126,6 +126,9 @@ class MainApp {
             this.noteBook.focusNoteBookById(currentNoteBookId);
             this.noteBook.setTitle();
             this.noteList.renderNoteList(this.noteBook.getNotes());
+            if(currentNoteId === -1) {
+                return;
+            }
             this.noteList.focusNoteItemById(currentNoteId);
 
         };
