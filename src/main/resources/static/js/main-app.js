@@ -19,6 +19,9 @@ class MainApp {
         this.initEventListener();
         this.initAutoCompleteEventListener();
         this.webSocketManager = new WebSocketManager();
+        let webSocketEvent = {};
+        webSocketEvent.acceptCallback = this.acceptCallback.bind(this);
+        this.webSocketManager.initWebSocketCallback(webSocketEvent)
     }
 
     /**
@@ -100,6 +103,10 @@ class MainApp {
             }
         });
 
+    }
+
+    acceptCallback() {
+        this.renewNotebookList();
     }
 
     createNewNotebookEventHandler(e) {

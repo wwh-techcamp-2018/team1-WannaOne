@@ -16,16 +16,31 @@ public class NotificationMessageDto {
     private Long id;
     private String message;
 
-    public NotificationMessageDto(Invitation invitation) {
-        this.id = invitation.getId();
-        this.type = NotificationType.INVITATION;
-        this.message = invitation.getHost().getName() +"님의 " + invitation.getNoteBook().getTitle() + " 공유 초대";
+    public static NotificationMessageDto getWriteNotificationMessage(Note note) {
+        NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
+        notificationMessageDto.setId(note.getId());
+        notificationMessageDto.setType(NotificationType.WRITE_NOTIFICATION);
+        String message = note.getWriter().getName() + "님이 " + note.getNoteBook().getTitle() + "에 새 노트를 작성했습니다.";
+        notificationMessageDto.setMessage(message);
+        return notificationMessageDto;
     }
 
-    public NotificationMessageDto(Note note) {
-        this.id = note.getId();
-        this.type = NotificationType.WRITE_NOTIFICATION;
-        this.message = note.getWriter().getName() + "님이 " + note.getNoteBook().getTitle() + "에 새 노트를 작성했습니다.";
+    public static NotificationMessageDto getInvitationMessge(Invitation invitation) {
+        NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
+        notificationMessageDto.setId(invitation.getId());
+        notificationMessageDto.setType(NotificationType.INVITATION);
+        String message = invitation.getHost().getName() +"님의 " + invitation.getNoteBook().getTitle() + " 공유 초대";
+        notificationMessageDto.setMessage(message);
+        return notificationMessageDto;
+    }
+
+    public static NotificationMessageDto getAcceptMessage(Invitation invitation) {
+        NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
+        notificationMessageDto.setId(invitation.getId());
+        notificationMessageDto.setType(NotificationType.ACCEPT);
+        String message = invitation.getGuest() + "님이 " + invitation.getNoteBook().getTitle() + "초대를 수락했습니다.";
+        notificationMessageDto.setMessage(message);
+        return notificationMessageDto;
     }
 
     public NotificationMessageDto() {

@@ -9,6 +9,10 @@ class WebSocketManager {
         this.notificationBtn = $('#notification-btn');
     }
 
+    initWebSocketCallback(webSocketEvents) {
+        this.acceptCallback = webSocketEvents.acceptCallback;
+    }
+
     initWebSocket() {
         const successCallback = (user) => {
             this.user = user;
@@ -49,6 +53,9 @@ class WebSocketManager {
             notificationMessageEl = getWriteNotificationItem(message);
         } else if(message.type === 'INVITATION') {
             notificationMessageEl = getNotificationItem(message);
+        } else if(message.type === 'ACCEPT') {
+            notificationMessageEl = getNotificationItem(message);
+            this.acceptCallback();
         }
         this.notificationUl.insertAdjacentHTML('beforeend', notificationMessageEl);
         this.notificationBtn.innerHTML = getNotificationNumber(this.notificationUl.children.length);
