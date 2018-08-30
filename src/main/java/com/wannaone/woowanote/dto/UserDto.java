@@ -47,6 +47,10 @@ public class UserDto {
         return new User(email, bCryptPasswordEncoder.encode(password), name);
     }
 
+    public User toEntityWithPasswordEncode(PasswordEncoder bCryptPasswordEncoder, String photoUrl) {
+        return new User(email, bCryptPasswordEncoder.encode(password), name, photoUrl);
+    }
+
     public UserDto setEmail(String email) {
         this.email = email;
         return this;
