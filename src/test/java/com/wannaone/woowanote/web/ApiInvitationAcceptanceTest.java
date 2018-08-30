@@ -2,7 +2,6 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.InvitationAnswerDto;
-import com.wannaone.woowanote.dto.LoginDto;
 import com.wannaone.woowanote.dto.UserDto;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.service.UserService;

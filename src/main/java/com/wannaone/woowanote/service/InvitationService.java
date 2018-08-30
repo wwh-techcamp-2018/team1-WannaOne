@@ -7,12 +7,15 @@ import com.wannaone.woowanote.exception.RecordNotFoundException;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.support.ErrorMessage;
 import com.wannaone.woowanote.support.InvitationStatus;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class InvitationService {
@@ -23,9 +26,9 @@ public class InvitationService {
     @Autowired
     private UserService userService;
     @Autowired
-    private NoteBookService noteBookservice;
-    @Autowired
     private MessageSourceAccessor msa;
+    @Autowired
+    private NotificationMessageSender notificationMessageSender;
 
     @Transactional
     public Invitation processInvitationAnswer(User loginUser, InvitationAnswerDto responseDto) {
@@ -34,15 +37,28 @@ public class InvitationService {
             acceptInvitation(loginUser, invitation.getNoteBook().getId());
         }
         invitation.setStatus(responseDto.getResponse());
+        notificationMessageSender.sendSharedNoteBookAcceptMessage(invitation);
         return invitation;
-    }
-    public Invitation getInvitationById(Long id) {
-        return invitationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.INVITATION_NOT_FOUND.getMessageKey())));
     }
 
     public void acceptInvitation(User loginUser, Long noteBookId) {
         userService.addSharedNoteBook(loginUser, noteBookId);
     }
 
+    public Invitation getInvitationById(Long id) {
+        return invitationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(msa.getMessage(ErrorMessage.INVITATION_NOT_FOUND.getMessageKey())));
+    }
+
+    public List<Invitation> getInvitationsByGuestId(Long id) {
+        return invitationRepository.findByGuestId(id);
+    }
+
+    public List<Invitation> getInvitationsByNoteBookId(Long id) {
+        return invitationRepository.findByNoteBookId(id);
+    }
+
+    public Invitation save(Invitation invitation) {
+        return invitationRepository.save(invitation);
+    }
 
 }

@@ -4,9 +4,8 @@ import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.exception.RecordNotFoundException;
-import com.wannaone.woowanote.repository.NoteBookRepository;
 import com.wannaone.woowanote.repository.NoteRepository;
-import com.wannaone.woowanote.support.NewNoteNotificationMessageSender;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,16 +19,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {
-
-    @Mock
-    private NewNoteNotificationMessageSender newNoteNotificationMessageSender;
-
     @Mock
     private NoteRepository noteRepository;
-
     @Mock
     private NoteBookService noteBookService;
-
+    @Mock
+    private NotificationMessageSender notificationMessageSender;
     @InjectMocks
     private NoteService noteService;
 
@@ -69,7 +64,7 @@ public class NoteServiceTest {
     public void createNewNote() {
         NoteBook testNoteBook = new NoteBook("노트북1");
         User writer = User.defaultUser();
-        when(noteBookService.getNoteBookByNoteBookId(3L)).thenReturn(testNoteBook);
+        when(noteBookService.getNoteBookById(3L)).thenReturn(testNoteBook);
         assertThat(noteService.save(3L, writer).getTitle()).isEqualTo("나의 우아한 노트");
         assertThat(noteService.save(3L, writer).getText()).isEmpty();
     }

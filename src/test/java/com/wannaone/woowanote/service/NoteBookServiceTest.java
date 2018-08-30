@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +54,7 @@ public class NoteBookServiceTest {
         NoteBook testNoteBook = new NoteBook("노트북1");
         when(noteBookRepository.findById(1L)).thenReturn(Optional.of(testNoteBook));
 
-        NoteBook noteBook = noteBookService.getNoteBookByNoteBookId(1L);
+        NoteBook noteBook = noteBookService.getNoteBookById(1L);
         assertThat(noteBook).isEqualTo(testNoteBook);
     }
 

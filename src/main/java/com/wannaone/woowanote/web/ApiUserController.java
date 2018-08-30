@@ -3,7 +3,9 @@ package com.wannaone.woowanote.web;
 import com.wannaone.woowanote.common.SessionUtil;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.*;
+import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.security.LoginUser;
+import com.wannaone.woowanote.service.InvitationService;
 import com.wannaone.woowanote.service.NoteBookService;
 import com.wannaone.woowanote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 public class ApiUserController {
     @Autowired
     private UserService userService;
+
     @Autowired
     private NoteBookService noteBookService;
 

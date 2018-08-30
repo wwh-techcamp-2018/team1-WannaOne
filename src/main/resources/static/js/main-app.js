@@ -8,7 +8,6 @@ class MainApp {
         this.noteDeleteBtn = $('#note-delete-button');
         this.logoutBtn = $('#logout');
 
-
         this.noteBook = new NotebookList(this.noteBookListEl);
         this.noteList = new NoteList();
         this.note = new Note();
@@ -19,7 +18,11 @@ class MainApp {
         this.initMainPage();
         this.initEventListener();
         this.initAutoCompleteEventListener();
-        this.webSocketManager = new WebSocketManager(this.updateSharedNoteBookForWebSocketEventHandler.bind(this));
+        this.webSocketManager = new WebSocketManager();
+        let webSocketEvent = {};
+        webSocketEvent.acceptCallback = this.acceptCallback.bind(this);
+        webSocketEvent.updateSharedAddNoteCallback = this.updateSharedAddNoteCallback.bind(this);
+        this.webSocketManager.initWebSocketCallback(webSocketEvent)
     }
 
     /**
@@ -38,7 +41,7 @@ class MainApp {
         this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
     }
 
-    updateSharedNoteBookForWebSocketEventHandler(noteBookId) {
+    updateSharedAddNoteCallback(noteBookId) {
         if(this.noteBook.getNoteBookId() === noteBookId) {
             this.renewNoteListForSharedNoteBook(this.noteBook.getNoteBookId());
         }
@@ -51,13 +54,13 @@ class MainApp {
                 evt.preventDefault();
                 const activeElement = this.autoComplete.getActiveElement();
                 if(!activeElement) {
-                    this.invitation.showInvitationValidationMessage('유저 정보를 찾을 수 없습니다.');
+                    this.invitation.showInvitationValidationMessage('사용자 정보를 찾을 수 없습니다.');
                     return;
                 }
                 this.autoComplete.getSearchUserInputEl().value = activeElement.innerHTML;
                 const name = activeElement.dataset.userName;
                 if(this.autoComplete.addCheck(name)) {
-                    alert('이미 추가된 유저입니다.');
+                    this.invitation.showInvitationValidationMessage('이미 초대리스트에 추가된 사용자입니다.');
                     this.autoComplete.clearAutoCompleteEl();
                     this.autoComplete.clearInput();
                     return;
@@ -109,12 +112,20 @@ class MainApp {
 
     }
 
+    acceptCallback() {
+        this.renewNotebookList();
+    }
+
     createNewNotebookEventHandler(e) {
         if(e.keyCode !== 13) {
             return;
         }
         const successCallback = (newNotebook) => {
             this.noteBook.addNoteBookSuccessCallback(newNotebook);
+            this.noteBook.setTitle();
+            this.noteList.renderNoteList(this.noteBook.getNotes());
+            this.noteList.focusNoteItem(0);
+            this.note.renderNoteContent(this.noteList.getNote());
         };
         const failCallback = (error) => {
             this.noteBook.addNoteBookFailureCallback(error);
