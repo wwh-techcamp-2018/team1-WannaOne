@@ -101,7 +101,7 @@ class MainApp {
             $('.profile-thumbnail').src = user.photoUrl;
             $('.profile-name').innerHTML = user.name;
             $('.comment-write-thumbnail').src = user.photoUrl;
-        }
+        };
         fetchManager({
             url: '/api/users/profile',
             method: 'GET',
@@ -224,11 +224,24 @@ class MainApp {
      */
     selectNoteEventHandler(e) {
         const noteEl = e.target.closest('li');
-        if (this.noteList.isNewItemClicked(noteEl)) {
-            const index = getIndex(noteEl.parentElement.children, noteEl);
-            this.noteList.focusNoteItem(index);
-            this.note.renderNoteContent(this.noteList.getNote());
+        const index = getIndex(noteEl.parentElement.children, noteEl);
+        this.noteList.focusNoteItem(index);
+        if (this.noteList.isItemUpdated(index)) {
+            const successCallback = (note) => {
+                this.noteList.markNoteUpdatedTrue();
+                this.note.renderNoteContent(note);
+            };
+
+            const failCallback = () => {
+                console.log('노트 들고오기가 실패했네요..');
+            };
+
+            const noteId = this.noteList.getNoteId();
+            this.note.fetchNote(noteId, successCallback.bind(this), failCallback);
+            return;
         }
+
+        this.note.renderNoteContent(this.noteList.getNote());
     }
 
     toggleNoteListHandler() {

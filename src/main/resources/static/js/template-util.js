@@ -51,7 +51,7 @@ function getSharedNoteBookTemplate(sharedNotebook, user) {
 }
 
 function getNoteItemTemplate(note) {
-    return `<li data-note-id="${note.id}">
+    return `<li data-note-id="${note.id}" data-note-updated="true">
                 <div class="note-item">`
         + getNoteItemContentTemplate(note)
         + `</div></li>`;

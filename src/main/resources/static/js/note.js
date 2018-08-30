@@ -24,6 +24,16 @@ class Note {
         this.noteContent.classList.toggle('main-content-expand');
     }
 
+    fetchNote(index, successCallback, failCallback) {
+        fetchManager({
+            url: `/api/notes/${index}`,
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            onSuccess: successCallback,
+            onFailure: failCallback
+        });
+    }
+
     updateNote(successCallback, failCallback) {
         fetchManager({
             url: `/api/notes/${this.getNoteId()}`,
