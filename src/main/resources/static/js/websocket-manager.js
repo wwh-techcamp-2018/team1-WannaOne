@@ -18,7 +18,7 @@ class WebSocketManager {
         const successCallback = (user) => {
             this.user = user;
             this.connect()
-        }
+        };
         fetchManager({
             url: '/api/users/profile',
             method: 'GET',
@@ -51,13 +51,17 @@ class WebSocketManager {
     handlerNotificationMessage(message) {
         let notificationMessageEl;
         if(message.type === 'WRITE_NOTIFICATION') {
-            notificationMessageEl = getWriteNotificationItem(message);
+            notificationMessageEl = getNotificationItem(message);
             this.updateSharedAddNoteCallback(message.id);
         } else if(message.type === 'INVITATION') {
-            notificationMessageEl = getNotificationItem(message);
+            notificationMessageEl = getInvitationNotificationItem(message);
         } else if(message.type === 'ACCEPT') {
             notificationMessageEl = getNotificationItem(message);
             this.acceptCallback();
+        } else if(message.type === 'REJECT') {
+            notificationMessageEl = getNotificationItem(message);
+        } else {
+            console.log('이 notification은 처음 봐요!!');
         }
         this.notificationUl.insertAdjacentHTML('beforeend', notificationMessageEl);
         this.notificationBtn.innerHTML = getNotificationNumber(this.notificationUl.children.length);

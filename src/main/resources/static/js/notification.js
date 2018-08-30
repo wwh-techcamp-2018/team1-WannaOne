@@ -39,10 +39,10 @@ class Notification {
                 this.notificationUl.insertAdjacentHTML('beforeend', getNotificationItem(message));
             });
             this.updateNotificationCount();
-        }
+        };
         const failCallback = () => {
             console.log("알림 목록 가져오기 실패");
-        }
+        };
         this.fetchGetMessages(successCallback, failCallback);
     }
 

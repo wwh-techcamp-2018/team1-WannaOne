@@ -73,7 +73,7 @@ function getInvitedGuestItemTemplate(invitedGuest) {
     return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
 }
 
-function getNotificationItem(notification) {
+function getInvitationNotificationItem(notification) {
     return `<li class="invitation-request" data-invitation-id="${notification.id}">${notification.message}
                 <button class="invitation-accept-button" type="button">수락</button>
                 <button class="invitation-reject-button" type="button">거절</button>
@@ -96,7 +96,7 @@ function getInviteUserItem(userId, email) {
     return `<li data-user-id="${userId}">${email}</li>`
 }
 
-function getWriteNotificationItem(notification) {
+function getNotificationItem(notification) {
     return `<li class="invitation-request" data-invitation-id="${notification.id}">${notification.message}
             </li>`;
 }

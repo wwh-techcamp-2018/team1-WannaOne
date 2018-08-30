@@ -33,10 +33,10 @@ public class InvitationService {
     @Transactional
     public Invitation processInvitationAnswer(User loginUser, InvitationAnswerDto responseDto) {
         Invitation invitation = getInvitationById(responseDto.getInvitationId());
+        invitation.setStatus(responseDto.getResponse());
         if (responseDto.getResponse() == InvitationStatus.ACCEPTED) {
             acceptInvitation(loginUser, invitation.getNoteBook().getId());
         }
-        invitation.setStatus(responseDto.getResponse());
         return invitation;
     }
 

@@ -23,12 +23,18 @@ public class ApiInvitationController {
 
     @Autowired
     private InvitationService invitationService;
+
     @Autowired
     private NotificationMessageSender notificationMessageSender;
+
     @PostMapping
     public ResponseEntity processInvitationStatus(@LoginUser User loginUser, @RequestBody InvitationAnswerDto statusDto) {
-        if(statusDto.getResponse() == InvitationStatus.ACCEPTED) {
-            notificationMessageSender.sendSharedNoteBookAcceptMessage(invitationService.processInvitationAnswer(loginUser, statusDto));
+        if (statusDto.getResponse() == InvitationStatus.ACCEPTED) {
+            notificationMessageSender.sendSharedNoteBookAcceptMessage
+                    (invitationService.processInvitationAnswer(loginUser, statusDto));
+        } else if (statusDto.getResponse() == InvitationStatus.REJECTED) {
+            notificationMessageSender.sendSharedNoteBookRejectMessage
+                    (invitationService.processInvitationAnswer(loginUser, statusDto));
         }
         return new ResponseEntity(HttpStatus.OK);
     }

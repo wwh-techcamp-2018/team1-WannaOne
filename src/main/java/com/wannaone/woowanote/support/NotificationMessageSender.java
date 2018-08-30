@@ -25,6 +25,15 @@ public class NotificationMessageSender {
         );
     }
 
+    public void sendSharedNoteBookRejectMessage(Invitation invitation) {
+        NotificationMessageDto notificationMessageDto = NotificationMessageDto.getRejectMessage(invitation);
+        String topic = "/topic/users/" + invitation.getHost().getId();
+        simpMessageSendingOperations.convertAndSend(
+                topic,
+                notificationMessageDto
+        );
+    }
+
     public void sendSharedNoteBookCreateNoteNotificationMessage(Note note) {
         NotificationMessageDto notificationMessageDto = NotificationMessageDto.getWriteNotificationMessage(note);
         List<User> subscribers = note.getNoteBook().getPeers().stream().collect(Collectors.toList());

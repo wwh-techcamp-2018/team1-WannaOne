@@ -26,7 +26,7 @@ public class NotificationMessageDto {
         NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
         notificationMessageDto.setId(invitation.getId());
         notificationMessageDto.setType(NotificationType.INVITATION);
-        String message = invitation.getHost().getName() +"님의 " + invitation.getNoteBook().getTitle() + " 공유 초대";
+        String message = invitation.getHost().getName() +"님이 " + invitation.getNoteBook().getTitle() + " 공유 초대를 하셨습니다.";
         notificationMessageDto.setMessage(message);
         return notificationMessageDto;
     }
@@ -35,7 +35,16 @@ public class NotificationMessageDto {
         NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
         notificationMessageDto.setId(invitation.getId());
         notificationMessageDto.setType(NotificationType.ACCEPT);
-        String message = invitation.getGuest().getName() + "님이 " + invitation.getNoteBook().getTitle() + "초대를 수락했습니다.";
+        String message = invitation.getGuest().getName() + "님이 " + invitation.getNoteBook().getTitle() + " 초대를 수락했습니다.";
+        notificationMessageDto.setMessage(message);
+        return notificationMessageDto;
+    }
+
+    public static NotificationMessageDto getRejectMessage(Invitation invitation) {
+        NotificationMessageDto notificationMessageDto = new NotificationMessageDto();
+        notificationMessageDto.setId(invitation.getId());
+        notificationMessageDto.setType(NotificationType.REJECT);
+        String message = invitation.getGuest().getName() + "님이 " + invitation.getNoteBook().getTitle() + " 초대를 거절했습니다. 자신의 인생을 되돌아보세요...";
         notificationMessageDto.setMessage(message);
         return notificationMessageDto;
     }
