@@ -2,6 +2,7 @@ package com.wannaone.woowanote.web;
 
 import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.User;
+import com.wannaone.woowanote.dto.NoteDto;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.NoteService;
 import org.slf4j.Logger;
@@ -29,8 +30,8 @@ public class ApiNoteController {
     private MessageSourceAccessor msa;
 
     @GetMapping("/{id}")
-    public Note show(@PathVariable Long id) {
-        return noteService.getNote(id);
+    public NoteDto show(@LoginUser User loginUser, @PathVariable Long id) {
+        return new NoteDto(noteService.getNote(id), loginUser) ;
     }
 
     @GetMapping
