@@ -4,6 +4,8 @@ import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.InvitationAnswerDto;
 import com.wannaone.woowanote.security.LoginUser;
 import com.wannaone.woowanote.service.InvitationService;
+import com.wannaone.woowanote.support.InvitationStatus;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,18 @@ public class ApiInvitationController {
     @Autowired
     private InvitationService invitationService;
 
+    @Autowired
+    private NotificationMessageSender notificationMessageSender;
+
     @PostMapping
     public ResponseEntity processInvitationStatus(@LoginUser User loginUser, @RequestBody InvitationAnswerDto statusDto) {
-        invitationService.processInvitationAnswer(loginUser, statusDto);
+        if (statusDto.getResponse() == InvitationStatus.ACCEPTED) {
+            notificationMessageSender.sendSharedNoteBookAcceptMessage
+                    (invitationService.processInvitationAnswer(loginUser, statusDto));
+        } else if (statusDto.getResponse() == InvitationStatus.REJECTED) {
+            notificationMessageSender.sendSharedNoteBookRejectMessage
+                    (invitationService.processInvitationAnswer(loginUser, statusDto));
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 }
