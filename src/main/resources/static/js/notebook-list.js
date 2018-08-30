@@ -4,6 +4,8 @@ class NotebookList {
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
         this.notebookListEl = noteBookListEl;
         this.sharedNoteBookButton = $('.share-notebook-open-button');
+        this.sharedNotebookOwnerSection = $('#shared-notebook-owner-section');
+        this.shareNotebookOwnerEl = $('#shared-notebook-owner-name');
         this.sharedInfoSection = $('.shared-info');
         this.sharedInfoCountEl = $('.shared-count');
 
@@ -97,10 +99,13 @@ class NotebookList {
         this.notebookTitleEl.dataset.notebookId = selectedNoteBook.id;
         const peersCount = selectedNoteBook.peers.length;
         if(peersCount > 0) {
+            this.sharedNotebookOwnerSection.style.display = 'block';
+            this.shareNotebookOwnerEl.innerHTML = this.owner.name;
             this.sharedInfoSection.style.display = 'block';
             this.sharedInfoCountEl.innerHTML = peersCount + 1;
             return;
         }
+        this.sharedNotebookOwnerSection.style.display = 'none';
         this.sharedInfoSection.style.display = 'none';
     }
 
