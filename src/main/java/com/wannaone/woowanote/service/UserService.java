@@ -10,8 +10,8 @@ import com.wannaone.woowanote.exception.UnAuthorizedException;
 import com.wannaone.woowanote.exception.UserDuplicatedException;
 import com.wannaone.woowanote.exception.*;
 import com.wannaone.woowanote.repository.UserRepository;
-import com.wannaone.woowanote.support.InvitationMessageSender;
 import com.wannaone.woowanote.support.InvitationStatus;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,7 +35,7 @@ public class UserService {
     @Autowired
     private MessageSourceAccessor msa;
     @Autowired
-    private InvitationMessageSender invitationMessageSender;
+    private NotificationMessageSender notificationMessageSender;
 
     public User save(UserDto userDto) {
         if (isExistUser(userDto.getEmail())) {
@@ -111,7 +111,7 @@ public class UserService {
     }
 
     public void saveInvitation(Invitation invitation) {
-        invitationMessageSender.sendPersonalMessage(invitation.getGuest(), invitationService.save(invitation));
+        notificationMessageSender.sendInvitationMessage(invitation.getGuest(), invitationService.save(invitation));
     }
 
     @Transactional
@@ -140,6 +140,6 @@ public class UserService {
         return this.invitationService.getInvitationsByGuestId(loginUser.getId())
                 .stream()
                 .filter((invitation) -> invitation.getStatus() == InvitationStatus.PENDING)
-                .map((invitation) -> new NotificationMessageDto(invitation)).collect(Collectors.toList());
+                .map((invitation) -> NotificationMessageDto.getInvitationMessge(invitation)).collect(Collectors.toList());
     }
 }

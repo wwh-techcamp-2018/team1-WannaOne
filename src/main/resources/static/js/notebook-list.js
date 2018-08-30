@@ -121,6 +121,20 @@ class NotebookList {
         this.currentIndex = getIndex($All('.notebook-list > li'), noteBookEl);
     }
 
+    focusNoteBookById(noteBookId) {
+        const focusItem = $('.notebook-focus');
+        if(focusItem) {
+            focusItem.classList.toggle('notebook-focus');
+        }
+        [...$All('.notebook-list > li')].forEach((li) => {
+            if(li.dataset.notebookId == noteBookId) {
+                li.classList.toggle('notebook-focus');
+                this.currentIndex = getIndex($All('.notebook-list > li'), li);
+                return;
+            }
+        });
+    }
+
     addNoteBook(notebook) {
         const index = this.getMyNoteBookLastIndex() - 1;
         const targetElement = $All('.notebook-list > li')[index];

@@ -2,5 +2,6 @@ package com.wannaone.woowanote.support;
 
 public enum NotificationType {
     INVITATION,
-    WRITE_NOTIFICATION
+    WRITE_NOTIFICATION,
+    ACCEPT
 }
