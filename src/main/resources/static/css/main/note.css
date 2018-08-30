@@ -7,16 +7,23 @@
     font-size:30px;
     height:65px;
     width: 100%;
+    padding: 0px 42px;
+    box-sizing: border-box;
+}
+
+#note-section {
+    height: 110px;
 }
 
 #editSection {
-    width: 100%;
+    height: calc(100vh - 255px) !important;
+    margin : 0px 20px 14px;
 }
 
 .note-save-delete {
     left: 78%;
     position: relative;
-    margin: 10px;
+    margin: 18px 10px;
 }
 
 .note-save-delete button {
@@ -47,7 +54,7 @@
     position: relative;
     height: 40px;
     color: gray;
-    font-size: 14px;
+    padding: 0px 16px;
 }
 
 #note-section-meta-datetime {
@@ -55,12 +62,14 @@
     position: relative;
     left: 100px;
     bottom: 9px;
+    font-size: 13px;
 }
 
 #note-section-meta-writer {
     position: relative;
     left: 30px;
     display: inline-block;
+    font-size: 16px;
 }
 
 #note-section-meta-writer > img {
@@ -72,6 +81,10 @@
     margin-left: 10px;
     position: relative;
     bottom: 10px;
+}
+
+.tui-editor-contents {
+    padding: 0px 25px;
 }
 
 
