@@ -248,7 +248,7 @@ class MainApp {
 
     logoutSuccess() {
         console.log("success");
-        document.location.href="/login.html";
+        document.location.href="/login";
     }
 
     logoutFailure() {
