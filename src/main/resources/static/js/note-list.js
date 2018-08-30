@@ -120,4 +120,5 @@ class NoteList {
         this.invitationInputEl.innerText = "";
         this.invitationListEl.innerHTML = "";
     }
+
 }
