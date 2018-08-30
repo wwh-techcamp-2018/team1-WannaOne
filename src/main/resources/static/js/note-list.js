@@ -17,6 +17,13 @@ class NoteList {
 
     initEvent() {
         this.noteListEl.addEventListener('dragstart', this.updateNoteOnDragStartEventHandler.bind(this));
+        $('#add-comment-button').addEventListener('click', this.markNoteUpdatedFalse.bind(this));
+        $('#comment-input').addEventListener('keyup', ({keyCode}) => {
+            if(keyCode === 13) {
+                this.markNoteUpdatedFalse();
+            }
+        });
+        $('.comment-list').addEventListener('click', this.markNoteUpdatedFalse.bind(this));
     }
 
     toggleNoteListBar() {
@@ -143,4 +150,17 @@ class NoteList {
         this.invitationListEl.innerHTML = "";
     }
 
+    isItemUpdated(index) {
+        const isUpdated = this.noteListEl.children[index].dataset.noteUpdated;
+        console.log(isUpdated);
+        return isUpdated;
+    }
+
+    markNoteUpdatedFalse() {
+        this.noteListEl.children[this.currentNoteIndex].dataset.noteUpdated = "false";
+    }
+
+    markNoteUpdatedTrue() {
+        this.noteListEl.children[this.currentNoteIndex].dataset.noteUpdated = "true";
+    }
 }
