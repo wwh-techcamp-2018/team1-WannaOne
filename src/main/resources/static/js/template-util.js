@@ -70,7 +70,7 @@ function getSharedNoteBookHeader() {
 }
 
 function getInvitedGuestItemTemplate(invitedGuest) {
-    return `<li data-guestId="${invitedGuest.id}">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
+    return `<li data-guestId="${invitedGuest.id}" class="invitation-list-item">${invitedGuest.name}<i class="material-icons invitation-cancel-button">close</i></li>`;
 }
 
 function getInvitationNotificationItem(notification) {
