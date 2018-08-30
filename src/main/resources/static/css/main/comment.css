@@ -2,15 +2,12 @@
     display: inline-block;
     position: relative;
     left: 30px;
+    cursor: pointer;
 }
 
 .comment-fold > span {
     bottom: 7px;
     position: relative;
-}
-
-.comment-fold > * {
-    cursor: pointer;
 }
 
 .comment-section {
@@ -90,7 +87,7 @@
     cursor: pointer;
 }
 
-#add-comment-button:hover, .delete-comment-button:hover {
+#add-comment-button:hover, .delete-comment-button:hover, .comment-fold:hover {
     color:#e57085;
 }
 
@@ -101,6 +98,7 @@
     position:relative;
     border-radius:5px;
 }
+
 .comment-list .comment-show-section:after {
     content:"";
     width:0;

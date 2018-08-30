@@ -52,6 +52,7 @@ class Note {
         this.noteSection.innerHTML = '';
         this.editSection.style.display = 'none';
         this.btns.style.display = 'none';
+        this.comment.openCommentBtn.style.display = 'none';
         this.comment.getCommentListUl().innerHTML = '';
         this.comment.getCommentSection().style.display = 'none';
     }
@@ -82,6 +83,7 @@ class Note {
     }
 
     renderComment() {
+        this.comment.openCommentBtn.style.display = 'inline-block';
         this.comment.getCommentSection().style.display = 'block';
         this.note.comments.forEach((comment) => {
             this.comment.getCommentListUl().insertAdjacentHTML('beforeend', getCommentTemplate(comment));

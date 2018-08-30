@@ -105,7 +105,7 @@ p.note-list-title, p.note-list-snippet {
 }
 
 .side-bar-middle-body {
-    height: calc(100vh - 128px);
+    height: calc(100vh - 165px);
     padding: 0px 19px;
     border-left: #c1bfbc solid 0.5px;
     border-right: #c1bfbc solid 0.5px;
