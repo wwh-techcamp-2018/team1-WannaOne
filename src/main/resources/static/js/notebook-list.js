@@ -116,7 +116,14 @@ class NotebookList {
     }
 
     addNoteBook(notebook) {
-        $All('.notebook-list > li')[this.getMyNoteBookLastIndex() - 1].insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
+        const index = this.getMyNoteBookLastIndex() - 1;
+        const targetElement = $All('.notebook-list > li')[index];
+        if(index < 0) {
+            this.notebookListEl.insertAdjacentHTML('afterbegin', getNoteBookListTemplate(notebook));
+            this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+            return;
+        }
+        targetElement.insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
     }
 
     getMyNoteBookLastIndex() {
