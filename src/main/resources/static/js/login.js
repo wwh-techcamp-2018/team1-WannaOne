@@ -32,7 +32,7 @@ class Login {
     }
 
     loginSuccessCallback() {
-        document.location.href = '/';
+        document.location.href = '/main';
     }
 
     loginFailureCallback(response) {
