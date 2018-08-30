@@ -37,7 +37,6 @@ public class InvitationService {
             acceptInvitation(loginUser, invitation.getNoteBook().getId());
         }
         invitation.setStatus(responseDto.getResponse());
-        notificationMessageSender.sendSharedNoteBookAcceptMessage(invitation);
         return invitation;
     }
 
