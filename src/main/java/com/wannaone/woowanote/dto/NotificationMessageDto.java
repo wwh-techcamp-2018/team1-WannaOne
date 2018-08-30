@@ -23,7 +23,7 @@ public class NotificationMessageDto {
     }
 
     public NotificationMessageDto(Note note) {
-        this.id = note.getId();
+        this.id = note.getNoteBook().getId();
         this.type = NotificationType.WRITE_NOTIFICATION;
         this.message = note.getWriter().getName() + "님이 " + note.getNoteBook().getTitle() + "에 새 노트를 작성했습니다.";
     }
