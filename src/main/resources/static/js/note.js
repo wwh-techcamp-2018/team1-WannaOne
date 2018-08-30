@@ -16,6 +16,10 @@ class Note {
         document.addEventListener('click', this.modeSwitchHandler.bind(this));
     }
 
+    setCurrentUserEmail(email) {
+            this.currentUserEmail = email;
+    }
+
     toggleExpandNoteContent() {
         this.noteContent.classList.toggle('main-content-expand');
     }
@@ -68,6 +72,7 @@ class Note {
 
     renderNote(note) {
         this.note = note;
+        this.writer = note.writer;
         this.noteSection.insertAdjacentHTML('beforeend', getNoteSectionTemplate(note));
         editor.setValue(note.text);
         this.editSection.style.display = 'block';
@@ -96,6 +101,7 @@ class Note {
     }
 
     showEditor() {
+        //modeSwitchHandler를 통해서만 실행되어야 함. 다른 유저의 노트를 열람하는 경우 실행 안되도록.
         $('.te-toolbar-section').style.display = 'block';
         $('.tui-editor-defaultUI').style.border = '1px solid #e5e5e5';
         $('.te-md-container .te-preview').style.padding = '0px 25px 0px 25px';
@@ -139,6 +145,9 @@ class Note {
         }
 
         if (currentMode == 'view') {
+            if (this.writer.email != this.currentUserEmail) {
+                return;
+            }
             if (!this.editSection.contains(e.target)) {
                 return;
             }

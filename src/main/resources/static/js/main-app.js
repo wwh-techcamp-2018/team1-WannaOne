@@ -86,6 +86,7 @@ class MainApp {
     initMainPage() {
         const successCallback = (user) => {
             this.noteBook.setOwner(user);
+            this.note.setCurrentUserEmail(user.email);
             this.renewNotebookList();
             $('.profile-thumbnail').src = user.photoUrl;
             $('.profile-name').innerHTML = user.name;
