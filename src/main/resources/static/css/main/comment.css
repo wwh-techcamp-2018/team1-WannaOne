@@ -1,5 +1,5 @@
 .comment-fold {
-    display: inline-block;
+    display: none;
     position: relative;
     left: 30px;
     cursor: pointer;
