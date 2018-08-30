@@ -131,7 +131,7 @@ class NoteList {
 
     closeShareNotebookPopupHandler(e) {
         if ($('.share-notebook-open-button').contains(e.target) || this.shareNotebookPopup.contains(e.target)
-        || e.target.classList.contains('invitation-cancel-button')) {
+        || e.target.classList.contains('invitation-list-item') || e.target.classList.contains('invitation-cancel-button')) {
             return;
         }
        this.clearShareNotebookPopup();

@@ -42,7 +42,9 @@ class Invitation {
     }
 
     invitationCancelHandler(e) {
-        this.invitationListEl.removeChild(e.target.closest('li'));
+        if (e.target.classList.contains('invitation-cancel-button')) {
+            this.invitationListEl.removeChild(e.target.closest('li'));
+        }
     }
 
     closeShareNotebookPopup() {
