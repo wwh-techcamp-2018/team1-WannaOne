@@ -6,6 +6,7 @@ import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.InvitationAnswerDto;
 import com.wannaone.woowanote.repository.InvitationRepository;
 import com.wannaone.woowanote.support.InvitationStatus;
+import com.wannaone.woowanote.support.NotificationMessageSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,6 +24,8 @@ public class InvitationServiceTest {
     private InvitationRepository invitationRepository;
     @Mock
     private UserService userService;
+    @Mock
+    private NotificationMessageSender notificationMessageSender;
     @InjectMocks
     private InvitationService invitationService;
 
