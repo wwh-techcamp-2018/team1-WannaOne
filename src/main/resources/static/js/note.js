@@ -79,6 +79,9 @@ class Note {
         this.editSection.style.display = 'block';
         this.initSaveAndDeleteButton(note);
         this.renderComment();
+        if (note.isWriter === false) {
+            $('#note-section-note-title').readOnly = true;
+        }
         $('.te-preview').scroll(0,0);
     }
 
@@ -99,7 +102,6 @@ class Note {
         $('.tui-editor-defaultUI').style.border = 'none';
         $('.te-md-container .te-preview').style.padding = '0px';
         this.previewTabBtn.click();
-
     }
 
     showEditor() {
