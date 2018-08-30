@@ -51,7 +51,7 @@ class Comment {
 
     openCommentHandler() {
         // 원래는 팝업창 띄우기로 했었는데 일단은 스크롤 내리는 걸로만 처리.
-        $('.main-content').scroll(0, document.body.scrollHeight);
+        $('.main-content').scrollTop = $('.main-content').offsetHeight;
     }
 
     addCommentClickEventHandler() {
@@ -66,7 +66,7 @@ class Comment {
             this.updateCommentCount();
             this.commentInput.value = '';
             console.log('댓글 작성에 성공했습니다.');
-            $('.main-content').scroll(0, document.body.scrollHeight);
+            $('.main-content').scroll(0, $('.main-content').scrollHeight);
         };
         const failCallback = () => {
             this.commentInput.value = '';
