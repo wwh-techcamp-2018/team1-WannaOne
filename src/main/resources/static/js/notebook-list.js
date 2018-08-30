@@ -1,5 +1,6 @@
 class NotebookList {
     constructor(noteBookListEl) {
+        this.noteBooks = [];
         this.currentIndex = 0;
         this.notebookListEl = noteBookListEl;
         this.notebookTitleEl = $(".side-bar-middle-notebook-title");
@@ -73,7 +74,7 @@ class NotebookList {
             this.renderNoteBook(notebook);
         });
 
-        this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+        this.focusFirstNoteBook();
     }
 
     deleteNoteBook(deleteTarget, successCallback, failCallback) {
@@ -115,8 +116,23 @@ class NotebookList {
         this.sharedInfoSection.style.display = 'none';
     }
 
+    focusFirstNoteBook() {
+        const focusItem = $('.notebook-focus');
+        if(focusItem) {
+            focusItem.classList.toggle('notebook-focus');
+        }
+        const firstEl = $All('.notebook-list > li')[0];
+        if(firstEl) {
+            firstEl.classList.toggle('notebook-focus');
+        }
+        this.currentIndex = 0;
+    }
+
     focusNoteBook(noteBookEl) {
-        $('.notebook-focus').classList.toggle('notebook-focus');
+        const focusItem = $('.notebook-focus');
+        if(focusItem) {
+            focusItem.classList.toggle('notebook-focus');
+        }
         noteBookEl.classList.toggle('notebook-focus');
         this.currentIndex = getIndex($All('.notebook-list > li'), noteBookEl);
     }
@@ -138,9 +154,14 @@ class NotebookList {
     addNoteBook(notebook) {
         const index = this.getMyNoteBookLastIndex() - 1;
         const targetElement = $All('.notebook-list > li')[index];
+        if(index < -1) {
+            this.notebookListEl.insertAdjacentHTML('beforeend', getNoteBookListTemplate(notebook));
+            this.focusFirstNoteBook();
+            return;
+        }
         if(index < 0) {
             this.notebookListEl.insertAdjacentHTML('afterbegin', getNoteBookListTemplate(notebook));
-            this.notebookListEl.firstElementChild.classList.add('notebook-focus');
+            this.focusFirstNoteBook();
             return;
         }
         targetElement.insertAdjacentHTML('afterend', getNoteBookListTemplate(notebook));
@@ -152,7 +173,7 @@ class NotebookList {
                 return i - 1;
             }
         }
-        return 0;
+        return -2;
     }
 
     renderNoteBook(notebook) {
@@ -184,7 +205,11 @@ class NotebookList {
     }
 
     addNoteBookSuccessCallback(notebook) {
-        this.noteBooks.splice(this.getMyNoteBookLastIndex() + 1, 0, notebook);
+        if(this.getMyNoteBookLastIndex() == -2) {
+            this.noteBooks.push(notebook);
+        } else {
+            this.noteBooks.splice(this.getMyNoteBookLastIndex() + 1, 0, notebook);
+        }
         this.addNoteBook(notebook);
         this.clearInput();
     }
