@@ -118,7 +118,7 @@ class MainApp {
         const currentNoteId = this.noteList.getNoteId();
 
         const successCallback = (notebooks) => {
-            if (!notebooks.length) {
+            if (notebooks.length == 0) {
                 console.log('노트북이 존재하지 않습니다.');
                 return;
             }
@@ -257,14 +257,22 @@ class MainApp {
 
     renewNotebookList() {
         const successCallback = (notebooks) => {
-            if (!notebooks.length) {
+            if(!notebooks) {
+                notebooks = [];
+            }
+            if (notebooks.length == 0) {
                 console.log('노트북이 존재하지 않습니다.');
+                this.noteBook.clearNoteBookList();
+                this.noteBook.renderNotebooks(notebooks);
+                this.noteList.clearNoteListSection();
+                $(".side-bar-middle-notebook-title").innerText = '';
+                this.note.clearNoteSection();
                 return;
             }
             this.noteBook.clearNoteBookList();
             this.noteBook.renderNotebooks(notebooks);
-            this.noteBook.setTitle();
             this.noteList.renderNoteList(this.noteBook.getNotes());
+            this.noteBook.setTitle();
             this.noteList.focusNoteItem(0);
             this.note.renderNoteContent(this.noteList.getNote());
         };
@@ -294,6 +302,9 @@ class MainApp {
 
     renewNoteListForSharedNoteBook(noteBookId) {
         const successCallback = (notebook) => {
+            if(!notebook.notes) {
+                notebook.notes = [];
+            }
             this.noteList.renderNoteList(notebook.notes);
             this.noteList.focusNoteItemById(this.note.getNoteId());
         };
