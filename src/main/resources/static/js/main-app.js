@@ -18,7 +18,7 @@ class MainApp {
         this.initMainPage();
         this.initEventListener();
         this.initAutoCompleteEventListener();
-        this.webSocketManager = new WebSocketManager();
+        this.webSocketManager = new WebSocketManager(this.updateSharedNoteBookForWebSocketEventHandler.bind(this));
     }
 
     /**
@@ -35,6 +35,12 @@ class MainApp {
         this.logoutBtn.addEventListener('click', this.logoutEventHandler.bind(this));
         this.noteBookListEl.addEventListener('drop', this.updateNoteOnDragOverInNoteBookEventHandler.bind(this))
         this.noteBookListEl.addEventListener('dragover', (evt) => { evt.preventDefault(); })
+    }
+
+    updateSharedNoteBookForWebSocketEventHandler(noteBookId) {
+        if(this.noteBook.getNoteBookId() === noteBookId) {
+            this.renewNoteListForSharedNoteBook(this.noteBook.getNoteBookId());
+        }
     }
 
     initAutoCompleteEventListener() {
@@ -247,6 +253,17 @@ class MainApp {
                 this.note.renderNoteContent(this.noteList.getNote());
             }
 
+        };
+        const failCallback = () => {
+            console.log("노트북 정보를 가져오는데 실패했습니다.");
+        };
+        this.noteList.fetchNoteList(noteBookId, successCallback.bind(this), failCallback);
+    }
+
+    renewNoteListForSharedNoteBook(noteBookId) {
+        const successCallback = (notebook) => {
+            this.noteList.renderNoteList(notebook.notes);
+            this.noteList.focusNoteItemById(this.note.getNoteId());
         };
         const failCallback = () => {
             console.log("노트북 정보를 가져오는데 실패했습니다.");

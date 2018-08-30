@@ -3,10 +3,11 @@ let stompClient = Stomp.over(socket);
 
 
 class WebSocketManager {
-    constructor() {
+    constructor(updateSharedNoteBookForWebSocketEventHandler) {
         this.initWebSocket();
         this.notificationUl = $('.notification-ul');
         this.notificationBtn = $('#notification-btn');
+        this.updateSharedNoteBookForWebSocketEventHandler = updateSharedNoteBookForWebSocketEventHandler;
     }
 
     initWebSocket() {
@@ -47,6 +48,7 @@ class WebSocketManager {
         let notificationMessageEl;
         if(message.type === 'WRITE_NOTIFICATION') {
             notificationMessageEl = getWriteNotificationItem(message);
+            this.updateSharedNoteBookForWebSocketEventHandler(message.id);
         } else if(message.type === 'INVITATION') {
             notificationMessageEl = getNotificationItem(message);
         }

@@ -73,6 +73,22 @@ class NoteList {
         return false;
     }
 
+    focusNoteItemById(id) {
+        const noteLists = this.noteListEl.children;
+        if (noteLists.length > 0) {
+            const existFocusNote = $('.note-item-focus');
+            if(existFocusNote) {
+                existFocusNote.classList.toggle('note-item-focus');
+            }
+            for(let i = 0; i<noteLists.length; i++) {
+                if(noteLists[i].dataset.noteId == id) {
+                    noteLists[i].firstElementChild.classList.add('note-item-focus');
+                    this.currentNoteIndex = i;
+                }
+            }
+        }
+    }
+
     getNoteId() {
         return this.notes[this.currentNoteIndex].id;
     }
