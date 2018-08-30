@@ -55,3 +55,9 @@ input {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+#invite-validation {
+    color:red !important;
+    display: none;
+    margin-top: 5px;
+    font-size: 13px;
+}
