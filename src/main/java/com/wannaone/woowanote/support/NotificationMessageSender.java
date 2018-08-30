@@ -38,7 +38,7 @@ public class NotificationMessageSender {
         NotificationMessageDto notificationMessageDto = NotificationMessageDto.getWriteNotificationMessage(note);
         List<User> subscribers = note.getNoteBook().getPeers().stream().collect(Collectors.toList());
         subscribers.add(note.getNoteBook().getOwner());
-        subscribers.stream().forEach((subscriber) -> {
+        subscribers.stream().filter(p -> !p.getEmail().equals(note.getWriter().getEmail())).forEach((subscriber) -> {
             String topic = "/topic/users/" + subscriber.getId();
             simpMessageSendingOperations.convertAndSend(
                     topic,
