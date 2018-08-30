@@ -4,6 +4,7 @@ import com.wannaone.woowanote.domain.Note;
 import com.wannaone.woowanote.domain.NoteBook;
 import com.wannaone.woowanote.domain.User;
 import com.wannaone.woowanote.dto.NoteBookTitleDto;
+import com.wannaone.woowanote.dto.NoteDto;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class ApiNoteAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void show() {
-        ResponseEntity<Note> response = template().getForEntity("/api/notes/1", Note.class);
+        ResponseEntity<NoteDto> response = basicAuthTemplate().getForEntity("/api/notes/1", NoteDto.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getTitle()).contains("01");
         assertThat(response.getBody().getText()).isNotNull();
