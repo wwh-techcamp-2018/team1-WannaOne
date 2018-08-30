@@ -62,7 +62,7 @@ class SignUp {
     }
 
     signUpSuccessCallback() {
-        document.location.href = '/login.html';
+        document.location.href = '/login';
     }
 
     signUpFailureCallback(response) {
