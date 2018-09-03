@@ -10,7 +10,8 @@
 - 공유 노트북에서 작성된 노트는 **실시간**으로 표시됩니다.
     
 ![woowanote](./proposal/images/readme-woowanote2.png)
-  
+![woowanote](./proposal/images/readme-woowanote3.png)
+
 ## Development Environment
 - Java8, HTML, CSS, JavaScript
 - Spring Boot
