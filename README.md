@@ -1,6 +1,6 @@
 # WoowaNote [![Build Status](https://travis-ci.org/wwh-techcamp-2018/team1-WannaOne.svg?branch=develop)](https://travis-ci.org/wwh-techcamp-2018/team1-WannaOne)
 
-### **WoowaNote**는 웹 기반의 노트로 강력한 에디터를 기반으로 동료와 아이디어를 효과적으로 공유할 수 있도록 도와줍니다.
+### **WoowaNote**는 강력한 에디터를 기반으로 웹 상의 동료와 아이디어를 효과적으로 공유할 수 있도록 도와줍니다.
   
 ## Feature
 - **'마크다운'** 문법으로 **코드블럭, 이미지, 동영상**을 추가할 수 있어요.
